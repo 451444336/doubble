@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 
 * @ClassName: WeChatBackController 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: 微信支付回调
 * @author lijie 
 * @date 2018年5月14日 下午4:48:16 
 *
