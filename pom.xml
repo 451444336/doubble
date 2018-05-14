@@ -12,6 +12,7 @@
   	<module>qft-web-platform</module>
   	<module>qft-facade-permission</module>
   	<module>qft-service-permission</module>
+  	<module>qft-pay</module>
   </modules>
   
   
