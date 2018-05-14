@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.born.mapper.CompanyDeptMapper">
+	<!-- 逻辑删除部门 -->
+	<update id="batchUpdateDept">  
+	     UPDATE 
+	    	qft_company_dept 
+	    SET 
+	    	is_delete = 1,
+	   		update_time = #{dept.updateTime},
+	    	updater_id = #{dept.updaterId} 
+	    	 WHERE id IN 
+	    <foreach collection="ids" open="("  item="id" separator="," close=")">
+	        #{id}  
+	    </foreach>  
+	</update> 
+	<select id="selectDeptList" resultType="com.born.facade.vo.companyDept.CompanyDeptVO" parameterType="com.born.facade.dto.companyDept.CompanyDeptDTO">
+		select 
+			id as id,
+			dept_name as name,
+			company_id as companyId,
+			parent_id as pId,
+			create_time as createTime
+		from qft_company_dept
+		where is_delete = 0
+		<if test="id != null and id != ''">
+			and	id = #{id}
+		</if>	
+		<if test="deptName != null and deptName != ''">
+			and	dept_name = #{deptName}
+		</if>
+		<if test="parentId != null and parentId != ''">
+			and	parent_id = #{parentId}
+		</if>
+		<if test="companyId != null and companyId != ''">
+			and	company_id = #{companyId}
+		</if>
+	</select>
+	
+	<!--按照公司获取组织架构  -->
+	<select id="selectOrgList" resultType="com.born.facade.vo.companyDept.CompanyDeptVO">
+		select 
+			concat('company-',c.id) as id,
+			c.companyname as name,
+			"" as pId
+		from tb_company c
+		where 1=1 
+		<if test="companyId != null and companyId != ''">
+			and	c.id = #{companyId}
+		</if>
+		union all
+		select 
+			concat('dept-',t.id) as id,
+			t.dept_name as name,
+			concat('company-',t.company_id) as pId
+		from qft_company_dept t
+		where t.is_delete = 0
+		<if test="companyId != null and companyId != ''">
+			and	t.company_id = #{companyId}
+		</if>
+		union all
+		select 
+			concat('position-',p.id) as id,
+			p.name as name,
+			concat('dept-',p.dept_id) as pId
+		from qft_company_position p
+		LEFT JOIN qft_company_dept d
+ 		on p.dept_id = d.id 
+ 		where p.is_delete = 0
+ 		<if test="companyId != null and companyId != ''">
+			and	d.company_id = #{companyId}
+		</if>
+	</select>
+</mapper>

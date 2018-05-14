@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>角色列表</title>
+    <!--ztree样式表-->
+    <link rel="stylesheet" th:href="@{/static/js/ztree/ztree.css}">
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+</head>
+<body class="bodyBack">
+<!--角色列表-->
+<div class="subMainCon">
+    <!--添加角色-->
+    <div class="subTopBox">
+        <div class="subTopLeft">
+            <a class="subTopBtn JS_addRole" href="javascript:void(0);">添加角色</a>
+        </div>
+    </div>
+    <!--end 添加角色-->
+    <!--角色列表-->
+    <div class="subConBox">
+        <table class="wareList" id="example"></table>
+    </div>
+    <!--end 角色列表-->
+</div>
+<!--end 角色列表-->
+<!--添加角色-->
+<div class="PopupBox hide" id="qft_addRoleBox">
+    <form id="roleForm">
+        <table class="popupList">
+            <tr>
+                <th class="fieldName"><span class="require">*</span>角色名称：</th>
+                <td><input name="roleName" type="text" value="" placeholder="请输入角色名称" required></td>
+            </tr>
+            <tr>
+                <th class="fieldName"><span class="require">*</span>权限编辑：</th>
+                <td>
+					<select name="isAuthEdit" class="selectpicker workShop" style = "width: 90%;" data-live-search="true" >
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+				</td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!--end 添加角色-->
+<!--分配权限-->
+<div class="PopupBox hide" id="qft_allotPowerBox">
+    <ul id="allotPower" class="ztree"></ul>
+</div>
+<!--end 分配权限-->
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--dataTable-->
+<script type="text/javascript" th:src="@{/static/js/datatables/jquery.dataTables.js}"></script>
+<!--layer弹出层-->
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
+<!--ztree树形-->
+<script type="text/javascript" th:src="@{/static/js/ztree/ztree.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/ztree/jquery.ztree.excheck.js}"></script>
+<!--表单验证-->
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+var dataTable = "";
+$(function(){
+    //分配权限树形菜单配置
+    var setting = {
+        view: {
+            showIcon: false
+        },
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            beforeClick:beforeClick
+        }
+    };
+    function beforeClick(treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("allotPower");
+        zTree.checkNode(treeNode, !treeNode.checked, true);
+        return false;
+    }
+    var zNodes =[];
+    //获取菜单列表
+    function getMenuList(){
+    	$.ajax({
+            dataType: 'json',
+            type: 'GET',
+            async: 'false',
+            url: '/web/permission/menus/getMenuList',
+            success: function(result){
+               	var data = result.data;
+               	data.forEach(function(item){
+               		menu = { id:item.id, pId: item.parentId , name: item.menuName };
+               		zNodes.push(menu);
+           	 	})
+            }
+        });
+    };
+    getMenuList();
+    //添加角色
+    $('.subTopLeft').on('click','.JS_addRole',function(){
+    	$("input[name='roleName']").val('');
+        layer.open({
+            type: 1,
+            title: '添加角色',
+            skin: 'popup-title-bg', //样式类名
+            closeBtn : 1,
+            area: ['460px','270px'],
+            btn: ['保存','关闭'],
+            yes: function(){
+            	var roleName = $("input[name='roleName']").val();
+            	var isAuthEdit = $("select[name='isAuthEdit']").val()
+            	if(roleName == null || roleName == ''){
+            		layer.closeAll('page');
+            		return;
+            	}
+            	var params = 'roleName='+ roleName + '&isAuthEdit=' + isAuthEdit;
+                $.ajax({
+                    dataType: 'json',
+                    data: params,
+                    type: 'post',
+                    url: '/web/role/save',
+                    success: function(result){
+                    	layer.closeAll();
+                    	layer.alert(result.message);
+                    	dataTable.ajax.reload();
+                    }
+                });  
+            },
+            btnAlign: 'c',
+            content: $('#qft_addRoleBox')
+        });
+    });
+    //编辑角色
+    $('.wareList').on('click','.JS_editRole',function(){
+    	var roleId = this.id;
+    	var roleName = this.name;
+    	var isAuthEdit = this.type;
+    	if(roleId == null || roleId == '' || roleId < 0 || roleName == null || roleName == ''){
+    		layer.alert('参数错误！');
+    		return;
+    	}
+    	$("input[name='roleName']").val(roleName);
+    	$("select[name='isAuthEdit']").val(isAuthEdit);
+        layer.open({
+            type: 1,
+            title: '编辑角色',
+            skin: 'popup-title-bg', //样式类名
+            closeBtn : 1,
+            area: ['460px','270px'],
+            btn:['保存','关闭'],
+            yes: function(){
+            	layer.closeAll('dialog');
+            	var roleName = $("input[name='roleName']").val();
+            	var isAuthEdit = $("select[name='isAuthEdit']").val();
+            	if(roleName == null || roleName == ''){
+            		layer.closeAll('page');
+            		return;
+            	}
+            	var params = "id="+ roleId + "&roleName="+ roleName+ "&isAuthEdit="+ isAuthEdit;
+            	$.ajax({
+                    dataType: 'json',
+                    data: params,
+                    type: 'post',
+                    url: '/web/role/update',
+                    success: function(result){
+                    	layer.closeAll();
+                    	layer.alert(result.message);
+                    	dataTable.ajax.reload();
+                    }
+                });  
+            },
+            btnAlign: 'c',
+            content: $('#qft_addRoleBox')
+        });
+    });
+    //获取角色菜单
+    function getRoleMenus(roleId){
+    	var params= "roleId="+ roleId;
+        $.ajax({
+            dataType: 'json',
+            data: params,
+            type: 'post',
+            url: '/web/role/getRoleMenus',
+            success: function(result){
+            	var roleMenus = result.data;
+            	var zTree_Menu = $.fn.zTree.getZTreeObj("allotPower");
+                roleMenus.forEach(function(roleMenu){
+                	var node = zTree_Menu.getNodeByParam('id',roleMenu.menuId);  
+                    zTree_Menu.checkNode(node);//指定选中ID的节点  
+                    zTree_Menu.expandNode(node, true, false);//指定选中ID节点展开
+            	})
+            }
+        });
+    }
+    //提交分配的菜单权限
+    function bindMenus(roleId,menuIds){
+    	var params= 'roleId='+ roleId + '&menuIds='+ menuIds;
+        $.ajax({
+            dataType: 'json',
+            data: params,
+            type: 'post',
+            url: '/web/role/bindMenus',
+            success: function(result){
+            	layer.alert(result.message);
+            }
+        });
+    }
+    //分配权限
+    $('.wareList').on('click','.JS_allotPower',function(){
+    	var isAuthEdit = this.name;
+    	if(isAuthEdit == 0){
+    		layer.alert("无权操作！");
+    		return;
+    	}
+    	var roleId = this.id;
+    	if(roleId == null || roleId == '' || roleId < 0){
+    		layer.alert('参数错误！');
+    		return;
+    	}
+    	//分配权限树形菜单
+        $.fn.zTree.init($("#allotPower"), setting, zNodes);
+    	//指定选中的菜单
+    	getRoleMenus(roleId);
+        layer.open({
+            type: 1,
+            title: '分配权限',
+            skin: 'popup-title-bg', //样式类名
+            closeBtn : 1,
+            area: ['666px','440px'],
+            btn:['保存','关闭'],
+            yes: function(){
+            	var treeObj=$.fn.zTree.getZTreeObj("allotPower"); 
+                nodes=treeObj.getCheckedNodes(true);
+                if(nodes.length == 0){
+                	layer.closeAll();
+                	return;
+                }
+                var menuIds= '';
+            	nodes.forEach(function(node){
+            		menuIds+=node.id + ',';
+           	 	})
+                bindMenus(roleId,menuIds);
+            },
+            btnAlign: 'c',
+            content: $('#qft_allotPowerBox')
+        });
+    });
+    //删除
+    $('.wareList').on('click','.JS_delete',function(){
+    	var id = this.id;
+    	if(id == null || id == '' || id < 0){
+    		layer.alert('参数错误！');
+    		return;
+    	}
+        layer.confirm('是否确定删除？',{
+            title: '信息确认',
+            skin: 'popup-title-bg', //样式类名
+            icon: 3,
+            btnAlign: 'c',
+            area: ['350px','170px'],
+            closeBtn : 0
+        },function(){
+        	$.ajax({
+                dataType: 'json',
+                type: 'post',
+                url: '/web/role/delete/'+id,
+                success: function(result){
+                	layer.alert(result.message);
+                	dataTable.ajax.reload();
+                }
+            });
+        });
+    });
+    //datatable
+    dataTable = $('#example').DataTable({
+        "bServerSide": true,
+        "sPaginationType": "full_numbers",
+        "sDom": '<"">t<"F"ip>',
+        "autoWidth": false,  //自适应宽度
+        "sAjaxSource": "/web/role/getPageList", //ajax调用接口
+        "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
+        "aoColumns": [
+            {"sTitle": "角色名称", "mData": "roleName"},
+            {"sTitle": "添加时间", "mData": "createTime"},
+            {"sTitle": "权限编辑", "mData": "isAuthEdit", "mRender" : function ( data, type, full ) {
+            		return data == 0 ? '<span class="redState">否</span>':'<span>是</span>';
+                }
+            },
+            {"sWidth": "210px", "sTitle" : "基本操作","mData" : "id","name":"roleName","sClass":"tab_operate", "mRender" : function ( data, type, full ) {
+                    var text = '<a class="operateBtn JS_allotPower" href="javascript:void(0);" id= "'+data+'"name="' +full.isAuthEdit+ '">分配权限</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
+                    text += '<a class="operateBtn JS_editRole" href="javascript:void(0);" id="' +data+ '"name="' +full.roleName+ '"type="' +full.isAuthEdit+ '">编辑</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
+                    text += '<a class="operateBtn deleteCol JS_delete" href="javascript:void(0);" id= "'+data+'">删除</a>';
+                    return text;
+                }
+            }
+        ],
+        "oLanguage": {
+            "sProcessing": "数据加载中······",
+            "sLengthMenu": "显示 _MENU_ 条记录",
+            "sZeroRecords": "没有您要搜索的内容！",
+            "sEmptyTable": "列表中无数据存在！",
+            "sInfo": "当前显示 _START_ 到 _END_ 条数据，共 _TOTAL_ 条数据",
+            "sInfoEmpty": "显示 0 到 0 条记录",
+            "sInfoFiltered": "数据列表中共  _MAX_ 条记录",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上一页",
+                "sNext": "下一页",
+                "sLast": "末页"
+            }
+        },
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+            oSettings.jqXHR = $.ajax({
+                "dataType": 'json',
+                "type": "GET",
+                "async": 'false',
+                "url": sSource,
+                "data": {
+                    'pageNum': (aoData[3].value / aoData[4].value) + 1,
+                    'pageSize': aoData[4].value
+                },
+                "success": fnCallback
+            });
+       }
+    });
+})
+</script>
+</body>
+</html>

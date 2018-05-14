@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>用户列表</title>
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+</head>
+<body>
+<div class="subMainContent">
+    <!--子页顶部内容-->
+    <div class="subTopBox">
+        <div class="subTopLeft">
+            <a class="subTopBtn subHover" href="javascript:void(0);">正常用户</a><a class="subTopBtn" href="javascript:void(0);">已关闭用户</a><a class="subTopBtn JS_record" href="javascript:void(0);">操作记录</a><a class="subTopBtn qft_adduser" href="javascript:void(0);">添加用户</a>
+        </div>
+    </div>
+    <!--end 子页顶部内容-->
+    <!--子页主体内容-->
+    <div class="subConBox">
+        <table class="wareList" id="example"></table>
+    </div>
+    <!--end 子页主体内容-->
+</div>
+
+<!--修改密码弹窗-->
+<div class="PopupBox hide" id="qft_modifyBox">
+	<input type="hidden" name="positionId" id="positionId" th:value="*{positionId}" />
+    <h2 class="PopupTitle">个人信息</h2>
+    <table class="popupList">
+        <tr>
+            <th class="fieldName">姓名：</th>
+            <td><input class="disabled" name="" type="text" value="管理员" disabled></td>
+            <th class="fieldName">登录名：</th>
+            <td><input class="disabled" name="" type="text" value="admin" disabled></td>
+        </tr>
+        <tr>
+            <th class="fieldName">部门：</th>
+            <td><input class="disabled" name="" type="text" value="管理权限" disabled></td>
+            <th class="fieldName">职位：</th>
+            <td><input class="disabled" name="" type="text" value="1001套以上" disabled></td>
+        </tr>
+        <tr>
+            <th class="fieldName">店面：</th>
+            <td><input class="disabled" name="" type="text" value="" disabled></td>
+            <th class="fieldName">电话：</th>
+            <td><input class="disabled" name="" type="text" value="13896041111" disabled></td>
+        </tr>
+    </table>
+    <h2 class="PopupTitle">密码修改</h2>
+    <form id="roleForm" th:action="@{/user/update/pass}"  method="POST"  th:object="${user}">
+    	<input type="hidden"  id="id" name="id"  value="" />
+    	<input type="hidden"  id="account" name="account"  value="" />
+        <table class="popupList">
+            <tr>
+                <th class="fieldName"><span class="require">*</span>新密码：</th>
+                <td><input name="password" type="password" value="" placeholder="请输入新密码" required></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--dataTable-->
+<script type="text/javascript" th:src="@{/static/js/datatables/jquery.dataTables.js}"></script>
+<!--layer弹出层-->
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
+<!--表单验证-->
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+	var tb;
+    $(function(){
+        //操作记录
+        $('.subTopBox').on('click','.JS_record',function(){
+            layer.open({
+                type: 2,
+                title: '操作记录',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['860px','460px'],
+                //btn:['关闭'],
+                btnAlign: 'c',
+                content: 'qft_recordList.html'
+            });
+        });
+        //添加用户
+        $('.subTopBox').on('click','.qft_adduser',function(){
+            layer.open({
+                type: 2,
+                title: '添加用户',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['860px','550px'],
+                //btn:['关闭'],
+                btnAlign: 'c',
+                content: '/web/staff/addUser/'+$('#positionId').val()
+            });
+        });
+        //修改密码
+        $('.wareList').on('click','.modifyPass',function(){
+        	var id = $(this).attr("data_id");
+        	var account = $(this).attr("account");
+        	$("#id").val(id);
+        	$("#account").val(account);
+            layer.open({
+                type: 1,
+                title: '修改密码',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['460px','375px'],
+                btn:['确认密码'],
+                yes: function(){
+                    $('#roleForm').submit();
+                },
+                btnAlign: 'c',
+                content: $('#qft_modifyBox')
+            });
+        });
+        //编辑用户
+        $('.wareList').on('click','.JS_userEdit',function(){
+        	var id = $(this).attr("data_id");
+            layer.open({
+                type: 2,
+                title: '编辑用户',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['700px','580px'],
+                //btn:['保存','关闭'],
+                yes: function(){
+                    $('#roleForm').submit();
+                },
+                btnAlign: 'c',
+                content: '/web/staff/findStaff/'+id
+            });
+        });
+        //表单验证
+        $("#roleForm").validate({
+            onfocusout: function(element){
+                $(element).valid();
+            },
+            errorClass: 'formError'
+        });
+        //开通关闭状态变色
+        $('.wareList').on('change','.tab_select',function(){
+            var valTxt = $(this).children('option:selected').val();
+            if(valTxt == '0'){
+                $(this).addClass('errorCol');
+            }else{
+                $(this).removeClass('errorCol');
+            }
+        });
+        //删除
+        $('.wareList').on('click','.JS_delete',function(){
+        	var id = $(this).attr("data_id");
+        	var userId = $(this).attr("u_id");
+            layer.confirm('是否确定删除？',{
+                title: '信息确认',
+                skin: 'popup-title-bg', //样式类名
+                icon: 3,
+                btnAlign: 'c',
+                area: ['350px','170px'],
+                closeBtn : 0
+            },function(){
+            	layer.closeAll('dialog');
+            	if(id != undefined && userId != undefined){
+            		$.ajax({
+                        "dataType": 'json',
+                        "type": "DELETE",
+                        "url": "/web/staff/deleteStaff/"+id+"/"+userId,
+                        "success": function(result){
+                        	alert(result.message);
+                        }
+                    });
+            	}
+            });
+        });
+        //权限修改
+        $('.wareList').on('click','.JS_modifypower',function(){
+            layer.open({
+                type: 2,
+                title: '权限修改',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['900px','660px'],
+                btnAlign: 'c',
+                content: 'modifypower.html'
+            });
+        });
+        //datatable
+        tb = $('#example').DataTable({
+            "bServerSide": true,
+            "sPaginationType": "full_numbers",
+            "sDom": '<"">t<"F"ip>',
+            "autoWidth": false,  //自适应宽度
+            "sAjaxSource": "/web/staff/findStaffList", //ajax调用接口
+            "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
+            "aoColumns": [
+                {"sTitle": "用户姓名", "mData": "realname"},
+                {"sTitle": "用户账号", "mData": "account"},
+                {"sTitle": "联系方式", "mData": "phone"},
+                {"sTitle": "可看房源城市", "mData": "cityList"},
+                {"sTitle": "可看房源店面", "mData": "grouping"},
+                {"sTitle": "可看房源分组", "mData": "storegrouping"},
+                {"sTitle": "工作城市", "mData": "cityId"},
+                {"sTitle": "工作店面", "mData": "workstore"},
+                {"sTitle": "所属部门", "mData": "deptName"},
+                {"sTitle": "所属职位", "mData": "positionName"},
+                {"sTitle": "创建时间", "mData": "createTime"},
+                {"sTitle": "上次登录时间", "mData": "lastTime"},
+                {"sWidth": "90px", "sTitle": "状态", "mData": "status", "mRender" : function ( data, type, full ) {
+                        return '<select class="tab_select" name="status" id="status"><option value="1">开通</option><option value="2">关闭</option></select>'
+                    }
+                },
+                {"sWidth": "300px", "sTitle" : "基本操作","mData" : "id","sClass":"tab_operate", "mRender" : function ( data, type, full ) {
+                        var text = '<a class="operateBtn JS_modifypower" href="javascript:void(0);">权限修改</a>&nbsp;|&nbsp;';
+                        text += '<a class="operateBtn JS_userEdit" href="javascript:void(0);" data_id="'+data+'">用户编辑</a>&nbsp;|&nbsp;';
+                        text += '<a class="operateBtn deleteCol JS_delete" href="javascript:void(0);" data_id="'+data+'" u_id="'+full.userId+'" >删除</a>&nbsp;|&nbsp;';
+                        text += '<a class="operateBtn modifyPass" href="javascript:void(0);" data_id="'+data+'" account="'+full.account+'">修改密码</a>';
+                        return text;
+                    }
+                }
+            ],
+            "oLanguage": {
+                "sProcessing": "数据加载中······",
+                "sLengthMenu": "显示 _MENU_ 条记录",
+                "sZeroRecords": "没有您要搜索的内容！",
+                "sEmptyTable": "列表中无数据存在！",
+                "sInfo": "当前显示 _START_ 到 _END_ 条数据，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示 0 到 0 条记录",
+                "sInfoFiltered": "数据列表中共  _MAX_ 条记录",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "sLast": "末页"
+                }
+            },
+            "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+                oSettings.jqXHR = $.ajax({
+                    "dataType": 'json',
+                    "type": "GET",
+                    "async": 'false',
+                    "url": sSource,
+                    "data": {
+                        'pageNum': (aoData[3].value / aoData[4].value) + 1,
+                        'pageSize': aoData[4].value,
+                        'positionId':$("#positionId").val()
+                    },
+                    "success": fnCallback
+                });
+            }
+            //序号
+            /* "fnDrawCallback": function () {
+                var api = this.api();
+                var startIndex = api.context[0]._iDisplayStart;//获取到本页开始的条数
+                api.column(0).nodes().each(function (cell, i) {
+                    cell.innerHTML = startIndex + i + 1;
+                });
+            } */
+        });
+    });
+</script>
+</body>
+</html>

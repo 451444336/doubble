@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>集中管理</title>
+    <!--主样式表-->
+    <link rel="stylesheet" href="css/models.css">
+</head>
+<body>
+<div class="subMainContent">
+    <!--左边内容-->
+    <div class="leftContent">
+        <!--子页顶部内容-->
+        <div class="subTopBox">
+            <div class="subTopLeft">
+                <a class="subTopBtn subHover" href="javascript:void(0);">房间信息</a><a class="subTopBtn" href="javascript:void(0);">房东信息</a>
+            </div>
+            <div class="subTopRight">
+                <span class="roomState">切换至房态图</span><span class="setUpBtn">设置</span><span class="register">登记房东</span>
+            </div>
+        </div>
+        <!--end 子页顶部内容-->
+        <!--子页主体内容-->
+        <div class="subConBox">
+            <table class="wareList" id="example">
+                <thead>
+                    <tr>
+                        <th title="区域">区域</th>
+                        <th title="物业地址">物业地址</th>
+                        <th title="房号">房号</th>
+                        <th title="面积">面积</th>
+                        <th title="户型">户型</th>
+                        <th title="租客电话">租客电话</th>
+                        <th title="出房价格">出房价格</th>
+                        <th title="押金">押金</th>
+                        <th title="开始时间">开始时间</th>
+                        <th title="租凭期限">租凭期限</th>
+                        <th title="缴费方式">缴费方式</th>
+                        <th title="合同性质">合同性质</th>
+                        <th title="业务员">业务员</th>
+                        <th title="定价">定价</th>
+                        <th title="定金">定金</th>
+                        <th title="租前审核">租前审核</th>
+                        <th class="operationTh" title="其他操作">其他操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="已审核"><span class="redState">已审核</span></td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="已审核"><span class="redState">已审核</span></td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="已审核"><span class="redState">已审核</span></td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="已审核"><span class="redState">已审核</span></td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="已审核"><span class="redState">已审核</span></td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="未审核">未审核</td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td title="江北区">江北区</td>
+                        <td title="金融广场">金融广场</td>
+                        <td title="12-1-1802">12-1-1802</td>
+                        <td title="72">72</td>
+                        <td title="两室一厅">两室一厅</td>
+                        <td title="肥牛">肥牛</td>
+                        <td title="8000">8000</td>
+                        <td title="5800">5800</td>
+                        <td title="2018-03-27">2018-03-27</td>
+                        <td title="3年">3年</td>
+                        <td title="季付">季付</td>
+                        <td title="签合同">签合同</td>
+                        <td title="王小川">王小川</td>
+                        <td title="1200">1200</td>
+                        <td title="600">600</td>
+                        <td title="已审核"><span class="redState">已审核</span></td>
+                        <td title="操作" class="tableShow">
+                            <div class="operationBox">
+                                <input class="operationBtn" name="" type="button" value="操作">
+                                <ul class="operationList hide">
+                                    <li>
+                                        <a class="operMenu operHover js_operMenu" href="javascript:void (0);">房源管理 <i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">完善房源</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">修改业务员</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">续约/延期<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东续约</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东延期</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东退房</a></li>
+                                    <li><a class="operMenu js_operMenu" href="javascript:void (0);">房东合同</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">其他<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">跟进</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加备忘</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">转到合租</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li><a class="operMenu v" href="javascript:void (0);">房东欠款</a></li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">物品增减<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品搬出</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">物品增减</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">维修保洁<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">空置维修</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">登记保洁</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">黑名单<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">房东黑名单</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">退房黑名单</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">发送短信<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">短信房东</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">群发房东</a></dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <a class="operMenu js_operMenu" href="javascript:void (0);">装修管理<i class="oper_triangle"></i></a>
+                                        <dl class="subOperMenu">
+                                            <dd><a class="operMenu" href="javascript:void(0);">添加进展</a></dd>
+                                            <dd><a class="operMenu" href="javascript:void(0);">装修结束</a></dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--end 子页主体内容-->
+    </div>
+    <!--end 左边内容-->
+    <!--右边内容-->
+    <div class="rightContent">
+        <div class="rightPublic">
+            <!--标题-->
+            <div class="titleBox">
+                <h2>搜索房源</h2>
+            </div>
+            <!--end 标题-->
+            <p class="itemList">
+                <a class="blueBg" href="javascript:void(0);">未租</a>
+                <a class="orangeBg" href="javascript:void(0);">已定</a>
+                <a class="greenBg notMar" href="javascript:void(0);">导出</a>
+            </p>
+            <!--搜索条件-->
+            <div class="searchTerm">
+                <ul class="searchTermList">
+                    <li>
+                        <label for="">店　　面</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">房&nbsp;间&nbsp;号</label>
+                        <input name="" type="text" placeholder="请填写">
+                    </li>
+                    <li>
+                        <label for="">状　　态</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">空置时间</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">区　　域</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">物业地址</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">租凭期限</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">租客缴费</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">金融机构</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">即将到期</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">租前审核</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">业&nbsp;务&nbsp;员</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">租客电话</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">租客姓名</label>
+                        <select class="selectBox" name="" id="">
+                            <option value="">请选择</option>
+                        </select>
+                    </li>
+                </ul>
+                <div class="searchBtnBox">
+                    <input class="searchBtn" name="" type="button" value="搜索">
+                    <input class="seniorBtn" name="" type="button" value="高级">
+                </div>
+            </div>
+            <!--end 搜索条件-->
+        </div>
+        <div class="rightPublic">
+            <!--标题-->
+            <div class="titleBox">
+                <h2>项目搜索</h2>
+                <span class="titOpenBtn titSearchIco icoHide"></span>
+            </div>
+            <!--end 标题-->
+            <div class="itemSearch openPublicBox">
+                <p class="searchInput">
+                    <span class="itemIcon"></span>
+                    <input class="itemInput" name="" type="text" placeholder="项目名称搜索">
+                </p>
+                <ul class="itemSearchList">
+                    <li><a href="javascript:void(0);">全部项目</a></li>
+                    <li><a href="javascript:void(0);">百康年世纪门【56间】</a></li>
+                    <li><a href="javascript:void(0);">万科锦城【56间】</a></li>
+                    <li><a href="javascript:void(0);">珠江彩世界【56间】</a></li>
+                    <li><a href="javascript:void(0);">恒大绿洲【56间】</a></li>
+                    <li><a href="javascript:void(0);">艾佳天泰【56间】</a></li>
+                    <li><a href="javascript:void(0);">龙湖时代天【56间】</a></li>
+                    <li><a href="javascript:void(0);">百康年世纪门【56间】</a></li>
+                    <li><a href="javascript:void(0);">万科锦城【56间】</a></li>
+                    <li><a href="javascript:void(0);">珠江彩世界【56间】</a></li>
+                    <li><a href="javascript:void(0);">恒大绿洲【56间】</a></li>
+                    <li><a href="javascript:void(0);">艾佳天泰【56间】</a></li>
+                    <li><a href="javascript:void(0);">龙湖时代天【56间】</a></li>
+                    <li><a href="javascript:void(0);">百康年世纪门【56间】</a></li>
+                    <li><a href="javascript:void(0);">万科锦城【56间】</a></li>
+                    <li><a href="javascript:void(0);">珠江彩世界【56间】</a></li>
+                    <li><a href="javascript:void(0);">恒大绿洲【56间】</a></li>
+                    <li><a href="javascript:void(0);">艾佳天泰【56间】</a></li>
+                    <li><a href="javascript:void(0);">龙湖时代天【56间】</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="rightPublic">
+            <!--标题-->
+            <div class="titleBox">
+                <h2>经营数据</h2>
+                <span class="titOpenBtn openRicon">展开</span>
+            </div>
+            <!--end 标题-->
+            <div class="operateBox openPublicBox">
+                <ul class="operateList">
+                    <li>合计项目：<span>156个</span></li>
+                    <li class="operateIndent">共分房：<span>300间</span></li>
+                    <li>当前已租：<span>144间</span></li>
+                    <li class="operateIndent">待租房：<span>23间</span></li>
+                    <li>其中已定：<span>4间</span></li>
+                    <li class="operateIndent">待转租：<span>12间</span></li>
+                </ul>
+                <p class="mroeBtn"><a href="#">查看更多</a></p>
+            </div>
+        </div>
+        <div class="rightPublic">
+            <!--标题-->
+            <div class="titleBox">
+                <h2>推广数据</h2>
+                <span class="titOpenBtn openRicon">展开</span>
+            </div>
+            <!--end 标题-->
+            <div class="spreadBox openPublicBox">
+                <p class="spreadTxt"><span class="spreadlef">12条数据<em class="noRelease">未发布</em></span><span class="spreadRig">58公寓馆</span></p>
+                <p class="spreadTxt"><span class="spreadlef">1条数据<em class="noRelease">未发布</em></span><span class="spreadRig">链家公寓馆</span></p>
+                <p class="spreadTxt"><span class="spreadlef">2条数据<em class="noRelease">未发布</em></span><span class="spreadRig">咸鱼租房</span></p>
+                <p class="spreadTxt"><span class="spreadlef">12条数据<em class="noRelease">未发布</em></span><span class="spreadRig">蘑菇租房</span></p>
+                <p class="mroeBtn"><a href="#">查看更多</a></p>
+            </div>
+        </div>
+    </div>
+    <!--end 右边内容-->
+</div>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<!--dataTable-->
+<script type="text/javascript" src="js/datatables/jquery.dataTables.js"></script>
+<script>
+    $(function(){
+        /*$('#example').DataTable({
+            "bServerSide": true,
+            "sPaginationType": "full_numbers",
+            //"bJQueryUI": true,
+            "sDom": '<"">t<"F"ip>',
+            "autoWidth": false,  //自适应宽度
+            //"sAjaxSource": "${ctx}/api/user/list", //ajax调用接口
+            //<div class="btn-group" style="text-align:left;"><button type="button" class="btn btn-info dropdown-toggle"data-toggle="dropdown">操作 <span class="caret"></span></button>
+            "sAjaxSource": "data/arrays.txt", //ajax调用接口
+            "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
+            "aoColumns": [
+                /!*{ "sWidth": "30px","sTitle" : "<input class= \"check-all\" name=\"\" type=\"checkbox\">", "mData": "id","mRender": function(){
+                    return '<input class="ids" name="" type="checkbox">';
+                }},*!/
+                {"sTitle": "区域", "mData": "id"},
+                {"sTitle": "物业地址", "mData": "id1"},
+                {"sTitle": "房号", "mData": "id2"},
+                {"sTitle": "面积", "mData": "id3"},
+                {"sTitle": "户型", "mData": "id4"},
+                {"sTitle": "租客电话", "mData": "id5"},
+                {"sTitle": "出房价格", "mData": "id6"},
+                {"sTitle": "押金", "mData": "id"},
+                {"sTitle": "开始时间", "mData": "id1"},
+                {"sTitle": "租凭期限", "mData": "id2"},
+                {"sTitle": "缴费方式", "mData": "id3"},
+                {"sTitle": "合同性质", "mData": "id4"},
+                {"sTitle": "业务员", "mData": "id5"},
+                {"sTitle": "定价", "mData": "id6"},
+                {"sTitle": "定金", "mData": "id5"},
+                {"sTitle": "租前审核", "mData": "id6"},
+                {"sWidth": "90px", "sTitle" : "其他操作","mData" : "id","sClass":"tableShow", "mRender" : function ( data, type, full ) {
+                        var text = '<div class="operateBox"><input class="operate" name="" type="button" value="操作选项">';
+                        text += '<ul class="operateList hide" role="menu">';
+                        text += '<li><a class="js_Frozen" href="javascript:void(0);">通过</a></li>';
+                        text += '<li><a class="Js_Enable" href="javascript:void(0);">不通过</a></li>';
+                        text += '</ul></div>';
+                        return text;
+                    }
+                }
+            ],
+            "oLanguage": {
+                "sProcessing": "数据加载中······",
+                "sLengthMenu": "显示 _MENU_ 条记录",
+                "sZeroRecords": "没有您要搜索的内容！",
+                "sEmptyTable": "列表中无数据存在！",
+                "sInfo": "当前显示 _START_ 到 _END_ 条数据，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示 0 到 0 条记录",
+                "sInfoFiltered": "数据列表中共  _MAX_ 条记录",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "sLast": "末页"
+                }
+            }
+            /!*"fnServerData" : function ( sSource, aoData, fnCallback, oSettings ) {
+               oSettings.jqXHR = $.ajax( {
+                   "dataType" 	: 'json',
+                   "type" 		: "GET",
+                   "async"     : 'false',
+                   "url" 		: sSource,
+                   "data" 		: {
+                       'pageNum': (aoData[3].value/aoData[4].value)+1,
+                       'pageSize' :  aoData[4].value,
+                       'telphone'  :  $("#telphone").val(),
+                       'isable' : $('#isable').val()
+                   },
+                   "success"	: fnCallback
+               } );
+           }*!/
+        });*/
+    })
+</script>
+</body>
+</html>

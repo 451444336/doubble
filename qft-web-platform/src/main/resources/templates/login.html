@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>全房通公寓管理系统</title>
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+    <style>
+    	.loginTit{position: relative;}
+    	.loginError{
+    		display: block;
+    		position: absolute;
+    		width: 100%;
+    		height: 20px;
+    		line-height:20px;
+    		text-align: left;
+    		color: #fc6365;
+    		left: 0;
+    		bottom: -30px;
+    		font-size: 12px;
+    	}
+    </style>
+</head>
+<body>
+<!--登录主体内容-->
+<div class="loginBox">
+    <div class="loginCon">
+        <!--logo-->
+        <div class="loginImg"><img th:src="@{/static/images/logo.png}" alt=""></div>
+        <!--end logo-->
+        <!--login-->
+        <div class="loginTxt">
+            <!--login left-->
+            <div class="loginLeft">
+                <!--标题-->
+                <div class="loginTit">
+                	<a class="loginHover" href="javascript:void(0);"><span>中文</span></a>|<a href="javascript:void(0);"><span>English</span></a>
+                	<span class="loginError" id="error_message"></span>
+                </div>
+                <!--form表单 中文-->
+                <form id="ch_form_id">
+	                <div class="loginCh">
+	                    <p class="formInput"><input class="InputTxt userName validate[required,custom[phone]]" name="account" type="text" placeholder="请输入手机号"></p>
+	                    <p class="formInput"><input class="InputTxt passWord validate[required]" name="password" type="password" placeholder="请输入密码"></p>
+	                    <input type="hidden" th:value="${corUrl}" name="corUrl"/>
+	                    <p class="formBtnBox"><input class="formBtn" name="" type="button" value="登 录" id="ch_login_btn"></p>
+	                </div>
+	            </form>
+	           	<form id="en_form_id">
+	                <!--form表单 English-->
+	                <div class="loginEn hide">
+	                    <p class="formInput"><input class="InputTxt userName validate[required,custom[phone]]" name="account" type="text" placeholder="Log-in name"></p>
+	                    <p class="formInput"><input class="InputTxt passWord validate[required]" name="password" type="password" placeholder="Password"></p>
+	                    <input type="hidden" th:value="${corUrl}" name="corUrl"/>
+	                    <p class="formBtnBox"><input class="formBtn" name="" type="button" value="Login" id="en_login_Btn"></p>
+	                </div>
+                </form>
+            </div>
+            <!--end login left-->
+            <!--login right-->
+            <div class="loginRight">
+                <!--banner图切换-->
+                <div id="slideBox" class="slideBox">
+                    <div class="slideNum">
+                        <ul class="slideNumList"><li>1</li><li>2</li><li>3</li></ul>
+                    </div>
+                    <div class="slide">
+                        <ul class="slideList">
+                            <li><a href="#" target="_blank"><img th:src="@{/static/pic/ban_1.jpg}" alt=""></a></li>
+                            <li><a href="#" target="_blank"><img th:src="@{/static/pic/ban_2.jpg}" alt=""></a></li>
+                            <li><a href="#" target="_blank"><img th:src="@{/static/pic/ban_3.jpg}" alt=""></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--end banner图切换-->
+                <!--下载-->
+                <div class="downloadBox downloadCh">
+                   <p class="downTxt">下载手机APP，扫描二维码下载</p>
+                    <div class="downloadCon">
+                        <div class="downloadConLeft"><img th:src="@{/static/images/ios.jpg}" alt=""></div>
+                        <div class="downloadConRight">
+                            <a class="downloadBtn dowHover dowIos" href="javascript:void(0);"><i class="icon icon_ios"></i>苹果端下载</a><a class="downloadBtn dowAnd" href="javascript:void(0);"><i class="icon icon_android"></i>Android端下载</a><a class="downloadBtn" href="#"><i class="icon icon_pc"></i>PC端下载</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="downloadBox downloadEn hide">
+                    <p class="downTxt">Download mobile APP</p>
+                    <div class="downloadCon">
+                        <div class="downloadConLeft"><img th:src="@{/static/images/ios.jpg}" alt=""></div>
+                        <div class="downloadConRight">
+                            <a class="downloadBtn downloadBtnEn dowHover dowIos" href="javascript:void(0);"><i class="icon icon_ios"></i>IOS Download</a><a class="downloadBtn downloadBtnEn dowAnd" href="javascript:void(0);"><i class="icon icon_android"></i>Android Download</a><a class="downloadBtn downloadBtnEn" href="#"><i class="icon icon_pc"></i>PC Download</a>
+                        </div>
+                    </div>
+                </div>
+                <!--end 下载-->
+            </div>
+            <!--end login right-->
+        </div>
+        <!--end login-->
+    </div>
+    <!-- hidden -->
+</div>
+<!--end 登录主体内容-->
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<!--[if lt IE 10]>
+<script type="text/javascript" src="js/placeholder/placeholder.js"></script>
+<![endif]-->
+<!--banner图切换-->
+<script type="text/javascript" th:src="@{/static/js/superslide/jquery.SuperSlide.2.1.1.js}"></script>
+<!--表单验证-->
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
+<!--layer弹出层-->
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
+<script type="text/javascript">
+    $(function(){
+        //中引文切换
+        $('.loginTit').on('click','a',function(){
+            var aTxt = $(this).text();
+            $(this).addClass('loginHover').siblings().removeClass('loginHover');
+            if(aTxt == "中文"){
+                $('.loginCh').removeClass('hide');
+                $('.loginEn').addClass('hide');
+                $('.downloadCh').removeClass('hide');
+                $('.downloadEn').addClass('hide');
+            }else{
+                $('.loginCh').addClass('hide');
+                $('.loginEn').removeClass('hide');
+                $('.downloadCh').addClass('hide');
+                $('.downloadEn').removeClass('hide');
+            }
+        });
+        //banner图切换
+        jQuery(".slideBox").slide({
+            titCell: '.slideNum li',
+            mainCell: ".slide .slideList",
+            autoPlay: true
+        });
+        //二维码切换
+        $('.dowIos').on('click',function(){
+            $(this).addClass('dowHover').siblings().removeClass('dowHover');
+            $('.downloadConLeft').find('img').attr('src','images/ios.jpg')
+        });
+        $('.dowAnd').on('click',function(){
+            $(this).addClass('dowHover').siblings().removeClass('dowHover');
+            $('.downloadConLeft').find('img').attr('src','images/android.jpg')
+        });
+        //表单验证
+        $("#ch_form_id").validationEngine({
+            addPromptClass: 'formError-text',
+            showArrow: false,
+            promptPosition: 'bottomLeft:54 0'
+        });
+        $("#en_form_id").validationEngine({
+            addPromptClass: 'formError-text',
+            showArrow: false,
+            promptPosition: 'bottomLeft:54 0'
+        });
+     	// 回车事件
+        document.onkeydown = function (e) {
+            var ev = document.all ? window.event : e;
+            if (ev.keyCode == 13) {
+                var flag = $("#en_form_id").validationEngine("validate");
+                if (!flag) {
+                    return false;
+                }
+                //校验验证码
+                flag = checkCode();
+                if (!flag) {
+                    return false;
+                }
+                $("#en_login_Btn").submit();
+            }
+        };
+        if (window != top) {
+            top.location.href = location.href;
+        }
+        $("#ch_login_btn").click(function () {
+            var flag = $("#ch_form_id").validationEngine("validate");
+            if (!flag) {
+                return false;
+            }
+        	login("ch_form_id");
+        });
+        $("#en_login_Btn").click(function () {
+            var flag = $("#en_form_id").validationEngine("validate");
+            if (!flag) {
+                return false;
+            }
+            
+        	login("en_form_id");
+        });
+    })
+    
+    function login(form_id){
+    	$.ajax({
+            type: "post",
+            url: "/doLogin",
+            dataType:"json",
+            data: $("#" + form_id).serialize(),
+            error: function(){
+            	layer.alert("登录异常");
+            },
+            success: function (d) {
+                if (d.success) {
+                	window.location.href="/index"
+                } else {
+                	$("#error_message").text(d.message);
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

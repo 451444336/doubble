@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>编辑用户</title>
+    <!--bootstrap-select  css文件-->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/js/bootstrapselect/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/js/bootstrapselect/css/bootstrap-select.css}"/>
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+</head>
+<body>
+<!--添加用户-->
+<div class="PopupBox">
+    <form id="addUserForm" th:action="@{/web/staff/updateStaff}" method="POST"  th:object="${staff}">
+    	<input type="hidden" name="id" th:value="*{id}" />
+    	<input type="hidden" name="userId" th:value="*{userId}" />
+        <table class="popupList">
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span>可看房源城市：</th>
+                <td>
+                    <select name="cityList" class="selectpicker" multiple data-live-search="true" data-actions-box="true" >
+                        <option value="1">北京</option>
+                        <option value="2">重庆</option>
+                        <option value="3">四川</option>
+                        <option value="4">北京</option>
+                        <option value="5">重庆</option>
+                        <option value="6">四川</option>
+                    </select>
+                </td>
+                <td class="gray-col">选择两个城市及以上时默认可以看该城市下所有店面和分组的房源</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span>可看房源店面：</th>
+                <td>
+                    <select name="storegrouping" class="selectpicker" multiple data-live-search="true" data-actions-box="true" >
+                        <option value="">北京</option>
+                        <option value="">重庆</option>
+                        <option value="">四川</option>
+                    </select>
+                </td>
+                <td class="gray-col">选择两个店及以上时默认可以看该选择店面下所有组房源</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span>工作城市：</th>
+                <td>
+                    <select name="cityId" class="selectpicker" data-live-search="true" >
+                        <option value="1">北京</option>
+                        <option value="2">重庆</option>
+                        <option value="3">四川</option>
+                    </select>
+                </td>
+                <td class="gray-col">指该员工平时主要在哪个城市上班</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span>工作店面：</th>
+                <td>
+                    <select name="workstore" class="selectpicker workShop" data-live-search="true" >
+                        <option value="">请选择</option>
+                        <option value="">重庆</option>
+                        <option value="">四川</option>
+                    </select>
+                    <select name="attendanceId" class="selectpicker workShop" data-live-search="true" >
+                        <option value="">请选择</option>
+                        <option value="">重庆</option>
+                        <option value="">四川</option>
+                    </select>
+                </td>
+                <td class="gray-col">指该员工平时主要在该城市哪个店面(哪个组)打卡上班</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span>姓名：</th>
+                <td><input name="realname" type="text" th:value="*{realname}" placeholder="请输入姓名" ></td>
+                <td class="gray-col">请填写真实姓名</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span>职位：</th>
+                <td>
+                    <select name="positionId" class="selectpicker" >
+                        <option value="">北京</option>
+                        <option value="">重庆</option>
+                        <option value="">四川</option>
+                    </select>
+                </td>
+                <td class="gray-col">请选择职位</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span>登录账号：</th>
+                <td><input name="account" type="text" th:value="*{account}"  placeholder="请输入登录账号" required></td>
+                <td class="gray-col">中英文均可，也可以用下面填写的手机号登录</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span>联系方式：</th>
+                <td><input name="phone" type="text" th:value="*{phone}" placeholder="请输入联系方式" required></td>
+                <td class="gray-col">请填写11位手机号</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span>身份证：</th>
+                <td><input name="idcard" type="text" th:value="*{idcard}" placeholder="请输入身份证号" required></td>
+                <td class="gray-col">请填写身份证号</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one">APP登录：</th>
+                <td>
+                    <select name="isEnableApp" class="selectpicker" required>
+                        <option value="1">开通</option>
+                        <option value="0">关闭</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span>系统锁定：</th>
+                <td>
+                    <select name="status" class="selectpicker" required>
+                        <option value="1">永不注销</option>
+                        <option value="2">3天未登录</option>
+                        <option value="3">5天未登录</option>
+                        <option value="4">7天未登录</option>
+                    </select>
+                </td>
+                <td class="gray-col">说明：在设定的时间内此员工一直不登录系统，则系统会认为该员工可能已经离职而自动关闭账号</td>
+            </tr>
+        </table>
+		<div class="PopupBtn">
+		    <input name="" type="submit" value="保存"><input class="cancel" name="" type="button" value="关闭">
+		</div>
+    </form>
+</div>
+<!--end 添加用户-->
+<!--共用按钮-->
+<!--end 共用按钮-->
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--bootstrap-select-->
+<script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap-select.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrapselect/select.js}"></script>
+<!--表单验证-->
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
+<script>
+    $(function(){
+        //表单验证
+        $("#addUserForm").validate({
+            onfocusout: function(element){
+                $(element).valid();
+            },
+            errorClass: 'formError'
+        });
+    })
+</script>
+</body>
+</html>

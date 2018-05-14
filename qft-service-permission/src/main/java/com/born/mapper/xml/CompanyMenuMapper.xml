@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.born.mapper.CompanyMenuMapper">
+	
+		<!-- 根据角色ID 查询菜单数据 -->
+	<select id="selectMenuByCondition" resultType="com.born.facade.vo.MenuVO">
+	    SELECT
+	    	b.id,
+			b.parent_id parentId,
+			b.menu_level menuLevel,
+			c.authority_name menuName,
+			c.authority_url menuUrl,
+			c.ascription,
+			c.icon,
+			c.type
+		FROM
+			qft_company_role_menu a
+		LEFT JOIN qft_company_menu b ON a.menu_id = b.id
+		LEFT JOIN qft_menu_authority_base c on b.authority_base_id = c.id
+		WHERE
+			b.company_id = #{dto.companyId}
+		AND c.ascription = #{dto.ascription}
+		AND a.role_id in
+        <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY
+        <if test="dto.ascription == 1">
+	         c.authority_seq
+        </if>
+        <if test="dto.ascription == 2">
+	         c.app_seq
+        </if>
+        ASC
+	</select>
+	
+	<!-- 查询所有菜单/公司所有 -->
+	<select id="selectAllMenu" resultType="com.born.facade.vo.MenuVO">
+		SELECT
+			a.id,
+			a.company_id companyId,
+			a.parent_id parentId,
+			a.menu_level menuLevel,
+			b.authority_name menuName,
+			b.authority_url menuUrl,
+			b.ascription,
+			b.icon,
+			b.type
+		FROM
+			qft_company_menu a LEFT JOIN qft_menu_authority_base b on a.authority_base_id = b.id
+		where 1= 1
+		<if test="null != companyId and companyId != ''">
+			and a.company_id = #{companyId}
+		</if>
+		<if test ="null != ascription">
+			and b.ascription = #{ascription}
+		</if>
+		<if test ="null == companyId or companyId == ''">
+			group by b.authority_id
+		</if>
+	</select>
+	
+	<!-- 根据角色ID查询菜单数据 -->
+	<select id="selectMenuByRoleIds" resultType="com.born.facade.vo.MenuVO">
+		SELECT
+			b.id,
+			b.parent_id parentId,
+			b.menu_level menuLevel,
+			c.authority_name menuName,
+			c.authority_url menuUrl,
+			c.ascription,
+			c.icon,
+			c.type
+		FROM
+			qft_company_role_menu a
+		LEFT JOIN qft_company_menu b ON a.menu_id = b.id
+		LEFT JOIN qft_menu_authority_base c on b.authority_base_id = c.id
+		WHERE
+			a.role_id in
+        <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+	</select>
+	
+	
+	<!-- 用户角色菜单权限信息 -->
+	 <resultMap id="UserRoleMenuResult"   type="com.born.facade.vo.appauth.UserRoleMenuVo">
+        	<id property="id" column="id"/>
+         	<result property="parentId" column="parent_id"/>
+        	<result property="menuName" column="menu_name"/>
+	      	<result property="menuUrl" column="menu_url"/>
+	      	<result property="icon" column="icon"/>
+	      	<collection property="childs" javaType="java.util.Set" column="id"
+                    ofType="com.born.facade.vo.appauth.UserRoleMenuVo" select="selectSubMenu"></collection>
+             <!-- <collection property="menuAuthList" javaType="java.util.Set" column="id"
+                    ofType="com.born.facade.vo.appauth.UserMenuAuthVo" select="selectMenuAuth"></collection> -->
+    </resultMap>
+	
+	<!-- 根据多个角色ID查询菜单及权限 -->
+	<select id="selectUserMenuByRoleIds" resultMap="UserRoleMenuResult" resultType="java.util.Set"  >
+		SELECT
+			b.id,
+			b.parent_id,
+			b.menu_name,
+			b.menu_url,
+			b.icon
+		FROM
+			qft_company_role_menu a
+		JOIN qft_company_menu b ON a.menu_id = b.id
+		WHERE
+			a.role_id IN
+		<foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+	</select>
+	<!-- 根据单个角色ID查询菜单及权限 -->
+	<select id="selectMenuByRoleId"  resultMap="UserRoleMenuResult"  resultType="java.util.Set" >
+		SELECT
+			b.id,
+			b.parent_id,
+			c.authority_name as menu_name,
+			c.authority_url as menu_url,
+			c.icon
+		FROM
+			qft_company_role_menu a
+		JOIN qft_company_menu b ON a.menu_id = b.id
+		JOIN qft_menu_authority_base c ON c.id = b.authority_base_id
+		WHERE
+			a.role_id = #{roleId}
+			and b.parent_id = 0
+	</select>
+	<select id="selectSubMenu" resultMap="UserRoleMenuResult">
+       SELECT
+			b.id,
+			b.parent_id,
+			c.authority_name as menu_name,
+			c.authority_url as menu_url,
+			c.icon
+		FROM
+			qft_company_menu b
+			JOIN qft_menu_authority_base c ON c.id = b.authority_base_id
+        WHERE b.parent_id = #{id}
+    </select>
+    <select id="selectMenuAuth" resultType="com.born.facade.vo.appauth.UserMenuAuthVo">
+	      SELECT
+			b.id,
+			b.authority_name as  authorityName,
+			b.authority_url as authorityUrl,
+			b.app_url as appUrl,
+			b.icon
+		FROM
+			qft_menu_authority a
+		JOIN qft_company_authority b ON a.menu_id = b.id
+		WHERE
+			a.menu_id = #{id}
+    </select>
+	
+	<resultMap id="menu_submenu" type="com.born.facade.vo.MenuVO">
+        	<id property="id" column="id"/>
+         	<result property="parentId" column="parent_id"/>
+        	<result property="menuName" column="authority_name"/>
+	      	<result property="menuUrl" column="authority_url"/>
+	      	<result property="menuLevel" column="menu_level"/>
+	      	<collection property="childs" column="id"
+                    ofType="com.born.facade.vo.MenuVO" select="selectSubmenus"></collection>
+    </resultMap>
+    <!-- 查询子菜单 -->
+    <select id="selectSubmenus" resultMap="menu_submenu">
+    	SELECT
+			a.id,
+			a.parent_id,
+			a.menu_level,
+			b.authority_name,
+			b.authority_url
+		FROM
+			qft_company_menu a
+		LEFT JOIN qft_menu_authority_base b ON a.authority_base_id = b.id
+		WHERE
+			a.parent_id = #{id}
+    </select>
+	<!-- 查询菜单数据 -->
+	<select id="selectMenuSubmenuById" resultMap="menu_submenu">
+		SELECT
+			a.id,
+			a.parent_id,
+			a.menu_level,
+			b.authority_name,
+			b.authority_url
+		FROM
+			qft_company_menu a
+		LEFT JOIN qft_menu_authority_base b ON a.authority_base_id = b.id
+		WHERE
+			a.id = #{menuId}
+	</select>
+</mapper>

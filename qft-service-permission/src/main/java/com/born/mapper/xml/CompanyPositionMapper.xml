@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.born.mapper.CompanyPositionMapper">
+	<!-- 批量逻辑删除职位 -->
+	<update id="batchUpdatePosition">  
+	     UPDATE 
+	    	qft_company_position 
+	    SET 
+	    	is_delete = 1,
+	   		update_time = #{pos.updateTime},
+	    	updater_id = #{pos.updaterId} 
+	    	 WHERE id IN 
+	    <foreach collection="ids" open="("  item="id" separator="," close=")">
+	        #{id}  
+	    </foreach>  
+	</update> 
+	<select id="selectPositionList" resultType="com.born.facade.vo.companyPosition.CompanyPositionVO" parameterType="com.born.facade.dto.position.CompanyPositionDTO">
+		select 
+			p.id as id,
+			p.name as name,
+			p.create_time as createTime,
+			s.realname as createrName
+		from qft_company_position p
+		left join qft_user u
+		on u.id = p.creater_id
+		left join qft_company_staff s
+		on u.id = s.user_id
+		where p.is_delete = 0
+		<if test="id != null and id != ''">
+			and	p.id = #{id}
+		</if>	
+		<if test="deptId != null and deptId != ''">
+			and	p.dept_id = #{deptId}
+		</if>
+	</select>
+	
+	<!-- 添加职位权限 -->
+	<insert id="batchInsertPosition">  
+        INSERT INTO qft_position_authority(position_id,authority_id,create_time,creater_id)  
+        VALUES   
+        	<foreach collection="param" item="emp" separator=",">  
+            	(#{emp.positionId},#{emp.authorityId},#{emp.createTime},#{emp.createrId})  
+	       </foreach>  
+	</insert> 
+	
+	<!-- 物理删除职位权限记录 -->
+	<delete id="deletePositionAuthByPid">
+		DELETE FROM qft_position_authority WHERE position_id = #{positionId}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,100 @@
+spring:
+   profiles:
+     active: dev
+#mybatis扫描包
+mybatis:
+    type-aliases-package: com.born.facade.entity
+    #Mapper指定扫描包
+    mapper-locations: classpath*:**/mapper/xml/*.xml
+
+#通用Mapper
+mapper:
+    mappers:
+        - com.born.core.base.BaseMapper
+    not-empty: false
+    identity: MYSQL
+
+
+#日志配置
+logging:
+  level:
+    org.apache.zookeeper: off
+    com.alibaba: off
+    com.aq.mapper: debug
+
+#pageHelper分页设置
+pagehelper:
+    helperDialect: mysql
+    reasonable: false
+    supportMethodsArguments: true
+    params: count=countSql
+
+---
+spring:
+  profiles: dev
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.50.244:3306/qft_new?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+      username: root
+      password: root
+      max-active: 50
+      initial-size: 10
+      max-wait: 60000
+      min-idle: 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      filter:
+        config:
+          enabled: true
+
+  #redis相关配置
+  redis:
+    host: 192.168.50.180
+    database: 0
+    port: 6379
+    password: qft123456
+    timeout: 60000
+    pool:
+      max-wait: -1
+      max-idle: 500
+      min-idle: 0
+
+---
+spring:
+  profiles: test
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.1.244:3306/xk_oa?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+      username: root
+      password: root
+      max-active: 50
+      initial-size: 10
+      max-wait: 60000
+      min-idle: 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      filter:
+        config:
+          enabled: true
+
+  #redis相关配置
+  redis:
+    host: 192.168.1.248
+    database: 0
+    port: 6379
+    password: 13579qaz
+    timeout: 60000
+    pool:
+      max-wait: -1
+      max-idle: 500
+      min-idle: 0

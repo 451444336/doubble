@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.born.mapper.SysUserMapper">
+
+	<!-- 获取登录账户 -->
+	<select id="selectUserByAccount"
+		resultType="com.born.facade.entity.User">
+		select
+		id,account,password,status,is_app_notice as isAppNotice,
+		is_web_notice as isWebNotice,source_type as sourceType,
+		create_time as createTime,is_enable_app as isEnableApp
+		from qft_user where account = #{account} and is_delete = 0
+	</select>
+
+	<!-- 查询账户是否存在 -->
+	<select id="selectUserIsExist" resultType="java.lang.Integer">
+		select count(1) from qft_user where account = #{account} and is_delete = 0
+	</select>
+
+
+	<!-- 逻辑删除部门 -->
+	<update id="updateUser"
+		parameterType="com.born.facade.dto.user.DeteleUserDTO">
+		UPDATE
+		qft_user
+		SET
+		is_delete = 1,
+		update_time = #{updateTime},
+		updater_id = #{updaterId}
+		WHERE id = #{id}
+	</update>
+
+	<!-- 根据条件查询用户信息 -->
+	<select id="selectUserByCondition"
+		parameterType="com.born.facade.dto.user.UserDTO"
+		resultType="com.born.facade.vo.UserVO">
+		SELECT
+			a.id,
+			a.account,
+			a.`password`,
+			c.id roleId,
+			c.role_name
+		FROM
+			qft_user a
+		LEFT JOIN qft_staff_role b ON a.id = b.user_id
+		LEFT JOIN qft_company_role c ON b.role_id = c.id
+		where
+			a.is_delete = 0
+		<if test="id != null">
+			AND a.id = #{id}
+		</if>
+		<if test="account != null and account !='' ">
+			AND a.account =#{account}
+		</if>
+		<if test="roleId != null">
+			AND c.id = #{roleId}
+		</if>
+	</select>
+	
+	<!-- 修改用户密码 -->
+	<update id="updateUserPassById" parameterType="java.util.HashMap">
+		UPDATE
+		qft_user
+		SET
+		password = #{password},
+		update_time = #{updateTime},
+		updater_id = #{updaterId}
+		WHERE id = #{id}
+	</update>
+</mapper>

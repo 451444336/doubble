@@ -1,0 +1,51 @@
+server:
+  port: 7000
+
+spring:
+   profiles:
+     active: dev
+---
+spring:
+  profiles: dev
+
+  #redis相关配置
+  redis:
+    host: 192.168.50.180
+    database: 0
+    port: 6379
+    password: qft123456
+    timeout: 60000
+    pool:
+      max-wait: -1
+      max-idle: 500
+      min-idle: 0
+
+---
+spring:
+  profiles: test
+  #redis相关配置
+  redis:
+    host: 127.0.0.1
+    database: 0
+    port: 6379
+    password: 
+    timeout: 60000
+    pool:
+      max-wait: -1
+      max-idle: 500
+      min-idle: 0
+
+---
+spring:
+  profiles: prod
+  #redis相关配置
+  redis:
+    host: 127.0.0.1
+    database: 0
+    port: 6379
+    password: 
+    timeout: 60000
+    pool:
+      max-wait: -1
+      max-idle: 500
+      min-idle: 0

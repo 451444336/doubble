@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.born.mapper.CompanyRoleMapper">
+	
+	<!-- 根据用户ID 查询角色 -->
+	<select id="selectRoleListByUserId" resultType="com.born.facade.vo.RoleVO">
+		SELECT
+			b.id,
+			b.role_name roleName,
+			b.create_time createTime,
+			b.is_auth_edit isAuthEdit,
+			b.is_valid isValid
+		FROM
+			qft_staff_role a
+		LEFT JOIN qft_company_role b ON b.id = a.role_id
+		WHERE
+			a.user_id = #{userId}
+		AND b.is_delete = 0
+	</select>
+	<!-- APP根据用户ID 获取角色列表 -->
+	<select id="selectRoleByUserId"
+	resultType="com.born.facade.entity.CompanyRole">
+		SELECT
+			qcr.id,
+			qcr.role_name AS roleName,
+			qcr.is_auth_edit AS isAuthEdit,
+			qcr.is_valid AS isValid,
+			qcr.company_id AS companyId
+		FROM
+			qft_staff_role qsr
+			JOIN qft_company_role qcr ON
+			qsr.role_id = qcr.id
+			AND qcr.is_delete = 0
+		where qsr.user_id = #{userId}
+	</select>
+	<!-- 角色列表分页查询 -->
+	<select id="selectCompanyRoleList" resultType="com.born.facade.vo.CompanyRoleVO">
+		SELECT
+			r.id,
+			r.role_name roleName,
+			r.create_time createTime,
+			r.is_auth_edit isAuthEdit,
+			r.is_valid isValid
+		FROM
+			qft_company_role r
+		WHERE
+			r.is_delete = 0
+		<if test="roleName != null and roleName != '' ">
+			AND r.role_name LIKE CONCAT('%',#{roleName},'%')
+		</if>
+		order by update_time desc	
+	</select>
+	
+	<!-- 删除角色菜单 -->
+	<delete id="deleteRoleMenuByRoleId">
+		DELETE FROM qft_company_role_menu WHERE role_id = #{roleId}
+	</delete>
+	
+	<!-- 批量插入角色菜单 -->
+	<insert id="insertRoleMenuBatch">  
+        INSERT INTO qft_company_role_menu(menu_id,role_id,create_time,creater_id)  
+        VALUES   
+        <foreach collection="map.menuIds" item="menuId" separator=",">  
+            (#{menuId},#{map.roleId},#{map.createTime},#{map.createrId})  
+        </foreach>  
+	</insert>
+	  
+	<!-- 根据角色ID删除角色 -->
+	<update id="deleteRoleByRoleId">
+		UPDATE qft_company_role r
+		SET r.is_delete = 1
+		WHERE
+			r.id = ${id}
+	</update>
+	
+	<!-- 根据角色ID查询菜单 -->
+	<select id="selectRoleMenus" resultType="com.born.facade.vo.RoleMenuVO">
+		SELECT
+			rm.menu_id as menuId,
+			rm.role_id as roleId
+		FROM
+			qft_company_role_menu rm
+		WHERE
+			rm.role_id = ${roleId}
+	</select>  
+	
+</mapper>

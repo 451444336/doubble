@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.born.mapper.CompanyStaffMapper">
+	<!-- 基础查询  返回对应的是 CompanyStaffVO 表别名s-->
+	<sql id="base_staff_select">
+		s.company_id as companyId,
+		s.user_id as userId,
+		s.phone as phone,
+		s.note as note,
+		s.realname as realname,
+		s.idcard as idcard,
+		s.workstore as workstore,
+		s.attendance_id as attendanceId,
+		s.grouping as grouping,
+		s.city_id as cityId,
+		s.update_time as updateTime,
+		s.updater_id as updaterId,
+		s.create_time as createTime,
+		s.city_list as cityList,
+		s.store_grouping as storeGrouping,
+		s.store as store
+	</sql>	
+
+	<!-- 根据用户ID获取员工信息 -->
+	<select id="selectStaffByUserId"
+		resultType="com.born.facade.entity.CompanyStaff">
+		select
+		id,phone,realname,note,idcard,workstore,attendance_id as attendanceId,
+		grouping,city_id as cityId,city_list as cityList,store_grouping as
+		storegrouping,store,update_time as updateTime,create_time as createTime
+		from qft_company_staff where
+		user_id = #{userId}
+	</select>
+	
+	<!-- 根据ID获取员工信息级联用户信息 -->
+	<select id="selectStaffById" resultType="com.born.facade.vo.CompanyStaffVO">
+		select
+			s.id as id,
+			<include refid="base_staff_select"/>
+			,
+			u.account as account,
+			u.password as password,
+			u.status as status,
+			u.is_enable_app as isEnableApp,
+			ps.position_id as positionId,
+			p.name as positionName
+		from 
+			qft_user u
+		left join 
+			qft_company_staff s
+		on 
+			s.user_id = u.id
+		left join
+			qft_position_staff ps
+		on 
+			ps.user_id = s.user_id
+		left join
+			qft_company_position p
+		on
+			p.id = ps.position_id
+		where 
+			u.id = #{id}
+	</select>
+	
+	<!-- 根据条件获取员工信息级联用户信息集合 -->
+	<select id="selectStaffList" parameterType="com.born.facade.dto.staff.FindStaffListDTO" resultType="com.born.facade.vo.CompanyStaffVO">
+		select
+			u.id as id,
+			<include refid="base_staff_select"/>
+			,
+			u.account as account,
+			u.password as password,
+			u.status as status,
+			u.is_enable_app as isEnableApp,
+			ps.position_id as positionId,
+			p.name as positionName,
+			o.last_time as lastTime,
+			d.dept_name as deptName
+		from 
+			<!-- 用户表  -->
+			qft_user u
+		left join 
+			<!-- 员工表  -->
+			qft_company_staff s
+		on 
+			s.user_id = u.id
+		left join
+			<!-- 职位员工中间表 -->
+			qft_position_staff ps
+		on 
+			ps.user_id = u.id
+		left join
+			<!-- 职位表  -->
+			qft_company_position p
+		on
+			p.id = ps.position_id
+		left join
+			<!--员工操作表  -->
+			qft_company_staff_oper o
+		on 
+			o.user_id = u.id	
+		left join
+			<!-- 部门表  -->
+			qft_company_dept d
+		on
+			d.id = p.dept_id
+		where u.is_delete = 0
+		<if test="cityId != null and cityId != ''">
+			and	s.city_id = #{cityId}
+		</if>
+		<if test="workstore != null and workstore != ''">
+			and	s.workstore = #{workstore}
+		</if>
+		<if test="grouping != null and grouping != ''">
+			and	s.grouping = #{grouping}
+		</if>
+		<if test="positionId != null and positionId != ''">
+			and	p.id = #{positionId}
+		</if>
+		<if test="realname != null and realname != ''">
+			and	s.realname = #{realname}
+		</if>	
+	</select>
+	
+	<!-- 逻辑删除员工 -->
+	<update id="updateStaff" parameterType="com.born.facade.dto.staff.DeteleStaffDTO">
+	     UPDATE 
+	    	qft_company_staff
+	    SET 
+	    	is_delete = 1,
+	   		update_time = #{updateTime},
+	    	updater_id = #{updaterId} 
+	    	 WHERE id = #{id}  
+	</update> 
+	<!-- 添加职位员工关系 -->
+	<insert id="insertPositionStaff" parameterType="com.born.facade.dto.staff.PositionStaffDTO">
+		insert into qft_position_staff (
+			position_id,
+			user_id,
+			create_time,
+			creater_id
+		)values(
+			#{positionId},
+			#{userId},
+			#{createTime},
+			#{createrId}
+		)
+	</insert>
+	<!-- 修改职位员工关系 -->
+	<insert id="updatePositionStaff" parameterType="com.born.facade.dto.staff.PositionStaffDTO">
+		update qft_position_staff set 
+			position_id = #{positionId}
+		where 
+			user_id = #{userId}
+	</insert>
+</mapper>
