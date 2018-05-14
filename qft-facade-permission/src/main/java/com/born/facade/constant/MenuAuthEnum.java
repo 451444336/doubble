@@ -24,7 +24,11 @@ public enum MenuAuthEnum {
 	NOT_CHECK((byte)0,"未选中"),
 	
 	POSITION_AUTH((byte)1,"职位权限"),
-	PERSION_AUTH((byte)2,"个人权限")
+	PERSION_AUTH((byte)2,"个人权限"),
+	
+	PC_MENU_AUTH((byte)1,"pc菜单/权限"),
+	APP_MENU_AUTH((byte)2,"app菜单/权限")
+	
 	;
 	private Byte status;
 	

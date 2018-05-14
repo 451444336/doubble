@@ -15,13 +15,13 @@ import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.born.config.shiro.token.TokenManager;
+import com.born.facade.constant.MenuAuthEnum;
 import com.born.facade.dto.permission.PermissionQueryDTO;
 import com.born.facade.dto.permission.QueryMenuAuthDTO;
 import com.born.facade.service.IMenuService;
 import com.born.facade.service.IPermissionService;
 import com.born.facade.vo.MenuVO;
 import com.born.facade.vo.UserInfoVO;
-import com.born.facade.vo.permission.ChangePermissionVO;
 import com.born.facade.vo.permission.MenuPermissionVO;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
@@ -77,7 +77,7 @@ public class PermissionController {
 	public @ResponseBody Result menuAndAuths(QueryMenuAuthDTO rDto) {
 		List<MenuVO> rList = new ArrayList<>();
 		UserInfoVO userInfo = TokenManager.getLoginUser();
-		Result mresult = menuService.getMenuTreeByCompanyId(userInfo.getCompanyId(), (byte) 1);
+		Result mresult = menuService.getMenuTreeByCompanyId(userInfo.getCompanyId(), MenuAuthEnum.PC_MENU_AUTH.getStatus());
 		log.info("查询菜单返回数据={}", JSON.toJSONString(mresult));
 		if (mresult.isSuccess()) {
 			List<MenuVO> menus = mresult.getData(List.class);

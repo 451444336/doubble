@@ -20,6 +20,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.born.core.constant.CommonConstants;
 import com.born.core.page.PageBean;
+import com.born.facade.constant.AuthChangeEnum;
 import com.born.facade.constant.MenuAuthEnum;
 import com.born.facade.dto.menu.AddMenuDTO;
 import com.born.facade.dto.permission.AddPermissionDTO;
@@ -153,8 +154,7 @@ public class PermissionServiceImpl implements IPermissionService {
 		change.setCreaterId(CommonConstants.SYSTEM_USER);
 		change.setCreateTime(new Date());
 		change.setOldUserId(dto.getUserId());
-		// TODO:菜单操作类型 需要改成常量
-		change.setOperType((byte) 1);
+		change.setOperType(AuthChangeEnum.ADD.getStatus());
 		change.setTemplateId(dto.getTemplateId());
 		final List<PermissionInfoDTO> menus = dto.getMenus();
 		final List<AuthorityChange> recordList = new ArrayList<>(menus.size());

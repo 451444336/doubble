@@ -39,7 +39,8 @@ public enum PermissionExceptionEnum implements RespCode {
 	USER_DATA_ERROR("10031","员工信息异常"),
 	UPDATE_PERMISSION_ERROR("10032","编辑权限异常"),
 	PERMISSION_NOT_EXISTS("10033","权限数据不存在拟"),
-	ADD_PERSONAL_PERMISSION("10034","新增个人权限数据异常");
+	ADD_PERSONAL_PERMISSION("10034","新增个人权限数据异常"),
+	USER_NON_EXISTENT("10035","账号不存在");
 	private String code;
     private String msg;
 

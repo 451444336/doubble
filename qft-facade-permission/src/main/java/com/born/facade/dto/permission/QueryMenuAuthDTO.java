@@ -21,7 +21,7 @@ public class QueryMenuAuthDTO implements Serializable {/**
 	 */
 	private Long positionId;
 	/**
-	 * 操作类型
+	 * 操作类型：1、职位 2、个人
 	 */
 	private Byte operType;
 	/**

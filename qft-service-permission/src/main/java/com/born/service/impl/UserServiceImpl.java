@@ -86,7 +86,10 @@ public class UserServiceImpl implements IUserService {
 			user.setIsDelete(UserEnum.NOT_DELETE.getStatus());
 			user = sysUserMapper.selectOne(user);
 			// 校验账户密码
-			if (null == user || !loginDto.getPassword().equals(user.getPassword())) {
+			if (null == user) {
+				return ResultUtil.setResult(result, PermissionExceptionEnum.USER_NON_EXISTENT);
+			}
+			if (!loginDto.getPassword().equals(user.getPassword())) {
 				return ResultUtil.setResult(result, PermissionExceptionEnum.AUTHENTICATION);
 			}
 			if (UserEnum.LOGOUT.getStatus().equals(user.getStatus())) {

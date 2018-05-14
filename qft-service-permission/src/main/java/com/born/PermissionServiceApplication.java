@@ -29,7 +29,7 @@ public class PermissionServiceApplication {
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 		TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
-		factory.setPort(20003);
+		factory.setPort(20002);
 		return factory;
 	}
 }

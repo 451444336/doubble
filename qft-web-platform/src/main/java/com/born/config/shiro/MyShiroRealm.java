@@ -338,6 +338,9 @@ public class MyShiroRealm extends AuthorizingRealm {
 			if (RespCode.Code.REQUEST_DATA_ERROR.getCode().equals(result.getCode())
 					|| PermissionExceptionEnum.AUTHENTICATION.getCode().equals(result.getCode())) {
 				throw new AccountException("帐号或密码不正确");
+			} else if (PermissionExceptionEnum.USER_NON_EXISTENT.getCode().equals(result.getCode())) {
+				throw new DisabledAccountException("帐号不存在");
+
 			} else if (PermissionExceptionEnum.USER_LOGOUT.getCode().equals(result.getCode())) {
 				throw new DisabledAccountException("帐号已经禁止登录");
 			} else {
