@@ -1,5 +1,5 @@
 package com.born.facade.vo;
 
-public class TestVO {
+public class OrderInfoVO {
 
 }
