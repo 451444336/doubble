@@ -108,6 +108,13 @@ $(function(){
         });
     };
     getMenuList();
+  	//表单验证
+    $("#roleForm").validate({
+        onfocusout: function(element){
+            $(element).valid();
+        },
+        errorClass: 'formError'
+    });
     //添加角色
     $('.subTopLeft').on('click','.JS_addRole',function(){
     	$("input[name='roleName']").val('');
@@ -119,24 +126,22 @@ $(function(){
             area: ['460px','270px'],
             btn: ['保存','关闭'],
             yes: function(){
-            	var roleName = $("input[name='roleName']").val();
-            	var isAuthEdit = $("select[name='isAuthEdit']").val()
-            	if(roleName == null || roleName == ''){
-            		layer.closeAll('page');
-            		return;
-            	}
-            	var params = 'roleName='+ roleName + '&isAuthEdit=' + isAuthEdit;
-                $.ajax({
-                    dataType: 'json',
-                    data: params,
-                    type: 'post',
-                    url: '/web/role/save',
-                    success: function(result){
-                    	layer.closeAll();
-                    	layer.alert(result.message);
-                    	dataTable.ajax.reload();
-                    }
-                });  
+            	if($('#roleForm').submit()[0][0].value != ''){
+	            	var roleName = $("input[name='roleName']").val();
+	            	var isAuthEdit = $("select[name='isAuthEdit']").val()
+	            	var params = 'roleName='+ roleName + '&isAuthEdit=' + isAuthEdit;
+	                $.ajax({
+	                    dataType: 'json',
+	                    data: params,
+	                    type: 'post',
+	                    url: '/web/role/save',
+	                    success: function(result){
+	                    	layer.closeAll();
+	                    	layer.alert(result.message);
+	                    	dataTable.ajax.reload();
+	                    }
+	                });
+	           	} 
             },
             btnAlign: 'c',
             content: $('#qft_addRoleBox')
@@ -147,7 +152,7 @@ $(function(){
     	var roleId = this.id;
     	var roleName = this.name;
     	var isAuthEdit = this.type;
-    	if(roleId == null || roleId == '' || roleId < 0 || roleName == null || roleName == ''){
+    	if(roleId == null || roleId == '' || roleId < 0){
     		layer.alert('参数错误！');
     		return;
     	}
@@ -161,13 +166,8 @@ $(function(){
             area: ['460px','270px'],
             btn:['保存','关闭'],
             yes: function(){
-            	layer.closeAll('dialog');
             	var roleName = $("input[name='roleName']").val();
             	var isAuthEdit = $("select[name='isAuthEdit']").val();
-            	if(roleName == null || roleName == ''){
-            		layer.closeAll('page');
-            		return;
-            	}
             	var params = "id="+ roleId + "&roleName="+ roleName+ "&isAuthEdit="+ isAuthEdit;
             	$.ajax({
                     dataType: 'json',
@@ -179,7 +179,7 @@ $(function(){
                     	layer.alert(result.message);
                     	dataTable.ajax.reload();
                     }
-                });  
+                });	
             },
             btnAlign: 'c',
             content: $('#qft_addRoleBox')
