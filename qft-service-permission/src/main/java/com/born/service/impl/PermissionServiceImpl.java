@@ -698,8 +698,8 @@ public class PermissionServiceImpl implements IPermissionService {
 			// 查询个人权限数据
 			List<PermissionVO> users = companyAuthorityMapper.selectPersonalPermissions(dto.getUserId());
 			if (CollectionUtils.isNotEmpty(users)) {
-				Set<Long> usets = new HashSet<>();
-				for (PermissionVO pv : positions) {
+				final Set<Long> usets = new HashSet<>();
+				for (PermissionVO pv : users) {
 					usets.add(pv.getAuthorityId());
 				}
 				for (PermissionVO mpv : mps) {
