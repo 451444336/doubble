@@ -12,7 +12,7 @@ import lombok.Data;
  * @date 2018年5月14日 下午4:21:19
  */
 @Data
-public class OperateLogRecordDTO extends PageBean {
+public class OperateLogAuthorityDTO extends PageBean {
 
 
 	/**
@@ -36,9 +36,13 @@ public class OperateLogRecordDTO extends PageBean {
 	 */
 	private String companyId;
 	/**
-     * 角色ID
+     * 权限类型：0 用户，1 角色，2 职位，3 菜单
      */
-    private Long roleId;
+    private Byte type;
+    /**
+     * 被操作ID：用户ID/角色ID/职位ID/菜单ID
+     */
+    private Long operatedId;
 	/**
 	 * 操作
 	 */

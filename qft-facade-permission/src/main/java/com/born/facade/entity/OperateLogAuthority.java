@@ -18,8 +18,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "qft_operate_log_record")
-public class OperateLogRecord extends BaseEntity<OperateLogRecord> {
+@Table(name = "qft_oper_log_authority")
+public class OperateLogAuthority extends BaseEntity<OperateLogAuthority> {
 
 	/**
 	 * 
@@ -41,10 +41,15 @@ public class OperateLogRecord extends BaseEntity<OperateLogRecord> {
 	@Column(name = "company_id")
 	private String companyId;
 	/**
-     * 角色ID
+     * 权限类型：0 用户，1 角色，2 职位，3 菜单
      */
-	@Column(name = "role_id")
-    private Long roleId;
+	@Column(name = "type")
+    private Byte type;
+	/**
+     * 被操作ID：用户ID/角色ID/职位ID/菜单ID
+     */
+	@Column(name = "operated_id")
+    private Long operatedId;
 	/**
 	 * 操作
 	 */

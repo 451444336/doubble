@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.born.mapper.OperateLogRecordMapper">
+<mapper namespace="com.born.mapper.OperateLogAuthorityMapper">
 	
 	<!-- 批量插入操作日志记录 -->
-	<insert id="insertOperateLogRecord" parameterType="com.born.facade.dto.OperateLogRecordDTO">  
-        INSERT INTO qft_operate_log_record(
+	<insert id="insertOperateLogAuthority" parameterType="com.born.facade.dto.OperateLogAuthorityDTO">  
+        INSERT INTO qft_oper_log_authority(
         	creater_id,
         	create_time,
         	company_id,
-        	role_id,
+        	type,
+        	operated_id,
         	operate)  
         VALUES (
         	#{createrId},
         	#{createTime},
         	#{companyId},
-        	#{roleId},
+        	#{type},
+        	#{operatedId},
         	#{operate}
         )  
 	</insert>
