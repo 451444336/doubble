@@ -96,7 +96,17 @@ public class PermissionController {
 		}
 		return ResultUtil.getResult(RespCode.Code.SUCCESS, rList);
 	}
-
+	/**
+	 * 
+	* @Title: backMenuAuths 
+	* @Description: 封装菜单权限数据
+	* @param @param menus
+	* @param @param map
+	* @param @return    设定文件 
+	* @return List<MenuVO>    返回类型 
+	* @author lijie
+	* @throws
+	 */
 	private List<MenuVO> backMenuAuths(List<MenuVO> menus, Map<Long, MenuPermissionVO> map) {
 		if (CollectionUtils.isNotEmpty(menus)) {
 			for (MenuVO m : menus) {
@@ -106,7 +116,17 @@ public class PermissionController {
 		}
 		return menus;
 	}
-	
+	/**
+	 * 
+	* @Title: getMenuIds 
+	* @Description: 得到菜单ID 
+	* @param @param menus
+	* @param @param result
+	* @param @return    设定文件 
+	* @return List<Long>    返回类型 
+	* @author lijie
+	* @throws
+	 */
 	private List<Long> getMenuIds(List<MenuVO> menus, List<Long> result) {
 		for (MenuVO m : menus) {
 			if (CollectionUtils.isNotEmpty(m.getChilds())) {

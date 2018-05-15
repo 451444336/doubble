@@ -8,7 +8,7 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 import org.springframework.context.annotation.Bean;
 /**
  * 
-* @ClassName: PermissionServiceApplication  
+* @ClassName: BasicbusinessServiceApplication  
 * @Description: spring boot start config
 * @author lijie
 * @date 2018年4月25日  
@@ -16,10 +16,10 @@ import org.springframework.context.annotation.Bean;
  */
 @SpringBootApplication
 @MapperScan(basePackages = "com.born.mapper")
-public class PermissionServiceApplication {
+public class BasicbusinessServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PermissionServiceApplication.class, args);
+		SpringApplication.run(BasicbusinessServiceApplication.class, args);
 	}
 	
 	/**
@@ -29,7 +29,7 @@ public class PermissionServiceApplication {
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 		TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
-		factory.setPort(20002);
+		factory.setPort(20003);
 		return factory;
 	}
 }

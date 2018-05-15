@@ -131,6 +131,7 @@ public class UserServiceImpl implements IUserService {
 				ur = new UserRoleVO();
 				ur.setId(r.getId());
 				ur.setRoleName(r.getRoleName());
+				ur.setIsAuthEdit(r.getIsAuthEdit());
 				roles.add(ur);
 			}
 			result.setRoles(roles);
