@@ -40,9 +40,9 @@ public class OperateLogAuthorityDTO extends PageBean {
      */
     private Byte type;
     /**
-     * 被操作ID：用户ID/角色ID/职位ID/菜单ID
+     * 权限类型ID：用户ID/角色ID/职位ID/菜单ID
      */
-    private Long operatedId;
+    private Long typeId;
 	/**
 	 * 操作
 	 */

@@ -10,14 +10,14 @@
         	create_time,
         	company_id,
         	type,
-        	operated_id,
+        	type_id,
         	operate)  
         VALUES (
         	#{createrId},
         	#{createTime},
         	#{companyId},
         	#{type},
-        	#{operatedId},
+        	#{typeId},
         	#{operate}
         )  
 	</insert>
