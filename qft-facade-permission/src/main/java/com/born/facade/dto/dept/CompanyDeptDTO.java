@@ -1,4 +1,4 @@
-package com.born.facade.dto.companyDept;
+package com.born.facade.dto.dept;
 
 import java.util.Date;
 

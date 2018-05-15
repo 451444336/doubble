@@ -1,6 +1,6 @@
 package com.born.facade.service;
 
-import com.born.facade.dto.companyDept.CompanyDeptDTO;
+import com.born.facade.dto.dept.CompanyDeptDTO;
 import com.born.util.result.Result;
 
 /**

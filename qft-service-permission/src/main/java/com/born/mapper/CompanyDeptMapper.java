@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
-import com.born.facade.dto.companyDept.CompanyDeptDTO;
+import com.born.facade.dto.dept.CompanyDeptDTO;
 import com.born.facade.entity.CompanyDept;
 import com.born.facade.vo.companyDept.CompanyDeptVO;
 /**

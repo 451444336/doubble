@@ -205,7 +205,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 	private List<String> getUserAuths(final Long userId, final List<MenuVO> menus) {
 		final List<String> result = new LinkedList<>();
 		// 查询用户操作权限
-		Set<Long> authSet = new HashSet<>();
+		final Set<Long> authSet = new HashSet<>();
 		Result uAuths = menuAuthService.getAuthorityListByUserId(userId);
 		if (uAuths.isSuccess()) {
 			List<UserAuthVO> uAuthList = (List<UserAuthVO>) uAuths.getData();

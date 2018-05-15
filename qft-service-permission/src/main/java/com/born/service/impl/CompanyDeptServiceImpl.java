@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.born.facade.dto.companyDept.CompanyDeptDTO;
+import com.born.facade.dto.dept.CompanyDeptDTO;
 import com.born.facade.entity.CompanyDept;
 import com.born.facade.exception.PermissionException;
 import com.born.facade.exception.PermissionExceptionEnum;

@@ -15,7 +15,7 @@
 	        #{id}  
 	    </foreach>  
 	</update> 
-	<select id="selectDeptList" resultType="com.born.facade.vo.companyDept.CompanyDeptVO" parameterType="com.born.facade.dto.companyDept.CompanyDeptDTO">
+	<select id="selectDeptList" resultType="com.born.facade.vo.companyDept.CompanyDeptVO" parameterType="com.born.facade.dto.dept.CompanyDeptDTO">
 		select 
 			id as id,
 			dept_name as name,
