@@ -5,7 +5,7 @@
 	
 	<!-- 批量插入操作日志记录 -->
 	<insert id="insertOperateLogRecord" parameterType="com.born.facade.dto.OperateLogRecordDTO">  
-        INSERT INTO tb_operate_log_record(
+        INSERT INTO qft_operate_log_record(
         	creater_id,
         	create_time,
         	company_id,
