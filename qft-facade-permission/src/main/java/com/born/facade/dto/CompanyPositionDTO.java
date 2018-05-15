@@ -46,4 +46,6 @@ public class CompanyPositionDTO extends PageBean{
 	
 	@ApiModelProperty(value="部门ID",name="deptId")
 	private Long deptId;
+	//权限ID
+	private String[] permissionIds;
 }

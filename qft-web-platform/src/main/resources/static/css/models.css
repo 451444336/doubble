@@ -149,7 +149,8 @@ em {
 .subPowerTit,
 .powerOptionList,
 .roomStateList,
-.roomFlowStop {
+.roomFlowStop,
+.workBookBox {
   *zoom: 1;
 }
 .clearfix:before,
@@ -201,7 +202,9 @@ em {
 .roomStateList:before,
 .roomStateList:after,
 .roomFlowStop:before,
-.roomFlowStop:after {
+.roomFlowStop:after,
+.workBookBox:before,
+.workBookBox:after {
   content: " ";
   display: table;
 }
@@ -229,7 +232,8 @@ em {
 .subPowerTit:after,
 .powerOptionList:after,
 .roomStateList:after,
-.roomFlowStop:after {
+.roomFlowStop:after,
+.workBookBox:after {
   clear: both;
   visibility: hidden;
   height: 0;
@@ -968,7 +972,7 @@ textarea {
   display: block;
   width: 128px;
   height: 40px;
-  font-size: 14px;
+  font-size: 13px;
   color: #98b9f9;
   text-indent: 30px;
 }
@@ -1150,7 +1154,7 @@ textarea {
 .titleBox h2 {
   float: left;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 14px;
   color: #333333;
   padding-left: 10px;
   background: url("../images/line-icon.jpg") 0 center no-repeat;
@@ -1193,7 +1197,7 @@ textarea {
   height: 30px;
   text-align: center;
   color: #fff;
-  font-size: 14px;
+  font-size: 12px;
   margin-right: 14px;
 }
 .itemList a.blueBg {
@@ -1266,7 +1270,7 @@ textarea {
   height: 28px;
   line-height: 28px;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
   position: relative;
   z-index: 1;
@@ -1312,7 +1316,7 @@ textarea {
 .itemSearch .searchInput .itemInput {
   margin-left: 40px;
   color: #5e6d82;
-  font-size: 14px;
+  font-size: 12px;
   width: 192px;
   height: 28px;
   line-height: 28px;
@@ -1334,7 +1338,7 @@ textarea {
   width: 100%;
   height: 26px;
   line-height: 26px;
-  font-size: 14px;
+  font-size: 12px;
   color: #5e6d82;
   text-indent: 15px;
   overflow: hidden;
@@ -1359,7 +1363,7 @@ textarea {
   width: 122px;
   height: 28px;
   line-height: 28px;
-  font-size: 14px;
+  font-size: 12px;
   color: #5e6d82;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1376,7 +1380,7 @@ textarea {
   width: 244px;
   height: 28px;
   line-height: 28px;
-  font-size: 14px;
+  font-size: 12px;
   color: #5e6d82;
 }
 .spreadBox .spreadTxt .spreadlef {
@@ -1412,7 +1416,7 @@ textarea {
   height: 24px;
   line-height: 24px;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   margin-top: 10px;
 }
 .mroeBtn a {
@@ -1469,7 +1473,8 @@ textarea {
   color: #fc6365;
   margin-right: 5px;
 }
-.disabled {
+.disabled,
+.PopupBtn input[type="button"].disabled {
   background: #f4f4f4;
 }
 .popup-title-bg .layui-layer-title {
@@ -1555,12 +1560,19 @@ textarea {
   width: 110px;
   height: 30px;
 }
+.popupList .fieldName_two {
+  width: 170px;
+  height: 30px;
+  line-height: 30px;
+}
 .PopupBtn {
   text-align: center;
   margin-bottom: 10px;
 }
 .PopupBtn input[type="button"] {
   margin: 0 10px;
+  position: relative;
+  z-index: 1;
 }
 .PopupBtn input[type="button"].cancel {
   background: #f1f1f1;
@@ -1569,6 +1581,24 @@ textarea {
 }
 .PopupBtn input[type="button"].cancel:hover {
   background: #e9e9e9;
+}
+.PopupBtn input[type="button"].PopupOrange {
+  background: #ffab91;
+}
+.PopupBtn input[type="button"].PopupOrange:hover {
+  background: #ff7144;
+}
+.PopupBtn input[type="button"].disabled {
+  border: 1px solid #d2d2d2;
+  height: 28px;
+  line-height: 28px;
+  color: #999999;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.PopupBtn.PopupBtnRight {
+  text-align: right;
 }
 /*表单验证提示*/
 .formError,
@@ -1599,9 +1629,9 @@ textarea {
 .dataTables_info,
 .dataTables_paginate {
   width: auto;
-  height: 32px;
-  line-height: 32px;
-  font-size: 14px;
+  height: 26px;
+  line-height: 22px;
+  font-size: 12px;
   margin: 10px auto 0 0;
 }
 .dataTables_info {
@@ -1641,8 +1671,8 @@ textarea {
   color: #333333;
   cursor: pointer;
   margin-right: 5px;
-  min-width: 30px;
-  height: 32px;
+  min-width: 26px;
+  height: 26px;
   padding: 0 2px;
   text-align: center;
   text-decoration: none;
@@ -1676,7 +1706,7 @@ textarea {
 .dataTables_paginate .paginate_active.last,
 .dataTables_paginate .fg-button.last {
   width: 80px;
-  height: 32px;
+  height: 26px;
 }
 .dataTables_paginate .paginate_button.previous.ui-state-disabled,
 .dataTables_paginate .paginate_active.previous.ui-state-disabled,
@@ -1713,18 +1743,32 @@ textarea {
 .dataTables_paginate .fg-button.first.disabled,
 .dataTables_paginate .paginate_button.last.disabled,
 .dataTables_paginate .paginate_active.last.disabled,
-.dataTables_paginate .fg-button.last.disabled {
+.dataTables_paginate .fg-button.last.disabled,
+.dataTables_paginate .paginate_button.previous.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.previous.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.previous.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.next.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.next.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.next.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.first.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.first.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.first.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.last.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.last.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.last.PopupBtn input[type="button"].disabled {
   border: 1px solid #d2d2d2;
   color: #999999;
 }
 .dataTables_paginate .ui-state-disabled,
 .dataTables_paginate .paginate_button_disabled,
-.dataTables_paginate .disabled {
+.dataTables_paginate .disabled,
+.dataTables_paginate .PopupBtn input[type="button"].disabled {
   cursor: default;
 }
 .dataTables_paginate .ui-state-disabled:hover,
 .dataTables_paginate .paginate_button_disabled:hover,
-.dataTables_paginate .disabled:hover {
+.dataTables_paginate .disabled:hover,
+.dataTables_paginate .PopupBtn input[type="button"].disabled:hover {
   background: #f4f4f4;
 }
 .dataTables_wrapper {
@@ -1776,7 +1820,7 @@ textarea {
   text-align: center;
   color: #0d2c56;
   padding: 0 15px;
-  font-size: 14px;
+  font-size: 12px;
   margin-right: 10px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -1803,7 +1847,7 @@ textarea {
   height: 30px;
   line-height: 30px;
   color: #0d2c56;
-  font-size: 14px;
+  font-size: 12px;
   padding: 0 10px 0 30px;
   margin-right: 10px;
   cursor: pointer;
@@ -1822,6 +1866,9 @@ textarea {
 .subTopRight span.roomState {
   background: url("../images/roomState_icon.jpg") 5px center no-repeat;
 }
+.subTopRight span.resizeBtn {
+  background: url("../images/resize_icon.png") 5px center no-repeat;
+}
 .subTopRight span:hover {
   color: #1e65c5;
 }
@@ -1839,7 +1886,7 @@ textarea {
 }
 .searchTerm .searchTab tr th,
 .searchTerm .searchTab tr td {
-  font-size: 14px;
+  font-size: 12px;
   vertical-align: middle;
   height: 40px;
   text-align: left;
@@ -1850,10 +1897,10 @@ textarea {
   text-align: right;
 }
 .searchTerm .tabSearchBtn {
-  width: 110px;
+  width: 90px;
   line-height: inherit;
-  background: url("../images/tabsearchbtn-icon.png") 30px center no-repeat #92bbff;
-  font-size: 14px;
+  background: url("../images/tabsearchbtn-icon.png") 20px center no-repeat #92bbff;
+  font-size: 12px;
   text-indent: 20px;
   position: relative;
   z-index: 1;
@@ -1866,7 +1913,7 @@ textarea {
 }
 .wareList tr th,
 .wareList tr td {
-  font-size: 14px;
+  font-size: 12px;
   vertical-align: middle;
   height: 40px;
   text-align: center;
@@ -1882,12 +1929,22 @@ textarea {
 }
 .wareList tr th .tab_select,
 .wareList tr td .tab_select {
-  font-size: 14px;
+  font-size: 12px;
   width: 80%;
 }
 .wareList tr th .tab_select.errorCol,
 .wareList tr td .tab_select.errorCol {
   color: #fc6365;
+}
+.wareList tr th.wareAlign,
+.wareList tr td.wareAlign {
+  text-align: left;
+  text-indent: 24px;
+}
+.wareList tr td.overflowCon {
+  overflow: inherit;
+  text-overflow: inherit;
+  white-space: normal;
 }
 .wareList tr th {
   background: #f3f6fd;
@@ -1904,6 +1961,16 @@ textarea {
 .wareList tr:hover {
   background: #feffe9;
 }
+.wareList.workBookList tr td {
+  min-height: 40px;
+  height: auto;
+  overflow-y: auto;
+  text-overflow: inherit;
+  white-space: inherit;
+}
+.wareList.workBookList tr td .operateBtn {
+  margin: 5px 0;
+}
 .operationBox {
   position: relative;
   width: 90px;
@@ -1917,11 +1984,11 @@ textarea {
   min-width: 60px;
   margin: 0 auto;
   color: #fff;
-  font-size: 14px;
+  font-size: 12px;
   border: none;
   cursor: pointer;
   text-align: left;
-  text-indent: 6px;
+  text-indent: 10px;
   background: url("../images/operation.png") 45px center no-repeat #92bbff;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -2128,6 +2195,7 @@ textarea {
   background: #93bbff;
 }
 .powerMeunBox .powerSubMeun {
+  display: none;
   background: #93bbff;
 }
 .powerMeunBox .powerSubMeun li {
@@ -2156,7 +2224,6 @@ textarea {
   color: #7caafa;
 }
 .powerOptionBox {
-  display: none;
   width: 100%;
   height: 316px;
   margin-bottom: 5px;
@@ -2209,6 +2276,10 @@ label.labelRed {
 .powerOptionList li label.powerLabel input[type='checkbox'] {
   margin: 5px;
 }
+.powerOptionList li label.powerLabel input[type='radio'] {
+  vertical-align: top;
+  margin: 6px 5px;
+}
 .workShop {
   float: left !important;
   width: 42%;
@@ -2224,7 +2295,7 @@ label.labelRed {
   width: auto;
   height: 22px;
   line-height: 22px;
-  font-size: 13px;
+  font-size: 12px;
   padding: 0 5px;
   background: #92bbff;
   color: #fff;
@@ -2410,4 +2481,63 @@ label.labelRed {
   width: 100%;
   height: 200px;
   margin: 5px 0;
+}
+.workTxt {
+  width: auto;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  padding-left: 20px;
+}
+.workPadd {
+  padding-bottom: 20px;
+  text-indent: 30px;
+}
+.workBookBox {
+  width: 100%;
+  height: auto;
+  min-height: 40px;
+  padding: 10px 0;
+}
+.workBookBox li {
+  position: relative;
+  z-index: 1;
+  float: left;
+  width: 140px;
+  height: 24px;
+  border: 1px solid #c8c8c8;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  text-align: center;
+  color: #666666;
+  font-size: 12px;
+  margin: 5px 10px;
+  line-height: 24px;
+  cursor: pointer;
+}
+.workBookBox li .workBookTxt {
+  width: 140px;
+  height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.workBookBox li .workClose {
+  position: absolute;
+  display: none;
+  top: -6px;
+  right: -6px;
+  width: 14px;
+  height: 14px;
+  background: url("../images/workclose_icon.png") 0 0 no-repeat;
+}
+.workBookBox li:hover .workClose {
+  display: block;
+}
+.sortBox {
+  width: auto;
+  height: 286px;
+  overflow-y: auto;
+  margin-bottom: 10px;
 }

@@ -110,12 +110,16 @@ public class CompanyPositionServiceImpl implements ICompanyPositionService {
 		BeanUtils.copyProperties(dto, position);
 		// 设置时间
 		position.setUpdateTime(new Date());
+		//先修改职位信息
 		try {
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, mapper.updateByPrimaryKeySelective(position));
+			 ResultUtil.setResult(result, RespCode.Code.SUCCESS, mapper.updateByPrimaryKeySelective(position));
 		} catch (Exception e) {
 			log.error("修改职位失败（PositionServiceImpl.updatePosition）", e);
 			throw new PermissionException(PermissionExceptionEnum.UPDATE_POSITION_ERROR);
 		}
+		//在修改职位权限表
+		addPositionAuth(dto.getId().toString(), dto.getPermissionIds(), dto.getUpdaterId().toString());
+		return result;
 	}
 
 	/**
@@ -145,7 +149,6 @@ public class CompanyPositionServiceImpl implements ICompanyPositionService {
 		// 设置时间
 		position.setCreateTime(new Date());
 		// 设置创建人
-		position.setCreaterId(1L);
 		position.setId(null);
 		try {
 			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, mapper.insertSelective(position));
@@ -223,17 +226,15 @@ public class CompanyPositionServiceImpl implements ICompanyPositionService {
 
 	@Override
 	@Transactional
-	public Result addPositionAuth(String pId, String authIds, String createrId) {
+	public Result addPositionAuth(String pId, String[] authIds, String createrId) {
 
 		try {
 			List<PositionAuthDTO> list = new ArrayList<PositionAuthDTO>();
 
-			String[] aIds = authIds.split(",");
-
 			/**
 			 * 转换成list
 			 */
-			for (String aid : aIds) {
+			for (String aid : authIds) {
 				PositionAuthDTO model = new PositionAuthDTO();
 				model.setPositionId(pId);
 				model.setAuthorityId(aid);

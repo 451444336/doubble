@@ -53,7 +53,7 @@ public class CompanyPositionController{
 	 @RequestMapping(value = "/index/{deptId}", method = RequestMethod.GET)
     public String index(@PathVariable String deptId,Model model) {
 		 model.addAttribute("deptId",deptId);
-        return "user/qft_findplace";
+        return "user/qft_positionList";
     }
 	 
 	 /**
@@ -66,12 +66,12 @@ public class CompanyPositionController{
 		* @date 2018年5月8日 下午6:20:12 
 		* @throws
 		 */
-		 @RequestMapping(value = "/editIndex/{positionId}", method = RequestMethod.GET)
-	    public String editIndex(@PathVariable String positionId,Model model) {
-			model.addAttribute("positionId",positionId);
-	        return "user/position_power";
+		 @RequestMapping(value = "/editIndex/{positionId}/{name}", method = RequestMethod.GET)
+	    public String editIndex(@PathVariable(name="positionId") String positionId,@PathVariable(name="name") String name,Model model) {
+			 model.addAttribute("positionId",positionId);
+			 model.addAttribute("name",name);
+	        return "user/qft_update_position";
 	    }
-	 
 	/**
 	 * 根据职位ID获取职位唯一对象
 	 * @param dto 参数对象
@@ -137,8 +137,10 @@ public class CompanyPositionController{
             @ApiResponse(code = 200,message = "操作成功")
     })
 	@ResponseBody
-	@RequestMapping(value = "updatePosition",method = RequestMethod.PUT)
-	public Result updatePosition(@RequestBody CompanyPositionDTO dto){
+	@RequestMapping(value = "updatePosition",method = RequestMethod.POST)
+	public Result updatePosition(CompanyPositionDTO dto){
+		UserInfoVO user = TokenManager.getLoginUser();
+		dto.setUpdaterId(user.getId());
 		return positionService.updatePosition(dto);
 	}
 	
@@ -154,11 +156,13 @@ public class CompanyPositionController{
     })
 	@ResponseBody
 	@RequestMapping(value = "addPosition",method = RequestMethod.POST)
-	public Result addPosition(@RequestBody CompanyPositionDTO dto){
+	public Result addPosition(CompanyPositionDTO dto){
+		UserInfoVO user = TokenManager.getLoginUser();
+		dto.setCreaterId(user.getId());
 		return positionService.addPosition(dto);
 	}
 	
-	@ApiOperation(value = "添加职位权限",notes = "添加当前选择的职位下那些权限")
+/*	@ApiOperation(value = "添加职位权限",notes = "添加当前选择的职位下那些权限")
     @ApiResponses(value = {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
@@ -167,7 +171,7 @@ public class CompanyPositionController{
 	@RequestMapping(value = "add/position/auth/{pId}/{authIds}",method = RequestMethod.POST)
 	public Result addPositionAuth(@PathVariable(name="pId") String pId,@PathVariable(name="authIds") String authIds){
 		return positionService.addPositionAuth(pId, authIds, String.valueOf(TokenManager.getLoginUser().getId()));
-	}
+	}*/
 	
 	/**
 	 * 逻辑删除职位

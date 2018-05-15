@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>用户列表</title>
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+</head>
+<body>
+<!--添加职位与权限分配-->
+<div class="PopupBox" id="qft_modifyBox">
+    <form id="modifyForm" th:action="@{/web/pos/updatePosition}" method="POST">
+        <input name="id" id="positionId" type="hidden" th:value="*{positionId}"/>
+        <table class="popupList">
+            <tr>
+                <th class="fieldName">职位名称：</th>
+                <td><input class="validate[required]" name="name" type="text" th:value="*{name}" required></td>
+                <td colspan="3" class="gray-col">如果您不知道你的员工应该授哪些权限，可直接点击下面的使用模板权限按钮，可以帮助你一键授权，等您熟练使用系统后再来修改权限。</td>
+            </tr>
+        </table>
+        <h2 class="PopupTitle">修改权限 <span class="modulepower">使用模版权限</span></h2>
+        <!--使用模版权限-->
+        <div class="powerBtnBox hide JS_powerBtn">
+            <input class="powerBtn" type="button" value="全部权限"><input class="powerBtn" type="button" value="业务员"><input class="powerBtn" type="button" value="财务"><input class="powerBtn" type="button" value="经理或店长">
+        </div>
+        <!--end 使用模版权限-->
+        <!--权限菜单-->
+        <div class="powerMeunBox">
+            <ul class="mainMeun">
+            </ul>
+            <div class="subMeunBox">
+                <!--end 设置管理-->
+            </div>
+        </div>
+        <!--end 权限菜单-->
+        <!--使用模版权限-->
+        <div class="powerBtnBox" id="powerBtn">
+            <input class="powerBtn" type="button" value="全选查看权限" onclick="allSelectByTpye(this,'search')"><input class="powerBtn" type="button" value="全选操作权限" onclick="allSelectByTpye(this,'hand')"><input class="powerBtn" type="button" value="全选删除权限" onclick="allSelectByTpye(this,'delete')">
+            <div id="tempbox" style="display: none;"><input id="box_search" type="checkbox"><input id="box_hand" type="checkbox"><input id="box_delete" type="checkbox"></div>
+        </div>
+        <!--end 使用模版权限-->
+        <!--权限管理-->
+        <div class="powerOptionBox">
+        </div>
+        <!--end 权限管理-->
+        <!--授权按钮-->
+        <div class="powerBtnBox btnCenter margin0 fixedButton">
+            <input class="powerBtn" type="submit" value="授权给职位"><!-- <input class="powerBtn" type="button" value="授权给个人"> --><input class="powerBtn" type="button" value="关闭">
+        </div>
+        <!--end 授权按钮-->
+    </form>
+</div>
+<!--end 添加职位与权限分配-->
+
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--表单验证-->
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/modifypower.js}"></script>
+<script th:inline="javascript">
+    $(function(){
+    	 muen();
+        //表单验证
+        $("#modifyForm").validationEngine({
+            addPromptClass: 'formError-text',
+            showArrow: false,
+            promptPosition: 'bottomLeft:5 0'
+        });
+    });
+    function muen(){
+    	//获取权限菜单
+    	 $.ajax({
+             type: "GET",
+             url: "/web/user/permissions/list",
+             data: {"positionId":$("#positionId").val(),"operType":1},//职位ID和菜单ID获取权限
+             dataType: "json",
+             success: function(data){
+                         $('.mainMeun').empty();   		//清空一级菜单powerMeunBox里面的所有内容
+                         $('.subMeunBox').empty();    //清空二级菜单subMeunBox里面的所有内容
+                         $('.powerOptionBox').empty();	//清空三级菜单powerOptionBox里面的所有内容
+                         //先把所有菜单拿出来归类
+                         $.each(data.data, function(index, obj){
+                        	 //一级菜单
+                        	 if(index==0){
+                        		 $('.mainMeun').append('<li id="meun_'+obj['id']+'" class="meunHover">'+obj['menuName']+'</li>');
+                        	 }else{
+                        		 $('.mainMeun').append('<li id="meun_'+obj['id']+'">'+obj['menuName']+'</li>');
+                        	 }
+                        	 //二级菜单
+                        	  $('.subMeunBox').append('<ul id="ul_'+obj['id']+'" class="powerSubMeun meun_'+obj['id']+'"></ul>');
+                        	  $.each(obj.childs, function(subMeunBox_index, subMeunBox_obj){
+                        		 $('#ul_'+obj['id']).append('<li id="submeun_'+subMeunBox_obj['id']+'"><a class="link_subMeun" href="javascript:void(0);">'+subMeunBox_obj['menuName']+'</a></li>');
+                        		 showSubMeun($(".mainMeun li:eq(0)")[0].id);
+                        		 var permission = subMeunBox_obj['permission'];
+                        		 console.log(permission);
+                        		 if(permission==null){
+                        			 return false;
+                        		 } 
+                        		 //三级权限菜单
+                       			 $.each(permission.permissions, function(powerOptionList_index, powerOptionList_obj){
+                       				 $('.powerOptionBox').append('<div class="powerOption meun_'+obj['id']+' submeun_'+subMeunBox_obj['id']+'" id="three_submeun_'+subMeunBox_obj['id']+'">'+
+            			 					 	'<h2 class="PopupTitle margin0">'+permission.menuName+'</h2>'+
+            			 					 	'<div class="look_power"><p class="subPowerTit"><span>查看权限</span><label class="powerLabel"><input class="checkAll commonly_checkbox" name="" type="checkbox">全选</label></p>'+
+            			 					 	'<ul class="powerOptionList" id="look_'+subMeunBox_obj['id']+'"></ul></div>'+
+            			 					 	'<div class="operate_power"><p class="subPowerTit"><span>操作权限</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
+            			 					 	'<ul class="powerOptionList" id="operate_'+subMeunBox_obj['id']+'"></ul></div>'+
+            			 					 	'<div class="delete_power"><p class="subPowerTit"><span>修改删除</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
+            			 					 	'<ul class="powerOptionList" id="delete_'+subMeunBox_obj['id']+'"></ul></div>'+
+            			 					 	'<div class="delete_power"><p class="subPowerTit"><span>特殊权限</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
+            			 					 	'<ul class="powerOptionList" id="special_'+subMeunBox_obj['id']+'"></ul></div>'+
+            			 					 	'</div>');
+                       				var pow_html;
+                       				 if(powerOptionList_obj.isCheck==1){
+                       					pow_html = '<li><label class="powerLabel"><input checked="checked" class="checkOdd commonly_submeun_'+subMeunBox_obj['id']+'" name="permissionIds" value="'+powerOptionList_obj['authorityId']+'" type="checkbox">'+powerOptionList_obj['authorityName']+'</label></li>';
+                       				 }else{
+	                       				pow_html = '<li><label class="powerLabel"><input class="checkOdd commonly_submeun_'+subMeunBox_obj['id']+'" name="permissionIds" value="'+powerOptionList_obj['authorityId']+'" type="checkbox">'+powerOptionList_obj['authorityName']+'</label></li>';
+                       				 }
+                       			 	if(powerOptionList_obj['operType']==1){
+                       			 		$('#look_'+subMeunBox_obj['id']).append(pow_html);
+                       			 	}
+                       			 	if(powerOptionList_obj['operType']==2){
+                       			 		$('#delete_'+subMeunBox_obj['id']).append(pow_html);
+                       			 	}
+                       			 	if(powerOptionList_obj['operType']==3){
+                       			 		$('#operate_'+subMeunBox_obj['id']).append(pow_html);
+                       			 	}
+                       			 	if(powerOptionList_obj['operType']==4){
+                       			 		$('#special_'+subMeunBox_obj['id']).append(pow_html);
+                       			 	}
+                       		});
+                      });
+                  });    
+               //全选
+                 $('.checkAll').on('click',function(){
+                     if($(this).is(':checked')){
+                         $(this).parents('.subPowerTit').siblings('ul').find('.checkOdd').prop("checked",true);
+                     }else{
+                         $(this).parents('.subPowerTit').siblings('ul').find('.checkOdd').prop("checked",false);
+                     }
+                 });
+                 //使用模版权限
+                 $('.modulepower').on('click',function(){
+                     if ($('.JS_powerBtn').hasClass('hide')){
+                         $('.JS_powerBtn').removeClass('hide');
+                     }else{
+                         $('.JS_powerBtn').addClass('hide');
+                     }
+                 });
+              }
+         });
+    	
+    }
+</script>
+</body>
+</html>

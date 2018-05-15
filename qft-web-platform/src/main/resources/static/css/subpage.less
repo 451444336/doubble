@@ -46,7 +46,7 @@
     .align(center);
     color: @subtop-btn-col;
     padding: 0 @padding-15;
-    font-size: @font-size-base;
+    font-size: @font-size-small;
     margin-right: @margin-10;
     .border-radius(@border-radius-small);
     .behavior;
@@ -68,7 +68,7 @@
     .size(auto; 30px);
     line-height: 30px;
     color: @subtop-btn-col;
-    font-size: @font-size-base;
+    font-size: @font-size-small;
     padding: 0 @padding-10 0 @padding-30;
     margin-right: @margin-10;
     cursor: pointer;
@@ -80,11 +80,16 @@
         color: @txt-base;
       }
     }
+    //设置
     &.setUpBtn{
       background: url("../images/setup_icon.jpg") 5px center no-repeat;
     }
     &.roomState{
       background: url("../images/roomState_icon.jpg") 5px center no-repeat;
+    }
+    //刷新缓存
+    &.resizeBtn{
+      background: url("../images/resize_icon.png") 5px center no-repeat;
     }
     &:hover{
       color: @subtop-btn-col-h;
@@ -102,7 +107,7 @@
     margin: 0 auto;
     tr th,
     tr td {
-      font-size: @font-size-base;
+      font-size: @font-size-small;
       vertical-align: middle;
       height: 40px;
       .align(left);
@@ -113,10 +118,10 @@
      }
   }
   .tabSearchBtn{
-    width: 110px;
+    width: 90px;
     line-height: inherit;
-    background: url("../images/tabsearchbtn-icon.png") 30px center  no-repeat @blue-btn;
-    font-size: @font-size-base;
+    background: url("../images/tabsearchbtn-icon.png") 20px center  no-repeat @blue-btn;
+    font-size: @font-size-small;
     text-indent: 20px;
     .behavior-relative;
   }
@@ -128,7 +133,7 @@
   margin: 0 auto;
   tr th,
   tr td {
-    font-size: @font-size-base;
+    font-size: @font-size-small;
     vertical-align: middle;
     height: 40px;
     .align(center);
@@ -140,11 +145,24 @@
     }
     //user状态select
     .tab_select{
-      font-size: @font-size-base;
+      font-size: @font-size-small;
       width: 80%;
       &.errorCol{
         color: @err-color;
       }
+    }
+    //表格左对齐
+    &.wareAlign{
+      .align(left);
+      text-indent: 24px;
+    }
+  }
+  tr td{
+    //表格取消超出隐藏
+    &.overflowCon{
+      overflow: inherit;
+      text-overflow: inherit;
+      white-space: normal;
     }
   }
   tr th {
@@ -161,6 +179,19 @@
   tr:hover{
     background: @table-hover;
   }
+  //字典设置
+  &.workBookList{
+    tr td{
+      min-height: 40px;
+      height: auto;
+      overflow-y:auto;
+      text-overflow: inherit;
+      white-space: inherit;
+      .operateBtn{
+        margin: @margin-05 0;
+      }
+    }
+  }
 }
 //操作按钮列表
 .operationBox {
@@ -173,11 +204,11 @@
     min-width: 60px;
     margin: 0 auto;
     color: @txt-base;
-    font-size: @font-size-base;
+    font-size: @font-size-small;
     border: none;
     cursor: pointer;
     .align(left);
-    text-indent: 6px;
+    text-indent: 10px;
     background: url("../images/operation.png") 45px center no-repeat @blue-btn;
     .border-radius(@border-radius-small);
     .behavior;
@@ -365,6 +396,7 @@
     }
   }
   .powerSubMeun{
+    .hide;
     background: @power-submeun-back;
     li{
       .size(80px; 30px);
@@ -392,7 +424,6 @@
 }
 //权限选项
 .powerOptionBox{
-  .hide;
   .size(100%; 316px);
   margin-bottom: @margin-05;
   overflow: auto;
@@ -444,6 +475,10 @@ label.labelRed{
       input[type='checkbox']{
         margin: 5px;
       }
+      input[type='radio']{
+        vertical-align: top;
+        margin: 6px 5px;
+      }
     }
   }
 }
@@ -463,7 +498,7 @@ label.labelRed{
   display: inline-block;
   .size(auto; 22px);
   line-height: 22px;
-  font-size: @font-size-soso;
+  font-size: @font-size-small;
   padding: 0 @padding-05;
   background: @blue-btn;
   color: @txt-base;
@@ -634,4 +669,59 @@ label.labelRed{
 .villageBox{
   .size(100%; 200px);
   margin: @margin-05 0;
+}
+//字典设置
+.workTxt{
+  .size(auto; 40px);
+  line-height: 40px;
+  font-size: @font-size-in;
+  padding-left: @padding-20;
+}
+.workPadd{
+  padding-bottom: @padding-20;
+  text-indent: 30px;
+}
+//物业地址列表
+.workBookBox{
+  &:extend(.clearfix all);
+  .size(100%; auto);
+  min-height: 40px;
+  padding: @padding-10 0;
+  li{
+    .behavior-relative;
+    .left;
+    .size(140px; 24px);
+    .border(1px; @btn-border-col);
+    .border-radius(@border-radius-small);
+    .align(center);
+    color: @gray-con;
+    font-size: @font-size-small;
+    margin: @margin-05 @margin-10;
+    line-height: 24px;
+    cursor: pointer;
+    .workBookTxt{
+      .size(140px; 24px);
+      .text-overflow;
+    }
+    //删除按钮
+    .workClose{
+      .absolute;
+      display: none;
+      top: -6px;
+      right: -6px;
+      .square(14px);
+      background: url("../images/workclose_icon.png") 0 0 no-repeat;
+    }
+    &:hover{
+      .workClose{
+        display: block;
+      }
+    }
+  }
+}
+//字典排序
+.sortBox{
+  .size(auto; 286px);
+  overflow-y: auto;
+  margin-bottom: @margin-10;
 }
