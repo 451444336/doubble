@@ -3,6 +3,7 @@ package com.born.facade.service;
 import java.util.Date;
 
 import com.born.facade.dto.CompanyRoleDTO;
+import com.born.facade.dto.OperateLogRecordDTO;
 import com.born.facade.entity.CompanyRole;
 import com.born.util.result.Result;
 
@@ -26,7 +27,7 @@ public interface ICompanyRoleService {
 	 * 
 	 * @param id
 	 */
-	Result deleteById(Long id);
+	Result deleteById(Long id,OperateLogRecordDTO dto);
 
 	/**
 	 * 修改角色

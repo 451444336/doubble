@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.config.shiro.token.TokenManager;
 import com.born.facade.dto.CompanyRoleDTO;
+import com.born.facade.dto.OperateLogRecordDTO;
 import com.born.facade.service.ICompanyRoleService;
 import com.born.facade.vo.UserInfoVO;
 import com.born.util.result.RespCode;
@@ -125,7 +126,13 @@ public class CompanyRoleController {
 	@PostMapping(value = "/delete/{id}")
 	@ResponseBody
 	public Result deleteRole(@PathVariable Long id) {
-		return companyRoleService.deleteById(id);
+		UserInfoVO su = TokenManager.getLoginUser();
+		OperateLogRecordDTO dto = new OperateLogRecordDTO();
+		dto.setCreaterId(su.getId());
+		dto.setCreateTime(new Date());
+		dto.setCompanyId(su.getCompanyId());
+		dto.setOperate("删除角色");
+		return companyRoleService.deleteById(id,dto);
 	}
 
 	/**

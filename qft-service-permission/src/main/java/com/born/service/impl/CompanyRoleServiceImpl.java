@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.facade.dto.CompanyRoleDTO;
+import com.born.facade.dto.OperateLogRecordDTO;
 import com.born.facade.entity.CompanyRole;
 import com.born.facade.service.ICompanyRoleService;
 import com.born.facade.vo.CompanyRoleVO;
 import com.born.mapper.CompanyRoleMapper;
+import com.born.mapper.OperateLogRecordMapper;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
@@ -34,7 +36,9 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 
 	@Autowired
 	private CompanyRoleMapper companyRoleMapper;
-
+	@Autowired
+	private OperateLogRecordMapper operateLogRecordMapper;
+	
 	@Override
 	public Result insert(CompanyRoleDTO dto) {
 		// 验证参数
@@ -52,11 +56,13 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 	}
 
 	@Override
-	public Result deleteById(Long id) {
+	public Result deleteById(Long id,OperateLogRecordDTO dto) {
 		log.info("执行删除操作...");
 		companyRoleMapper.deleteRoleByRoleId(id);
 		// 删除角色菜单关联表
 		companyRoleMapper.deleteRoleMenuByRoleId(id);
+		//操作日志记录
+		operateLogRecordMapper.insertOperateLogRecord(dto);
 		log.info("删除操作成功...");
 		return ResultUtil.getResult(RespCode.Code.SUCCESS);
 	}
