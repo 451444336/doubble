@@ -36,6 +36,10 @@ public class OperateLogRecordDTO extends PageBean {
 	 */
 	private String companyId;
 	/**
+     * 角色ID
+     */
+    private Long roleId;
+	/**
 	 * 操作
 	 */
 	private String operate;

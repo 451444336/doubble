@@ -9,11 +9,13 @@
         	creater_id,
         	create_time,
         	company_id,
+        	role_id,
         	operate)  
         VALUES (
         	#{createrId},
         	#{createTime},
         	#{companyId},
+        	#{roleId},
         	#{operate}
         )  
 	</insert>

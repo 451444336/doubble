@@ -41,6 +41,11 @@ public class OperateLogRecord extends BaseEntity<OperateLogRecord> {
 	@Column(name = "company_id")
 	private String companyId;
 	/**
+     * 角色ID
+     */
+	@Column(name = "role_id")
+    private Long roleId;
+	/**
 	 * 操作
 	 */
 	@Column(name = "operate")
