@@ -672,18 +672,21 @@ public class PermissionServiceImpl implements IPermissionService {
 		}
 		// 查询职位权限授权数据
 		List<PermissionVO> positions = companyAuthorityMapper.selectPositionPermissions(dto.getPositionId());
-		Set<Long> sets = new HashSet<>();
+		// 职位权限数据ID
+		final Set<Long> positionSets = new HashSet<>();
 		if (CollectionUtils.isNotEmpty(positions)) {
 			for (PermissionVO pv : positions) {
-				sets.add(pv.getAuthorityId());
+				positionSets.add(pv.getAuthorityId());
 			}
 		}
+		// 查询过滤职位权限
 		if (MenuAuthEnum.POSITION_AUTH.getStatus().equals(dto.getOperType())) {
 			for (PermissionVO mpv : mps) {
-				if (sets.contains(mpv.getAuthorityId())) {
+				if (positionSets.contains(mpv.getAuthorityId())) {
 					mpv.setIsCheck(MenuAuthEnum.CHECK.getStatus());
 				}
 			}
+			// 查询过滤个人权限
 		} else if (MenuAuthEnum.PERSION_AUTH.getStatus().equals(dto.getOperType())) {
 			if (CollectionUtils.isEmpty(positions)) {
 				result.setMessage("当前职位没得权限数据");
@@ -691,19 +694,19 @@ public class PermissionServiceImpl implements IPermissionService {
 			}
 			Iterator<PermissionVO> it = mps.iterator();
 			while (it.hasNext()) {
-				if (!sets.contains(it.next().getAuthorityId())) {
+				if (!positionSets.contains(it.next().getAuthorityId())) {
 					it.remove();
 				}
 			}
 			// 查询个人权限数据
 			List<PermissionVO> users = companyAuthorityMapper.selectPersonalPermissions(dto.getUserId());
 			if (CollectionUtils.isNotEmpty(users)) {
-				final Set<Long> usets = new HashSet<>();
+				final Set<Long> userSets = new HashSet<>();
 				for (PermissionVO pv : users) {
-					usets.add(pv.getAuthorityId());
+					userSets.add(pv.getAuthorityId());
 				}
 				for (PermissionVO mpv : mps) {
-					if (usets.contains(mpv.getAuthorityId())) {
+					if (userSets.contains(mpv.getAuthorityId())) {
 						mpv.setIsCheck(MenuAuthEnum.CHECK.getStatus());
 					}
 				}
