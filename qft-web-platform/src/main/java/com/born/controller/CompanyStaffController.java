@@ -196,6 +196,8 @@ public class CompanyStaffController{
 	@GetMapping("/getPageList")
 	@ResponseBody
 	public Result getPageList(FindStaffListDTO dto) {
+		UserInfoVO user = TokenManager.getLoginUser();
+		dto.setCompanyId(user.getCompanyId());
 		return staffService.getPageList(dto);
 	}
 	
@@ -212,7 +214,7 @@ public class CompanyStaffController{
     })
 	@ResponseBody
 	@RequestMapping(value = "updatePermission",method = RequestMethod.POST)
-	public Result updatePermission(@PathVariable(name="userId")Long id,@PathVariable(name="permissionIds")List<Long> permissionIds) {
-		return permissionService.addPersonalPermissions(id, permissionIds);
+	public Result updatePermission(FindStaffListDTO dto) {
+		return permissionService.addPersonalPermissions(dto.getUserId(), dto.getPermissionIds());
 	}
 }

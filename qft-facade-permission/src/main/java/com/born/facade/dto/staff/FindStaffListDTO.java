@@ -1,5 +1,7 @@
 package com.born.facade.dto.staff;
 
+import java.util.List;
+
 import com.born.core.page.PageBean;
 
 import io.swagger.annotations.ApiModel;
@@ -36,7 +38,9 @@ public class FindStaffListDTO extends PageBean {
 	//公司ID
 	private String companyId;
 	//权限IDs
-	private String[] permissions;
+	private List<Long> permissionIds;
+	
+	private Long userId;
 }
 
 

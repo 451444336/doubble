@@ -11,7 +11,7 @@
 <body>
 <!--添加职位与权限分配-->
 <div class="PopupBox" id="qft_modifyBox">
-    <form id="modifyForm" th:action="@{/web/user/updatePosition}" method="POST">
+    <form id="modifyForm" th:action="@{/web/staff/updatePermission}" method="POST">
         <input name="userId" id="userId" type="hidden" th:value="*{userId}"/>
         <input name="positionId" id="positionId" type="hidden" th:value="*{positionId}"/>
         <table class="popupList">
