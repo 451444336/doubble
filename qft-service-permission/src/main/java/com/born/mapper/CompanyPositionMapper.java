@@ -62,4 +62,16 @@ public interface CompanyPositionMapper extends BaseMapper<CompanyPosition> {
 	 */
 	int deletePositionAuthByPid(String positionId);
 	
+	/**
+	 * 
+	* @Title: selectPosByCompId 
+	* @Description: 根据公司ID获取职位列表
+	* @param @param companyId
+	* @param @return
+	* @author 明成
+	* @return List<CompanyPositionVO>
+	* @date 2018年5月15日 上午11:27:18 
+	* @throws
+	 */
+	List<CompanyPositionVO> selectPosByCompId(@Param("companyId")String companyId,@Param("id")String id);
 }

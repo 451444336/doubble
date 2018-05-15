@@ -123,6 +123,7 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 		//转换对应的用户数据
 		BeanUtils.copyProperties(dto, user);
 		user.setUpdateTime(new Date());
+		user.setId(dto.getUserId());
 		try {
 			userMapper.updateByPrimaryKeySelective(user);
 		} catch (Exception e) {
@@ -146,9 +147,9 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 		//最后保存职位员工中间表
 		PositionStaffDTO posSta = new PositionStaffDTO();
 		posSta.setPositionId(dto.getPositionId());
-		posSta.setCreaterId(1L);
+		posSta.setCreaterId(dto.getUpdaterId());
 		posSta.setCreateTime(new Date());
-		posSta.setUserId(staff.getId());
+		posSta.setUserId(user.getId());
 		try {
 			 staffMapper.updatePositionStaff(posSta);
 		} catch (Exception e) {

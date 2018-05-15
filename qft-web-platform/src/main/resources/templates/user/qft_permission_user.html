@@ -12,11 +12,12 @@
 <!--添加职位与权限分配-->
 <div class="PopupBox" id="qft_modifyBox">
     <form id="modifyForm" th:action="@{/web/user/updatePosition}" method="POST">
-        <input name="id" id="userId" type="hidden" th:value="*{userId}"/>
+        <input name="userId" id="userId" type="hidden" th:value="*{userId}"/>
+        <input name="positionId" id="positionId" type="hidden" th:value="*{positionId}"/>
         <table class="popupList">
             <tr>
                 <th class="fieldName">用户名称：</th>
-                <td><input class="validate[required]" name="name" type="text" th:value="*{name}" required></td>
+                <td><input class="validate[required]" name="name" disabled="disabled" type="text" th:value="*{name}" required></td>
                 <td colspan="3" class="gray-col">如果您不知道你的员工应该授哪些权限，可直接点击下面的使用模板权限按钮，可以帮助你一键授权，等您熟练使用系统后再来修改权限。</td>
             </tr>
         </table>
@@ -75,7 +76,7 @@
     	 $.ajax({
              type: "GET",
              url: "/web/user/permissions/list",
-             data: {"userId":$("#userId").val(),"operType":2},//用户ID和菜单ID获取权限
+             data: {"userId":$("#userId").val(),"positionId":$("#positionId").val(),"operType":2},//用户ID和菜单ID获取权限
              dataType: "json",
              success: function(data){
                          $('.mainMeun').empty();   		//清空一级菜单powerMeunBox里面的所有内容
@@ -83,6 +84,7 @@
                          $('.powerOptionBox').empty();	//清空三级菜单powerOptionBox里面的所有内容
                          //先把所有菜单拿出来归类
                          $.each(data.data, function(index, obj){
+                        	 console.log(obj);
                         	 //一级菜单
                         	 if(index==0){
                         		 $('.mainMeun').append('<li id="meun_'+obj['id']+'" class="meunHover">'+obj['menuName']+'</li>');
@@ -92,6 +94,7 @@
                         	 //二级菜单
                         	  $('.subMeunBox').append('<ul id="ul_'+obj['id']+'" class="powerSubMeun meun_'+obj['id']+'"></ul>');
                         	  $.each(obj.childs, function(subMeunBox_index, subMeunBox_obj){
+                        		  console.log(subMeunBox_obj);
                         		 $('#ul_'+obj['id']).append('<li id="submeun_'+subMeunBox_obj['id']+'"><a class="link_subMeun" href="javascript:void(0);">'+subMeunBox_obj['menuName']+'</a></li>');
                         		 showSubMeun($(".mainMeun li:eq(0)")[0].id);
                         		 var permission = subMeunBox_obj['permission'];

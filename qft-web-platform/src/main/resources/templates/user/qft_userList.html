@@ -13,7 +13,7 @@
     <!--子页顶部内容-->
     <div class="subTopBox">
         <div class="subTopLeft">
-            <a class="subTopBtn subHover" href="javascript:void(0);">正常用户</a><a class="subTopBtn" href="javascript:void(0);">已关闭用户</a><a class="subTopBtn JS_record" href="javascript:void(0);">操作记录</a>
+            <a class="subTopBtn subHover" href="javascript:void(0);">正常用户</a><a class="subTopBtn" href="javascript:void(0);">已关闭用户</a><a class="subTopBtn JS_record" href="javascript:void(0);">操作记录</a><a class="subTopBtn qft_adduser" href="javascript:void(0);">添加用户</a>
         </div>
     </div>
     <!--end 子页顶部内容-->
@@ -26,6 +26,7 @@
 
 <!--修改密码弹窗-->
 <div class="PopupBox hide" id="qft_modifyBox">
+<input type="hidden" name="positionId" id="positionId" th:value="*{positionId}" />
     <h2 class="PopupTitle">个人信息</h2>
     <table class="popupList">
         <tr>
@@ -82,6 +83,19 @@
                 //btn:['关闭'],
                 btnAlign: 'c',
                 content: 'qft_recordList.html'
+            });
+        });
+        //添加用户
+        $('.subTopBox').on('click','.qft_adduser',function(){
+            layer.open({
+                type: 2,
+                title: '添加用户',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['860px','550px'],
+                //btn:['关闭'],
+                btnAlign: 'c',
+                content: '/web/staff/addUser/'+$('#positionId').val()
             });
         });
         //修改密码
@@ -169,6 +183,9 @@
         });
         //权限修改
         $('.wareList').on('click','.JS_modifypower',function(){
+        	var id = $(this).attr("data_id");
+        	var data_name = $(this).attr("data_name");
+        	var data_positionId = $(this).attr("data_positionId");
             layer.open({
                 type: 2,
                 title: '权限修改',
@@ -176,7 +193,8 @@
                 closeBtn : 1,
                 area: ['900px','660px'],
                 btnAlign: 'c',
-                content: '/web/staff/modifypower'
+                content: '/web/staff/editIndex/'+id+'/'+data_name+'/'+data_positionId
+                
             });
         });
         //datatable
@@ -185,7 +203,7 @@
             "sPaginationType": "full_numbers",
             "sDom": '<"">t<"F"ip>',
             "autoWidth": false,  //自适应宽度
-            "sAjaxSource": "/web/staff/findStaffList", //ajax调用接口
+            "sAjaxSource": "/web/staff/getPageList", //ajax调用接口
             "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
             "aoColumns": [
                 {"sTitle": "用户姓名", "mData": "realname"},
@@ -205,7 +223,7 @@
                     }
                 },
                 {"sWidth": "300px", "sTitle" : "基本操作","mData" : "id","sClass":"tab_operate", "mRender" : function ( data, type, full ) {
-                        var text = '<a class="operateBtn JS_modifypower" href="javascript:void(0);">权限修改</a>&nbsp;|&nbsp;';
+                        var text = '<a class="operateBtn JS_modifypower" href="javascript:void(0);" data_positionId="'+full.positionId+'" data_name="'+full.realname+'" data_id="'+data+'">权限修改</a>&nbsp;|&nbsp;';
                         text += '<a class="operateBtn JS_userEdit" href="javascript:void(0);" data_id="'+data+'">用户编辑</a>&nbsp;|&nbsp;';
                         text += '<a class="operateBtn deleteCol JS_delete" href="javascript:void(0);" data_id="'+data+'" >删除</a>&nbsp;|&nbsp;';
                         text += '<a class="operateBtn modifyPass" href="javascript:void(0);" data_id="'+data+'" account="'+full.account+'">修改密码</a>';
@@ -236,7 +254,8 @@
                     "url": sSource,
                     "data": {
                         'pageNum': (aoData[3].value / aoData[4].value) + 1,
-                        'pageSize': aoData[4].value
+                        'pageSize': aoData[4].value,
+                        'positionId':$("#positionId").val()
                     },
                     "success": fnCallback
                 });

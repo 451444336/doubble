@@ -15,6 +15,7 @@
 	        #{id}  
 	    </foreach>  
 	</update> 
+	<!--根据部门ID和职位ID 获取职位  -->
 	<select id="selectPositionList" resultType="com.born.facade.vo.companyPosition.CompanyPositionVO" parameterType="com.born.facade.dto.position.CompanyPositionDTO">
 		select 
 			p.id as id,
@@ -48,5 +49,22 @@
 	<delete id="deletePositionAuthByPid">
 		DELETE FROM qft_position_authority WHERE position_id = #{positionId}
 	</delete>
+	<!-- 根据公司ID查询职位 -->
+	<select id="selectPosByCompId" resultType="com.born.facade.vo.companyPosition.CompanyPositionVO">
+		select 
+			p.id as id,
+			p.name as name
+		from qft_company_position p
+		LEFT JOIN qft_company_dept d
+		on d.id = p.dept_id
+		where p.is_delete = 0 
+		<if test="companyId != null and companyId != ''">
+			and d.company_id = #{companyId}
+		</if>	
+		<if test="id != null and id != ''">
+			and	p.id = #{id}
+		</if>
+		
 	
+	</select>
 </mapper>

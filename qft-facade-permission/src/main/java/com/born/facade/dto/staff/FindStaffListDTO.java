@@ -33,4 +33,10 @@ public class FindStaffListDTO extends PageBean {
 	
 	@ApiModelProperty(value="职务ID",name="positionId")
 	private Long positionId;
+	//公司ID
+	private String companyId;
+	//权限IDs
+	private String[] permissions;
 }
+
+

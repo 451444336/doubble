@@ -1,5 +1,7 @@
 package com.born.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import com.born.config.shiro.token.TokenManager;
 import com.born.facade.dto.CompanyStaffDTO;
 import com.born.facade.dto.staff.FindStaffListDTO;
 import com.born.facade.service.ICompanyStaffService;
+import com.born.facade.service.IPermissionService;
 import com.born.facade.vo.UserInfoVO;
 import com.born.util.result.Result;
 
@@ -37,6 +40,9 @@ public class CompanyStaffController{
 
 	@Reference(version = "1.0.0")
 	private ICompanyStaffService staffService;
+	
+	@Reference(version = "1.0.0")
+	private IPermissionService permissionService;
 	/**
 	 * 
 	* @Title: index 
@@ -50,9 +56,25 @@ public class CompanyStaffController{
 	 @RequestMapping(value = "/index/{positionId}", method = RequestMethod.GET)
     public String index(@PathVariable String positionId,Model model) {
 		 model.addAttribute("positionId",positionId);
-        return "user/qft_finduser";
+        return "user/qft_userList";
     }
-	 
+	 /**
+		 * 
+		* @Title: editIndex 
+		* @Description: 跳转用户编辑与权限修改
+		* @param @return
+		* @author 明成
+		* @return String
+		* @date 2018年5月8日 下午6:20:12 
+		* @throws
+		 */
+		 @RequestMapping(value = "/editIndex/{userId}/{name}/{positionId}", method = RequestMethod.GET)
+	    public String editIndex(@PathVariable(name="userId") String userId,@PathVariable(name="name") String name,@PathVariable(name="positionId") String positionId,Model model) {
+			 model.addAttribute("userId",userId);
+			 model.addAttribute("name",name);
+			 model.addAttribute("positionId",positionId);
+	        return "user/qft_permission_user";
+	    }
    /**
 	 * 
 	* @Title: addUser 
@@ -99,6 +121,8 @@ public class CompanyStaffController{
 	@GetMapping("/findStaffList")
 	@ResponseBody
 	public Result findStaffList( FindStaffListDTO dto){
+		UserInfoVO user = TokenManager.getLoginUser();
+		dto.setCompanyId(user.getCompanyId());
 		return staffService.findStaffList(dto);
 	}
 	
@@ -173,5 +197,22 @@ public class CompanyStaffController{
 	@ResponseBody
 	public Result getPageList(FindStaffListDTO dto) {
 		return staffService.getPageList(dto);
+	}
+	
+	
+	/**
+	 * 修改个人权限
+	 * @param dto 参数对象
+	 * @return Result 返回对象
+	 */
+	@ApiOperation(value = "修改个人权限",notes = "必须传入用户ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 10100,message = "请求参数有误"),
+            @ApiResponse(code = 200,message = "操作成功")
+    })
+	@ResponseBody
+	@RequestMapping(value = "updatePermission",method = RequestMethod.POST)
+	public Result updatePermission(@PathVariable(name="userId")Long id,@PathVariable(name="permissionIds")List<Long> permissionIds) {
+		return permissionService.addPersonalPermissions(id, permissionIds);
 	}
 }
