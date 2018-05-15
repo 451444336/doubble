@@ -13,6 +13,9 @@
   	<module>qft-facade-permission</module>
   	<module>qft-service-permission</module>
   	<module>qft-pay</module>
+  	<module>qft-task</module>
+  	<module>qft-service-basicbusiness</module>
+  	<module>qft-facade-basicbusiness</module>
   </modules>
   
   
