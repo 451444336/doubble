@@ -131,7 +131,7 @@ public class CompanyRoleController {
 		dto.setCreaterId(su.getId());
 		dto.setCreateTime(new Date());
 		dto.setCompanyId(su.getCompanyId());
-		dto.setOperatedId(id);
+		dto.setTypeId(id);
 		dto.setType((byte)1);
 		dto.setOperate("删除角色");
 		return companyRoleService.deleteById(id,dto);

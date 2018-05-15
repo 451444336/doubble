@@ -46,10 +46,10 @@ public class OperateLogAuthority extends BaseEntity<OperateLogAuthority> {
 	@Column(name = "type")
     private Byte type;
 	/**
-     * 被操作ID：用户ID/角色ID/职位ID/菜单ID
+     * 权限类型ID：用户ID/角色ID/职位ID/菜单ID
      */
-	@Column(name = "operated_id")
-    private Long operatedId;
+	@Column(name = "type_id")
+    private Long typeId;
 	/**
 	 * 操作
 	 */
