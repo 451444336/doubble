@@ -72,7 +72,7 @@
 		<!-- zookeeper版本 -->
 		<zookeeper.version>3.4.8</zookeeper.version>
 		<!-- 调度任务 -->
-		<xxl-job.verion>1.9.0</xxl-job.verion>
+		<xxl-job.verion>1.9.1</xxl-job.verion>
 		<!-- jna es -->
 		<jna.verion>3.0.9</jna.verion>
 		<spring-elasticsearch.verion>1.5.8.RELEASE</spring-elasticsearch.verion>

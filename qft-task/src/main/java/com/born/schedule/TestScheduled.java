@@ -17,8 +17,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component
-@JobHandler(value = "test")
-public class Test extends IJobHandler {
+@JobHandler(value = "testScheduled")
+public class TestScheduled extends IJobHandler {
 	
 	
 	@Override
