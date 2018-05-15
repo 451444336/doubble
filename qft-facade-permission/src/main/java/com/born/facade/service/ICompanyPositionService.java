@@ -86,6 +86,6 @@ public interface ICompanyPositionService {
 	* @return Result
 	* @date 2018年5月9日 下午7:35:17
 	 */
-	Result addPositionAuth(String pId, String authIds,String createrId);
+	Result addPositionAuth(String pId, String[] authIds,String createrId);
 
 }

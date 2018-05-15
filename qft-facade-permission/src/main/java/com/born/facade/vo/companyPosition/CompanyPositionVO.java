@@ -1,7 +1,5 @@
 package com.born.facade.vo.companyPosition;
 
-import java.util.Date;
-
 import lombok.Data;
 /**
  * 公司职位实体VO
@@ -20,7 +18,7 @@ public class CompanyPositionVO  {
 	/**
 	 * 创建时间
 	 */
-	private Date createTime;
+	private String createTime;
 	/**
 	 * 创建人
 	 */
