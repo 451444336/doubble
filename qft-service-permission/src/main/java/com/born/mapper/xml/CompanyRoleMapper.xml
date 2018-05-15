@@ -12,7 +12,7 @@
 			b.is_auth_edit isAuthEdit,
 			b.is_valid isValid
 		FROM
-			qft_staff_role a
+			qft_user_role a
 		LEFT JOIN qft_company_role b ON b.id = a.role_id
 		WHERE
 			a.user_id = #{userId}
@@ -28,7 +28,7 @@
 			qcr.is_valid AS isValid,
 			qcr.company_id AS companyId
 		FROM
-			qft_staff_role qsr
+			qft_user_role qsr
 			JOIN qft_company_role qcr ON
 			qsr.role_id = qcr.id
 			AND qcr.is_delete = 0

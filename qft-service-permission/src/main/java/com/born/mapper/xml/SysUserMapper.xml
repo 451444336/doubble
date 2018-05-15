@@ -43,7 +43,7 @@
 			c.role_name
 		FROM
 			qft_user a
-		LEFT JOIN qft_staff_role b ON a.id = b.user_id
+		LEFT JOIN qft_user_role b ON a.id = b.user_id
 		LEFT JOIN qft_company_role c ON b.role_id = c.id
 		where
 			a.is_delete = 0

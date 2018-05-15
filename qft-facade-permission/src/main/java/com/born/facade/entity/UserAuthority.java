@@ -12,7 +12,7 @@ import lombok.Data;
 /**
  * 
 * @ClassName: StaffAuthority 
-* @Description: 要不过户权限实体
+* @Description: 用户权限实体
 * @author lijie 
 * @date 2018年5月9日 下午5:42:39 
 *

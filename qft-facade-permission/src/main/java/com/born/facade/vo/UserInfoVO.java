@@ -39,6 +39,10 @@ public class UserInfoVO implements Serializable {
      */
     private String companyId;
     /**
+     * 是否能权限编辑：0、不能编辑 1、可以编辑
+     */
+    private Byte isAuthEdit;
+    /**
      * 登陆账户对应的角色
      */
     private List<UserRoleVO> roles;

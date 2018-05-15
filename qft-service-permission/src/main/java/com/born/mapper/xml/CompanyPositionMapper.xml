@@ -24,7 +24,7 @@
 		from qft_company_position p
 		left join qft_user u
 		on u.id = p.creater_id
-		left join qft_company_staff s
+		left join qft_user_info s
 		on u.id = s.user_id
 		where p.is_delete = 0
 		<if test="id != null and id != ''">

@@ -8,7 +8,7 @@ import com.born.util.result.Result;
 /**
  * 
 * @ClassName: IWebUserService 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: IUserService 
 * @author lijie 
 * @date 2018年5月2日 下午2:17:32 
 *

@@ -103,8 +103,8 @@ public class UserServiceImpl implements IUserService {
 	}
 	/**
 	 * 
-	* @Title: getSessionUserVO 
-	* @Description: TODO(这里用一句话描述这个方法的作用) 
+	* @Title: UserInfoVO 
+	* @Description:获取用户信息 
 	* @param @param user
 	* @param @return    设定文件 
 	* @return SessionUserVO    返回类型 

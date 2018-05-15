@@ -17,7 +17,7 @@ import lombok.Data;
 *
  */
 @Data
-@Table(name="qft_company_staff_oper")
+@Table(name="qft_user_oper")
 public class CompanyStaffOper extends BaseEntity<CompanyStaffOper> {
 	
 	

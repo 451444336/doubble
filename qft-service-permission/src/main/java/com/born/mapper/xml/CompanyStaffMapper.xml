@@ -29,7 +29,7 @@
 		id,phone,realname,note,idcard,workstore,attendance_id as attendanceId,
 		grouping,city_id as cityId,city_list as cityList,store_grouping as
 		storegrouping,store,update_time as updateTime,create_time as createTime
-		from qft_company_staff where
+		from qft_user_info where
 		user_id = #{userId}
 	</select>
 	
@@ -48,11 +48,11 @@
 		from 
 			qft_user u
 		left join 
-			qft_company_staff s
+			qft_user_info s
 		on 
 			s.user_id = u.id
 		left join
-			qft_position_staff ps
+			qft_position_user ps
 		on 
 			ps.user_id = s.user_id
 		left join
@@ -82,12 +82,12 @@
 			qft_user u
 		left join 
 			<!-- 员工表  -->
-			qft_company_staff s
+			qft_user_info s
 		on 
 			s.user_id = u.id
 		left join
 			<!-- 职位员工中间表 -->
-			qft_position_staff ps
+			qft_position_user ps
 		on 
 			ps.user_id = u.id
 		left join
@@ -97,7 +97,7 @@
 			p.id = ps.position_id
 		left join
 			<!--员工操作表  -->
-			qft_company_staff_oper o
+			qft_user_oper o
 		on 
 			o.user_id = u.id	
 		left join
@@ -126,7 +126,7 @@
 	<!-- 逻辑删除员工 -->
 	<update id="updateStaff" parameterType="com.born.facade.dto.staff.DeteleStaffDTO">
 	     UPDATE 
-	    	qft_company_staff
+	    	qft_user_info
 	    SET 
 	    	is_delete = 1,
 	   		update_time = #{updateTime},
@@ -135,7 +135,7 @@
 	</update> 
 	<!-- 添加职位员工关系 -->
 	<insert id="insertPositionStaff" parameterType="com.born.facade.dto.staff.PositionStaffDTO">
-		insert into qft_position_staff (
+		insert into qft_position_user (
 			position_id,
 			user_id,
 			create_time,
@@ -149,7 +149,7 @@
 	</insert>
 	<!-- 修改职位员工关系 -->
 	<insert id="updatePositionStaff" parameterType="com.born.facade.dto.staff.PositionStaffDTO">
-		update qft_position_staff set 
+		update qft_position_user set 
 			position_id = #{positionId}
 		where 
 			user_id = #{userId}
