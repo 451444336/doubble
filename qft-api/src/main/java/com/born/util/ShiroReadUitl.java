@@ -189,9 +189,7 @@ public class ShiroReadUitl {
 	public static LinkedHashMap<String, LinkedHashMap<String, String>> readShrio() {
 		ShiroReadUitl ini = null;
 		try {
-			File file = ResourceUtils.getFile("classpath:shiro/shiro.config");
-			Log.info("文件配置地址={}", file.getPath());
-			ini = new ShiroReadUitl(file);
+			ini = new ShiroReadUitl(new ClassPathResource("/shiro/shiro.config").getFile());
 			if (ini != null) {
 				return ini.get();
 			}
