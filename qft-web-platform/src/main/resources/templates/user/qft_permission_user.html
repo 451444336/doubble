@@ -97,6 +97,17 @@
                         		  console.log(subMeunBox_obj);
                         		 $('#ul_'+obj['id']).append('<li id="submeun_'+subMeunBox_obj['id']+'"><a class="link_subMeun" href="javascript:void(0);">'+subMeunBox_obj['menuName']+'</a></li>');
                         		 showSubMeun($(".mainMeun li:eq(0)")[0].id);
+                  				 $('.powerOptionBox').append('<div class="powerOption meun_'+obj['id']+' submeun_'+subMeunBox_obj['id']+'" id="three_submeun_'+subMeunBox_obj['id']+'">'+
+       			 					 	'<h2 class="PopupTitle margin0">'+subMeunBox_obj.menuName+'</h2>'+
+       			 					 	'<div class="look_power"><p class="subPowerTit"><span>查看权限</span><label class="powerLabel"><input class="checkAll commonly_checkbox" name="" type="checkbox">全选</label></p>'+
+       			 					 	'<ul class="powerOptionList" id="look_'+subMeunBox_obj['id']+'"></ul></div>'+
+       			 					 	'<div class="operate_power"><p class="subPowerTit"><span>操作权限</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
+       			 					 	'<ul class="powerOptionList" id="operate_'+subMeunBox_obj['id']+'"></ul></div>'+
+       			 					 	'<div class="delete_power"><p class="subPowerTit"><span>修改删除</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
+       			 					 	'<ul class="powerOptionList" id="delete_'+subMeunBox_obj['id']+'"></ul></div>'+
+       			 					 	'<div class="delete_power"><p class="subPowerTit"><span>特殊权限</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
+       			 					 	'<ul class="powerOptionList" id="special_'+subMeunBox_obj['id']+'"></ul></div>'+
+       			 					 	'</div>');
                         		 var permission = subMeunBox_obj['permission'];
                         		 console.log(permission);
                         		 if(permission==null){
@@ -104,17 +115,6 @@
                         		 } 
                         		 //三级权限菜单
                        			 $.each(permission.permissions, function(powerOptionList_index, powerOptionList_obj){
-                       				 $('.powerOptionBox').append('<div class="powerOption meun_'+obj['id']+' submeun_'+subMeunBox_obj['id']+'" id="three_submeun_'+subMeunBox_obj['id']+'">'+
-            			 					 	'<h2 class="PopupTitle margin0">'+permission.menuName+'</h2>'+
-            			 					 	'<div class="look_power"><p class="subPowerTit"><span>查看权限</span><label class="powerLabel"><input class="checkAll commonly_checkbox" name="" type="checkbox">全选</label></p>'+
-            			 					 	'<ul class="powerOptionList" id="look_'+subMeunBox_obj['id']+'"></ul></div>'+
-            			 					 	'<div class="operate_power"><p class="subPowerTit"><span>操作权限</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
-            			 					 	'<ul class="powerOptionList" id="operate_'+subMeunBox_obj['id']+'"></ul></div>'+
-            			 					 	'<div class="delete_power"><p class="subPowerTit"><span>修改删除</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
-            			 					 	'<ul class="powerOptionList" id="delete_'+subMeunBox_obj['id']+'"></ul></div>'+
-            			 					 	'<div class="delete_power"><p class="subPowerTit"><span>特殊权限</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
-            			 					 	'<ul class="powerOptionList" id="special_'+subMeunBox_obj['id']+'"></ul></div>'+
-            			 					 	'</div>');
                        				var pow_html;
                        				 if(powerOptionList_obj.isCheck==1){
                        					pow_html = '<li><label class="powerLabel"><input checked="checked" class="checkOdd commonly_submeun_'+subMeunBox_obj['id']+'" name="permissionIds" value="'+powerOptionList_obj['authorityId']+'" type="checkbox">'+powerOptionList_obj['authorityName']+'</label></li>';
@@ -151,6 +151,25 @@
                      }else{
                          $('.JS_powerBtn').addClass('hide');
                      }
+                 });
+                 //初始化
+                 $('.powerSubMeun').first().show().siblings().hide();
+//                 showSubMeun($(".mainMeun li:eq(0)")[0].id);
+                 //$('#powerBtn').html("<input class=\"powerBtn\" type=\"button\" value=\"全选查看权限\" onclick=\"allSelectByTpye(this,'search')\"><input class=\"powerBtn\" type=\"button\" value=\"全选操作权限\" onclick=\"allSelectByTpye(this,'hand')\"><input class=\"powerBtn\" type=\"button\" value=\"全选删除权限\" onclick=\"allSelectByTpye(this,'delete')\">");
+                 //一级菜单点击事件
+                 $('.mainMeun').on('click','li',function(){
+                     var id = this.id;
+                     $(this).addClass('meunHover').siblings('li').removeClass('meunHover');
+                     $('.powerSubMeun li').removeClass('subMeunHover');
+                     showSubMeun(id);
+                     //$('#powerBtn').html("<input class=\"powerBtn\" type=\"button\" value=\"全选查看权限\" onclick=\"allSelectByTpye(this,'search')\"><input class=\"powerBtn\" type=\"button\" value=\"全选操作权限\" onclick=\"allSelectByTpye(this,'hand')\"><input class=\"powerBtn\" type=\"button\" value=\"全选删除权限\" onclick=\"allSelectByTpye(this,'delete')\">")
+                 });
+                 //二级菜单点击事件
+                 $('.powerSubMeun').on('click','li',function(){
+                     $(this).addClass('subMeunHover').siblings('li').removeClass('subMeunHover');
+                     var subId = this.id;
+                     showSubMeunTwo(subId);
+                     //$('#powerBtn').html("<input class=\"powerBtn\" type=\"button\" value=\"全选查看权限\" onclick=\"allSelectByTpye(this,'searchTwo')\"><input class=\"powerBtn\" type=\"button\" value=\"全选操作权限\" onclick=\"allSelectByTpye(this,'handTwo')\"><input class=\"powerBtn\" type=\"button\" value=\"全选删除权限\" onclick=\"allSelectByTpye(this,'deleteTwo')\">")
                  });
               }
          });
