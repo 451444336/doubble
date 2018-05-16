@@ -9,6 +9,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.ResourceUtils;
+
+import com.esotericsoftware.minlog.Log;
 
 /**
  * 
@@ -186,7 +189,9 @@ public class ShiroReadUitl {
 	public static LinkedHashMap<String, LinkedHashMap<String, String>> readShrio() {
 		ShiroReadUitl ini = null;
 		try {
-			ini = new ShiroReadUitl(new ClassPathResource("/shiro/shiro.config").getFile());
+			File file = ResourceUtils.getFile("classpath:shiro/shiro.config");
+			Log.info("文件配置地址={}", file.getPath());
+			ini = new ShiroReadUitl(file);
 			if (ini != null) {
 				return ini.get();
 			}
