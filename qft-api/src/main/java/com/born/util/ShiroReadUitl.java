@@ -3,15 +3,15 @@ package com.born.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.ResourceUtils;
-
-import com.esotericsoftware.minlog.Log;
 
 /**
  * 
@@ -189,7 +189,11 @@ public class ShiroReadUitl {
 	public static LinkedHashMap<String, LinkedHashMap<String, String>> readShrio() {
 		ShiroReadUitl ini = null;
 		try {
-			ini = new ShiroReadUitl(new ClassPathResource("/shiro/shiro.config").getFile());
+			String fileName = "shiro.config";
+			InputStream inCfg = ShiroReadUitl.class.getClassLoader().getResourceAsStream("shiro/" + fileName);
+			File file = new File(fileName);
+			inputStreamToFile(inCfg, file);
+			ini = new ShiroReadUitl(file);
 			if (ini != null) {
 				return ini.get();
 			}
@@ -197,6 +201,31 @@ public class ShiroReadUitl {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * 
+	* @Title: inputstreamtofile 
+	* @Description: 转换输入流为file文件类型
+	* @param ins
+	* @param file 
+	* @author 张永胜
+	* @return void
+	* @date 2018年5月16日 下午5:33:35
+	 */
+	public static void inputStreamToFile(InputStream ins, File file) {
+		try {
+			OutputStream os = new FileOutputStream(file);
+			int bytesRead = 0;
+			byte[] buffer = new byte[8192];
+			while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+				os.write(buffer, 0, bytesRead);
+			}
+			os.close();
+			ins.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
