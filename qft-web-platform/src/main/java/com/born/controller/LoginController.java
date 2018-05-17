@@ -66,10 +66,12 @@ public class LoginController {
     * @author lijie
     * @throws
      */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String loginPage() {
-        return "redirect:login";
-    }
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String loginPage(HttpServletRequest request) {
+		// TODO:没有输入公司则跳转首页
+		return "login";
+	}
+	
    /**
     * 
    * @Title: index 
@@ -79,7 +81,7 @@ public class LoginController {
    * @author lijie
    * @throws
     */
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/web/index", method = RequestMethod.GET)
 	public ModelAndView index() {
 		ModelAndView result = new ModelAndView("index");
 		// 返回index需要的用户名和角色信息
@@ -88,14 +90,12 @@ public class LoginController {
 			result.addObject("userId", su.getId());
 			result.addObject("userName", su.getUserName());
 			result.addObject("corUrl", su.getCorUrl());
-			StringBuffer sb = new StringBuffer();
+			StringBuilder sb = new StringBuilder();
 			if (CollectionUtils.isNotEmpty(su.getRoles())) {
 				for (UserRoleVO sr : su.getRoles()) {
 					sb.append(sr.getRoleName()).append(",");
 				}
-				String str = sb.toString();
-				String roleNames = str.substring(0, str.length() - 1);
-				result.addObject("roleName", roleNames);
+				result.addObject("roleName", sb.deleteCharAt(sb.length() - 1));
 			} else {
 				result.setViewName("login");
 				result.addObject("code", PermissionExceptionEnum.NO_ROLE.getCode());
@@ -103,7 +103,7 @@ public class LoginController {
 			}
 		}
 		return result;
-    }
+	}
 
 
     /**
@@ -115,41 +115,42 @@ public class LoginController {
     * @author lijie
     * @throws
      */
-	@RequestMapping(value = "/login/{corUrl}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{corUrl}", method = RequestMethod.GET)
 	public String loginByCorUrl(@PathVariable(required = false) String corUrl, Model model,
 			HttpServletRequest request) {
+		if ("login".equals(corUrl)) {
+			corUrl = SessionUtil.getCorUrl(request);
+			if (StringUtils.isNotBlank(corUrl) && !"login".equals(corUrl)) {
+				return "redirect:/" + corUrl;
+			}
+		}
 		if (StringUtils.isNotBlank(corUrl)) {
 			Result cor = permissionService.getCompanyInfoByCorUrl(corUrl);
 			if (cor.isSuccess()) {
 				model.addAttribute("corUrl", corUrl);
+				SessionUtil.setCorUrl(request, corUrl);
+				return "login";
+			} else {
+				model.addAttribute("message", "公司不存在");
 				return "login";
 			}
 		}
-		return "error/404";
+		return "redirect:404";
 	}
 	/**
 	 * 
-	* @Title: login 
-	* @Description: 默认请求
-	* @param @param model
-	* @param @param request
+	* @Title: jum404 
+	* @Description: 跳转404
 	* @param @return    设定文件 
 	* @return String    返回类型 
 	* @author lijie
 	* @throws
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model,HttpServletRequest request) {
-		String corUrl = SessionUtil.getCorUrl(request);
-		Result cor = permissionService.getCompanyInfoByCorUrl(corUrl);
-		if (cor.isSuccess()) {
-			model.addAttribute("corUrl", corUrl);
-			return "login";
-		}
+	@RequestMapping(value = "/404", method = RequestMethod.GET)
+	public String jum404(){
+		
 		return "error/404";
 	}
-
-
     /**
      * 
     * @Title: logout 
@@ -161,12 +162,14 @@ public class LoginController {
      */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request) {
+    	String corUrl = "";
         try {
+        	corUrl = SessionUtil.getCorUrl(request);
             SecurityUtils.getSubject().logout();
         } catch (Exception e) {
             log.error("注销登录处理错误", e);
         }
-        return "redirect:login";
+        return "redirect:/" + corUrl;
     }
 
 
@@ -181,7 +184,7 @@ public class LoginController {
      */
     @RequestMapping("/403")
     public String unauthorizedRole() {
-        return "redirect:noPermission";
+        return "error/403";
     }
 
 

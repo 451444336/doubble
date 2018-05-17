@@ -23,7 +23,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**", "/upload/**", "/login/**", "/favicon.ico").addResourceLocations("classpath:/upload/", "classpath:/static/", "/favicon.ico");
+        registry.addResourceHandler("/static/**", "/upload/**", "/login/**","/*", "/favicon.ico").addResourceLocations("classpath:/upload/", "classpath:/static/", "/favicon.ico");
         super.addResourceHandlers(registry);
     }
  

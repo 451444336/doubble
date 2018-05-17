@@ -29,6 +29,19 @@ public class SessionUtil {
 		if(null != url){
 			return url.toString();
 		}
-		return "admin";
+		return "";
+	}
+	/**
+	 * 
+	* @Title: setCorUrl 
+	* @Description:保存值 
+	* @param @param request
+	* @param @param corUrl    设定文件 
+	* @return void    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	public static void setCorUrl(HttpServletRequest request, String corUrl) {
+		request.getSession().setAttribute(SysConstants.COR_URL, corUrl);
 	}
 }
