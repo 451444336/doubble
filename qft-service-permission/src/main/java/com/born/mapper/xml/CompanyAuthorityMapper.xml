@@ -44,44 +44,56 @@
 	<select id="selectPersonalPermissions" resultType="com.born.facade.vo.permission.PermissionVO">
 		SELECT
 			a.authority_id authorityId,
-			c.authority_name authorityName,
-			c.authority_url authorityUrl,
-			c.oper_type operType
+			b.authority_name authorityName,
+			b.authority_url authorityUrl,
+			b.type operType
 		FROM
 			qft_user_authority a
 		LEFT JOIN qft_company_authority b ON a.authority_id = b.id
-		LEFT JOIN qft_menu_authority_base c ON b.authority_base_id = c.id
 		where
 			a.user_id = #{userId}
-		and c.is_delete = 0
+		and b.is_delete = 0
 	</select>
 	<!-- 查询职位权限数据 -->
 	<select id="selectPositionPermissions" resultType="com.born.facade.vo.permission.PermissionVO">
 		SELECT
 			a.authority_id authorityId,
-			c.authority_name authorityName,
-			c.authority_url authorityUrl,
-			c.oper_type operType
+			b.authority_name authorityName,
+			b.authority_url authorityUrl,
+			b.type operType
 		FROM
 			qft_position_authority a
 		LEFT JOIN qft_company_authority b ON a.authority_id = b.id
-		LEFT JOIN qft_menu_authority_base c ON b.authority_base_id = c.id
 		where
 			a.position_id = #{positionId}
-		and c.is_delete = 0
+		and b.is_delete = 0
 	</select>
 	<!-- 查询公司权限数据 -->
 	<select id="selectPermissions" resultType="com.born.facade.vo.permission.PermissionVO">
 		SELECT
-			b.id authorityId,
-			b.authority_name authorityName,
-			b.authority_url authorityUrl,
-			b.oper_type operType
+			a.id authorityId,
+			a.authority_name authorityName,
+			a.authority_url authorityUrl,
+			a.type operType
 		FROM
 			qft_company_authority a
-		LEFT JOIN qft_menu_authority_base b ON a.authority_base_id = b.id
 		where
 			a.company_id = #{companyId}
-		and c.is_delete = 0
+		and a.is_delete = 0
 	</select>
+	
+	<!-- 修改权限数据是否删除状态 -->
+	<update id="updateMenuAuthorityByAuthIds">
+		update 
+			qft_company_authority 
+		set 
+			is_delete = #{isDelete},
+			update_time = now(),
+			updater_id = #{updaterId}
+		where 
+			id in 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+	</update>
 </mapper>

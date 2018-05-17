@@ -36,4 +36,9 @@ public class MenuQueryDTO extends BaseValidate {
 	 */
 	@NotNull(message = "菜单所属类型不能为空")
 	private Byte ascription;
+	/**
+	 * 角色ID
+	 */
+	@NotNull(message = "角色ID不能为空")
+	private Long roleId;
 }

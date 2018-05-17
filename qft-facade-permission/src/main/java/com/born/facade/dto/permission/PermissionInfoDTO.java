@@ -10,36 +10,29 @@ import lombok.Data;
 /**
  * 
 * @ClassName: PermissionInfoDTO 
-* @Description: 菜单/权限详情传输DTO
+* @Description: TODO(这里用一句话描述这个类的作用) 
 * @author lijie 
-* @date 2018年5月3日 上午11:09:59 
+* @date 2018年5月17日 下午1:52:00 
 *
  */
 @Data
-@ApiModel(value="菜单/权限数据")
-public class PermissionInfoDTO extends BaseValidate<PermissionInfoDTO> {
-	/**
+@ApiModel(value="菜单权限数据")
+public class PermissionInfoDTO extends BaseValidate<MenuDTO> {/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3275902221744206164L;
+	private static final long serialVersionUID = 4909453697343120266L;
 	/**
-	 * 
+	 * 菜单ID
 	 */
-	@ApiModelProperty(value = "公司ID", required = true)
-	@NotBlank(message = "公司ID不能为空")
-	private String companyId;
+	@ApiModelProperty(value = "菜单ID", required = true)
+	@NotBlank(message = "菜单不能为空")
+	private String menuId;
 	/**
-	 * 权限ID
+	 * 菜单操作权限ID
 	 */
-	@ApiModelProperty(value = "菜单/权限ID", required = true)
+	@ApiModelProperty(value = "权限ID", required = true)
 	@NotBlank(message = "权限ID不能为空")
-	private String id;
-	/**
-	 * 上级ID
-	 */
-	@ApiModelProperty(value = "上级菜单/权限ID", required = true)
-	@NotBlank(message = "上级菜单/权限ID不能为空")
-	private String parentId;
+	private String authId;
 	/**
 	 * 是否可用：0、不可用 1、可用
 	 */
@@ -49,12 +42,12 @@ public class PermissionInfoDTO extends BaseValidate<PermissionInfoDTO> {
 	 * 权限名称
 	 */
 	@ApiModelProperty(value = "权限名称", required = true)
-	private String menuName;
+	private String authName;
 	/**
 	 * 权限访问地址
 	 */
 	@ApiModelProperty(value = "权限访问地址", required = true)
-	private String menuUrl;
+	private String authUrl;
 	/**
 	 * 权限归属类型：1、pc  2、手机
 	 */
@@ -73,32 +66,21 @@ public class PermissionInfoDTO extends BaseValidate<PermissionInfoDTO> {
 	/**
 	 * 手机排序
 	 */
-	@ApiModelProperty(value = "手机排序", required = true)
+	@ApiModelProperty(value = "手机排序")
 	private Integer appSeq;
 	/**
 	 * 排序
 	 */
-	@ApiModelProperty(value = "排序", required = true)
-	private Integer menuSeq;
-	/**
-	 * 权限类型：1、正常菜单 2、后台菜单 3、首页菜单 4、公有菜单
-	 */
-	@ApiModelProperty(value = "权限类型：1、正常菜单 2、后台菜单 3、首页菜单 4、公有菜单", required = true)
-	private Byte type;
+	@ApiModelProperty(value = "排序")
+	private Integer authSeq;
 	/**
 	 * 权限操作类型：1、查看 2、修改删除 3、操作 4、特殊
 	 */
 	@ApiModelProperty(value = "权限操作类型：1、查看 2、修改删除 3、操作 4、特殊", required = true)
-	private Byte operType;
-	/**
-	 * 菜单级别
-	 */
-	@ApiModelProperty(value = "菜单级别", required = true)
-	private Integer menuLevel;
+	private Byte type;
 	/**
 	 * 权限编码
 	 */
 	@ApiModelProperty(value = "权限编码")
 	private String authCode;
-	
 }

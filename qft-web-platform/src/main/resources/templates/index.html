@@ -157,10 +157,10 @@
                 console.log(data.data);
                 if (data.success) {
                     MenuTree(data.data);
-                } else {
                 }
             },
             error: function (data) {
+            	layer.alert("加载菜单数据错误！");
             }
         });
     })

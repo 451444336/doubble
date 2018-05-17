@@ -9,28 +9,27 @@
 	    	b.id,
 			b.parent_id parentId,
 			b.menu_level menuLevel,
-			c.authority_name menuName,
-			c.authority_url menuUrl,
-			c.ascription,
-			c.icon,
-			c.type
+			b.menu_name menuName,
+			b.menu_url menuUrl,
+			b.ascription,
+			b.icon,
+			b.type
 		FROM
 			qft_company_role_menu a
 		LEFT JOIN qft_company_menu b ON a.menu_id = b.id
-		LEFT JOIN qft_menu_authority_base c on b.authority_base_id = c.id
 		WHERE
 			b.company_id = #{dto.companyId}
-		AND c.ascription = #{dto.ascription}
+		AND b.ascription = #{dto.ascription}
 		AND a.role_id in
         <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
             #{item}
         </foreach>
         ORDER BY
         <if test="dto.ascription == 1">
-	         c.authority_seq
+	         b.menu_seq
         </if>
         <if test="dto.ascription == 2">
-	         c.app_seq
+	         b.app_seq
         </if>
         ASC
 	</select>
@@ -42,22 +41,22 @@
 			a.company_id companyId,
 			a.parent_id parentId,
 			a.menu_level menuLevel,
-			b.authority_name menuName,
-			b.authority_url menuUrl,
-			b.ascription,
-			b.icon,
-			b.type
+			a.menu_name menuName,
+			a.menu_url menuUrl,
+			a.ascription,
+			a.icon,
+			a.type
 		FROM
-			qft_company_menu a LEFT JOIN qft_menu_authority_base b on a.authority_base_id = b.id
+			qft_company_menu a
 		where 1= 1
 		<if test="null != companyId and companyId != ''">
 			and a.company_id = #{companyId}
 		</if>
 		<if test ="null != ascription">
-			and b.ascription = #{ascription}
+			and a.ascription = #{ascription}
 		</if>
 		<if test ="null == companyId or companyId == ''">
-			group by b.authority_id
+			group by a.base_menu_id
 		</if>
 	</select>
 	
@@ -67,15 +66,14 @@
 			b.id,
 			b.parent_id parentId,
 			b.menu_level menuLevel,
-			c.authority_name menuName,
-			c.authority_url menuUrl,
-			c.ascription,
-			c.icon,
-			c.type
+			b.menu_name menuName,
+			b.menu_url menuUrl,
+			b.ascription,
+			b.icon,
+			b.type
 		FROM
 			qft_company_role_menu a
 		LEFT JOIN qft_company_menu b ON a.menu_id = b.id
-		LEFT JOIN qft_menu_authority_base c on b.authority_base_id = c.id
 		WHERE
 			a.role_id in
         <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
@@ -119,13 +117,12 @@
 		SELECT
 			b.id,
 			b.parent_id,
-			c.authority_name as menu_name,
-			c.authority_url as menu_url,
-			c.icon
+			b.menu_name as menu_name,
+			b.menu_url as menu_url,
+			b.icon
 		FROM
 			qft_company_role_menu a
 		JOIN qft_company_menu b ON a.menu_id = b.id
-		JOIN qft_menu_authority_base c ON c.id = b.authority_base_id
 		WHERE
 			a.role_id = #{roleId}
 			and b.parent_id = 0
@@ -134,12 +131,11 @@
        SELECT
 			b.id,
 			b.parent_id,
-			c.authority_name as menu_name,
-			c.authority_url as menu_url,
-			c.icon
+			b.menu_name as menu_name,
+			b.menu_url as menu_url,
+			b.icon
 		FROM
 			qft_company_menu b
-			JOIN qft_menu_authority_base c ON c.id = b.authority_base_id
         WHERE b.parent_id = #{id}
     </select>
     <select id="selectMenuAuth" resultType="com.born.facade.vo.appauth.UserMenuAuthVo">
@@ -159,8 +155,8 @@
 	<resultMap id="menu_submenu" type="com.born.facade.vo.MenuVO">
         	<id property="id" column="id"/>
          	<result property="parentId" column="parent_id"/>
-        	<result property="menuName" column="authority_name"/>
-	      	<result property="menuUrl" column="authority_url"/>
+        	<result property="menuName" column="menu_name"/>
+	      	<result property="menuUrl" column="menu_url"/>
 	      	<result property="menuLevel" column="menu_level"/>
 	      	<collection property="childs" column="id"
                     ofType="com.born.facade.vo.MenuVO" select="selectSubmenus"></collection>
@@ -171,11 +167,10 @@
 			a.id,
 			a.parent_id,
 			a.menu_level,
-			b.authority_name,
-			b.authority_url
+			a.menu_name,
+			a.menu_url
 		FROM
 			qft_company_menu a
-		LEFT JOIN qft_menu_authority_base b ON a.authority_base_id = b.id
 		WHERE
 			a.parent_id = #{id}
     </select>
@@ -185,12 +180,25 @@
 			a.id,
 			a.parent_id,
 			a.menu_level,
-			b.authority_name,
-			b.authority_url
+			a.menu_name,
+			a.menu_url
 		FROM
 			qft_company_menu a
-		LEFT JOIN qft_menu_authority_base b ON a.authority_base_id = b.id
 		WHERE
 			a.id = #{menuId}
 	</select>
+	<!-- 修改权限数据是否删除状态 -->
+	<update id="updateMenuByAuthIds">
+		update 
+			qft_company_menu 
+		set 
+			is_delete = #{isDelete},
+			update_time = now(),
+			updater_id = #{updaterId}
+		where 
+			id in 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+	</update>
 </mapper>
