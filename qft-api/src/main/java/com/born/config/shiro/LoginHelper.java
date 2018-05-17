@@ -12,7 +12,7 @@ import com.born.config.exception.login.AppLoginErrorCountException;
 import com.born.config.exception.login.AppLoginPassErrorException;
 import com.born.config.exception.login.AppLoginUnifyException;
 import com.born.core.constant.CommonConstants;
-import com.born.core.constant.KeyConstants;
+import com.born.core.constant.PropertiesConstants;
 import com.born.core.rediscache.ICacheService;
 import com.born.dto.LoginInfo;
 import com.born.dto.RegisterInfo;
@@ -55,13 +55,13 @@ public class LoginHelper {
 
 		String account = loginInfo.getAccount();
 		String password = SecurityUtil.decryptRSAPrivate(loginInfo.getPassword(),
-				KeyConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.PRIVATE_KEY));
+				PropertiesConstants.PROPERTIES_MAP.get(CommonConstants.PRIVATE_KEY));
 
 		/**
 		 * SignRSA 验签 防止唯一接口劫持篡改
 		 */
 		if (!SecurityUtil.verifyRSA(SecurityUtil.encryptMd5Hex(account + password),
-				KeyConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), loginInfo.getSign())) {
+				PropertiesConstants.PROPERTIES_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), loginInfo.getSign())) {
 			return JsonResult.info(ResultCode.INCORRECT_SIGNATURE);
 		}
 
@@ -145,7 +145,7 @@ public class LoginHelper {
 
 			String account = registerInfo.getAccount();
 			String password = SecurityUtil.decryptRSAPrivate(registerInfo.getPassword(),
-					KeyConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.PRIVATE_KEY));
+					PropertiesConstants.PROPERTIES_MAP.get(CommonConstants.PRIVATE_KEY));
 			String deviceNumber = registerInfo.getDeviceNumber();
 			String sourceType = registerInfo.getSourceType();
 
@@ -153,7 +153,7 @@ public class LoginHelper {
 			 * SignRSA 验签 防止唯一接口劫持篡改
 			 */
 			if (!SecurityUtil.verifyRSA(SecurityUtil.encryptMd5Hex(account + deviceNumber + password + sourceType),
-					KeyConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), registerInfo.getSign())) {
+					PropertiesConstants.PROPERTIES_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), registerInfo.getSign())) {
 				return JsonResult.info(ResultCode.INCORRECT_SIGNATURE);
 			}
 

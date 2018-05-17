@@ -17,7 +17,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.born.config.auth.token.Token;
 import com.born.config.auth.token.TokenManager;
 import com.born.core.constant.CommonConstants;
-import com.born.core.constant.KeyConstants;
+import com.born.core.constant.PropertiesConstants;
 import com.born.util.constants.AppConstants;
 import com.born.util.encrypt.security.SecurityUtil;
 import com.born.util.json.JsonResult;
@@ -115,7 +115,7 @@ public class AccessTokenFilter extends AccessControlFilter {
 		 */
 		String vStr = append(token, nonc, timestamp, model.getUserId());
 		if (!SecurityUtil.verifyRSA(SecurityUtil.encryptMd5Hex(vStr),
-				KeyConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), sign)) {
+				PropertiesConstants.PROPERTIES_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), sign)) {
 			log.info("签名错误");
 			outWrite(response, JsonResult.fail(ResultCode.INCORRECT_SIGNATURE));
 			return false;

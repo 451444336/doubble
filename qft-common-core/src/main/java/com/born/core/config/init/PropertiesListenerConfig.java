@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.springframework.beans.BeansException;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
-import com.born.core.constant.KeyConstants;
+import com.born.core.constant.PropertiesConstants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,7 +39,7 @@ public class PropertiesListenerConfig {
 				/**
 				 * PropertiesLoaderUtils的默认编码是ISO-8859-1,在这里转码一下
 				 */
-				KeyConstants.PROPERTIES_RSA_KEY_MAP.put(keyStr,
+				PropertiesConstants.PROPERTIES_MAP.put(keyStr,
 						new String(props.getProperty(keyStr).getBytes("ISO-8859-1"), "utf-8"));
 			} catch (UnsupportedEncodingException e) {
 				log.error("启动时读取配置文件，转换成 Unicode 异常", e);
