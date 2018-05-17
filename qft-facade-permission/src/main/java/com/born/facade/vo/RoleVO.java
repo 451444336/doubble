@@ -37,6 +37,10 @@ public class RoleVO implements Serializable {
      */
     private Byte isAuthEdit;
     /**
+     * 角色编码
+     */
+    private String roleCode;
+    /**
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

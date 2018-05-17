@@ -7,7 +7,6 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,15 +64,10 @@ public class CompanyRoleController {
 		CompanyRoleDTO role = new CompanyRoleDTO();
 		role.setRoleName(roleName);
 		role.setIsAuthEdit(isAuthEdit);
-		role.setIsValid(1);
+		
 		// 获取当前登录用户
 		UserInfoVO su = TokenManager.getLoginUser();
-		// 设置默认值
-		role.setCreateTime(new Date());
-		role.setUpdateTime(new Date());
 		role.setCreaterId(su.getId());
-		role.setUpdaterId(su.getId());
-		role.setIsDelete(0);
 		role.setCompanyId(su.getCompanyId());
 		return companyRoleService.insert(role);
 	}

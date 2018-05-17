@@ -2,10 +2,8 @@ package com.born.config.shiro;
 
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -18,10 +16,6 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.born.facade.vo.MenuAuthorityVO;
-import com.born.facade.vo.MenuVO;
-import com.born.util.result.Result;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import lombok.extern.slf4j.Slf4j;
@@ -269,35 +263,9 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/login/**", "anon");
 		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/doLogin", "anon");
-		filterChainDefinitionMap.put("/index", "user");
-
-		// 此处目前 是获取所有公司的菜单数据
-		Result result = myShiroRealm.getMenuService().getMenuList((String) null);
-		if (result.isSuccess()) {
-			// 获取所有菜单
-			@SuppressWarnings("unchecked")
-			List<MenuVO> MenuVOs = result.getData(List.class);
-			for (MenuVO mv : MenuVOs) {
-				if (StringUtils.isNotBlank(mv.getMenuUrl())) {
-					filterChainDefinitionMap.put(mv.getMenuUrl(), "user,perms[" + mv.getMenuUrl() + "]");
-				}
-			}
-		}
-		// 获取所有菜单权限（按钮操作权限）
-		Result mresult = myShiroRealm.getMenuAuthorityService().getMenuAuthorityList((String) null);
-		if (mresult.isSuccess()) {
-			@SuppressWarnings("unchecked")
-			List<MenuAuthorityVO> authList = mresult.getData(List.class);
-			for (MenuAuthorityVO auth : authList) {
-				if (StringUtils.isNotBlank(auth.getAuthorityUrl())) {
-					filterChainDefinitionMap.put(auth.getAuthorityUrl(), "user,perms[" + auth.getAuthorityId() + "]");
-				}
-			}
-		}
 
 		filterChainDefinitionMap.put("/**", "authc");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
 		shiroFilterFactoryBean.setLoginUrl("/login");
 		// 登录成功后要跳转的连接
 		shiroFilterFactoryBean.setSuccessUrl("/index");

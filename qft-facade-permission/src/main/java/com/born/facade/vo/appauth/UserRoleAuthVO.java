@@ -26,7 +26,7 @@ public class UserRoleAuthVO {
 	/**
 	 * 是否能权限编辑
 	 */
-	private Integer isAuthEdit;
+	private Byte isAuthEdit;
 
 	/**
 	 * 角色菜单列表

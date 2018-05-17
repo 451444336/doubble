@@ -62,4 +62,8 @@ public class MenuAuthorityVO implements Serializable {
 	 * 是否可用：0、不可用 1、可用
 	 */
 	private Byte isUsable;
+	/**
+	 * 权限编码
+	 */
+	private String authCode;
 }

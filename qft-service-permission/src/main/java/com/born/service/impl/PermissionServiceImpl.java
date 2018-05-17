@@ -366,6 +366,7 @@ public class PermissionServiceImpl implements IPermissionService {
 		insert.setCompanyId(dto.getCompanyId());
 		insert.setType(dto.getType());
 		insert.setOperType(dto.getOperType());
+		insert.setAuthCode(dto.getAuthCode());
 	}
 	/**
 	 * @throws CloneNotSupportedException 

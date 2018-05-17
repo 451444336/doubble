@@ -95,5 +95,10 @@ public class PermissionInfoDTO extends BaseValidate<PermissionInfoDTO> {
 	 */
 	@ApiModelProperty(value = "菜单级别", required = true)
 	private Integer menuLevel;
+	/**
+	 * 权限编码
+	 */
+	@ApiModelProperty(value = "权限编码")
+	private String authCode;
 	
 }

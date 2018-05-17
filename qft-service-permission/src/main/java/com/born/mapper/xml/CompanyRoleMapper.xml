@@ -10,7 +10,8 @@
 			b.role_name roleName,
 			b.create_time createTime,
 			b.is_auth_edit isAuthEdit,
-			b.is_valid isValid
+			b.is_valid isValid,
+			b.role_code roleCode
 		FROM
 			qft_user_role a
 		LEFT JOIN qft_company_role b ON b.id = a.role_id
@@ -71,6 +72,8 @@
 		UPDATE qft_company_role r
 		SET r.is_delete = 1
 		WHERE
+			r.id not in(1,2)
+		and
 			r.id = ${id}
 	</update>
 	

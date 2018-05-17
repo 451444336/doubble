@@ -73,7 +73,7 @@ public class MenuServiceImpl implements IMenuService {
 			}
 			List<RoleVO> rs = companyRoleMapper.selectRoleListByUserId(dto.getUserId());
 			if (CollectionUtils.isEmpty(rs)) {
-				result.setMessage("根据用户ID没有插叙到对应的角色信息");
+				result.setMessage("根据用户ID没有查询到对应的角色信息");
 				return result;
 			}
 			final List<Long> roles = new ArrayList<>();
@@ -186,6 +186,8 @@ public class MenuServiceImpl implements IMenuService {
 				for (Map.Entry<Integer, List<AddMenuDTO>> entry : levelMap.entrySet()) {
 					insertMenu(entry.getValue(), map);
 				}
+				// 为角色超级管理员初始化菜单数据
+				
 				return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 			} else {
 				result.setMessage("菜单数据解析失败");

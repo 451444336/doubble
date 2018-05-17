@@ -42,6 +42,7 @@
       	<result property="icon" column="icon"/>
       	<result property="operType" column="oper_type"/>
       	<result property="menuId" column="menu_id"/>
+      	<result property="authCode" column="auth_code"/>
       	<association property="menuName" column="menu_id"                       
             select="selectMenuName"/>
 	</resultMap>
@@ -64,6 +65,7 @@
 			c.ascription,
 			c.icon,
 			c.oper_type,
+			c.auth_code,
 			a.id,
 			a.menu_id
 		FROM

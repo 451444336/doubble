@@ -21,27 +21,22 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.fastjson.JSON;
 import com.born.config.shiro.token.ShiroToken;
 import com.born.facade.dto.user.LoginDTO;
-import com.born.facade.dto.user.UserDTO;
 import com.born.facade.exception.PermissionExceptionEnum;
-import com.born.facade.service.ICompanyRoleService;
 import com.born.facade.service.IMenuAuthorityService;
 import com.born.facade.service.IMenuService;
 import com.born.facade.service.IUserService;
 import com.born.facade.vo.MenuAuthorityVO;
 import com.born.facade.vo.MenuVO;
-import com.born.facade.vo.RoleVO;
 import com.born.facade.vo.UserAuthVO;
 import com.born.facade.vo.UserInfoVO;
-import com.born.facade.vo.UserVO;
+import com.born.facade.vo.UserRoleVO;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 
@@ -61,9 +56,6 @@ public class MyShiroRealm extends AuthorizingRealm {
     // 用户接口
     @Autowired
     private IUserService userService;
-    // 角色接口
-    @Autowired
-    private ICompanyRoleService roleService;
     // 菜单接口
     @Autowired
     private IMenuService menuService;
@@ -110,32 +102,19 @@ public class MyShiroRealm extends AuthorizingRealm {
 	@Override
 	public AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 		log.info(">> ........ 执行Shiro权限认证 ............. >> ");
-
-		// 获取当前的Subject
-		Subject currentUser = SecurityUtils.getSubject();
 		UserInfoVO userInfo = (UserInfoVO) SecurityUtils.getSubject().getPrincipal();
-		UserVO user = getUserInfo(userInfo.getAccount(), userInfo.getRoles().get(0).getId());
-		if (null == user) {
-			return null;
-		}
-		// 用户的角色集合
-		List<RoleVO> roles = getRoles(user.getId());
-		if (CollectionUtils.isEmpty(roles)) {
-			return null;
-		}
-
 		// 权限信息对象info,用来存放用户的所有角色（role）及权限（permission）
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		info.setRoles(roleToStrs(roles));
-
-		List<MenuVO> menus = getMenus(roles);
+		info.setRoles(roleToStrs(userInfo.getRoles()));
+		
+		List<MenuVO> menus = getMenus(userInfo.getRoles());
 		if (CollectionUtils.isNotEmpty(menus)) {
 			info.addStringPermissions(menuToStrs(menus));
 			// 按钮权限
 			// Session按钮集合
 			Collection<String> permissions = new HashSet<>();
 			// 根据菜单ID 获取菜单操作权限数据
-			List<String> auths = getUserAuths(user.getId(), menus);
+			List<String> auths = getUserAuths(userInfo.getId(), menus);
 			if (CollectionUtils.isNotEmpty(auths)) {
 				info.addStringPermissions(auths);
 				permissions.addAll(auths);
@@ -145,11 +124,6 @@ public class MyShiroRealm extends AuthorizingRealm {
 			log.info("权限详细列表如下:");
 			for (String s : info.getStringPermissions()) {
 				log.info(s);
-			}
-			// 获取当前的Subject把权限按钮放入Session中
-			Session session = currentUser.getSession();
-			for (String s : permissions) {
-				session.setAttribute(s, s);
 			}
 		}
 		return info;
@@ -183,10 +157,10 @@ public class MyShiroRealm extends AuthorizingRealm {
 	* @author lijie
 	* @throws
 	 */
-	private Set<String> roleToStrs(List<RoleVO> roles) {
+	private Set<String> roleToStrs(List<UserRoleVO> roles) {
         Set<String> set = new HashSet<>();
-        for (RoleVO role : roles) {
-            set.add(role.getId().toString());
+        for (UserRoleVO role : roles) {
+            set.add(role.getRoleCode());
         }
         return set;
     }
@@ -227,7 +201,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 			if (CollectionUtils.isNotEmpty(malist)) {
 				for (MenuAuthorityVO ma : malist) {
 					if (authSet.contains(ma.getAuthorityId())) {
-						result.add(ma.getAuthorityId().toString());
+						result.add(ma.getAuthCode());
 					}
 				}
 			}
@@ -246,10 +220,10 @@ public class MyShiroRealm extends AuthorizingRealm {
     * @throws
      */
 	@SuppressWarnings("unchecked")
-	private List<MenuVO> getMenus(final List<RoleVO> roles) {
+	private List<MenuVO> getMenus(final List<UserRoleVO> roles) {
 		// 菜单权限id
 		final List<Long> roleList = new ArrayList<>();
-		for (RoleVO role : roles) {
+		for (UserRoleVO role : roles) {
 			roleList.add(role.getId());
 		}
 		Result menuResult = menuService.getMenuByRoleIds(roleList);
@@ -261,59 +235,6 @@ public class MyShiroRealm extends AuthorizingRealm {
 		}
 		return null;
 	}
-    /**
-     * 
-    * @Title: getRoles  
-    * @Description: 查询用户角色信息 
-    * @param: @param userId
-    * @param: @return
-    * @return List<RoleVO>
-    * @author lijie
-    * @throws
-     */
-	@SuppressWarnings("unchecked")
-	private List<RoleVO> getRoles(final Long userId) {
-		// 用户的角色集合
-		Result result = roleService.getRoleByUserId(userId);
-		if (log.isInfoEnabled()) {
-			log.info("根据用户ID查询用户的角色集合返回数据={}", JSON.toJSONString(result));
-		}
-		if (result.isSuccess()) {
-			return (List<RoleVO>) result.getData();
-		}
-		return null;
-	}
-    /**
-     * 
-    * @Title: getUserInfo  
-    * @Description: 获取用户信息数据 
-    * @param: @param account
-    * @param: @param roleId
-    * @param: @return
-    * @return UserVO
-    * @author lijie
-    * @throws
-     */
-	@SuppressWarnings("unchecked")
-	private UserVO getUserInfo(final String account, final Long roleId) {
-		// 查询用户是否存在
-		UserDTO userDTO = new UserDTO();
-		userDTO.setAccount(account);
-		userDTO.setRoleId(roleId);
-
-		Result result = userService.getUserByCondition(userDTO);
-		if (log.isInfoEnabled()) {
-			log.info("根据用户/角色查询用户返回数据={}", JSON.toJSONString(result));
-		}
-		if (result.isSuccess()) {
-			List<UserVO> users = (List<UserVO>) result.getData();
-			if (CollectionUtils.isNotEmpty(users)) {
-				return users.get(0);
-			}
-		}
-		return null;
-	}
-
     /**
      * 
      * @param authenticationToken
@@ -359,7 +280,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 	/**
 	 * 
 	* @Title: clearAuthz 
-	* @Description: 情况权限 
+	* @Description: 清楚缓存权限 
 	* @param     设定文件 
 	* @return void    返回类型 
 	* @author lijie

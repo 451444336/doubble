@@ -8,15 +8,18 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.facade.dto.CompanyRoleDTO;
 import com.born.facade.dto.OperateLogAuthorityDTO;
 import com.born.facade.entity.CompanyRole;
+import com.born.facade.entity.RoleRelation;
 import com.born.facade.service.ICompanyRoleService;
 import com.born.facade.vo.CompanyRoleVO;
 import com.born.mapper.CompanyRoleMapper;
 import com.born.mapper.OperateLogAuthorityMapper;
+import com.born.mapper.RoleRelationMappper;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
@@ -36,10 +39,15 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 
 	@Autowired
 	private CompanyRoleMapper companyRoleMapper;
+	
 	@Autowired
 	private OperateLogAuthorityMapper operateLogAuthorityMapper;
 	
+	@Autowired
+	private RoleRelationMappper roleRelationMappper;
+	
 	@Override
+	@Transactional
 	public Result insert(CompanyRoleDTO dto) {
 		// 验证参数
 		if (StringUtils.isBlank(dto.getRoleName()) || dto.getIsAuthEdit() == null || dto.getIsValid() == null) {
@@ -48,14 +56,24 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 		}
 		CompanyRole role = new CompanyRole();
 		BeanUtils.copyProperties(dto, role);
-		// 保存数据
-		log.info("执行保存操作...");
-		Result result = ResultUtil.getResult(RespCode.Code.SUCCESS, companyRoleMapper.insertSelective(role));
-		log.info("保存操作成功...");
-		return result;
+		// 设置默认值
+		role.setCreateTime(new Date());
+		role.setIsDelete((byte)0);
+		role.setIsValid((byte)1);
+		// 保存角色数据
+		companyRoleMapper.insertUseGeneratedKeys(role);
+		// 保存角色关系数据
+		RoleRelation record = new RoleRelation();
+		record.setCompanyId(dto.getCompanyId());
+		record.setCreaterId(dto.getCreaterId());
+		record.setCreateTime(new Date());
+		record.setRoleId(role.getId());
+		roleRelationMappper.insert(record);
+		return ResultUtil.getResult(RespCode.Code.SUCCESS);
 	}
 
 	@Override
+	@Transactional
 	public Result deleteById(Long id,OperateLogAuthorityDTO dto) {
 		log.info("执行删除操作...");
 		companyRoleMapper.deleteRoleByRoleId(id);
@@ -68,6 +86,7 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 	}
 
 	@Override
+	@Transactional
 	public Result update(CompanyRoleDTO dto) {
 		// 验证参数
 		if (dto.getId() == null) {
@@ -93,6 +112,7 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 	}
 
 	@Override
+	@Transactional
 	public Result bindRoleMenu(Long[] menuIds, Long roleId, Long createrId, Date createTime) {
 		// 验证参数
 		if (menuIds == null || menuIds.length == 0 || roleId == null || createrId == null || createTime == null) {

@@ -35,17 +35,12 @@ public class CompanyRole extends BaseEntity<CompanyRole> {
 	 * 是否能权限编辑
 	 */
 	@Column(name = "is_auth_edit")
-	private Integer isAuthEdit;
+	private Byte isAuthEdit;
 	/**
 	 * 是否有效
 	 */
 	@Column(name = "is_valid")
-	private Integer isValid;
-	/**
-	 * 公司ID
-	 */
-	@Column(name = "company_id")
-	private String companyId;
+	private Byte isValid;
 	/**
      * 创建时间
      */
@@ -70,5 +65,10 @@ public class CompanyRole extends BaseEntity<CompanyRole> {
      * 删除状态
      */
 	@Column(name = "is_delete")
-    private Integer IsDelete;
+    private Byte IsDelete;
+	/**
+	 * 角色编码
+	 */
+	@Column(name="role_code")
+	private String roleCode;
 }

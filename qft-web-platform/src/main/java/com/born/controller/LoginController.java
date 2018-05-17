@@ -57,7 +57,19 @@ public class LoginController {
     
     @Reference(version="1.0.0")
     private IPermissionService permissionService;
-
+    /**
+     * 
+    * @Title: loginPage 
+    * @Description: 登录跳转
+    * @param @return    设定文件 
+    * @return String    返回类型 
+    * @author lijie
+    * @throws
+     */
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String loginPage() {
+        return "redirect:login";
+    }
    /**
     * 
    * @Title: index 

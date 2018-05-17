@@ -93,4 +93,9 @@ public class MenuAuthorityBase extends BaseEntity<MenuAuthorityBase> {
 	 */
 	@Column(name="company_id")
 	private String companyId;
+	/**
+	 * 权限编码
+	 */
+	@Column(name="auth_code")
+	private String authCode;
 }

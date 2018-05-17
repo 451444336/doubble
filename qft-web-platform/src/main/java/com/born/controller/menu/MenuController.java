@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.born.config.shiro.token.TokenManager;
+import com.born.facade.constant.MenuAuthEnum;
 import com.born.facade.dto.menu.MenuQueryDTO;
 import com.born.facade.service.IMenuService;
 import com.born.facade.vo.UserInfoVO;
@@ -47,7 +48,7 @@ public class MenuController {
     public Result getMenuByUserId() {
     	UserInfoVO su = TokenManager.getLoginUser();
     	MenuQueryDTO dto = new MenuQueryDTO();
-    	dto.setAscription((byte)1);
+    	dto.setAscription(MenuAuthEnum.PC_MENU_AUTH.getStatus());
     	dto.setCompanyId(su.getCompanyId());
     	dto.setUserId(su.getId());
         Result result = menuService.getMenuTreeByUserId(dto);

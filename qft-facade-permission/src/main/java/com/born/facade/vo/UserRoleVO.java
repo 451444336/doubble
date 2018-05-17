@@ -27,6 +27,10 @@ public class UserRoleVO implements Serializable {
      */
     private String roleName;
     /**
+     * 角色编码
+     */
+    private String roleCode;
+    /**
      * 是否能权限编辑：0、不能编辑 1、可以编辑
      */
     private Byte isAuthEdit;
