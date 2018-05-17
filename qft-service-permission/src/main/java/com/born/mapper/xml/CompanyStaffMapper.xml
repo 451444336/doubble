@@ -44,7 +44,8 @@
 			u.status as status,
 			u.is_enable_app as isEnableApp,
 			ps.position_id as positionId,
-			p.name as positionName
+			p.name as positionName,
+			p.dept_id as deptId
 		from 
 			qft_user u
 		left join 
@@ -76,7 +77,8 @@
 			ps.position_id as positionId,
 			p.name as positionName,
 			o.last_time as lastTime,
-			d.dept_name as deptName
+			d.dept_name as deptName,
+			d.id as deptId
 		from 
 			<!-- 用户表  -->
 			qft_user u
@@ -123,6 +125,12 @@
 		</if>	
 		<if test="companyId != null and companyId != ''">
 			and	s.company_id = #{companyId}
+		</if>
+		<if test="userId != null and userId != ''">
+			and	u.id = #{userId}
+		</if>
+		<if test="status != null and status != ''">
+			and	u.status = #{status}
 		</if>
 	</select>
 	

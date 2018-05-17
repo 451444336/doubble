@@ -1,7 +1,10 @@
 package com.born.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -10,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.facade.dto.CompanyStaffDTO;
-import com.born.facade.dto.staff.DeteleStaffDTO;
 import com.born.facade.dto.staff.FindStaffListDTO;
 import com.born.facade.dto.staff.PositionStaffDTO;
 import com.born.facade.dto.user.DeteleUserDTO;
@@ -201,6 +203,7 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 		staff.setCreateTime(new Date());
 		//设置创建人
 		staff.setId(null);
+		staff.setUserId(user.getId());
 		try {
 			  staffMapper.insertSelective(staff);
 		} catch (Exception e) {

@@ -84,6 +84,8 @@ public class CompanyDeptServiceImpl implements ICompanyDeptService {
 						 vo.setUrl("/web/staff/index/"+urlArray[1]);
 						 //先写死
 						 vo.setIcon("/static/js/ztree/img/user_worker.png");
+						 String count = vo.getCountId()==null?"0":vo.getCountId();
+						 vo.setName(vo.getName()+"（"+count+"人）");
 					 }
 				 }
 			 }

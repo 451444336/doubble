@@ -23,7 +23,12 @@ public class CompanyDeptVO{
 	
 	private String icon;
 	
+	//是否展开 true close
+	private String open = "true";
+	
 	private String target = "roleRight";
 	
 	private String createTime;
+	
+	private String countId;
 }

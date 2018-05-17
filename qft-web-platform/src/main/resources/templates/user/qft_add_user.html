@@ -14,7 +14,7 @@
 <body>
 <!--添加用户-->
 <div class="PopupBox">
-    <form id="addUserForm" th:action="@{/web/staff/addStaff}" method="POST" >
+    <form id="addUserForm" >
     	<input type="hidden" name="positionId" th:value="*{positionId}" />
         <table class="popupList">
             <tr>
@@ -123,7 +123,7 @@
             </tr>
         </table>
 		<div class="PopupBtn">
-		    <input name="" type="submit" value="保存"><input class="cancel" name="" type="button" value="关闭">
+		    <input id="keep" name="" type="button" value="保存"><input class="cancel" name="" type="button" value="关闭">
 		</div>
     </form>
 </div>
@@ -136,6 +136,8 @@
 <script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap-select.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrapselect/select.js}"></script>
+<!--layer弹出层-->
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <!--表单验证-->
 <script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
@@ -147,6 +149,29 @@
                 $(element).valid();
             },
             errorClass: 'formError'
+        });
+        //编辑用户
+        $('#keep').on('click',function(){
+        	console.log($('#addUserForm').serialize());
+        	$.ajax({
+                "dataType": 'json',
+                "type": "POST",
+                "url": "/web/staff/addStaff",
+                "data":$('#addUserForm').serialize(),
+                "success": function(result){
+                	 layer.alert(result.message, {  
+                         title: "保存用户",  
+                         btn: ['确定']  
+                     },  
+                         function (index, item) { 
+                     		parent.location.reload(); 
+                     		parent.layer.closeAll();
+                         });
+                } 
+            });
+        });
+        $('.cancel').on('click',function(){
+        	parent.layer.closeAll()
         });
     })
 </script>

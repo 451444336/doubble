@@ -1,11 +1,8 @@
 package com.born.controller;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,8 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.config.shiro.token.TokenManager;
+import com.born.facade.dto.CompanyPositionDTO;
 import com.born.facade.dto.CompanyStaffDTO;
 import com.born.facade.dto.staff.FindStaffListDTO;
+import com.born.facade.service.ICompanyPositionService;
 import com.born.facade.service.ICompanyStaffService;
 import com.born.facade.service.IPermissionService;
 import com.born.facade.vo.UserInfoVO;
@@ -43,6 +42,9 @@ public class CompanyStaffController{
 	
 	@Reference(version = "1.0.0")
 	private IPermissionService permissionService;
+	
+	@Reference(version = "1.0.0")
+	private ICompanyPositionService companyPositionService;
 	/**
 	 * 
 	* @Title: index 
@@ -54,8 +56,16 @@ public class CompanyStaffController{
 	* @throws
 	 */
 	 @RequestMapping(value = "/index/{positionId}", method = RequestMethod.GET)
-    public String index(@PathVariable String positionId,Model model) {
-		 model.addAttribute("positionId",positionId);
+    public String index(String positionId,Model model) {
+		 if("-1".equals(positionId)) {
+			 model.addAttribute("positionId","");
+		 }
+		 CompanyPositionDTO positionDTO = new CompanyPositionDTO();
+		 positionDTO.setCompanyId(TokenManager.getLoginUser().getCompanyId());
+		 model.addAttribute("select_position", companyPositionService.selectPosition(positionDTO).getData());
+		 FindStaffListDTO staffListDTO   = new FindStaffListDTO();
+		 staffListDTO.setCompanyId(TokenManager.getLoginUser().getCompanyId());
+		 model.addAttribute("select_name",staffService.findStaffList(staffListDTO).getData());
         return "user/qft_userList";
     }
 	 /**
@@ -138,7 +148,7 @@ public class CompanyStaffController{
     })
 	@ResponseBody
 	@RequestMapping(value = "updateStaff",method = RequestMethod.POST)
-	public Result updateStaff(@ModelAttribute(value="staff") CompanyStaffDTO staff){
+	public Result updateStaff(CompanyStaffDTO staff){
 		UserInfoVO user = TokenManager.getLoginUser();
 		staff.setUpdaterId(user.getId());
 		return staffService.updateStaff(staff);
@@ -154,10 +164,12 @@ public class CompanyStaffController{
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
     })
+	@ResponseBody
 	@RequestMapping(value = "addStaff",method = RequestMethod.POST)
 	public Result addStaff(CompanyStaffDTO dto){
 		UserInfoVO user = TokenManager.getLoginUser();
 		dto.setCreaterId(user.getId());
+		dto.setCompanyId(user.getCompanyId());
 		return staffService.addStaff(dto);
 	}
 	

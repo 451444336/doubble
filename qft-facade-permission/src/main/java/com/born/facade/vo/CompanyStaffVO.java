@@ -1,6 +1,6 @@
 package com.born.facade.vo;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import lombok.Data;
 
@@ -10,8 +10,12 @@ import lombok.Data;
  * @date 2018年4月27日 下午2:15:21
  */
 @Data
-public class CompanyStaffVO {
+public class CompanyStaffVO implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
@@ -74,8 +78,11 @@ public class CompanyStaffVO {
 	private String positionName;
 	
 	//上次登录时间
-	private Date lastTime;
+	private String lastTime;
 	
 	//部门名称
 	private String deptName;
+	
+	//部门ID
+	private String deptId;
 }

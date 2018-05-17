@@ -650,7 +650,7 @@ textarea{
         a{
           display: block;
           .size(128px; 40px);
-          font-size:@font-size-base;
+          font-size:@font-size-soso;
           color: @nav-menu-color;
           text-indent: 30px;
           &:hover,
@@ -844,7 +844,7 @@ textarea{
   h2{
     .left;
     font-weight: normal;
-    font-size: @font-size-in;
+    font-size: @font-size-base;
     color: @gray-dark;
     padding-left: @padding-10;
     background: url("../images/line-icon.jpg") 0 center no-repeat;
@@ -883,7 +883,7 @@ textarea{
     .size(71px; 30px);
     .align(center);
     color: @txt-base;
-    font-size: @font-size-base;
+    font-size: @font-size-small;
     margin-right: 14px;
     &.blueBg{
       background: @blue-btn;
@@ -950,7 +950,7 @@ textarea{
       .size(112px; 28px);
       line-height: 28px;
       .align(center);
-      font-size: @font-size-base;
+      font-size: @font-size-small;
       cursor: pointer;
       .behavior-relative;
     }
@@ -996,7 +996,7 @@ textarea{
     .itemInput{
       margin-left: @margin-40;
       color: @search-txt;
-      font-size: @font-size-base;
+      font-size: @font-size-small;
       .size(192px; 28px);
       line-height: 28px;
       border: none;
@@ -1014,7 +1014,7 @@ textarea{
         display: block;
         .size(100%; 26px);
         line-height: 26px;
-        font-size: @font-size-base;
+        font-size: @font-size-small;
         color: @search-txt;
         text-indent: 15px;
         .text-overflow;
@@ -1038,7 +1038,7 @@ textarea{
       .left;
       .size(122px; 28px);
       line-height: 28px;
-      font-size: @font-size-base;
+      font-size: @font-size-small;
       color: @search-txt;
       .text-overflow;
       &.operateIndent{
@@ -1055,7 +1055,7 @@ textarea{
     &:extend(.clearfix all);
     .size(244px; 28px);
     line-height: 28px;
-    font-size: @font-size-base;
+    font-size: @font-size-small;
     color: @search-txt;
     .spreadlef{
       .left;
@@ -1084,7 +1084,7 @@ textarea{
   .size(100%; 24px);
   line-height: 24px;
   .align(center);
-  font-size: @font-size-base;
+  font-size: @font-size-small;
   margin-top: @margin-10;
   a{
     color: @blue-nav-bg;
@@ -1227,6 +1227,10 @@ textarea{
   .fieldName_one{
     .size(110px; 30px);
   }
+  .fieldName_two{
+    .size(170px; 30px);
+    line-height: 30px;
+  }
 }
 //弹出层共用按钮
 .PopupBtn{
@@ -1234,6 +1238,7 @@ textarea{
   margin-bottom: @margin-10;
   input[type="button"]{
     margin: 0 @margin-10;
+    .behavior-relative;
     &.cancel{
       background: @gray-cancel-back;
       .border(1px; @gray-cancel-bord);
@@ -1242,6 +1247,25 @@ textarea{
         background: @gray-cancel-back-h;
       }
     }
+    //字典设置删除按钮
+    &.PopupOrange{
+      background: @orange-btn;
+      &:hover{
+        background: @orange-btn-h;
+      }
+    }
+    &.disabled{
+      &:extend(.disabled all);
+      .border(1px; @border-base);
+      height: 28px;
+      line-height: 28px;
+      color: @gray-cont;
+      .box-sizing;
+    }
+  }
+  //字典设置按钮
+  &.PopupBtnRight{
+    .align(right);
   }
 }
 /*表单验证提示*/
@@ -1276,9 +1300,9 @@ textarea{
 */
 .dataTables_info,
 .dataTables_paginate {
-  .size(auto; 32px);
-  line-height: 32px;
-  font-size: @font-size-base;
+  .size(auto; 26px);
+  line-height: 22px;
+  font-size: @font-size-small;
   margin: 10px auto 0 0;
 }
 .dataTables_info {
@@ -1310,8 +1334,8 @@ textarea{
     color: @gray-dark;
     cursor: pointer;
     margin-right: 5px;
-    min-width: 30px;
-    height: 32px;
+    min-width: 26px;
+    height: 26px;
     padding: 0 2px;
     text-align: center;
     text-decoration: none;
@@ -1327,7 +1351,7 @@ textarea{
     &.next,
     &.first,
     &.last {
-      .size(80px; 32px);
+      .size(80px; 26px);
       &.ui-state-disabled,
       &.paginate_button_disabled,
       &.disabled {

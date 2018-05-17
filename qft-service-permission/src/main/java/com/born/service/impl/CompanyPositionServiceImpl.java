@@ -251,4 +251,15 @@ public class CompanyPositionServiceImpl implements ICompanyPositionService {
 			return ResultUtil.getResult(RespCode.Code.FAIL);
 		}
 	}
+
+	@Override
+	public Result selectPosition(CompanyPositionDTO dto) {
+		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		try {
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS,mapper.selectPositionList(dto));
+		} catch (Exception e) {
+			log.error("查询职位数据异常", e);
+		}
+		return result;
+	}
 }

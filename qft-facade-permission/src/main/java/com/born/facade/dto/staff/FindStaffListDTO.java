@@ -41,6 +41,9 @@ public class FindStaffListDTO extends PageBean {
 	private List<Long> permissionIds;
 	
 	private Long userId;
+	
+	//状态 正常 关闭
+	private String status;
 }
 
 

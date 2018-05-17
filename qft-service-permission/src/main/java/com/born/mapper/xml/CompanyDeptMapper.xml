@@ -43,7 +43,8 @@
 		select 
 			concat('company-',c.id) as id,
 			c.companyname as name,
-			"" as pId
+			"" as pId,
+			"0" AS countId
 		from tb_company c
 		where 1=1 
 		<if test="companyId != null and companyId != ''">
@@ -53,7 +54,8 @@
 		select 
 			concat('dept-',t.id) as id,
 			t.dept_name as name,
-			concat('company-',t.company_id) as pId
+			concat('company-',t.company_id) as pId,
+			"0" AS countId
 		from qft_company_dept t
 		where t.is_delete = 0
 		<if test="companyId != null and companyId != ''">
@@ -63,10 +65,25 @@
 		select 
 			concat('position-',p.id) as id,
 			p.name as name,
-			concat('dept-',p.dept_id) as pId
+			concat('dept-',p.dept_id) as pId,
+			ct.countId AS countId
 		from qft_company_position p
 		LEFT JOIN qft_company_dept d
  		on p.dept_id = d.id 
+		LEFT JOIN (
+			SELECT
+				count(pu.user_id) AS countId,
+				pu.position_id AS position_id
+			FROM
+				qft_position_user pu
+			LEFT JOIN qft_user_info info ON info.user_id = pu.user_id
+		    LEFT JOIN qft_user r ON r.id = pu.user_id
+			where r.is_delete = 0
+			<if test="companyId != null and companyId != ''">
+				and	info.company_id = #{companyId}
+			</if>
+			GROUP BY pu.position_id
+		) ct ON ct.position_id = p.id
  		where p.is_delete = 0
  		<if test="companyId != null and companyId != ''">
 			and	d.company_id = #{companyId}

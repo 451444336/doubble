@@ -1,5 +1,8 @@
 package com.born.facade.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.born.facade.dto.CompanyStaffDTO;
 import com.born.facade.dto.staff.FindStaffListDTO;
 import com.born.util.result.Result;
@@ -83,5 +86,5 @@ public interface ICompanyStaffService {
 	* @throws
 	 */
 	Result getPageList(FindStaffListDTO dto);
-
+	
 }

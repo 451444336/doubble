@@ -12,13 +12,13 @@ $(function(){
         showSubMeun(id);
         //$('#powerBtn').html("<input class=\"powerBtn\" type=\"button\" value=\"全选查看权限\" onclick=\"allSelectByTpye(this,'search')\"><input class=\"powerBtn\" type=\"button\" value=\"全选操作权限\" onclick=\"allSelectByTpye(this,'hand')\"><input class=\"powerBtn\" type=\"button\" value=\"全选删除权限\" onclick=\"allSelectByTpye(this,'delete')\">")
     });
-   /* //二级菜单点击事件
+    //二级菜单点击事件
     $('.powerSubMeun').on('click','li',function(){
         $(this).addClass('subMeunHover').siblings('li').removeClass('subMeunHover');
         var subId = this.id;
         showSubMeunTwo(subId);
         //$('#powerBtn').html("<input class=\"powerBtn\" type=\"button\" value=\"全选查看权限\" onclick=\"allSelectByTpye(this,'searchTwo')\"><input class=\"powerBtn\" type=\"button\" value=\"全选操作权限\" onclick=\"allSelectByTpye(this,'handTwo')\"><input class=\"powerBtn\" type=\"button\" value=\"全选删除权限\" onclick=\"allSelectByTpye(this,'deleteTwo')\">")
-    });*/
+    });
 });
 //查询二级菜单与权限
 function showSubMeun(id){

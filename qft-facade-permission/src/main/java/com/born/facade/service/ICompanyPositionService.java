@@ -88,4 +88,16 @@ public interface ICompanyPositionService {
 	 */
 	Result addPositionAuth(String pId, String[] authIds,String createrId);
 
+	/**
+	 * 
+	* @Title: getPositionByComId 
+	* @Description: 根据条件获取职位
+	* @param @param CompanyPositionDTO
+	* @param @return
+	* @author 明成
+	* @return Result
+	* @date 2018年5月17日 下午3:53:55 
+	* @throws
+	 */
+	Result selectPosition(CompanyPositionDTO dto);
 }

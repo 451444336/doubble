@@ -3,7 +3,7 @@
 var tab;
 
 layui.config({
-	base: '/static/js/modules/',
+	base: '../static/js/modules/',
 	version:new Date().getTime()
 }).use(['layer', 'tab'], function() {
 	var tab = layui.tab({

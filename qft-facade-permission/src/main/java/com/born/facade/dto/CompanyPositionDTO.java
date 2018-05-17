@@ -48,4 +48,6 @@ public class CompanyPositionDTO extends PageBean{
 	private Long deptId;
 	//权限ID
 	private String[] permissionIds;
+	
+	private String companyId;
 }

@@ -17,6 +17,8 @@ $(function(){
         // Evento
         links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown);
         submenu.on('click',function(){
+            $(this).parents('.subMenu').slideToggle();
+            $(this).parents('.navMenu li').toggleClass('openMenu');
             $(this).addClass('action').parent('dd').siblings().find('a').removeClass('action');
             $(this).addClass('action').parents('.navMenu li').siblings().find('a').removeClass('action');
         });
@@ -126,4 +128,35 @@ $(function(){
     });
     //table 隔行变色
     $(".wareList tr:nth-child(even)").addClass("trBack");
+    //列表全选
+    $('.wareList').on('click', '.check-all', function () {
+        $('.ids').prop('checked', this.checked);
+        if ($('.ids:disabled').prop('disabled')) {
+            $('.ids:disabled').prop('checked', false);
+        }
+    });
+    //全选/全不选
+    $('.wareList').on('click', '.mitAll', function () {
+        $('.ids').prop('checked', true);
+        $('.check-all').prop('checked', true);
+        if ($('.ids:disabled').prop('disabled')) {
+            $('.ids:disabled').prop('checked', false);
+        }
+    });
+    $('.wareList').on('click', '.ids', function () {
+        var option = $('.ids');
+        var Cnum = option.not(":disabled").size();
+        var count = 0;
+        option.each(function (i) {
+            if ($(this).is(':checked')) {
+                count++;
+            }
+        });
+        if (Cnum == count) {
+            $('.check-all').prop('checked', true);
+        } else {
+            $('.check-all').prop('checked', false);
+        }
+
+    });
 });

@@ -1,26 +1,25 @@
 var map = new BMap.Map("village");
-var point = new BMap.Point(116.400244,39.92556);
-map.centerAndZoom(point, 12);
+var lngMap = $('#lng').val();
+var latMap = $('#lat').val();
+var point = new BMap.Point(lngMap,latMap);
+map.centerAndZoom(point, 14);   // 初始化地图,设置城市和地图级别。
+map.enableScrollWheelZoom(true);  //开启鼠标滚轮缩放
 
-function myFun(result){
-    var cityName = result.name;
-    map.setCenter(cityName);
-    alert("当前定位城市:"+cityName);
-}
-var myCity = new BMap.LocalCity();
-myCity.get(myFun);
-
-var geolocation = new BMap.Geolocation();
-geolocation.getCurrentPosition(function(r){
-    if(this.getStatus() == BMAP_STATUS_SUCCESS){
-        var mk = new BMap.Marker(r.point);
-        map.addOverlay(mk);
-        map.panTo(r.point);
-        map.enableScrollWheelZoom();
-        mk.enableDragging();             //是否可拖拽
-        alert('您的位置：'+r.point.lng+','+r.point.lat);
-    }
-    else {
-        alert('failed'+this.getStatus());
-    }
-},{enableHighAccuracy: true})
+var geoc = new BMap.Geocoder();
+var marker = new BMap.Marker(point);  // 创建标注
+map.addOverlay(marker);
+marker.enableDragging();             //是否可拖拽
+marker.addEventListener("dragend", function(e){
+    var pt = e.point;
+    var dizhi;
+    console.log(e);
+    geoc.getLocation(pt, function(rs){
+        var addComp = rs.addressComponents;
+        console.log(rs);
+        dizhi = addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+        document.getElementById('suggestId').value = rs.address;//更新地址数据
+        document.getElementById('lng').value = rs.point.lng;//更新地理经度
+        document.getElementById('lat').value = rs.point.lat;//更新地理纬度
+        //alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+    });
+});
