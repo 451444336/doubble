@@ -72,11 +72,11 @@ public class QrySms extends SmsBody {
 			log.error("转换编码异常", e);
 		}
 		params.put("da", mobile);// 手机号码，多个号码用分号(半角)分割。请不要超过 100 个号码
-		params.put("un", PropertiesConstants.PROPERTIES_MAP.get(PlatformApikey.Qry.HC_APIKEY.getValue()[0]));// 用户名
+		params.put("un", PropertiesConstants.PROPERTIES_SMS_MAP.get(PlatformApikey.Qry.HC_APIKEY.getValue()[0]));// 用户名
 		/**
 		 * 密码（请勿在生产环境中直接使用，如需直接使用请联系绑定IP地址）
 		 */
-		params.put("pw", PropertiesConstants.PROPERTIES_MAP.get(PlatformApikey.Qry.HC_APIKEY.getValue()[1]));
+		params.put("pw", PropertiesConstants.PROPERTIES_SMS_MAP.get(PlatformApikey.Qry.HC_APIKEY.getValue()[1]));
 		params.put("tf", String.valueOf(3));// 短信内容的编码，默认为 0 表示 HEX 格式，见上面内容编码说明
 		params.put("rd", String.valueOf(1));// 是否需要状态报告。0 表示不需要；1 表示需要
 		/**
@@ -84,7 +84,7 @@ public class QrySms extends SmsBody {
 		 */
 		params.put("rf", String.valueOf(2));
 		setParams(params);
-		setUrl(PropertiesConstants.PROPERTIES_MAP.get(SmsConstants.Qry.URI_SEND_SMS.getValue()));
+		setUrl(PropertiesConstants.PROPERTIES_SMS_MAP.get(SmsConstants.Qry.URI_SEND_SMS.getValue()));
 		return SmsWrapperImpl.getInstance(this);
 	}
 
@@ -113,11 +113,11 @@ public class QrySms extends SmsBody {
 			log.error("转换编码异常", e);
 		}
 		params.put("da", mobile);// 手机号码，多个号码用分号(半角)分割。请不要超过 100 个号码
-		params.put("un", PropertiesConstants.PROPERTIES_MAP.get(PlatformApikey.Qry.HC_APIKEY.getValue()[0]));// 用户名
+		params.put("un", PropertiesConstants.PROPERTIES_SMS_MAP.get(PlatformApikey.Qry.HC_APIKEY.getValue()[0]));// 用户名
 		/**
 		 * 密码（请勿在生产环境中直接使用，如需直接使用请联系绑定IP地址）
 		 */
-		params.put("pw", PropertiesConstants.PROPERTIES_MAP.get(PlatformApikey.Qry.HC_APIKEY.getValue()[1]));
+		params.put("pw", PropertiesConstants.PROPERTIES_SMS_MAP.get(PlatformApikey.Qry.HC_APIKEY.getValue()[1]));
 		params.put("tf", String.valueOf(3));// 短信内容的编码，默认为 0 表示 HEX 格式，见上面内容编码说明
 		params.put("rd", String.valueOf(1));// 是否需要状态报告。0 表示不需要；1 表示需要
 		/**
@@ -125,7 +125,7 @@ public class QrySms extends SmsBody {
 		 */
 		params.put("rf", String.valueOf(rf));
 		setParams(params);
-		setUrl(PropertiesConstants.PROPERTIES_MAP.get(SmsConstants.Qry.URI_SEND_SMS.getValue()));
+		setUrl(PropertiesConstants.PROPERTIES_SMS_MAP.get(SmsConstants.Qry.URI_SEND_SMS.getValue()));
 		return SmsWrapperImpl.getInstance(this);
 	}
 

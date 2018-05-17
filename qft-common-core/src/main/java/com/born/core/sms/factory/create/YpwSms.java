@@ -42,7 +42,7 @@ public class YpwSms extends SmsBody {
 	 */
 	public SmsWrapper setContent(Map<String, String> params) {
 		setParams(params);
-		setUrl(PropertiesConstants.PROPERTIES_MAP.get(SmsConstants.Ypw.URI_SEND_SMS.getValue()));
+		setUrl(PropertiesConstants.PROPERTIES_SMS_MAP.get(SmsConstants.Ypw.URI_SEND_SMS.getValue()));
 		return SmsWrapperImpl.getInstance(this);
 	}
 
@@ -60,11 +60,11 @@ public class YpwSms extends SmsBody {
 	 */
 	public SmsWrapper setContent(String mobile, String text) {
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("apikey", PropertiesConstants.PROPERTIES_MAP.get(PlatformApikey.Ypw.APIKEY.getValue()[0]));
+		params.put("apikey", PropertiesConstants.PROPERTIES_SMS_MAP.get(PlatformApikey.Ypw.APIKEY.getValue()[0]));
 		params.put("text", text);
 		params.put("mobile", mobile);
 		setParams(params);
-		setUrl(PropertiesConstants.PROPERTIES_MAP.get(SmsConstants.Ypw.URI_SEND_SMS.getValue()));
+		setUrl(PropertiesConstants.PROPERTIES_SMS_MAP.get(SmsConstants.Ypw.URI_SEND_SMS.getValue()));
 		return SmsWrapperImpl.getInstance(this);
 	}
 
@@ -85,12 +85,12 @@ public class YpwSms extends SmsBody {
 	 */
 	public SmsWrapper setContentTplSms(long tpl_id, String tpl_value, String mobile) {
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("apikey", PropertiesConstants.PROPERTIES_MAP.get(PlatformApikey.Ypw.APIKEY.getValue()[0]));
+		params.put("apikey", PropertiesConstants.PROPERTIES_SMS_MAP.get(PlatformApikey.Ypw.APIKEY.getValue()[0]));
 		params.put("tpl_id", String.valueOf(tpl_id));
 		params.put("tpl_value", tpl_value);
 		params.put("mobile", mobile);
 		setParams(params);
-		setUrl(PropertiesConstants.PROPERTIES_MAP.get(SmsConstants.Ypw.URI_TPL_SEND_SMS.getValue()));
+		setUrl(PropertiesConstants.PROPERTIES_SMS_MAP.get(SmsConstants.Ypw.URI_TPL_SEND_SMS.getValue()));
 		return SmsWrapperImpl.getInstance(this);
 	}
 
@@ -109,11 +109,11 @@ public class YpwSms extends SmsBody {
 	 */
 	public SmsWrapper setContentVoice(String mobile, String code) {
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("apikey", PropertiesConstants.PROPERTIES_MAP.get(PlatformApikey.Ypw.APIKEY.getValue()[0]));
+		params.put("apikey", PropertiesConstants.PROPERTIES_SMS_MAP.get(PlatformApikey.Ypw.APIKEY.getValue()[0]));
 		params.put("mobile", mobile);
 		params.put("code", code);
 		setParams(params);
-		setUrl(PropertiesConstants.PROPERTIES_MAP.get(SmsConstants.Ypw.URI_SEND_VOICE.getValue()));
+		setUrl(PropertiesConstants.PROPERTIES_SMS_MAP.get(SmsConstants.Ypw.URI_SEND_VOICE.getValue()));
 		return SmsWrapperImpl.getInstance(this);
 	}
 
@@ -134,12 +134,12 @@ public class YpwSms extends SmsBody {
 	 */
 	public SmsWrapper setContentBindCall(String from, String to, Integer duration) {
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("apikey", PropertiesConstants.PROPERTIES_MAP.get(PlatformApikey.Ypw.APIKEY.getValue()[0]));
+		params.put("apikey", PropertiesConstants.PROPERTIES_SMS_MAP.get(PlatformApikey.Ypw.APIKEY.getValue()[0]));
 		params.put("from", from);
 		params.put("to", to);
 		params.put("duration", String.valueOf(duration));
 		setParams(params);
-		setUrl(PropertiesConstants.PROPERTIES_MAP.get(SmsConstants.Ypw.URI_SEND_BIND.getValue()));
+		setUrl(PropertiesConstants.PROPERTIES_SMS_MAP.get(SmsConstants.Ypw.URI_SEND_BIND.getValue()));
 		return SmsWrapperImpl.getInstance(this);
 	}
 
@@ -158,11 +158,11 @@ public class YpwSms extends SmsBody {
 	 */
 	public SmsWrapper setContentUnbindCall(String from, String to) {
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("apikey", PropertiesConstants.PROPERTIES_MAP.get(PlatformApikey.Ypw.APIKEY.getValue()[0]));
+		params.put("apikey", PropertiesConstants.PROPERTIES_SMS_MAP.get(PlatformApikey.Ypw.APIKEY.getValue()[0]));
 		params.put("from", from);
 		params.put("to", to);
 		setParams(params);
-		setUrl(PropertiesConstants.PROPERTIES_MAP.get(SmsConstants.Ypw.URI_SEND_UNBIND.getValue()));
+		setUrl(PropertiesConstants.PROPERTIES_SMS_MAP.get(SmsConstants.Ypw.URI_SEND_UNBIND.getValue()));
 		return SmsWrapperImpl.getInstance(this);
 	}
 

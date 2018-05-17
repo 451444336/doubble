@@ -1,7 +1,7 @@
 package com.born.core.constant;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 /**
  * 
@@ -16,7 +16,12 @@ import java.util.Map;
 public interface PropertiesConstants {
 
 	/**
-	 * 所有配置文件
+	 * 秘钥信息
 	 */
-	static Map<String, String> PROPERTIES_MAP = new HashMap<String, String>();
+	static HashMap<String, String> PROPERTIES_RSA_KEY_MAP = new LinkedHashMap<String, String>(4);
+
+	/**
+	 * 短信信息
+	 */
+	static HashMap<String, String> PROPERTIES_SMS_MAP = new LinkedHashMap<String, String>();
 }

@@ -43,13 +43,13 @@ public class SmsWrapperImpl {
 						public String send(PlatformApikey platformApikey) {
 							log.info("短信请求参数 {}", sms.getMethod(), sms.getUrl(), sms.getParams().toString());
 							sms.getParams().put(platformApikey.getKey()[0],
-									PropertiesConstants.PROPERTIES_MAP.get(platformApikey.getValue()[0]));
+									PropertiesConstants.PROPERTIES_SMS_MAP.get(platformApikey.getValue()[0]));
 							/**
 							 * 验证空，是有些平台测试是必须用密码，但有些不会用密码
 							 */
 							if (StringUtils.isNotBlank(platformApikey.getValue()[1])) {
 								sms.getParams().put(platformApikey.getKey()[1],
-										PropertiesConstants.PROPERTIES_MAP.get(platformApikey.getValue()[1]));
+										PropertiesConstants.PROPERTIES_SMS_MAP.get(platformApikey.getValue()[1]));
 							}
 							return request(sms, sms.getMethod());
 						}
@@ -64,13 +64,13 @@ public class SmsWrapperImpl {
 						public String send(RequestMethod smsConstants, PlatformApikey platformApikey) {
 							log.info("短信请求参数 {}", sms.getMethod(), sms.getUrl(), sms.getParams().toString());
 							sms.getParams().put(platformApikey.getKey()[0],
-									PropertiesConstants.PROPERTIES_MAP.get(platformApikey.getValue()[0]));
+									PropertiesConstants.PROPERTIES_SMS_MAP.get(platformApikey.getValue()[0]));
 							/**
 							 * 验证空，是有些平台测试是必须用密码，但有些不会用密码
 							 */
 							if (StringUtils.isNotBlank(platformApikey.getValue()[1])) {
 								sms.getParams().put(platformApikey.getKey()[1],
-										PropertiesConstants.PROPERTIES_MAP.get(platformApikey.getValue()[1]));
+										PropertiesConstants.PROPERTIES_SMS_MAP.get(platformApikey.getValue()[1]));
 							}
 							return request(sms, smsConstants.getValue());
 						}

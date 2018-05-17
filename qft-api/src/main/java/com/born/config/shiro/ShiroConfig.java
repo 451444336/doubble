@@ -44,6 +44,7 @@ public class ShiroConfig {
 
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 
+		
 		/**
 		 * 获取配置文件中的规则
 		 * 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 :这是一个坑，一不小心代码就不好使了; 

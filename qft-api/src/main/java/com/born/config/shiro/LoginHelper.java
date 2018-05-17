@@ -55,13 +55,13 @@ public class LoginHelper {
 
 		String account = loginInfo.getAccount();
 		String password = SecurityUtil.decryptRSAPrivate(loginInfo.getPassword(),
-				PropertiesConstants.PROPERTIES_MAP.get(CommonConstants.PRIVATE_KEY));
+				PropertiesConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.PRIVATE_KEY));
 
 		/**
 		 * SignRSA 验签 防止唯一接口劫持篡改
 		 */
 		if (!SecurityUtil.verifyRSA(SecurityUtil.encryptMd5Hex(account + password),
-				PropertiesConstants.PROPERTIES_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), loginInfo.getSign())) {
+				PropertiesConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), loginInfo.getSign())) {
 			return JsonResult.info(ResultCode.INCORRECT_SIGNATURE);
 		}
 
@@ -145,7 +145,7 @@ public class LoginHelper {
 
 			String account = registerInfo.getAccount();
 			String password = SecurityUtil.decryptRSAPrivate(registerInfo.getPassword(),
-					PropertiesConstants.PROPERTIES_MAP.get(CommonConstants.PRIVATE_KEY));
+					PropertiesConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.PRIVATE_KEY));
 			String deviceNumber = registerInfo.getDeviceNumber();
 			String sourceType = registerInfo.getSourceType();
 
@@ -153,7 +153,7 @@ public class LoginHelper {
 			 * SignRSA 验签 防止唯一接口劫持篡改
 			 */
 			if (!SecurityUtil.verifyRSA(SecurityUtil.encryptMd5Hex(account + deviceNumber + password + sourceType),
-					PropertiesConstants.PROPERTIES_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), registerInfo.getSign())) {
+					PropertiesConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), registerInfo.getSign())) {
 				return JsonResult.info(ResultCode.INCORRECT_SIGNATURE);
 			}
 

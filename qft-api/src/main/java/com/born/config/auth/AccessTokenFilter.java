@@ -115,7 +115,7 @@ public class AccessTokenFilter extends AccessControlFilter {
 		 */
 		String vStr = append(token, nonc, timestamp, model.getUserId());
 		if (!SecurityUtil.verifyRSA(SecurityUtil.encryptMd5Hex(vStr),
-				PropertiesConstants.PROPERTIES_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), sign)) {
+				PropertiesConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), sign)) {
 			log.info("签名错误");
 			outWrite(response, JsonResult.fail(ResultCode.INCORRECT_SIGNATURE));
 			return false;
