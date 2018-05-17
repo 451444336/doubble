@@ -75,5 +75,17 @@ public interface CompanyAuthorityMapper extends BaseMapper<CompanyAuthority> {
 	* @throws
 	 */
 	List<PermissionVO> selectPermissions(@Param("companyId") String companyId);
+	/**
+	 * 
+	* @Title: updateMenuAuthorityByAuthIds 
+	* @Description: 修改权限数据是否删除状态
+	* @param @param bases
+	* @param @return    设定文件 
+	* @return int    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	int updateMenuAuthorityByAuthIds(@Param("list") List<Long> list, @Param("isDelete") Byte isDelete,
+			@Param("updaterId") Long updaterId);
 
 }

@@ -48,6 +48,10 @@ public class AddPermissionDTO extends BaseValidate<AddPermissionDTO> {
 	 */
 	@ApiModelProperty(value = "菜单数据", required = true)
 	@NotEmpty(message = "菜单数据不能为空")
-	private List<PermissionInfoDTO> menus;
-	
+	private List<MenuDTO> menus;
+	/**
+	 * 权限数据
+	 */
+	@ApiModelProperty(value = "权限数据")
+	private List<PermissionInfoDTO> auths;
 }

@@ -6,12 +6,12 @@
 	<sql id="base_menu_authority">
 		a.authority_id authorityId,
 		b.company_id companyId,
-		c.is_usable isUsable,
-		c.authority_name authorityName,
-		c.authority_url authorityUrl,
-		c.ascription,
-		c.icon,
-		c.oper_type operType
+		b.is_usable isUsable,
+		b.authority_name authorityName,
+		b.authority_url authorityUrl,
+		b.ascription,
+		b.icon,
+		b.type operType
 	</sql>
 	<!-- 查询菜单权限 -->
 	<select id="selectMenuAuthorityList" parameterType="java.lang.String" resultType="com.born.facade.vo.MenuAuthorityVO">
@@ -22,7 +22,6 @@
 		FROM
 			qft_menu_authority a
 		LEFT JOIN qft_company_authority b ON a.authority_id = b.id
-		LEFT JOIN qft_menu_authority_base c on b.authority_base_id = c.id
 		<if test="companyId != null and companyId != ''">
 			WHERE
 				b.company_id = #{companyId}
@@ -40,7 +39,7 @@
       	<result property="authorityUrl" column="authority_url"/>
       	<result property="ascription" column="ascription"/>
       	<result property="icon" column="icon"/>
-      	<result property="operType" column="oper_type"/>
+      	<result property="operType" column="type"/>
       	<result property="menuId" column="menu_id"/>
       	<result property="authCode" column="auth_code"/>
       	<association property="menuName" column="menu_id"                       
@@ -48,10 +47,9 @@
 	</resultMap>
 	<select id="selectMenuName" resultType="java.lang.String">
 		SELECT
-			b.authority_name
+			a.menu_name
 		FROM
 			qft_company_menu a
-		LEFT JOIN qft_menu_authority_base b ON a.authority_base_id = b.id
 		where a.id = #{menu_id}
 	</select>
 	<!-- 根据菜单ID 查询菜单权限数据 -->
@@ -59,19 +57,18 @@
 		SELECT
 			a.authority_id,
 			b.company_id,
-			c.is_usable,
-			c.authority_name,
-			c.authority_url,
-			c.ascription,
-			c.icon,
-			c.oper_type,
-			c.auth_code,
+			b.is_usable,
+			b.authority_name,
+			b.authority_url,
+			b.ascription,
+			b.icon,
+			b.type,
+			b.auth_code,
 			a.id,
 			a.menu_id
 		FROM
 			qft_menu_authority a
 		LEFT JOIN qft_company_authority b ON a.authority_id = b.id
-		LEFT JOIN qft_menu_authority_base c on b.authority_base_id = c.id
 		where
 			a.menu_id in
 		<foreach item="item" index="index" collection="menuIds" open="(" separator="," close=")">
@@ -86,7 +83,6 @@
 		from 
 			qft_user_authority a 
 		LEFT JOIN qft_company_authority b ON a.authority_id = b.id
-		LEFT JOIN qft_menu_authority_base c on b.authority_base_id = c.id
 		where a.user_id = #{userId}
 	</select>
 </mapper>

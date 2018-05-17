@@ -90,5 +90,18 @@ public interface CompanyMenuMapper extends BaseMapper<CompanyMenu> {
 	* @throws
 	 */
 	MenuVO selectMenuSubmenuById(@Param("menuId") Long menuId);
+	
+	/**
+	 * 
+	* @Title: updateMenuAuthorityByAuthIds 
+	* @Description: 修改菜单数据是否删除状态
+	* @param @param bases
+	* @param @return    设定文件 
+	* @return int    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	int updateMenuByAuthIds(@Param("list") List<Long> list, @Param("isDelete") Byte isDelete,
+			@Param("updaterId") Long updaterId);
 
 }

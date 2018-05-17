@@ -40,7 +40,7 @@
 		<!-- lombok -->
 		<lombok.version>1.16.20</lombok.version>
 		<!-- druid的springboot启动包 -->
-		<druid-boot.version>1.1.5</druid-boot.version>
+		<druid-boot.version>1.1.6</druid-boot.version>
 		<!-- mybatis pageHelper -->
 		<pageHelper.version>1.2.3</pageHelper.version>
 		<!-- mybatis-spring版本 -->

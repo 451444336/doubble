@@ -9,9 +9,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,10 +26,13 @@ import com.born.facade.constant.AuthChangeEnum;
 import com.born.facade.constant.MenuAuthEnum;
 import com.born.facade.dto.menu.AddMenuDTO;
 import com.born.facade.dto.permission.AddPermissionDTO;
+import com.born.facade.dto.permission.MenuDTO;
 import com.born.facade.dto.permission.PermissionInfoDTO;
 import com.born.facade.dto.permission.PermissionQueryDTO;
 import com.born.facade.entity.AuthorityChange;
 import com.born.facade.entity.CompanyAuthority;
+import com.born.facade.entity.CompanyMenu;
+import com.born.facade.entity.MenuAuthority;
 import com.born.facade.entity.MenuAuthorityBase;
 import com.born.facade.entity.UserAuthority;
 import com.born.facade.exception.PermissionException;
@@ -40,6 +45,7 @@ import com.born.facade.vo.permission.MenuPermissionVO;
 import com.born.facade.vo.permission.PermissionVO;
 import com.born.mapper.AuthorityChangeMapper;
 import com.born.mapper.CompanyAuthorityMapper;
+import com.born.mapper.CompanyMenuMapper;
 import com.born.mapper.MenuAuthorityBaseMapper;
 import com.born.mapper.MenuAuthorityMapper;
 import com.born.mapper.UserAuthorityMapper;
@@ -80,6 +86,9 @@ public class PermissionServiceImpl implements IPermissionService {
 	@Autowired
 	private MenuAuthorityMapper menuAuthorityMapper;
 	
+	@Autowired
+	private CompanyMenuMapper companyMenuMapper;
+	
 	@Override
 	@Transactional
 	@SuppressWarnings("unchecked")
@@ -91,54 +100,87 @@ public class PermissionServiceImpl implements IPermissionService {
 			return ResultUtil.setResult(result, RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 		}
 		try {
-			if (CollectionUtils.isNotEmpty(dto.getMenus())) {
+			// 菜单权限数据
+			Map<String, List<Long>> menu_auth_map = new HashMap<>();
+			if (CollectionUtils.isNotEmpty(dto.getAuths())) {
 				// 封装权限菜单基础数据并添加权限数据
-				Map<AuthOperEnum, Object> map = initMenuAuthorityBase(dto.getMenus(), dto.getTemplateId(), dto.getCompanyId());
-				Map<String, Long> add_company_authority = (Map<String, Long>) map
-						.get(AuthOperEnum.ADD_COMPANY_AUTHORITY);
-				Map<String, Long> all_map = (Map<String, Long>) map.get(AuthOperEnum.ALL_MAP);
-				List<MenuAuthorityBase> addBases = (List<MenuAuthorityBase>) map.get(AuthOperEnum.ADD_AUTH);
-				if (insertMenuAuthorityBase(addBases)) {
-					for (MenuAuthorityBase mab : addBases) {
-						all_map.put(mab.getAuthorityId(), mab.getId());
-						if (add_company_authority.containsKey(mab.getAuthorityId())) {
-							add_company_authority.put(mab.getAuthorityId(), mab.getId());
+				Map<AuthOperEnum, Object> map = initMenuAuthority(dto.getAuths(), dto.getTemplateId(),
+						dto.getCompanyId(), menu_auth_map);
+				List<CompanyAuthority> addAuths = (List<CompanyAuthority>) map.get(AuthOperEnum.ADD_AUTH);
+				// 新增权限数据
+				if (insertMenuAuthorityBase(addAuths)) {
+					List<Long> auths;
+					for (CompanyAuthority auth : addAuths) {
+						auths = menu_auth_map.get(auth.getBaseMenuId());
+						if (null == auths) {
+							auths = new LinkedList<>();
+							menu_auth_map.put(auth.getBaseMenuId(), auths);
 						}
+						auths.add(auth.getId());
 					}
 				}
 				// 修改数据状态（存在/不存在的权限数据）
 				updateMenuAuthorityBase(map);
-				// 新增公司权限数据
-				Map<Long, Long> auths = insertCompanyAuthority(collToList(add_company_authority.values()),
-						dto.getCompanyId());
-				// 新增权限变更记录表数据
-				insertAuthorityChange(dto);
-				// 封装菜单数据并添加菜单
-				Result addMenuResult = menuService.addMenu(packAddMenus(dto.getMenus(), all_map, auths));
+			}
+			// 新增权限变更记录表数据
+			insertAuthorityChange(dto);
+			// 封装菜单数据并添加菜单
+			List<AddMenuDTO> menus = packAddMenus(dto.getMenus(), menu_auth_map, dto.getCompanyId());
+			if (CollectionUtils.isEmpty(menus) && menu_auth_map.size() > 0) {
+				// 没有菜单数据只给菜单添加权限数据
+				insertMenuAuthority(menu_auth_map, dto.getCompanyId());
+			} else {
+				Result addMenuResult = menuService.addMenu(menus);
 				log.info("添加菜单返回数据={}", JSON.toJSONString(addMenuResult));
 				if (!addMenuResult.isSuccess()) {
 					throw new PermissionException(PermissionExceptionEnum.ADD_MENU_ERROR);
 				}
-				return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
-			} else {
-				result.setMessage("未查询到公司菜单/权限数据");
-				log.warn("未查询到公司菜单/权限数据");
 			}
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 		} catch (Exception e) {
 			log.error("权限添加异常", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_PERMISSION_ERROR);
 		}
-		return result;
 	}
-	
-	private List<Long> collToList(Collection<Long> colls) {
-		final List<Long> result = new ArrayList<>(colls.size());
-		if (CollectionUtils.isNotEmpty(colls)) {
-			result.addAll(colls);
+	/**
+	 * @throws CloneNotSupportedException 
+	* @Title: insertMenuAuthority 
+	* @Description: 添加菜单权限数据 
+	* @param @param menu_auth_map    设定文件 
+	* @return void    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	private void insertMenuAuthority(Map<String, List<Long>> menu_auth_map, String companyId)
+			throws CloneNotSupportedException {
+		CompanyMenu record = new CompanyMenu();
+		CompanyMenu result;
+		final List<MenuAuthority> inserts = new ArrayList<>();
+		final MenuAuthority inset = new MenuAuthority();
+		inset.setCreaterId(CommonConstants.SYSTEM_USER);
+		inset.setCreateTime(new Date());
+		inset.setCompanyId(companyId);
+		List<Long> auths;
+		for (Entry<String, List<Long>> en : menu_auth_map.entrySet()) {
+			record.setBaseMenuId(en.getKey());
+			auths = en.getValue();
+			result = companyMenuMapper.selectOne(record);
+			if (null != result) {
+				for (Long id : auths) {
+					inset.setAuthorityId(id);
+					inset.setMenuId(result.getId());
+					inserts.add(inset.clone());
+				}
+			}
 		}
-		return result;
+		if (!inserts.isEmpty()) {
+			MenuAuthority delete = new MenuAuthority();
+			delete.setCompanyId(companyId);
+			// 先删除后新增
+			menuAuthorityMapper.delete(delete);
+			menuAuthorityMapper.insertList(inserts);
+		}
 	}
-
 	/**
 	 * @throws CloneNotSupportedException 
 	* @Title: insertAuthorityChange 
@@ -156,49 +198,24 @@ public class PermissionServiceImpl implements IPermissionService {
 		change.setOldUserId(dto.getUserId());
 		change.setOperType(AuthChangeEnum.ADD.getStatus());
 		change.setTemplateId(dto.getTemplateId());
-		final List<PermissionInfoDTO> menus = dto.getMenus();
-		final List<AuthorityChange> recordList = new ArrayList<>(menus.size());
-		for (PermissionInfoDTO auth : menus) {
-			change.setAuthorityId(auth.getId());
-			recordList.add(change.clone());
-		}
-		authorityChangeMapper.insertList(recordList);
-	}
-	/**
-	 * @throws CloneNotSupportedException 
-	* @Title: changeCompanyAuthority 
-	* @Description: 变更公司权限 
-	* @param @param inserts
-	* @param @param companyId    设定文件 
-	* @return void    返回类型 
-	* @author lijie
-	* @throws
-	 */
-	private Map<Long, Long> insertCompanyAuthority(List<Long> inserts, String companyId)
-			throws CloneNotSupportedException {
-		final Map<Long, Long> result = new HashMap<>();
-		List<CompanyAuthority> list = companyAuthorityMapper.selectAll();
-		if (CollectionUtils.isNotEmpty(list)) {
-			for (CompanyAuthority ca : list) {
-				result.put(ca.getAuthorityBaseId(), ca.getId());
+		final List<MenuDTO> menus = dto.getMenus();
+		final List<PermissionInfoDTO> auths = dto.getAuths();
+		final List<AuthorityChange> recordList = new LinkedList<>();
+		if (CollectionUtils.isNotEmpty(menus)) {
+			for (MenuDTO auth : menus) {
+				change.setAuthorityId(auth.getId());
+				recordList.add(change.clone());
 			}
 		}
-		if (CollectionUtils.isNotEmpty(inserts)) {
-			final CompanyAuthority cah = new CompanyAuthority();
-			cah.setCompanyId(companyId);
-			cah.setCreateTime(new Date());
-			cah.setCreaterId(CommonConstants.SYSTEM_USER);
-			List<CompanyAuthority> recordList = new ArrayList<>(inserts.size());
-			for (Long id : inserts) {
-				cah.setAuthorityBaseId(id);
-				recordList.add(cah.clone());
-			}
-			companyAuthorityMapper.insertList(recordList);
-			for (CompanyAuthority ca : recordList) {
-				result.put(ca.getAuthorityBaseId(), ca.getId());
+		if (CollectionUtils.isNotEmpty(auths)) {
+			for (PermissionInfoDTO auth : auths) {
+				change.setAuthorityId(auth.getAuthId());
+				recordList.add(change.clone());
 			}
 		}
-		return result;
+		if (!recordList.isEmpty()) {
+			authorityChangeMapper.insertList(recordList);
+		}
 	}
 	
 	/**
@@ -215,14 +232,14 @@ public class PermissionServiceImpl implements IPermissionService {
 		List<Long> not_exists = (List<Long>) map.get(AuthOperEnum.UPDATE_NOT_EXISTS);
 		if (CollectionUtils.isNotEmpty(not_exists)) {
 			// 修改不在新增范围之内菜单为删除状态
-			menuAuthorityBaseMapper.updateMenuAuthorityByAuthIds(not_exists, MenuAuthEnum.DELETE.getStatus(),
+			companyAuthorityMapper.updateMenuAuthorityByAuthIds(not_exists, MenuAuthEnum.DELETE.getStatus(),
 					CommonConstants.SYSTEM_USER);
 		}
 
 		List<Long> exists = (List<Long>) map.get(AuthOperEnum.UPDATE_EXISTS);
 		if (CollectionUtils.isNotEmpty(exists)) {
 			// 修改新增范围之内菜单为正常状态
-			menuAuthorityBaseMapper.updateMenuAuthorityByAuthIds(exists, MenuAuthEnum.NOT_DELETE.getStatus(),
+			companyAuthorityMapper.updateMenuAuthorityByAuthIds(exists, MenuAuthEnum.NOT_DELETE.getStatus(),
 					CommonConstants.SYSTEM_USER);
 		}
 	}
@@ -236,9 +253,9 @@ public class PermissionServiceImpl implements IPermissionService {
 	* @author lijie
 	* @throws
 	 */
-	private boolean insertMenuAuthorityBase(List<MenuAuthorityBase> addBases){
-		if (CollectionUtils.isNotEmpty(addBases)) {
-			menuAuthorityBaseMapper.insertList(addBases);
+	private boolean insertMenuAuthorityBase(List<CompanyAuthority> addAuths){
+		if (CollectionUtils.isNotEmpty(addAuths)) {
+			companyAuthorityMapper.insertList(addAuths);
 			return true;
 		}
 		return false;
@@ -263,15 +280,7 @@ public class PermissionServiceImpl implements IPermissionService {
 		/**
 		 * 修改存在的数据标记
 		 */
-		UPDATE_EXISTS,
-		/**
-		 * 所有权限对应的自增ID标记
-		 */
-		ALL_MAP,
-		/**
-		 * 新增权限标记
-		 */
-		ADD_COMPANY_AUTHORITY
+		UPDATE_EXISTS
 		;
 	}
 	/**
@@ -286,67 +295,69 @@ public class PermissionServiceImpl implements IPermissionService {
 	* @author lijie
 	* @throws
 	 */
-	private Map<AuthOperEnum, Object> initMenuAuthorityBase(List<PermissionInfoDTO> menus, String templateId,
-			String companyId) throws CloneNotSupportedException {
+	private Map<AuthOperEnum, Object> initMenuAuthority(final List<PermissionInfoDTO> auths, final String templateId,
+			final String companyId, final Map<String, List<Long>> menu_auth_map) throws CloneNotSupportedException {
 		final Map<AuthOperEnum, Object> resultMap = new HashMap<>();
 		// 查询已存在的权限数据
-		MenuAuthorityBase select = new MenuAuthorityBase();
+		CompanyAuthority select = new CompanyAuthority();
 		select.setCompanyId(companyId);
-		final List<MenuAuthorityBase> alllist = menuAuthorityBaseMapper.select(select);
-		Map<String, MenuAuthorityBase> existsMap = new HashMap<String, MenuAuthorityBase>();
+		final List<CompanyAuthority> alllist = companyAuthorityMapper.select(select);
+		final Map<String, CompanyAuthority> existsMap = new HashMap<String, CompanyAuthority>();
 		if (CollectionUtils.isNotEmpty(alllist)) {
-			for (MenuAuthorityBase base : alllist) {
-				existsMap.put(base.getAuthorityId(), base);
+			for (CompanyAuthority base : alllist) {
+				existsMap.put(base.getBaseAuthorityId(), base);
 			}
 		}
-		// 需要添加的数据
-		final List<MenuAuthorityBase> adds = new ArrayList<>(menus.size());
+
+		// 需要添加的权限数据
+		final List<CompanyAuthority> adds = new LinkedList<>();
+
 		// 变更后存在的数据/需要修改删除状态的数据
-		final List<Long> exists = new ArrayList<>();
+		final List<Long> exists = new LinkedList<>();
 		// 变更后不存在的数据/需要修改为删除状态的数据
-		final List<Long> not_exists = new ArrayList<>();
-		// 所有的权限数据对应的base ID数据
-		final Map<String, Long> all_map = new HashMap<>();
-		
-		final Map<String, Long> add_company_authority = new HashMap<>();
-		MenuAuthorityBase insert = new MenuAuthorityBase();
+		final List<Long> not_exists = new LinkedList<>();
+
+		CompanyAuthority insert = new CompanyAuthority();
 		insert.setIsDelete(MenuAuthEnum.NOT_DELETE.getStatus());
-		insert.setTemplateId(templateId);
 		insert.setIsUsable(MenuAuthEnum.AVAILABLE.getStatus());
+		insert.setCompanyId(companyId);
+		insert.setCreateTime(new Date());
+		insert.setCreaterId(CommonConstants.SYSTEM_USER);
 		// 存在则忽略，不存在则添加
-		MenuAuthorityBase base;
-		for (PermissionInfoDTO dto : menus) {
-			base = existsMap.get(dto.getId());
-			if (null == base) {
-				if (CommonConstants.AUTH_FLAG.equals(dto.getMenuLevel())) {
-					add_company_authority.put(dto.getId(), null);
-				}
-				getMenuAuthorityBase(insert, dto);
+		CompanyAuthority auth;
+		List<Long> authIds;
+		for (PermissionInfoDTO dto : auths) {
+			auth = existsMap.get(dto.getAuthId());
+			if (null == auth) {
+				getMenuAuthority(insert, dto);
 				adds.add(insert.clone());
 			} else {
-				all_map.put(base.getAuthorityId(), base.getId());
-				if (MenuAuthEnum.DELETE.getStatus().equals(base.getIsDelete())) {
-					exists.add(base.getId());
+				if (MenuAuthEnum.DELETE.getStatus().equals(auth.getIsDelete())) {
+					exists.add(auth.getId());
 				}
-				existsMap.remove(dto.getId());
+				authIds = menu_auth_map.get(dto.getMenuId());
+				if (null == authIds) {
+					authIds = new LinkedList<>();
+					menu_auth_map.put(dto.getMenuId(), authIds);
+				}
+				authIds.add(auth.getId());
+				existsMap.remove(dto.getAuthId());
 			}
 		}
-		Collection<MenuAuthorityBase> not_exists_base = existsMap.values();
+		Collection<CompanyAuthority> not_exists_base = existsMap.values();
 		if (not_exists_base.size() > 0) {
-			for (MenuAuthorityBase neb : not_exists_base) {
+			for (CompanyAuthority neb : not_exists_base) {
 				not_exists.add(neb.getId());
 			}
 		}
 		resultMap.put(AuthOperEnum.ADD_AUTH, adds);
 		resultMap.put(AuthOperEnum.UPDATE_EXISTS, exists);
 		resultMap.put(AuthOperEnum.UPDATE_NOT_EXISTS, not_exists);
-		resultMap.put(AuthOperEnum.ALL_MAP, all_map);
-		resultMap.put(AuthOperEnum.ADD_COMPANY_AUTHORITY, add_company_authority);
 		return resultMap;
 	}
 	/**
 	 * 
-	* @Title: getMenuAuthorityBase 
+	* @Title: getMenuAuthority 
 	* @Description: 封装值 
 	* @param @param insert
 	* @param @param vo    设定文件 
@@ -354,19 +365,18 @@ public class PermissionServiceImpl implements IPermissionService {
 	* @author lijie
 	* @throws
 	 */
-	private void getMenuAuthorityBase(MenuAuthorityBase insert, PermissionInfoDTO dto) {
-		insert.setAuthorityId(dto.getId());
+	private void getMenuAuthority(final CompanyAuthority insert, final PermissionInfoDTO dto) {
+		insert.setBaseAuthorityId(dto.getAuthId());
 		insert.setAppSeq(dto.getAppSeq());
 		insert.setAscription(dto.getAscription());
 		insert.setIcon(dto.getIcon());
-		insert.setAuthorityName(dto.getMenuName());
-		insert.setAuthoritySeq(dto.getMenuSeq());
-		insert.setAuthorityUrl(dto.getMenuUrl());
+		insert.setAuthorityName(dto.getAuthName());
+		insert.setAuthoritySeq(dto.getAuthSeq());
+		insert.setAuthorityUrl(dto.getAuthUrl());
 		insert.setAppUrl(dto.getAppUrl());
-		insert.setCompanyId(dto.getCompanyId());
 		insert.setType(dto.getType());
-		insert.setOperType(dto.getOperType());
 		insert.setAuthCode(dto.getAuthCode());
+		insert.setBaseMenuId(dto.getMenuId());
 	}
 	/**
 	 * @throws CloneNotSupportedException 
@@ -378,62 +388,27 @@ public class PermissionServiceImpl implements IPermissionService {
 	* @author lijie
 	* @throws
 	 */
-	public static List<AddMenuDTO> packAddMenus(List<PermissionInfoDTO> list, Map<String, Long> allMap,
-			Map<Long, Long> auths) throws CloneNotSupportedException {
+	public static List<AddMenuDTO> packAddMenus(List<MenuDTO> list, Map<String, List<Long>> menu_auth_map,
+			String companyId) throws CloneNotSupportedException {
 		final List<AddMenuDTO> result = new LinkedList<>();
-		final List<AddMenuDTO> copys = new ArrayList<>(list.size());
-		final AddMenuDTO dto = new AddMenuDTO();
-		dto.setCreaterId(CommonConstants.SYSTEM_USER);
 		if (CollectionUtils.isNotEmpty(list)) {
-			for (PermissionInfoDTO vo : list) {
-				dto.setCompanyId(vo.getCompanyId());
-				dto.setMenuLevel(vo.getMenuLevel());
+			final List<AddMenuDTO> copys = new ArrayList<>(list.size());
+			final AddMenuDTO dto = new AddMenuDTO();
+			dto.setCreaterId(CommonConstants.SYSTEM_USER);
+			for (MenuDTO vo : list) {
+				BeanUtils.copyProperties(vo, dto);
 				dto.setMenuId(vo.getId());
-				dto.setParentId(vo.getParentId());
-				dto.setAuthorityBaseId(allMap.get(vo.getId()));
+				dto.setAuths(menu_auth_map.get(vo.getId()));
+				dto.setCompanyId(companyId);
 				copys.add(dto.clone());
 			}
-		}
-		// 封装返回菜单数据
-		if (!copys.isEmpty()) {
-			for (AddMenuDTO amt : copys) {
-				if (StringUtils.isBlank(amt.getParentId())) {
-					result.add(next(amt, copys));
+			// 封装返回菜单数据
+			if (!copys.isEmpty()) {
+				for (AddMenuDTO amt : copys) {
+					if (StringUtils.isBlank(amt.getParentId())) {
+						result.add(next(amt, copys));
+					}
 				}
-			}
-			// 封装菜单对应的权限ID数据
-			for (AddMenuDTO amt : result) {
-				amt.setAuths(getAuths(amt.getNexts().iterator(), auths));
-			}
-		}
-		return result;
-	}
-	
-	/**
-	 * 
-	* @Title: getAuths 
-	* @Description: 封装菜单对应的权限数据
-	* @param @param list
-	* @param @param auths
-	* @param @return    设定文件 
-	* @return List<Long>    返回类型 
-	* @author lijie
-	* @throws
-	 */
-	private static List<Long> getAuths(final Iterator<AddMenuDTO> it, final Map<Long, Long> auths) {
-		final List<Long> result = new ArrayList<Long>();
-		Long authId;
-		AddMenuDTO amt;
-		while (it.hasNext()) {
-			amt = it.next();
-			authId = auths.get(amt.getAuthorityBaseId());
-			// 如果是权限数据则从菜单中移除掉
-			if (null != authId) {
-				result.add(authId);
-				it.remove();
-			}
-			if (CollectionUtils.isNotEmpty(amt.getNexts())) {
-				amt.setAuths(getAuths(amt.getNexts().iterator(), auths));
 			}
 		}
 		return result;
@@ -458,45 +433,6 @@ public class PermissionServiceImpl implements IPermissionService {
 		}
 		parent.setNexts(childs);
 		return parent;
-	}
-
-	@Override
-	@Transactional
-	public Result updatePermission(PermissionInfoDTO dto) {
-		log.info("权限编辑入参={}", JSON.toJSONString(dto));
-		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
-		String errorStr = dto.validateForm();
-		if (StringUtils.isNotBlank(errorStr)) {
-			return ResultUtil.setResult(result, RespCode.Code.REQUEST_DATA_ERROR, errorStr);
-		}
-		try {
-			MenuAuthorityBase selectOne = new MenuAuthorityBase();
-			selectOne.setAuthorityId(dto.getId());
-			selectOne.setCompanyId(dto.getCompanyId());
-			selectOne = menuAuthorityBaseMapper.selectOne(selectOne);
-			if (null == selectOne) {
-				return ResultUtil.setResult(result, PermissionExceptionEnum.PERMISSION_NOT_EXISTS);
-			}
-
-			MenuAuthorityBase update = selectOne.clone();
-			update.setAppSeq(dto.getAppSeq());
-			update.setAppUrl(dto.getAppUrl());
-			update.setAscription(dto.getAscription());
-			update.setAuthorityName(dto.getMenuName());
-			update.setAuthoritySeq(dto.getMenuSeq());
-			update.setAuthorityUrl(dto.getMenuUrl());
-			update.setIcon(dto.getIcon());
-			update.setIsUsable(dto.getIsUsable());
-			update.setOperType(dto.getOperType());
-			update.setUpdateTime(new Date());
-			update.setUpdaterId(CommonConstants.SYSTEM_USER);
-			menuAuthorityBaseMapper.updateByPrimaryKeySelective(update);
-
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
-		} catch (Exception e) {
-			log.error("权限编辑异常", e);
-			throw new PermissionException(PermissionExceptionEnum.UPDATE_PERMISSION_ERROR);
-		}
 	}
 
 	@Override

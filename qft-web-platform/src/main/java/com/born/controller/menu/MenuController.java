@@ -51,6 +51,7 @@ public class MenuController {
     	dto.setAscription(MenuAuthEnum.PC_MENU_AUTH.getStatus());
     	dto.setCompanyId(su.getCompanyId());
     	dto.setUserId(su.getId());
+    	dto.setRoleId(su.getRoles().get(0).getId());
         Result result = menuService.getMenuTreeByUserId(dto);
         log.info("根据用户查询菜单列表树型结构返回值，result={}", JSON.toJSONString(result));
         return result;

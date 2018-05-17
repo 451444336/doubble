@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.born.core.page.PageBean;
 import com.born.facade.dto.permission.AddPermissionDTO;
-import com.born.facade.dto.permission.PermissionInfoDTO;
+import com.born.facade.dto.permission.MenuDTO;
 import com.born.facade.dto.permission.PermissionQueryDTO;
 import com.born.util.result.Result;
 
@@ -28,17 +28,6 @@ public interface IPermissionService {
 	* @throws
 	 */
 	Result addPermission(AddPermissionDTO dto);
-	/**
-	 * 
-	* @Title: updatePermission 
-	* @Description: 编辑权限 
-	* @param @param dto
-	* @param @return    设定文件 
-	* @return Result    返回类型 
-	* @author lijie
-	* @throws
-	 */
-	Result updatePermission(PermissionInfoDTO dto);
 	/**
 	 * 
 	* @Title: getCompanyInfo 

@@ -1,6 +1,5 @@
 package com.born.facade.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -53,4 +52,9 @@ public class MenuAuthority extends EntityClone<MenuAuthority> {
 	 */
 	@Column(name = "creater_id")
 	private Long createrId;
+	/**
+	 * 公司ID
+	 */
+	@Column(name = "company_id")
+	private String companyId;
 }
