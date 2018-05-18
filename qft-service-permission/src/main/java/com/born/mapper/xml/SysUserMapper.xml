@@ -68,4 +68,8 @@
 		updater_id = #{updaterId}
 		WHERE id = #{id}
 	</update>
+	<insert id="insertRoleUser" parameterType="com.born.facade.dto.user.UserRoleDTO">
+		insert into qft_user_role (role_id,user_id,create_time,creater_id)
+		VALUES(#{roleId},#{userId},#{createTime},#{createrId})
+	</insert>
 </mapper>

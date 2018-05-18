@@ -1,10 +1,7 @@
 package com.born.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -16,6 +13,7 @@ import com.born.facade.dto.CompanyStaffDTO;
 import com.born.facade.dto.staff.FindStaffListDTO;
 import com.born.facade.dto.staff.PositionStaffDTO;
 import com.born.facade.dto.user.DeteleUserDTO;
+import com.born.facade.dto.user.UserRoleDTO;
 import com.born.facade.entity.CompanyStaff;
 import com.born.facade.entity.User;
 import com.born.facade.exception.PermissionException;
@@ -126,13 +124,13 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 		BeanUtils.copyProperties(dto, user);
 		user.setUpdateTime(new Date());
 		user.setId(dto.getUserId());
+		user.setSysStatus(new Byte(dto.getSysStatus()));
 		try {
 			userMapper.updateByPrimaryKeySelective(user);
 		} catch (Exception e) {
 			log.error("修改用户失败（StaffServiceImpl.addStaff）", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
 		}
-		
 		//用户没得问题  然后保存员工
 		CompanyStaff staff = new CompanyStaff();
 		//转换对应的员工数据
@@ -183,7 +181,7 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 		BeanUtils.copyProperties(dto, user);
 		user.setCreateTime(new Date());
 		user.setPassword("123456");
-		user.setStatus(new Byte("1"));
+		user.setSysStatus(new Byte(dto.getSysStatus()));
 		user.setIsAppNotice(0);
 		user.setIsWebNotice(0);
 		user.setSourceType("1");
@@ -194,7 +192,18 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 			log.error("添加用户失败（StaffServiceImpl.addStaff）", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
 		}
-		
+		//添加角色关系
+		UserRoleDTO cRole  = new UserRoleDTO();
+		cRole.setCreaterId(dto.getCreaterId());
+		cRole.setCreateTime(new Date());
+		cRole.setRoleId(2L);//默认角色2
+		cRole.setUserId(user.getId());
+		try {
+			userMapper.insertRoleUser(cRole);
+		} catch (Exception e) {
+			log.error("添加角色关系失败（StaffServiceImpl.addStaff）", e);
+			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
+		}
 		//用户没得问题  然后保存员工
 		CompanyStaff staff = new CompanyStaff();
 		//转换对应的员工数据
@@ -219,7 +228,7 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 		try {
 			 staffMapper.insertPositionStaff(posSta);
 		} catch (Exception e) {
-			log.error("添加职位员工失败（StaffServiceImpl.addStaff）", e);
+			log.error("添加职位员工中间表失败（StaffServiceImpl.addStaff）", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
 		}
 		return ResultUtil.setResult(result,RespCode.Code.SUCCESS);
@@ -274,5 +283,33 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 			log.error("查询分页数据异常", e);
 		}
         return result;
+	}
+
+	@Override
+	public Result updateUser(CompanyStaffDTO dto) {
+		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		//校验参数
+		if(dto==null||dto.getUserId()==null) {
+			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
+		}
+		String errorStr = dto.validateForm();
+		if(StringUtils.isNotBlank(errorStr)) {
+			result.setMessage(errorStr);
+			return result;
+		}
+		//首先保存用户
+		User user = new User();
+		//转换对应的用户数据
+		BeanUtils.copyProperties(dto, user);
+		user.setUpdateTime(new Date());
+		user.setId(dto.getUserId());
+		user.setStatus(new Byte(dto.getStatus()));
+		try {
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS,userMapper.updateByPrimaryKeySelective(user));
+		} catch (Exception e) {
+			log.error("修改用户失败（StaffServiceImpl.updateUser）", e);
+			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
+		}
+		return result;
 	}
 }

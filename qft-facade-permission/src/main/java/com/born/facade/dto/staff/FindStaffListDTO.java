@@ -44,6 +44,14 @@ public class FindStaffListDTO extends PageBean {
 	
 	//状态 正常 关闭
 	private String status;
+	
+	//工作分组
+	private String attendanceId;
+	
+	//系统锁定
+	private String sysStatus;
+	//菜单权限ID
+	private List<Long> meunIds;
 }
 
 

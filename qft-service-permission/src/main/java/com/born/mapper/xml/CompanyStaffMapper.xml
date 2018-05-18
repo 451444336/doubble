@@ -42,6 +42,7 @@
 			u.account as account,
 			u.password as password,
 			u.status as status,
+			u.sys_status as sysStatus,
 			u.is_enable_app as isEnableApp,
 			ps.position_id as positionId,
 			p.name as positionName,
@@ -73,6 +74,7 @@
 			u.account as account,
 			u.password as password,
 			u.status as status,
+			u.sys_status as sysStatus,
 			u.is_enable_app as isEnableApp,
 			ps.position_id as positionId,
 			p.name as positionName,
@@ -131,6 +133,9 @@
 		</if>
 		<if test="status != null and status != ''">
 			and	u.status = #{status}
+		</if>
+		<if test="attendanceId != null and attendanceId != ''">
+			and	u.attendance_id = #{attendanceId}
 		</if>
 	</select>
 	

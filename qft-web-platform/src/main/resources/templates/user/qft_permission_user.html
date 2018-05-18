@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>用户权限修改</title>
+    <title>用户权限编辑</title>
     <!--主样式表-->
     <link rel="stylesheet" th:href="@{/static/css/models.css}">
 </head>
@@ -98,7 +98,7 @@
                         		 $('#ul_'+obj['id']).append('<li id="submeun_'+subMeunBox_obj['id']+'"><a class="link_subMeun" href="javascript:void(0);">'+subMeunBox_obj['menuName']+'</a></li>');
                         		 showSubMeun($(".mainMeun li:eq(0)")[0].id);
                   				 $('.powerOptionBox').append('<div class="powerOption meun_'+obj['id']+' submeun_'+subMeunBox_obj['id']+'" id="three_submeun_'+subMeunBox_obj['id']+'">'+
-       			 					 	'<h2 class="PopupTitle margin0">'+subMeunBox_obj.menuName+'</h2>'+
+       			 					 	'<h2 class="PopupTitle margin0"><label class="powerLabel"><input name="meunIds" type="checkbox" checked="checked" >'+subMeunBox_obj.menuName+'</label></h2>'+
        			 					 	'<div class="look_power"><p class="subPowerTit"><span>查看权限</span><label class="powerLabel"><input class="checkAll commonly_checkbox" name="" type="checkbox">全选</label></p>'+
        			 					 	'<ul class="powerOptionList" id="look_'+subMeunBox_obj['id']+'"></ul></div>'+
        			 					 	'<div class="operate_power"><p class="subPowerTit"><span>操作权限</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
@@ -111,7 +111,7 @@
                         		 var permission = subMeunBox_obj['permission'];
                         		 console.log(permission);
                         		 if(permission==null){
-                        			 return false;
+                        			 return;
                         		 } 
                         		 //三级权限菜单
                        			 $.each(permission.permissions, function(powerOptionList_index, powerOptionList_obj){

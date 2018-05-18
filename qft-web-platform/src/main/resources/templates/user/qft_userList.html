@@ -16,8 +16,8 @@
     <!--子页顶部内容-->
     <div class="subTopBox">
         <div class="subTopLeft">
-        	<input type="hidden"  id="user_state" />
-            <a class="subTopBtn normal" href="javascript:void(0);">正常用户</a><a class="subTopBtn closed" href="javascript:void(0);">已关闭用户</a><a class="subTopBtn JS_record" href="javascript:void(0);">操作记录</a>
+        	<input type="hidden"  id="user_state"  value="1"/>
+            <a class="subTopBtn subHover normal" href="javascript:void(0);">正常用户</a><a class="subTopBtn closed" href="javascript:void(0);">已关闭用户</a><a class="subTopBtn JS_record" href="javascript:void(0);">操作记录</a>
             <a class="subTopBtn qft_adduser" href="javascript:void(0);">添加用户</a>
         </div>
     </div>
@@ -32,35 +32,36 @@
                     <td>
                         <select class="selectpicker select_city" data-live-search="true">
                             <option value="">全部</option>
-                            <option value="">重庆</option>
-                            <option value="">四川</option>
+	                        <option value="北京">北京</option>
+	                        <option value="重庆">重庆</option>
+	                        <option value="四川">四川</option>
                         </select>
                     </td>
                     <th>工作店面：</th>
                     <td>
                         <select class="selectpicker select_store" data-live-search="true" >
                             <option value="">全部</option>
-                            <option value="">重庆</option>
-                            <option value="">四川</option>
+	                        <option value="北京">北京</option>
+	                        <option value="重庆">重庆</option>
+	                        <option value="四川">四川</option>
                         </select>
                     </td>
-                    <th>工作分组：</th>
-                    <td>
+                    <th class="search_hide">工作分组：</th>
+                    <td class="search_hide">
                         <select class="selectpicker select_group" data-live-search="true">
                             <option value="">全部</option>
-                            <option value="">重庆</option>
-                            <option value="">四川</option>
+	                        <option value="北京">北京</option>
+	                        <option value="重庆">重庆</option>
+	                        <option value="四川">四川</option>
                         </select>
                     </td>
-                    <th>职务：</th>
-                    <td>
+                    <th class="search_hide">职务：</th>
+                    <td class="search_hide">
                         <select class="selectpicker select_position" data-live-search="true">
-                             <option value="">全部</option>
+                              <option value="">全部</option>
    							  <option th:each="position : ${select_position}" th:value="${position.id}" th:text="${position.name}" th:selected="${position.id}==${positionId}"></option>
                         </select>
                     </td>
-                </tr>
-                <tr>
                     <th>用户姓名：</th>
                     <td>
                         <select class="selectpicker select_name" data-live-search="true">
@@ -132,6 +133,8 @@
     $(function(){
     	if($(".select_position option:selected").val()==""){
     		 $('.qft_adduser').hide();
+    	}else{
+    		 $('.search_hide').hide();
     	}
         //操作记录
         $('.subTopBox').on('click','.JS_record',function(){
@@ -156,7 +159,7 @@
                 area: ['860px','550px'],
                 //btn:['关闭'],
                 btnAlign: 'c',
-                content: '/web/staff/addUser/'+$('#positionId').val()
+                content: '/web/staff/addUser/'+$(".select_position option:selected").val()
             });
         });
         //修改密码
@@ -173,7 +176,21 @@
                 area: ['460px','375px'],
                 btn:['确认密码'],
                 yes: function(){
-                    $('#roleForm').submit();
+                    $.ajax({
+                        "dataType": 'json',
+                        "type": "POST",
+                        "url": "/user/update/pass",
+                        "data":$('#roleForm').serialize(),
+                        "success": function(result){
+                        	 layer.alert(result.message, {  
+                                 title: "密码修改",  
+                                 btn: ['确定']  
+                             },  
+                                 function (index, item) { 
+                             		location.reload(); 
+                                 });
+                        } 
+                    });
                 },
                 btnAlign: 'c',
                 content: $('#qft_modifyBox')
@@ -208,6 +225,21 @@
             }else{
                 $(this).removeClass('errorCol');
             }
+            var id = $(this).attr("data_id");
+            $.ajax({
+                "dataType": 'json',
+                "type": "POST",
+                "url": "/web/staff/updateUserStu?userId="+id+"&status="+valTxt,
+                "success": function(result){
+                	 layer.alert(result.message, {  
+                         title: "用户操作",  
+                         btn: ['确定']  
+                     },  
+                         function (index, item) { 
+                     		location.reload(); 
+                         });
+                } 
+            });
         });
         //删除
         $('.wareList').on('click','.JS_delete',function(){
@@ -268,8 +300,8 @@
                 {"sTitle": "用户账号", "mData": "account"},
                 {"sTitle": "联系方式", "mData": "phone"},
                 {"sTitle": "可看房源城市", "mData": "cityList"},
-                {"sTitle": "可看房源店面", "mData": "grouping"},
-                {"sTitle": "可看房源分组", "mData": "storegrouping"},
+                {"sTitle": "可看房源店面", "mData": "storegrouping"},
+                {"sTitle": "可看房源分组", "mData": "attendanceId"},
                 {"sTitle": "工作城市", "mData": "cityId"},
                 {"sTitle": "工作店面", "mData": "workstore"},
                 {"sTitle": "所属部门", "mData": "deptName"},
@@ -277,7 +309,14 @@
                 {"sTitle": "创建时间", "mData": "createTime"},
                 {"sTitle": "上次登录时间", "mData": "lastTime"},
                 {"sWidth": "90px", "sTitle": "状态", "mData": "status", "mRender" : function ( data, type, full ) {
-                        return '<select class="tab_select" name="status" id="status"><option value="1">开通</option><option value="2">关闭</option></select>'
+                		var status_html = '<select class="tab_select" name="status" id="status" data_id="'+full.id+'">';
+                		if(data==1){
+                			status_html = status_html+'<option value="1">开通</option><option value="2">关闭</option></select>';
+                		}
+                		if(data==2){
+                			status_html = status_html+'<option value="1">开通</option><option value="2" selected>关闭</option></select>';
+                		}
+                        return status_html;
                     }
                 },
                 {"sWidth": "300px", "sTitle" : "基本操作","mData" : "id","sClass":"tab_operate", "mRender" : function ( data, type, full ) {
@@ -315,7 +354,10 @@
                         'pageSize': aoData[4].value,
                         'positionId':$(".select_position option:selected").val(),
                         'userId':$('.select_name option:selected').val(),
-                        'status':$('#user_state').val()
+                        'status':$('#user_state').val(),
+                        'workstore':$('.select_store option:selected').val(),
+                        'cityId':$('.select_city option:selected').val(),
+                        'attendanceId':$('.select_group option:selected').val()
                     },
                     "success": fnCallback
                 });
@@ -330,14 +372,14 @@
             } */
         });
         $('.closed').on('click',function(){
-        	$('.normal').removeAttr("class","subHover");
-        	$(this).attr("class","subHover");
+        	$('.normal').removeClass("subHover");
+        	$(this).addClass("subHover");
         	$('#user_state').val(2);
         	tb.draw();
         });
         $('.normal').on('click',function(){
-        	$('.closed').removeAttr("class","subHover");
-        	$(this).attr("class","subHover");
+        	$('.closed').removeClass("subHover");
+        	$(this).addClass("subHover");
         	$('#user_state').val(1);
         	tb.draw();
         });
@@ -345,6 +387,9 @@
         	tb.draw();
         });
     });
+    function reloadList(){
+    	tb.draw();
+    }
 </script>
 </body>
 </html>
