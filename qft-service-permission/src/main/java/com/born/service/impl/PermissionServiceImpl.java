@@ -100,7 +100,7 @@ public class PermissionServiceImpl implements IPermissionService {
 			return ResultUtil.setResult(result, RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 		}
 		try {
-			// 菜单权限数据
+			// 所有的菜单权限数据包括已存在的
 			Map<String, List<Long>> menu_auth_map = new HashMap<>();
 			if (CollectionUtils.isNotEmpty(dto.getAuths())) {
 				// 封装权限菜单基础数据并添加权限数据
@@ -191,13 +191,10 @@ public class PermissionServiceImpl implements IPermissionService {
 	* @throws
 	 */
 	private void insertAuthorityChange(AddPermissionDTO dto) throws CloneNotSupportedException {
-		final AuthorityChange change = new AuthorityChange();
-		change.setCompanyId(dto.getCompanyId());
-		change.setCreaterId(CommonConstants.SYSTEM_USER);
-		change.setCreateTime(new Date());
-		change.setOldUserId(dto.getUserId());
-		change.setOperType(AuthChangeEnum.ADD.getStatus());
-		change.setTemplateId(dto.getTemplateId());
+		if (CollectionUtils.isEmpty(dto.getMenus()) && CollectionUtils.isEmpty(dto.getAuths())) {
+			return;
+		}
+		final AuthorityChange change = initAuthorityChange(dto);
 		final List<MenuDTO> menus = dto.getMenus();
 		final List<PermissionInfoDTO> auths = dto.getAuths();
 		final List<AuthorityChange> recordList = new LinkedList<>();
@@ -217,7 +214,26 @@ public class PermissionServiceImpl implements IPermissionService {
 			authorityChangeMapper.insertList(recordList);
 		}
 	}
-	
+	/**
+	 * 
+	* @Title: initAuthorityChange 
+	* @Description: 初始化权限变更数据 
+	* @param @param dto
+	* @param @return    设定文件 
+	* @return AuthorityChange    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	private AuthorityChange initAuthorityChange(AddPermissionDTO dto){
+		final AuthorityChange result = new AuthorityChange();
+		result.setCompanyId(dto.getCompanyId());
+		result.setCreaterId(CommonConstants.SYSTEM_USER);
+		result.setCreateTime(new Date());
+		result.setOldUserId(dto.getUserId());
+		result.setOperType(AuthChangeEnum.ADD.getStatus());
+		result.setTemplateId(dto.getTemplateId());
+		return result;
+	}
 	/**
 	 * 
 	* @Title: updateMenuAuthorityBase 

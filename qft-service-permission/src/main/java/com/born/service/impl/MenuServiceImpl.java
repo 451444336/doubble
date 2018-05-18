@@ -151,6 +151,7 @@ public class MenuServiceImpl implements IMenuService {
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Result addMenu(List<AddMenuDTO> list) {
 		log.info("添加菜单数据入参={}", JSON.toJSONString(list));
@@ -160,47 +161,20 @@ public class MenuServiceImpl implements IMenuService {
 			if (StringUtils.isNotBlank(errorStr)) {
 				return ResultUtil.setResult(result, RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 			}
-			final String companyId = list.get(0).getCompanyId();
-			// 获取当前公司已存在的菜单数据
-			CompanyMenu query = new CompanyMenu();
-			query.setCompanyId(companyId);
-			List<CompanyMenu> ms = companyMenuMapper.select(query);
-			// 已存在的菜单数据信息
-			Map<String, Long> existsMap = new HashMap<>();
-			final Set<Long> exists = new HashSet<>();
-			if (CollectionUtils.isNotEmpty(ms)) {
-				for (CompanyMenu m : ms) {
-					existsMap.put(m.getBaseMenuId(), m.getId());
-					if (MenuAuthEnum.DELETE.getStatus().equals(m.getIsDelete())) {
-						exists.add(m.getId());
-					}
-				}
-			}
-			// 存在的菜单对应的权限
-			final Map<Long, List<Long>> menu_quths = new HashMap<>();
-			// 得到每级菜单及对应的权限数据
-			Map<Integer, List<AddMenuDTO>> levelMap = handleMenus(list, 1, new HashMap<>(), existsMap, menu_quths);
-			// 不存在当前新增的菜单数据中（需要修改为删除状态）
-			final List<Long> not_exists = new ArrayList<>(existsMap.values());
-			for (Long id : not_exists) {
-				if (exists.contains(id)) {
-					exists.remove(id);
-				}
-			}
-			changeMenuAuthority(menu_quths, companyId);
+			final Map<MenuOperEnum, Object> menuMap = initMenuData(list);
+			// 需要新增的菜单数据
+			final Map<Integer, List<AddMenuDTO>> levelMap = (Map<Integer, List<AddMenuDTO>>) menuMap
+					.get(MenuOperEnum.ADD_MENU);
+			// 针对所有的菜单权限执行先删后增的操作
+			changeMenuAuthority((Map<Long, List<Long>>) menuMap.get(MenuOperEnum.MENU_AUTH),
+					list.get(0).getCompanyId());
 			// 修改菜单状态
-			if (!exists.isEmpty()) {
-				companyMenuMapper.updateMenuByAuthIds(new ArrayList<>(exists), MenuAuthEnum.NOT_DELETE.getStatus(),
-						CommonConstants.SYSTEM_USER);
-			}
-			if (!not_exists.isEmpty()) {
-				companyMenuMapper.updateMenuByAuthIds(not_exists, MenuAuthEnum.DELETE.getStatus(),
-						CommonConstants.SYSTEM_USER);
-			}
+			updateMenuByIsExists(menuMap);
+
 			if (!levelMap.isEmpty()) {
-				Map<String, MenuToAuth> map = new HashMap<>();
+				Map<String, MenuToAuth> map = (Map<String, MenuToAuth>) menuMap.get(MenuOperEnum.EXISTS_MENU_CP);
 				for (Map.Entry<Integer, List<AddMenuDTO>> entry : levelMap.entrySet()) {
-					insertMenu(entry.getValue(), map, companyId);
+					insertMenu(entry.getValue(), map, list.get(0).getCompanyId());
 				}
 			}
 			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
@@ -208,6 +182,107 @@ public class MenuServiceImpl implements IMenuService {
 			log.error("添加菜单数据异常", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_MENU_ERROR);
 		}
+	}
+	/**
+	 * 
+	* @Title: updateMenuByIsExists 
+	* @Description: 修改菜单是否存在 
+	* @param @param menuMap    设定文件 
+	* @return void    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	@SuppressWarnings("unchecked")
+	private void updateMenuByIsExists(final Map<MenuOperEnum, Object> menuMap) {
+		final List<Long> exists = (List<Long>) menuMap.get(MenuOperEnum.UPDATE_EXISTS);
+		if (!exists.isEmpty()) {
+			companyMenuMapper.updateMenuByAuthIds(new ArrayList<>(exists), MenuAuthEnum.NOT_DELETE.getStatus(),
+					CommonConstants.SYSTEM_USER);
+		}
+		final List<Long> not_exists = (List<Long>) menuMap.get(MenuOperEnum.UPDATE_NOT_EXISTS);
+		if (!not_exists.isEmpty()) {
+			companyMenuMapper.updateMenuByAuthIds(not_exists, MenuAuthEnum.DELETE.getStatus(),
+					CommonConstants.SYSTEM_USER);
+		}
+	}
+	/**
+	 * 
+	* @ClassName: MenuOperEnum 
+	* @Description: 菜单相关数据映射枚举 
+	* @author lijie 
+	* @date 2018年5月18日 上午11:01:35 
+	*
+	 */
+	protected enum MenuOperEnum {
+		/**
+		 * 新增权限标记
+		 */
+		ADD_MENU,
+		/**
+		 * 修改不存在的数据标记
+		 */
+		UPDATE_NOT_EXISTS,
+		/**
+		 * 修改存在的数据标记
+		 */
+		UPDATE_EXISTS,
+		/**
+		 * 菜单权限数据
+		 */
+		MENU_AUTH,
+		/**
+		 * 存在的菜单
+		 */
+		EXISTS_MENU_CP
+		;
+	}
+	/**
+	 * 
+	* @Title: initMenuData 
+	* @Description: 初始化菜单操作数据 
+	* @param @param list
+	* @param @return    设定文件 
+	* @return Map<MenuOperEnum,Object>    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	private Map<MenuOperEnum, Object> initMenuData(List<AddMenuDTO> list) {
+		final Map<MenuOperEnum, Object> result = new HashMap<>();
+		// 获取当前公司已存在的菜单数据
+		final List<CompanyMenu> allMenu = getAllMenuByCompanyId(list.get(0).getCompanyId());
+		// 已存在的菜单数据信息
+		Map<String, CompanyMenu> existsMap = new HashMap<>();
+		final Set<Long> exists = new HashSet<>();
+		if (CollectionUtils.isNotEmpty(allMenu)) {
+			for (CompanyMenu m : allMenu) {
+				existsMap.put(m.getBaseMenuId(), m);
+				if (MenuAuthEnum.DELETE.getStatus().equals(m.getIsDelete())) {
+					exists.add(m.getId());
+				}
+			}
+		}
+		// 存在菜单及对应的权限数据
+		final Map<Long, List<Long>> menu_auths = new HashMap<>();
+		final Map<String, MenuToAuth> exists_menu_cp = new HashMap<>();
+		// 得到每级菜单及对应的权限数据
+		result.put(MenuOperEnum.ADD_MENU, handleMenus(list, 1, new HashMap<>(), existsMap, menu_auths, exists_menu_cp));
+		// 不存在当前新增的菜单数据中（需要修改为删除状态）
+		final Set<Long> not_exists = new HashSet<>(existsMap.size());
+		for(CompanyMenu cm : existsMap.values()){
+			not_exists.add(cm.getId());
+		}
+		exists.removeAll(not_exists);
+		result.put(MenuOperEnum.MENU_AUTH, menu_auths);
+		result.put(MenuOperEnum.UPDATE_EXISTS, new ArrayList<>(exists));
+		result.put(MenuOperEnum.UPDATE_NOT_EXISTS, new ArrayList<>(not_exists));
+		result.put(MenuOperEnum.EXISTS_MENU_CP, exists_menu_cp);
+		return result;
+	}
+	
+	private List<CompanyMenu> getAllMenuByCompanyId(final String companyId){
+		CompanyMenu query = new CompanyMenu();
+		query.setCompanyId(companyId);
+		return companyMenuMapper.select(query);
 	}
 	/**
 	 * 
@@ -266,16 +341,11 @@ public class MenuServiceImpl implements IMenuService {
 		 * 权限ID
 		 */
 		private List<Long> auths;
-		/**
-		 * 创建人ID
-		 */
-		private Long createrId;
 
-		public MenuToAuth(String authorityBaseId, Long menuId, List<Long> auths, Long createrId) {
+		public MenuToAuth(String authorityBaseId, Long menuId, List<Long> auths) {
 			this.authorityBaseId = authorityBaseId;
 			this.menuId = menuId;
 			this.auths = auths;
-			this.createrId = createrId;
 		}
 	}
 	/**
@@ -303,24 +373,14 @@ public class MenuServiceImpl implements IMenuService {
 		MenuToAuth save;
 		final Map<String, MenuToAuth> copyMap = new HashMap<>();
 		for (AddMenuDTO add : list) {
-			cm.setBaseMenuId(add.getMenuId());
-			cm.setAppSeq(add.getAppSeq());
-			cm.setAppUrl(add.getAppUrl());
-			cm.setAscription(add.getAscription());
-			cm.setCompanyId(add.getCompanyId());
-			cm.setCreaterId(add.getCreaterId());
-			cm.setIcon(add.getIcon());
-			cm.setMenuName(add.getMenuName());
-			cm.setMenuSeq(add.getMenuSeq());
-			cm.setMenuUrl(add.getMenuUrl());
-			cm.setType(add.getType());
+			setCompanyMenu(add, cm);
 			get = map.get(add.getParentId());
 			if (null == get) {
 				cm.setParentId(0L);
 			} else {
 				cm.setParentId(get.getMenuId());
 			}
-			save = new MenuToAuth(add.getMenuId(), null, add.getAuths(), add.getCreaterId());
+			save = new MenuToAuth(add.getMenuId(), null, add.getAuths());
 			map.put(add.getMenuId(), save);
 			copyMap.put(add.getMenuId(), save);
 			inserts.add(cm.clone());
@@ -344,9 +404,9 @@ public class MenuServiceImpl implements IMenuService {
 			final MenuAuthority ma = new MenuAuthority();
 			ma.setCreateTime(new Date());
 			ma.setCompanyId(companyId);
+			ma.setCreaterId(list.get(0).getCreaterId());
 			final List<MenuAuthority> mainserts = new LinkedList<>();
 			for (MenuToAuth mta : authMenus) {
-				ma.setCreaterId(mta.getCreaterId());
 				ma.setMenuId(mta.getMenuId());
 				for (Long authId : mta.getAuths()) {
 					ma.setAuthorityId(authId);
@@ -355,6 +415,29 @@ public class MenuServiceImpl implements IMenuService {
 			}
 			menuAuthorityMapper.insertList(mainserts);
 		}
+	}
+	/**
+	 * 
+	* @Title: setCompanyMenu 
+	* @Description: 设置菜单值
+	* @param @param dto
+	* @param @param cm    设定文件 
+	* @return void    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	private void setCompanyMenu(AddMenuDTO dto, CompanyMenu cm) {
+		cm.setBaseMenuId(dto.getMenuId());
+		cm.setAppSeq(dto.getAppSeq());
+		cm.setAppUrl(dto.getAppUrl());
+		cm.setAscription(dto.getAscription());
+		cm.setCompanyId(dto.getCompanyId());
+		cm.setCreaterId(dto.getCreaterId());
+		cm.setIcon(dto.getIcon());
+		cm.setMenuName(dto.getMenuName());
+		cm.setMenuSeq(dto.getMenuSeq());
+		cm.setMenuUrl(dto.getMenuUrl());
+		cm.setType(dto.getType());
 	}
 	/**
 	 * @throws CloneNotSupportedException 
@@ -383,21 +466,25 @@ public class MenuServiceImpl implements IMenuService {
 	/**
 	 * 
 	* @Title: handleMenus 
-	* @Description: 封装每级的菜单数据
+	* @Description: 封装每级的菜单数据及对应的菜单数据
 	* @param @param list
 	* @param @param key
-	* @param @param level_map
+	* @param @param levelMap
 	* @param @param existsMap
+	* @param @param menu_auths
+	* @param @param exists_menu_cp
 	* @param @return    设定文件 
 	* @return Map<Integer,List<AddMenuDTO>>    返回类型 
 	* @author lijie
 	* @throws
 	 */
 	private Map<Integer, List<AddMenuDTO>> handleMenus(final List<AddMenuDTO> list, int key,
-			final Map<Integer, List<AddMenuDTO>> levelMap, final Map<String, Long> existsMap,
-			final Map<Long, List<Long>> menu_quths) {
+			final Map<Integer, List<AddMenuDTO>> levelMap, final Map<String, CompanyMenu> existsMap,
+			final Map<Long, List<Long>> menu_auths, final Map<String, MenuToAuth> exists_menu_cp) {
+
 		List<AddMenuDTO> result;
 		AddMenuDTO info;
+		CompanyMenu cm;
 		for (AddMenuDTO amd : list) {
 			info = new AddMenuDTO();
 			BeanUtils.copyProperties(amd, info);
@@ -407,14 +494,16 @@ public class MenuServiceImpl implements IMenuService {
 				result = new LinkedList<AddMenuDTO>();
 				levelMap.put(key, result);
 			}
-			if (null == existsMap.get(amd.getMenuId())) {
+			cm = existsMap.get(amd.getMenuId());
+			if (null == cm) {
 				result.add(info);
 			} else {
-				menu_quths.put(existsMap.get(amd.getMenuId()), amd.getAuths());
+				exists_menu_cp.put(cm.getBaseMenuId(), new MenuToAuth(cm.getBaseMenuId(), cm.getId(), amd.getAuths()));
+				menu_auths.put(cm.getId(), amd.getAuths());
 				existsMap.remove(amd.getMenuId());
 			}
 			if (CollectionUtils.isNotEmpty(amd.getNexts())) {
-				handleMenus(amd.getNexts(), ++key, levelMap, existsMap, menu_quths);
+				handleMenus(amd.getNexts(), ++key, levelMap, existsMap, menu_auths, exists_menu_cp);
 			}
 		}
 		return levelMap;
