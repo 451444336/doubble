@@ -36,12 +36,15 @@ import com.born.facade.entity.MenuAuthorityBase;
 import com.born.facade.entity.UserAuthority;
 import com.born.facade.exception.PermissionException;
 import com.born.facade.exception.PermissionExceptionEnum;
+import com.born.facade.service.ICompanyRoleService;
 import com.born.facade.service.IMenuService;
 import com.born.facade.service.IPermissionService;
+import com.born.facade.vo.RoleVO;
 import com.born.facade.vo.company.CompanyInfoVO;
 import com.born.mapper.AuthorityChangeMapper;
 import com.born.mapper.CompanyAuthorityMapper;
 import com.born.mapper.CompanyMenuMapper;
+import com.born.mapper.CompanyRoleMapper;
 import com.born.mapper.MenuAuthorityBaseMapper;
 import com.born.mapper.MenuAuthorityMapper;
 import com.born.mapper.UserAuthorityMapper;
@@ -89,6 +92,11 @@ public class PermissionServiceImpl implements IPermissionService {
 	@Autowired
 	private MenuPermissionFactory menuPermissionFactory;
 	
+	@Autowired
+	private CompanyRoleMapper companyRoleMapper;
+	
+	@Autowired
+	private ICompanyRoleService companyRoleService;
 	@Override
 	@Transactional
 	@SuppressWarnings("unchecked")
@@ -557,7 +565,7 @@ public class PermissionServiceImpl implements IPermissionService {
 
 	@Override
 	@Transactional
-	public Result addPersonalPermissions(Long userId, List<Long> authorityIds) {
+	public Result addPersonalPermissions(Long userId, List<Long> authorityIds,Long[] menuIds) {
 		log.info("新增个人权限数据入参={},authorityIds={}", userId, JSON.toJSONString(authorityIds));
 		Result result = ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
 		if (CollectionUtils.isEmpty(authorityIds)) {
@@ -582,6 +590,13 @@ public class PermissionServiceImpl implements IPermissionService {
 				recordList.add(insert.clone());
 			}
 			staffAuthorityMapper.insertList(recordList);
+			//菜单角色用户权限添加
+			List<RoleVO> voList = companyRoleMapper.selectRoleListByUserId(userId);
+			if(voList==null) {
+				result.setMessage("用户角色不能为空");
+				return result;
+			}
+			companyRoleService.bindRoleMenu(menuIds, voList.get(0).getId(), userId, new Date());
 			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 		} catch (Exception e) {
 			log.error("新增个人权限数据异常", e);

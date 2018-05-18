@@ -115,7 +115,7 @@
             </tr>
         </table>
 		<div class="PopupBtn">
-		    <input id="keep" name="" type="submit" value="保存"><input class="cancel layui-layer-close layui-layer-close1" name="" type="button" value="关闭">
+		    <input id="keep" name="" type="button" value="保存"><input class="cancel layui-layer-close layui-layer-close1" name="" type="button" value="关闭">
 		</div>
     </form>
 </div>
@@ -150,14 +150,14 @@
                 "url": "/web/staff/updateStaff",
                 "data":$('#addUserForm').serialize(),
                 "success": function(result){
-                	layer.alert(result.message);
-                	 /* layer.alert(result.message, {  
+                	 layer.alert(result.message, {  
                          title: "修改用户",  
                          btn: ['确定']  
                      },  
                         function (index, item) { 
-                    	 //parent.parent.reloadList();
-                        }); */
+                    	 parent.reloadList();
+                    	 parent.layer.closeAll();
+                        }); 
                 } 
             });
         });

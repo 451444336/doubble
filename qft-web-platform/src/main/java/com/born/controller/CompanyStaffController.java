@@ -233,7 +233,7 @@ public class CompanyStaffController {
 	@ResponseBody
 	@RequestMapping(value = "updatePermission", method = RequestMethod.POST)
 	public Result updatePermission(FindStaffListDTO dto) {
-		return permissionService.addPersonalPermissions(dto.getUserId(), dto.getPermissionIds());
+		return permissionService.addPersonalPermissions(dto.getUserId(), dto.getPermissionIds(),dto.getMeunIds());
 	}
 
 	/**

@@ -94,7 +94,7 @@ public interface IPermissionService {
 	* @author lijie
 	* @throws
 	 */
-	Result addPersonalPermissions(Long userId, List<Long> authorityIds);
+	Result addPersonalPermissions(Long userId, List<Long> authorityIds,Long[] meunIds);
 	/**
 	 * 
 	* @Title: getAuthorizeData 

@@ -51,7 +51,7 @@ public class FindStaffListDTO extends PageBean {
 	//系统锁定
 	private String sysStatus;
 	//菜单权限ID
-	private List<Long> meunIds;
+	private Long[] meunIds;
 }
 
 

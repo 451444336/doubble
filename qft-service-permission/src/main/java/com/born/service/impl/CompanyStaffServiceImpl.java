@@ -182,6 +182,7 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 		user.setCreateTime(new Date());
 		user.setPassword("123456");
 		user.setSysStatus(new Byte(dto.getSysStatus()));
+		user.setStatus(new Byte("1"));
 		user.setIsAppNotice(0);
 		user.setIsWebNotice(0);
 		user.setSourceType("1");

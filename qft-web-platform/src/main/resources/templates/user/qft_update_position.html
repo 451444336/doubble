@@ -11,7 +11,7 @@
 <body>
 <!--添加职位与权限分配-->
 <div class="PopupBox" id="qft_modifyBox">
-    <form id="modifyForm" th:action="@{/web/pos/updatePosition}" method="POST">
+    <form id="modifyForm">
         <input name="id" id="positionId" type="hidden" th:value="*{positionId}"/>
         <table class="popupList">
             <tr>
@@ -47,7 +47,7 @@
         <!--end 权限管理-->
         <!--授权按钮-->
         <div class="powerBtnBox btnCenter margin0 fixedButton">
-            <input class="powerBtn" type="submit" value="授权给职位"><!-- <input class="powerBtn" type="button" value="授权给个人"> --><input class="powerBtn" type="button" value="关闭">
+            <input class="powerBtn" id="keep" type="button" value="授权给职位"><!-- <input class="powerBtn" type="button" value="授权给个人"> --><input class="powerBtn" type="button" value="关闭">
         </div>
         <!--end 授权按钮-->
     </form>
@@ -56,6 +56,8 @@
 
 <script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--layer弹出层-->
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <!--表单验证-->
 <script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
@@ -68,6 +70,25 @@
             addPromptClass: 'formError-text',
             showArrow: false,
             promptPosition: 'bottomLeft:5 0'
+        });
+      //编辑用户权限
+        $('#keep').on('click',function(){
+        	$.ajax({
+                "dataType": 'json',
+                "type": "POST",
+                "url": "/web/pos/updatePosition",
+                "data":$('#modifyForm').serialize(),
+                "success": function(result){
+                	 layer.alert(result.message, {  
+                         title: "用户权限编辑",  
+                         btn: ['确定']  
+                     },  
+                        function (index, item) { 
+                    	 parent.reloadList();
+                    	 parent.layer.closeAll();
+                        }); 
+                } 
+            });
         });
     });
     function muen(){

@@ -11,7 +11,7 @@
 <body>
 <!--添加职位与权限分配-->
 <div class="PopupBox" id="qft_modifyBox">
-    <form id="modifyForm" th:action="@{/web/staff/updatePermission}" method="POST">
+    <form id="modifyForm" >
         <input name="userId" id="userId" type="hidden" th:value="*{userId}"/>
         <input name="positionId" id="positionId" type="hidden" th:value="*{positionId}"/>
         <table class="popupList">
@@ -48,7 +48,7 @@
         <!--end 权限管理-->
         <!--授权按钮-->
         <div class="powerBtnBox btnCenter margin0 fixedButton">
-            <input class="powerBtn" type="submit" value="授权给个人"><input class="powerBtn" type="button" value="关闭">
+            <input class="powerBtn" id="keep" type="button" value="授权给个人"><input class="powerBtn" type="button" value="关闭">
         </div>
         <!--end 授权按钮-->
     </form>
@@ -57,6 +57,8 @@
 
 <script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--layer弹出层-->
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <!--表单验证-->
 <script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
@@ -69,6 +71,25 @@
             addPromptClass: 'formError-text',
             showArrow: false,
             promptPosition: 'bottomLeft:5 0'
+        });
+      //编辑用户权限
+        $('#keep').on('click',function(){
+        	$.ajax({
+                "dataType": 'json',
+                "type": "POST",
+                "url": "/web/staff/updatePermission",
+                "data":$('#modifyForm').serialize(),
+                "success": function(result){
+                	 layer.alert(result.message, {  
+                         title: "用户权限编辑",  
+                         btn: ['确定']  
+                     },  
+                        function (index, item) { 
+                    	 parent.reloadList();
+                    	 parent.layer.closeAll();
+                        }); 
+                } 
+            });
         });
     });
     function muen(){
@@ -97,8 +118,13 @@
                         		  console.log(subMeunBox_obj);
                         		 $('#ul_'+obj['id']).append('<li id="submeun_'+subMeunBox_obj['id']+'"><a class="link_subMeun" href="javascript:void(0);">'+subMeunBox_obj['menuName']+'</a></li>');
                         		 showSubMeun($(".mainMeun li:eq(0)")[0].id);
+                        		 var permission = subMeunBox_obj['permission'];
+                        		 var sub_html = '';
+                        		  if(permission.isCheck==1){
+                        			 sub_html = 'checked="checked"';
+                        		 } 
                   				 $('.powerOptionBox').append('<div class="powerOption meun_'+obj['id']+' submeun_'+subMeunBox_obj['id']+'" id="three_submeun_'+subMeunBox_obj['id']+'">'+
-       			 					 	'<h2 class="PopupTitle margin0"><label class="powerLabel"><input name="meunIds" type="checkbox" checked="checked" >'+subMeunBox_obj.menuName+'</label></h2>'+
+       			 					 	'<h2 class="PopupTitle margin0"><label class="powerLabel"><input name="meunIds" type="checkbox" '+sub_html+' value="'+subMeunBox_obj['id']+'" >'+subMeunBox_obj.menuName+'</label></h2>'+
        			 					 	'<div class="look_power"><p class="subPowerTit"><span>查看权限</span><label class="powerLabel"><input class="checkAll commonly_checkbox" name="" type="checkbox">全选</label></p>'+
        			 					 	'<ul class="powerOptionList" id="look_'+subMeunBox_obj['id']+'"></ul></div>'+
        			 					 	'<div class="operate_power"><p class="subPowerTit"><span>操作权限</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
@@ -108,9 +134,7 @@
        			 					 	'<div class="delete_power"><p class="subPowerTit"><span>特殊权限</span><label class="powerLabel"><input class="checkAll" name="" type="checkbox">全选</label></p>'+
        			 					 	'<ul class="powerOptionList" id="special_'+subMeunBox_obj['id']+'"></ul></div>'+
        			 					 	'</div>');
-                        		 var permission = subMeunBox_obj['permission'];
-                        		 console.log(permission);
-                        		 if(permission==null){
+                        		 if(permission.permissions==null){
                         			 return;
                         		 } 
                         		 //三级权限菜单
