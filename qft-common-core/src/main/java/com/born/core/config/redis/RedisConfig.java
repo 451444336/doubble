@@ -65,7 +65,7 @@ public class RedisConfig {
 	public RedisConnectionFactory defRedisConnectionFactory() {
 		log.info("redis 公用连接配置信息 RedisProperties = {}", JSON.toJSONString(defRedisProperties));
 		JedisPoolConfig poolConfig = new JedisPoolConfig();
-		poolConfig.setMaxTotal(defRedisProperties.getPool().getMaxActive());
+		//poolConfig.setMaxTotal(defRedisProperties.getPool().getMaxActive());
 		poolConfig.setMaxIdle(defRedisProperties.getPool().getMaxIdle());
 		poolConfig.setMinIdle(defRedisProperties.getPool().getMinIdle());
 		poolConfig.setMaxWaitMillis(defRedisProperties.getPool().getMaxWait());
