@@ -33,7 +33,26 @@
         </if>
         ASC
 	</select>
-	
+	<!-- 根据用户ID查询菜单数据 -->
+	<select id="selectMenuByUserId" resultType="com.born.facade.vo.MenuVO">
+		SELECT
+			c.id,
+			c.parent_id parentId,
+			c.menu_level menuLevel,
+			c.menu_name menuName,
+			c.menu_url menuUrl,
+			c.ascription,
+			c.icon,
+			c.type
+		FROM
+			qft_user_role a
+		LEFT JOIN qft_company_role_menu b ON a.role_id = b.role_id
+		LEFT JOIN qft_company_menu c ON b.menu_id = c.id
+		WHERE
+			c.is_delete = 0
+		and a.user_id = #{userId}
+		and c.company_id = #{companyId}
+	</select>
 	<!-- 查询所有菜单/公司所有 -->
 	<select id="selectAllMenu" resultType="com.born.facade.vo.MenuVO">
 		SELECT
