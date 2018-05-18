@@ -2,9 +2,11 @@ package com.born.controller.permission;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,7 +79,8 @@ public class PermissionController {
 	public @ResponseBody Result menuAndAuths(QueryMenuAuthDTO rDto) {
 		List<MenuVO> rList = new ArrayList<>();
 		UserInfoVO userInfo = TokenManager.getLoginUser();
-		Result mresult = menuService.getMenuTreeByCompanyId(userInfo.getCompanyId(), MenuAuthEnum.PC_MENU_AUTH.getStatus());
+		Result mresult = menuService.getMenuTreeByCompanyId(userInfo.getCompanyId(),
+				MenuAuthEnum.PC_MENU_AUTH.getStatus());
 		log.info("查询菜单返回数据={}", JSON.toJSONString(mresult));
 		if (mresult.isSuccess()) {
 			List<MenuVO> menus = mresult.getData(List.class);
@@ -92,7 +95,17 @@ public class PermissionController {
 			for (MenuPermissionVO m : list) {
 				map.put(m.getMenuId(), m);
 			}
-			rList = backMenuAuths(menus, map);
+			Set<Long> haveMenus = new HashSet<>();
+			if (MenuAuthEnum.PERSION_AUTH.getStatus().equals(dto.getOperType())) {
+				List<MenuVO> ms = menuService.getMenuListByUserId(dto.getCompanyId(), dto.getUserId())
+						.getData(List.class);
+				if (CollectionUtils.isNotEmpty(ms)) {
+					for (MenuVO m : ms) {
+						haveMenus.add(m.getId());
+					}
+				}
+			}
+			rList = backMenuAuths(menus, map, haveMenus);
 		}
 		return ResultUtil.getResult(RespCode.Code.SUCCESS, rList);
 	}
@@ -107,11 +120,21 @@ public class PermissionController {
 	* @author lijie
 	* @throws
 	 */
-	private List<MenuVO> backMenuAuths(List<MenuVO> menus, Map<Long, MenuPermissionVO> map) {
+	private List<MenuVO> backMenuAuths(List<MenuVO> menus, Map<Long, MenuPermissionVO> map, Set<Long> haveMenus) {
 		if (CollectionUtils.isNotEmpty(menus)) {
+			MenuPermissionVO mv;
 			for (MenuVO m : menus) {
-				m.setPermission(map.get(m.getId()));
-				backMenuAuths(m.getChilds(), map);
+				mv = map.get(m.getId());
+				if (null == mv) {
+					mv = new MenuPermissionVO();
+					mv.setIsCheck(haveMenus.contains(m.getId()) ? MenuAuthEnum.CHECK.getStatus()
+							: MenuAuthEnum.NOT_CHECK.getStatus());
+					mv.setMenuId(m.getId());
+					mv.setMenuName(m.getMenuName());
+				} else {
+					m.setPermission(mv);
+				}
+				backMenuAuths(m.getChilds(), map, haveMenus);
 			}
 		}
 		return menus;

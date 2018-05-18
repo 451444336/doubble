@@ -83,4 +83,16 @@ public interface IMenuService {
 	* @throws
 	 */
     Result getSubmenuMenuById(Long menuId);
+    /**
+     * 
+    * @Title: getMenuListByUserId 
+    * @Description: 根据用户ID查询菜单数据
+    * @param @param companyId
+    * @param @param userId
+    * @param @return    设定文件 
+    * @return Result    返回类型 
+    * @author lijie
+    * @throws
+     */
+	Result getMenuListByUserId(String companyId, Long userId);
 }

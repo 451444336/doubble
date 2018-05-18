@@ -594,4 +594,19 @@ public class MenuServiceImpl implements IMenuService {
 		}
 		return result;
 	}
+	
+	
+	@Override
+	public Result getMenuListByUserId(String companyId, Long userId) {
+		log.info("根据用户id菜单数据入参, companyId={},userId={}", companyId, userId);
+		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		try {
+			// 根据用户ID 查询菜单
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS,
+					companyMenuMapper.selectMenuByUserId(userId, companyId));
+		} catch (Exception e) {
+			log.error("根据用户id菜单数据异常", e);
+		}
+		return result;
+	}
 }

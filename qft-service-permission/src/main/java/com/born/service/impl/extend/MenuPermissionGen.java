@@ -10,6 +10,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
+import com.born.facade.constant.MenuAuthEnum;
 import com.born.facade.vo.MenuAuthorityVO;
 import com.born.facade.vo.MenuVO;
 import com.born.facade.vo.permission.MenuPermissionVO;
@@ -157,7 +158,7 @@ public abstract class MenuPermissionGen implements MenuPermissionContent {
 					mpv.setMenuId(me.getKey());
 					mpv.setMenuName(me.getValue().get(0).getMenuName());
 					mpv.setPermissions(me.getValue());
-					mpv.setIsCheck(menuIds.contains(me.getKey()) ? (byte) 1 : (byte) 0);
+					mpv.setIsCheck(menuIds.contains(me.getKey()) ? MenuAuthEnum.CHECK.getStatus() : MenuAuthEnum.NOT_CHECK.getStatus());
 					result.add(mpv);
 				}
 			}
