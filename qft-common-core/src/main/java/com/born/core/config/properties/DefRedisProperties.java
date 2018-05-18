@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
  * 
 * @ClassName: RedisProperties 
 * @Description: redis 配置 
-* @author lijie
-* @date 2017年8月22日 下午3:22:23 
+* @author chen
+* @date 2018年5月18日 下午10:22:23 
 *
  */
 @Component("defRedisProperties")
@@ -46,7 +46,7 @@ public class DefRedisProperties {
 		/**
 		 * 最大活动对象数
 		 */
-		private int maxActive = 200;
+		//private int maxActive = 200;
 		/**
 		 * 最大等待时间
 		 */
@@ -70,13 +70,13 @@ public class DefRedisProperties {
 			this.minIdle = minIdle;
 		}
 
-		public int getMaxActive() {
+/*		public int getMaxActive() {
 			return this.maxActive;
 		}
 
 		public void setMaxActive(int maxActive) {
 			this.maxActive = maxActive;
-		}
+		}*/
 
 		public int getMaxWait() {
 			return this.maxWait;
