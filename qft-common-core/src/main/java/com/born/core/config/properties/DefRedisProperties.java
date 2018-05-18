@@ -38,7 +38,7 @@ public class DefRedisProperties {
 		/**
 		 * 最大能够保持idel状态的对象数
 		 */
-		private int maxIdle = 500;
+		private int maxIdle = 0;
 		/**
 		 * 最小能够保持idel状态的对象数
 		 */
