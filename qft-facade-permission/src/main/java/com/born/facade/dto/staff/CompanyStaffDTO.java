@@ -82,4 +82,7 @@ public class CompanyStaffDTO extends BaseValidate {
 	
 	@ApiModelProperty(value="职务ID",name="positionId")
 	private Long positionId;
+	
+	//系统锁定
+	private String sysStatus;
 }

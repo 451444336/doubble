@@ -79,4 +79,9 @@ public class User extends BaseEntity<User> {
 	@Column(name = "is_delete")
 	private Byte isDelete;
 
+	/**
+	 * 系统锁定
+	 */
+	@Column(name = "sys_status")
+	private Byte sysStatus;
 }

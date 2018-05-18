@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
  * 
 * @ClassName: RedisProperties 
 * @Description: redis 配置 
-* @author lijie
-* @date 2017年8月22日 下午3:22:23 
+* @author chen
+* @date 2018年5月18日 下午10:22:23 
 *
  */
 @Component("defRedisProperties")

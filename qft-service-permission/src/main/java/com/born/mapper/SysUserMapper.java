@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.born.core.base.BaseMapper;
 import com.born.facade.dto.user.DeteleUserDTO;
 import com.born.facade.dto.user.UserDTO;
+import com.born.facade.dto.user.UserRoleDTO;
 import com.born.facade.entity.User;
 import com.born.facade.vo.UserVO;
 
@@ -73,4 +74,16 @@ public interface SysUserMapper extends BaseMapper<User> {
 	 */
 	int updateUserPassById(Map<String, Object> param);
 
+	/**
+	 * 
+	* @Title: insertRoleUser 
+	* @Description: 添加用户角色中间表
+	* @param @param dto
+	* @param @return
+	* @author 明成
+	* @return int
+	* @date 2018年5月18日 上午10:56:06 
+	* @throws
+	 */
+	int insertRoleUser(UserRoleDTO dto);
 }

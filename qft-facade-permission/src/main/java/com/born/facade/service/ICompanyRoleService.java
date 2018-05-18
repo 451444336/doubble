@@ -5,6 +5,7 @@ import java.util.Date;
 import com.born.facade.dto.CompanyRoleDTO;
 import com.born.facade.dto.OperateLogAuthorityDTO;
 import com.born.facade.entity.CompanyRole;
+import com.born.facade.vo.RoleVO;
 import com.born.util.result.Result;
 
 /**
@@ -83,4 +84,5 @@ public interface ICompanyRoleService {
 	 * @return
 	 */
 	Result getRoleMenus(Long roleId);
+	
 }

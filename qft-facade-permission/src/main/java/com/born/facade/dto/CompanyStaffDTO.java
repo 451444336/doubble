@@ -51,13 +51,13 @@ public class CompanyStaffDTO extends PageBean {
 	@ApiModelProperty(value="打卡规则ID",name="attendanceId")
 	private String attendanceId;
 	
-	@ApiModelProperty(value="工作的组ID",name="grouping")
+	@ApiModelProperty(value="工作的组",name="grouping")
 	private String grouping;
 	
-	@ApiModelProperty(value="可看组id",name="storegrouping")
+	@ApiModelProperty(value="可看房源店面",name="storegrouping")
 	private String storegrouping;
 	
-	@ApiModelProperty(value="城市ID",name="cityId")
+	@ApiModelProperty(value="工作城市",name="cityId")
 	private String cityId;
 	
 	@ApiModelProperty(value="可看房源的城市",name="cityList")
@@ -106,4 +106,13 @@ public class CompanyStaffDTO extends PageBean {
 	 * 密码
 	 */
 	private String password;
+	/**
+	 * 关闭状态
+	 */
+	private String status;
+	
+	/**
+	 * 系统锁定
+	 */
+	private String sysStatus;
 }

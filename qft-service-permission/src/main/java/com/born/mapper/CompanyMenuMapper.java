@@ -34,6 +34,18 @@ public interface CompanyMenuMapper extends BaseMapper<CompanyMenu> {
 	List<MenuVO> selectMenuByCondition(@Param("roleIds") List<Long> roles, @Param("dto") MenuQueryDTO dto);
 	/**
 	 * 
+	* @Title: selectMenuByUserId 
+	* @Description: 根据用户ID 查询菜单数据 
+	* @param @param userId
+	* @param @param companyId
+	* @param @return    设定文件 
+	* @return List<MenuVO>    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	List<MenuVO> selectMenuByUserId(@Param("userId") Long userId, @Param("companyId") String companyId);
+	/**
+	 * 
 	* @Title: selectAllMenu 
 	* @Description: 查询所有菜单/公司所有
 	* @param @return    设定文件 

@@ -85,4 +85,7 @@ public class CompanyStaffVO implements Serializable{
 	
 	//部门ID
 	private String deptId;
+	
+	//系统锁定
+	private String sysStatus;
 }

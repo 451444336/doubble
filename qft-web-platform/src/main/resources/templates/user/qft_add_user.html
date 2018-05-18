@@ -15,18 +15,15 @@
 <!--添加用户-->
 <div class="PopupBox">
     <form id="addUserForm" >
-    	<input type="hidden" name="positionId" th:value="*{positionId}" />
         <table class="popupList">
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>可看房源城市：</th>
                 <td>
                     <select name="cityList" class="selectpicker" multiple data-live-search="true" data-actions-box="true" >
-                        <option value="1">北京</option>
-                        <option value="2">重庆</option>
-                        <option value="3">四川</option>
-                        <option value="4">北京</option>
-                        <option value="5">重庆</option>
-                        <option value="6">四川</option>
+                        <option value="">请选择</option>
+                        <option value="北京">北京</option>
+                        <option value="重庆">重庆</option>
+                        <option value="四川">四川</option>
                     </select>
                 </td>
                 <td class="gray-col">选择两个城市及以上时默认可以看该城市下所有店面和分组的房源</td>
@@ -35,9 +32,10 @@
                 <th class="fieldName_one"><span class="require">*</span>可看房源店面：</th>
                 <td>
                     <select name="storegrouping" class="selectpicker" multiple data-live-search="true" data-actions-box="true" >
-                        <option value="">北京</option>
-                        <option value="">重庆</option>
-                        <option value="">四川</option>
+                        <option value="">请选择</option>
+                        <option value="北京">北京</option>
+                        <option value="重庆">重庆</option>
+                        <option value="四川">四川</option>
                     </select>
                 </td>
                 <td class="gray-col">选择两个店及以上时默认可以看该选择店面下所有组房源</td>
@@ -46,9 +44,10 @@
                 <th class="fieldName_one"><span class="require">*</span>工作城市：</th>
                 <td>
                     <select name="cityId" class="selectpicker" data-live-search="true" >
-                        <option value="1">北京</option>
-                        <option value="2">重庆</option>
-                        <option value="3">四川</option>
+                        <option value="">请选择</option>
+                        <option value="北京">北京</option>
+                        <option value="重庆">重庆</option>
+                        <option value="四川">四川</option>
                     </select>
                 </td>
                 <td class="gray-col">指该员工平时主要在哪个城市上班</td>
@@ -58,13 +57,15 @@
                 <td>
                     <select name="workstore" class="selectpicker workShop" data-live-search="true" >
                         <option value="">请选择</option>
-                        <option value="">重庆</option>
-                        <option value="">四川</option>
+                        <option value="北京">北京</option>
+                        <option value="重庆">重庆</option>
+                        <option value="四川">四川</option>
                     </select>
                     <select name="attendanceId" class="selectpicker workShop" data-live-search="true" >
-                        <option value="">请选择</option>
-                        <option value="">重庆</option>
-                        <option value="">四川</option>
+                         <option value="">请选择</option>
+                        <option value="北京">北京</option>
+                        <option value="重庆">重庆</option>
+                        <option value="四川">四川</option>
                     </select>
                 </td>
                 <td class="gray-col">指该员工平时主要在该城市哪个店面(哪个组)打卡上班</td>
@@ -78,9 +79,8 @@
                 <th class="fieldName_one"><span class="require">*</span>职位：</th>
                 <td>
                     <select name="positionId" class="selectpicker" >
-                        <option value="">北京</option>
-                        <option value="">重庆</option>
-                        <option value="">四川</option>
+                       		  <option value="">请选择</option>
+   							  <option th:each="position : ${select_position}" th:value="${position.id}" th:text="${position.name}" th:selected="${position.id}==*{positionId}"></option>
                     </select>
                 </td>
                 <td class="gray-col">请选择职位</td>
@@ -112,7 +112,7 @@
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>系统锁定：</th>
                 <td>
-                    <select name="status" class="selectpicker" required>
+                    <select name="sysStatus" class="selectpicker" required>
                         <option value="1">永不注销</option>
                         <option value="2">3天未登录</option>
                         <option value="3">5天未登录</option>

@@ -22,12 +22,8 @@
                 <th class="fieldName_one"><span class="require">*</span>可看房源城市：</th>
                 <td>
                     <select name="cityList" class="selectpicker" multiple data-live-search="true" data-actions-box="true" >
-                        <option value="1">北京</option>
-                        <option value="2">重庆</option>
-                        <option value="3">四川</option>
-                        <option value="4">北京</option>
-                        <option value="5">重庆</option>
-                        <option value="6">四川</option>
+                        <option value="">请选择</option>
+   						<option th:each="city : ${select_city}" th:value="${city.id}" th:text="${city.name}" th:selected="${city.id}==*{cityList}"></option>
                     </select>
                 </td>
                 <td class="gray-col">选择两个城市及以上时默认可以看该城市下所有店面和分组的房源</td>
@@ -36,9 +32,8 @@
                 <th class="fieldName_one"><span class="require">*</span>可看房源店面：</th>
                 <td>
                     <select name="storegrouping" class="selectpicker" multiple data-live-search="true" data-actions-box="true" >
-                        <option value="">北京</option>
-                        <option value="">重庆</option>
-                        <option value="">四川</option>
+                        <option value="">请选择</option>
+   						<option th:each="city : ${select_city}" th:value="${city.id}" th:text="${city.name}" th:selected="${city.id}==*{storegrouping}"></option>
                     </select>
                 </td>
                 <td class="gray-col">选择两个店及以上时默认可以看该选择店面下所有组房源</td>
@@ -47,9 +42,8 @@
                 <th class="fieldName_one"><span class="require">*</span>工作城市：</th>
                 <td>
                     <select name="cityId" class="selectpicker" data-live-search="true" >
-                        <option value="1">北京</option>
-                        <option value="2">重庆</option>
-                        <option value="3">四川</option>
+                        <option value="">请选择</option>
+   						<option th:each="city : ${select_city}" th:value="${city.id}" th:text="${city.name}" th:selected="${city.id}==*{cityId}"></option>
                     </select>
                 </td>
                 <td class="gray-col">指该员工平时主要在哪个城市上班</td>
@@ -58,14 +52,12 @@
                 <th class="fieldName_one"><span class="require">*</span>工作店面：</th>
                 <td>
                     <select name="workstore" class="selectpicker workShop" data-live-search="true" >
-                        <option value="">请选择</option>
-                        <option value="">重庆</option>
-                        <option value="">四川</option>
+                         <option value="">请选择</option>
+   						<option th:each="city : ${select_city}" th:value="${city.id}" th:text="${city.name}" th:selected="${city.id}==*{workstore}"></option>
                     </select>
                     <select name="attendanceId" class="selectpicker workShop" data-live-search="true" >
                         <option value="">请选择</option>
-                        <option value="">重庆</option>
-                        <option value="">四川</option>
+   						<option th:each="city : ${select_city}" th:value="${city.id}" th:text="${city.name}" th:selected="${city.id}==*{attendanceId}"></option>
                     </select>
                 </td>
                 <td class="gray-col">指该员工平时主要在该城市哪个店面(哪个组)打卡上班</td>
@@ -79,9 +71,8 @@
                 <th class="fieldName_one"><span class="require">*</span>职位：</th>
                 <td>
                     <select name="positionId" class="selectpicker" >
-                        <option value="1">职位1</option>
-                        <option value="2">职位2</option>
-                        <option value="3">职位3</option>
+                       		  <option value="">请选择</option>
+   							  <option th:each="position : ${select_position}" th:value="${position.id}" th:text="${position.name}" th:selected="${position.id}==*{positionId}"></option>
                     </select>
                 </td>
                 <td class="gray-col">请选择职位</td>
@@ -105,26 +96,26 @@
                 <th class="fieldName_one">APP登录：</th>
                 <td>
                     <select name="isEnableApp" class="selectpicker" required>
-                        <option value="1">开通</option>
-                        <option value="0">关闭</option>
+                        <option value="1" th:selected="*{isEnableApp}=='1'">开通</option>
+                        <option value="0" th:selected="*{isEnableApp}=='0'">关闭</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>系统锁定：</th>
                 <td>
-                    <select name="status" class="selectpicker" required>
-                        <option value="1">永不注销</option>
-                        <option value="2">3天未登录</option>
-                        <option value="3">5天未登录</option>
-                        <option value="4">7天未登录</option>
+                    <select name="sysStatus"  class="selectpicker" required>
+                        <option value="1" th:selected="*{sysStatus}=='1'">永不注销</option>
+                        <option value="2" th:selected="*{sysStatus}=='2'">3天未登录</option>
+                        <option value="3" th:selected="*{sysStatus}=='3'">5天未登录</option>
+                        <option value="4" th:selected="*{sysStatus}=='4'">7天未登录</option>
                     </select>
                 </td>
                 <td class="gray-col">说明：在设定的时间内此员工一直不登录系统，则系统会认为该员工可能已经离职而自动关闭账号</td>
             </tr>
         </table>
 		<div class="PopupBtn">
-		    <input id="keep" name="" type="submit" value="保存"><input class="cancel layui-layer-close layui-layer-close1" name="" type="button" value="关闭">
+		    <input id="keep" name="" type="button" value="保存"><input class="cancel layui-layer-close layui-layer-close1" name="" type="button" value="关闭">
 		</div>
     </form>
 </div>
@@ -164,9 +155,9 @@
                          btn: ['确定']  
                      },  
                         function (index, item) { 
-                   	 	    //location.reload(); 
-                   	 		parent.layer.closeAll()
-                        });
+                    	 parent.reloadList();
+                    	 parent.layer.closeAll();
+                        }); 
                 } 
             });
         });

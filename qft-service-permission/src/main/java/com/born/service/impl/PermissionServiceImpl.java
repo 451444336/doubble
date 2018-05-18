@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -37,18 +36,19 @@ import com.born.facade.entity.MenuAuthorityBase;
 import com.born.facade.entity.UserAuthority;
 import com.born.facade.exception.PermissionException;
 import com.born.facade.exception.PermissionExceptionEnum;
+import com.born.facade.service.ICompanyRoleService;
 import com.born.facade.service.IMenuService;
 import com.born.facade.service.IPermissionService;
-import com.born.facade.vo.MenuAuthorityVO;
+import com.born.facade.vo.RoleVO;
 import com.born.facade.vo.company.CompanyInfoVO;
-import com.born.facade.vo.permission.MenuPermissionVO;
-import com.born.facade.vo.permission.PermissionVO;
 import com.born.mapper.AuthorityChangeMapper;
 import com.born.mapper.CompanyAuthorityMapper;
 import com.born.mapper.CompanyMenuMapper;
+import com.born.mapper.CompanyRoleMapper;
 import com.born.mapper.MenuAuthorityBaseMapper;
 import com.born.mapper.MenuAuthorityMapper;
 import com.born.mapper.UserAuthorityMapper;
+import com.born.service.impl.extend.MenuPermissionFactory;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
@@ -89,6 +89,14 @@ public class PermissionServiceImpl implements IPermissionService {
 	@Autowired
 	private CompanyMenuMapper companyMenuMapper;
 	
+	@Autowired
+	private MenuPermissionFactory menuPermissionFactory;
+	
+	@Autowired
+	private CompanyRoleMapper companyRoleMapper;
+	
+	@Autowired
+	private ICompanyRoleService companyRoleService;
 	@Override
 	@Transactional
 	@SuppressWarnings("unchecked")
@@ -100,7 +108,7 @@ public class PermissionServiceImpl implements IPermissionService {
 			return ResultUtil.setResult(result, RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 		}
 		try {
-			// 菜单权限数据
+			// 所有的菜单权限数据包括已存在的
 			Map<String, List<Long>> menu_auth_map = new HashMap<>();
 			if (CollectionUtils.isNotEmpty(dto.getAuths())) {
 				// 封装权限菜单基础数据并添加权限数据
@@ -191,13 +199,10 @@ public class PermissionServiceImpl implements IPermissionService {
 	* @throws
 	 */
 	private void insertAuthorityChange(AddPermissionDTO dto) throws CloneNotSupportedException {
-		final AuthorityChange change = new AuthorityChange();
-		change.setCompanyId(dto.getCompanyId());
-		change.setCreaterId(CommonConstants.SYSTEM_USER);
-		change.setCreateTime(new Date());
-		change.setOldUserId(dto.getUserId());
-		change.setOperType(AuthChangeEnum.ADD.getStatus());
-		change.setTemplateId(dto.getTemplateId());
+		if (CollectionUtils.isEmpty(dto.getMenus()) && CollectionUtils.isEmpty(dto.getAuths())) {
+			return;
+		}
+		final AuthorityChange change = initAuthorityChange(dto);
 		final List<MenuDTO> menus = dto.getMenus();
 		final List<PermissionInfoDTO> auths = dto.getAuths();
 		final List<AuthorityChange> recordList = new LinkedList<>();
@@ -217,7 +222,26 @@ public class PermissionServiceImpl implements IPermissionService {
 			authorityChangeMapper.insertList(recordList);
 		}
 	}
-	
+	/**
+	 * 
+	* @Title: initAuthorityChange 
+	* @Description: 初始化权限变更数据 
+	* @param @param dto
+	* @param @return    设定文件 
+	* @return AuthorityChange    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	private AuthorityChange initAuthorityChange(AddPermissionDTO dto){
+		final AuthorityChange result = new AuthorityChange();
+		result.setCompanyId(dto.getCompanyId());
+		result.setCreaterId(CommonConstants.SYSTEM_USER);
+		result.setCreateTime(new Date());
+		result.setOldUserId(dto.getUserId());
+		result.setOperType(AuthChangeEnum.ADD.getStatus());
+		result.setTemplateId(dto.getTemplateId());
+		return result;
+	}
 	/**
 	 * 
 	* @Title: updateMenuAuthorityBase 
@@ -299,13 +323,13 @@ public class PermissionServiceImpl implements IPermissionService {
 			final String companyId, final Map<String, List<Long>> menu_auth_map) throws CloneNotSupportedException {
 		final Map<AuthOperEnum, Object> resultMap = new HashMap<>();
 		// 查询已存在的权限数据
-		CompanyAuthority select = new CompanyAuthority();
-		select.setCompanyId(companyId);
-		final List<CompanyAuthority> alllist = companyAuthorityMapper.select(select);
-		final Map<String, CompanyAuthority> existsMap = new HashMap<String, CompanyAuthority>();
+		final List<CompanyAuthority> alllist = getAllAuthorityByCompanyId(companyId);
+		final Map<String, CompanyAuthority> existsMap = new HashMap<String, CompanyAuthority>(alllist.size());
+		final Set<String> checkSet = new HashSet<>(alllist.size());
 		if (CollectionUtils.isNotEmpty(alllist)) {
 			for (CompanyAuthority base : alllist) {
 				existsMap.put(base.getBaseAuthorityId(), base);
+				checkSet.add(base.getBaseAuthorityId());
 			}
 		}
 
@@ -327,11 +351,14 @@ public class PermissionServiceImpl implements IPermissionService {
 		CompanyAuthority auth;
 		List<Long> authIds;
 		for (PermissionInfoDTO dto : auths) {
-			auth = existsMap.get(dto.getAuthId());
-			if (null == auth) {
+			if (!checkSet.contains(dto.getAuthId())) {
 				getMenuAuthority(insert, dto);
 				adds.add(insert.clone());
 			} else {
+				auth = existsMap.get(dto.getAuthId());
+				if (null == auth) {
+					continue;
+				}
 				if (MenuAuthEnum.DELETE.getStatus().equals(auth.getIsDelete())) {
 					exists.add(auth.getId());
 				}
@@ -354,6 +381,22 @@ public class PermissionServiceImpl implements IPermissionService {
 		resultMap.put(AuthOperEnum.UPDATE_EXISTS, exists);
 		resultMap.put(AuthOperEnum.UPDATE_NOT_EXISTS, not_exists);
 		return resultMap;
+	}
+	/**
+	 * 
+	* @Title: getAllAuthorityByCompanyId 
+	* @Description: 查询公司存在的所有权限数据 
+	* @param @param companyId
+	* @param @return    设定文件 
+	* @return List<CompanyAuthority>    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	private List<CompanyAuthority> getAllAuthorityByCompanyId(String companyId) {
+		CompanyAuthority select = new CompanyAuthority();
+		select.setCompanyId(companyId);
+		List<CompanyAuthority> result = companyAuthorityMapper.select(select);
+		return null == result ? new ArrayList<>() : result;
 	}
 	/**
 	 * 
@@ -522,7 +565,7 @@ public class PermissionServiceImpl implements IPermissionService {
 
 	@Override
 	@Transactional
-	public Result addPersonalPermissions(Long userId, List<Long> authorityIds) {
+	public Result addPersonalPermissions(Long userId, List<Long> authorityIds,Long[] menuIds) {
 		log.info("新增个人权限数据入参={},authorityIds={}", userId, JSON.toJSONString(authorityIds));
 		Result result = ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
 		if (CollectionUtils.isEmpty(authorityIds)) {
@@ -547,6 +590,13 @@ public class PermissionServiceImpl implements IPermissionService {
 				recordList.add(insert.clone());
 			}
 			staffAuthorityMapper.insertList(recordList);
+			//菜单角色用户权限添加
+			List<RoleVO> voList = companyRoleMapper.selectRoleListByUserId(userId);
+			if(voList==null) {
+				result.setMessage("用户角色不能为空");
+				return result;
+			}
+			companyRoleService.bindRoleMenu(menuIds, voList.get(0).getId(), userId, new Date());
 			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 		} catch (Exception e) {
 			log.error("新增个人权限数据异常", e);
@@ -555,7 +605,6 @@ public class PermissionServiceImpl implements IPermissionService {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public Result getAuthorizeData(PermissionQueryDTO dto) {
 		log.info("查询授权数据入参={}", JSON.toJSONString(dto));
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
@@ -564,117 +613,9 @@ public class PermissionServiceImpl implements IPermissionService {
 			return ResultUtil.setResult(result, RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 		}
 		try {
-			result = getMenuPermissions(dto);
-			if (!result.isSuccess()) {
-				return result;
-			}
-			// 根据菜单id 查询菜单操作权限数据
-			List<PermissionVO> mps = result.getData(List.class);
-			// 封装返回分组对象
-			final Map<Long, List<PermissionVO>> resultMap = new HashMap<>();
-			List<PermissionVO> list;
-			for (PermissionVO pv : mps) {
-				list = resultMap.get(pv.getMenuId());
-				if (null == list) {
-					list = new LinkedList<>();
-					resultMap.put(pv.getMenuId(), list);
-				}
-				list.add(pv);
-			}
-			if (resultMap.size() > 0) {
-				List<MenuPermissionVO> rList = new ArrayList<>(resultMap.size());
-				MenuPermissionVO mpv;
-				for (Map.Entry<Long, List<PermissionVO>> me : resultMap.entrySet()) {
-					mpv = new MenuPermissionVO();
-					mpv.setMenuId(me.getKey());
-					mpv.setMenuName(me.getValue().get(0).getMenuName());
-					mpv.setPermissions(me.getValue());
-					rList.add(mpv);
-				}
-				return ResultUtil.setResult(result, RespCode.Code.SUCCESS, rList);
-			}
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, menuPermissionFactory.genMenuAuth(dto));
 		} catch (Exception e) {
 			log.error("查询授权数据异常", e);
-		}
-		return result;
-	}
-
-	private Result getMenuPermissions(PermissionQueryDTO dto) throws CloneNotSupportedException {
-		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
-		// 根据菜单id 查询菜单操作权限数据
-		List<PermissionVO> mps = getPermissionsByMenuIds(dto.getMenuIds());
-		if (CollectionUtils.isEmpty(mps)) {
-			result.setMessage("根据菜单ID:" + JSON.toJSONString(dto.getMenuIds()) + "未查询到相关数据");
-			return result;
-		}
-		// 查询职位权限授权数据
-		List<PermissionVO> positions = companyAuthorityMapper.selectPositionPermissions(dto.getPositionId());
-		// 职位权限数据ID
-		final Set<Long> positionSets = new HashSet<>();
-		if (CollectionUtils.isNotEmpty(positions)) {
-			for (PermissionVO pv : positions) {
-				positionSets.add(pv.getAuthorityId());
-			}
-		}
-		// 查询过滤职位权限
-		if (MenuAuthEnum.POSITION_AUTH.getStatus().equals(dto.getOperType())) {
-			for (PermissionVO mpv : mps) {
-				if (positionSets.contains(mpv.getAuthorityId())) {
-					mpv.setIsCheck(MenuAuthEnum.CHECK.getStatus());
-				}
-			}
-			// 查询过滤个人权限
-		} else if (MenuAuthEnum.PERSION_AUTH.getStatus().equals(dto.getOperType())) {
-			if (CollectionUtils.isEmpty(positions)) {
-				result.setMessage("当前职位没得权限数据");
-				return result;
-			}
-			Iterator<PermissionVO> it = mps.iterator();
-			while (it.hasNext()) {
-				if (!positionSets.contains(it.next().getAuthorityId())) {
-					it.remove();
-				}
-			}
-			// 查询个人权限数据
-			List<PermissionVO> users = companyAuthorityMapper.selectPersonalPermissions(dto.getUserId());
-			if (CollectionUtils.isNotEmpty(users)) {
-				final Set<Long> userSets = new HashSet<>();
-				for (PermissionVO pv : users) {
-					userSets.add(pv.getAuthorityId());
-				}
-				for (PermissionVO mpv : mps) {
-					if (userSets.contains(mpv.getAuthorityId())) {
-						mpv.setIsCheck(MenuAuthEnum.CHECK.getStatus());
-					}
-				}
-			}
-		}
-		return ResultUtil.setResult(result, RespCode.Code.SUCCESS, mps);
-	}
-	/**
-	 * @throws CloneNotSupportedException 
-	* @Title: getPermissionsByMenuId 
-	* @Description: 根据菜单ID查询权限数据 
-	* @param @param menuId
-	* @param @return    设定文件 
-	* @return List<PermissionVO>    返回类型 
-	* @author lijie
-	* @throws
-	 */
-	private List<PermissionVO> getPermissionsByMenuIds(final List<Long> menuIds) throws CloneNotSupportedException {
-		final List<PermissionVO> result = new LinkedList<>();
-		List<MenuAuthorityVO> mAuths = menuAuthorityMapper.selectAuthorityListByMenuIds(menuIds);
-		if (CollectionUtils.isNotEmpty(mAuths)) {
-			final PermissionVO rt = new PermissionVO();
-			for (MenuAuthorityVO m : mAuths) {
-				rt.setMenuId(m.getMenuId());
-				rt.setMenuName(m.getMenuName());
-				rt.setAuthorityId(m.getAuthorityId());
-				rt.setAuthorityName(m.getAuthorityName());
-				rt.setAuthorityUrl(m.getAuthorityUrl());
-				rt.setOperType(m.getOperType());
-				result.add(rt.clone());
-			}
 		}
 		return result;
 	}
