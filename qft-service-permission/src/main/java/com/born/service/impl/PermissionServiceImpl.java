@@ -315,13 +315,13 @@ public class PermissionServiceImpl implements IPermissionService {
 			final String companyId, final Map<String, List<Long>> menu_auth_map) throws CloneNotSupportedException {
 		final Map<AuthOperEnum, Object> resultMap = new HashMap<>();
 		// 查询已存在的权限数据
-		CompanyAuthority select = new CompanyAuthority();
-		select.setCompanyId(companyId);
-		final List<CompanyAuthority> alllist = companyAuthorityMapper.select(select);
-		final Map<String, CompanyAuthority> existsMap = new HashMap<String, CompanyAuthority>();
+		final List<CompanyAuthority> alllist = getAllAuthorityByCompanyId(companyId);
+		final Map<String, CompanyAuthority> existsMap = new HashMap<String, CompanyAuthority>(alllist.size());
+		final Set<String> checkSet = new HashSet<>(alllist.size());
 		if (CollectionUtils.isNotEmpty(alllist)) {
 			for (CompanyAuthority base : alllist) {
 				existsMap.put(base.getBaseAuthorityId(), base);
+				checkSet.add(base.getBaseAuthorityId());
 			}
 		}
 
@@ -343,11 +343,14 @@ public class PermissionServiceImpl implements IPermissionService {
 		CompanyAuthority auth;
 		List<Long> authIds;
 		for (PermissionInfoDTO dto : auths) {
-			auth = existsMap.get(dto.getAuthId());
-			if (null == auth) {
+			if (!checkSet.contains(dto.getAuthId())) {
 				getMenuAuthority(insert, dto);
 				adds.add(insert.clone());
 			} else {
+				auth = existsMap.get(dto.getAuthId());
+				if (null == auth) {
+					continue;
+				}
 				if (MenuAuthEnum.DELETE.getStatus().equals(auth.getIsDelete())) {
 					exists.add(auth.getId());
 				}
@@ -370,6 +373,22 @@ public class PermissionServiceImpl implements IPermissionService {
 		resultMap.put(AuthOperEnum.UPDATE_EXISTS, exists);
 		resultMap.put(AuthOperEnum.UPDATE_NOT_EXISTS, not_exists);
 		return resultMap;
+	}
+	/**
+	 * 
+	* @Title: getAllAuthorityByCompanyId 
+	* @Description: 查询公司存在的所有权限数据 
+	* @param @param companyId
+	* @param @return    设定文件 
+	* @return List<CompanyAuthority>    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	private List<CompanyAuthority> getAllAuthorityByCompanyId(String companyId) {
+		CompanyAuthority select = new CompanyAuthority();
+		select.setCompanyId(companyId);
+		List<CompanyAuthority> result = companyAuthorityMapper.select(select);
+		return null == result ? new ArrayList<>() : result;
 	}
 	/**
 	 * 
