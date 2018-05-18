@@ -107,9 +107,7 @@ public class PermissionController {
 			}
 			rList = backMenuAuths(menus, map, haveMenus);
 		}
-		Result result = ResultUtil.getResult(RespCode.Code.SUCCESS, rList);
-		log.info("查询菜单权限返回数据={}", JSON.toJSONString(result));
-		return result;
+		return ResultUtil.getResult(RespCode.Code.SUCCESS, rList);
 	}
 	/**
 	 * 
