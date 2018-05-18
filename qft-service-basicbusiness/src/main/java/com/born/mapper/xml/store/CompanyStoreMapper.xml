@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.born.mapper.CompanyStoreMapper">
+
+	<!-- 添加店面信息 -->
+	<insert id="insertCompanyStore" parameterType="com.born.facade.dto.store.CompanyStoreDTO" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO qft_store(
+			city,
+			name,
+			<if test="phone != null and phone != ''">
+				phone,
+			</if>
+			<if test="adress != null and adress != ''">
+				adress,
+			</if>
+			<if test="localizeAdd != null and localizeAdd != ''">
+				localize_add,
+			</if>
+			company_id,
+			grouping_status,
+			creater_id,
+			create_time,
+			updater_id,
+			update_time
+		)VALUES(
+			#{city},
+			#{name},
+			<if test="phone != null and phone != ''">
+				#{phone},
+			</if>
+			<if test="adress != null and adress != ''">
+				#{adress},
+			</if>
+			<if test="localizeAdd != null and localizeAdd != ''">
+				#{localizeAdd},
+			</if>
+			#{companyId},
+			#{groupingStatus},
+			${createrId},
+			#{createTime},
+			${updaterId},
+			#{updateTime}
+		)
+	</insert>
+	<!-- 根据店面ID删除店面 -->
+	<update id="deleteStoreById">
+		UPDATE qft_store s
+		SET s.is_delete = 1
+		WHERE
+			s.id = ${id}
+	</update>
+	<!-- 查询店面 -->
+	<select id="selectCompanyStore" parameterType="com.born.facade.dto.store.CompanyStoreDTO" resultType="com.born.facade.vo.store.CompanyStoreVO">
+		SELECT
+			s.id,
+			s.company_id companyId,
+			s.creater_id createrId,
+			s.create_time createTime,
+			s.updater_id updaterId,
+			s.update_time updateTime,
+			s.name,
+			s.adress,
+			s.phone,
+			s.city,
+			s.housing,
+			s.cotenant,
+			s.focus,
+			s.grouping,
+			s.grouping_status groupingStatus,
+			s.localize_add localizeAdd
+		FROM
+			qft_store s
+		WHERE
+			s.is_delete = 0
+		<if test="companyId != null and companyId != '' ">
+			AND s.company_id = #{companyId}
+		</if>
+		<if test="id>0">
+			AND s.id = ${id}
+		</if>
+		order by s.update_time desc
+	</select>
+</mapper>

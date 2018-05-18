@@ -133,15 +133,16 @@ em {
 .navMenu,
 .layui-tab .layui-tab-title,
 .titleBox,
-.searchTerm .searchTermList,
-.searchTerm .searchBtnBox,
 .operateBox .operateList,
 .spreadBox .spreadTxt,
 .onService,
 .dataTables_wrapper,
 .subMainContent,
+.focusContent,
 .subTopBox,
 .subConBox,
+.searchTerm,
+.searchMore,
 .mediabox,
 .powerBtnBox,
 .powerMeunBox .mainMeun,
@@ -150,7 +151,8 @@ em {
 .powerOptionList,
 .roomStateList,
 .roomFlowStop,
-.workBookBox {
+.workBookBox,
+.addGroupBox {
   *zoom: 1;
 }
 .clearfix:before,
@@ -169,10 +171,6 @@ em {
 .layui-tab .layui-tab-title:after,
 .titleBox:before,
 .titleBox:after,
-.searchTerm .searchTermList:before,
-.searchTerm .searchTermList:after,
-.searchTerm .searchBtnBox:before,
-.searchTerm .searchBtnBox:after,
 .operateBox .operateList:before,
 .operateBox .operateList:after,
 .spreadBox .spreadTxt:before,
@@ -183,10 +181,16 @@ em {
 .dataTables_wrapper:after,
 .subMainContent:before,
 .subMainContent:after,
+.focusContent:before,
+.focusContent:after,
 .subTopBox:before,
 .subTopBox:after,
 .subConBox:before,
 .subConBox:after,
+.searchTerm:before,
+.searchTerm:after,
+.searchMore:before,
+.searchMore:after,
 .mediabox:before,
 .mediabox:after,
 .powerBtnBox:before,
@@ -204,7 +208,9 @@ em {
 .roomFlowStop:before,
 .roomFlowStop:after,
 .workBookBox:before,
-.workBookBox:after {
+.workBookBox:after,
+.addGroupBox:before,
+.addGroupBox:after {
   content: " ";
   display: table;
 }
@@ -216,15 +222,16 @@ em {
 .navMenu:after,
 .layui-tab .layui-tab-title:after,
 .titleBox:after,
-.searchTerm .searchTermList:after,
-.searchTerm .searchBtnBox:after,
 .operateBox .operateList:after,
 .spreadBox .spreadTxt:after,
 .onService:after,
 .dataTables_wrapper:after,
 .subMainContent:after,
+.focusContent:after,
 .subTopBox:after,
 .subConBox:after,
+.searchTerm:after,
+.searchMore:after,
 .mediabox:after,
 .powerBtnBox:after,
 .powerMeunBox .mainMeun:after,
@@ -233,7 +240,8 @@ em {
 .powerOptionList:after,
 .roomStateList:after,
 .roomFlowStop:after,
-.workBookBox:after {
+.workBookBox:after,
+.addGroupBox:after {
   clear: both;
   visibility: hidden;
   height: 0;
@@ -284,9 +292,11 @@ input[type="password"] {
   border-radius: 2px;
   vertical-align: middle;
   background: #fff;
-  behavior: url("PIE.htc");
-  position: relative;
-  z-index: 1;
+}
+input[type="text"].noBorder,
+input[type="password"].noBorder {
+  border: none;
+  background: none;
 }
 input[type="text"],
 input[type="password"] {
@@ -296,6 +306,7 @@ input[type="password"] {
 input[type="text"]:focus,
 input[type="password"]:focus {
   border: 1px solid #92bbff;
+  background: #fff;
 }
 select {
   width: 100%;
@@ -931,9 +942,9 @@ textarea {
   position: absolute;
   right: 0;
   top: 50%;
-  margin-top: -44px;
-  width: 12px;
-  height: 88px;
+  margin-top: -39px;
+  width: 11px;
+  height: 78px;
   background: url("../images/open_icon.png") 0 0 no-repeat;
   cursor: pointer;
   z-index: 1040;
@@ -970,16 +981,30 @@ textarea {
 }
 .navMenu li .subMenu dd a {
   display: block;
+  position: relative;
   width: 128px;
   height: 40px;
   font-size: 13px;
   color: #98b9f9;
   text-indent: 30px;
 }
+.navMenu li .subMenu dd a .actionIcon {
+  display: none;
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  margin-top: -15px;
+  width: 4px;
+  height: 30px;
+  background: url("../images/action_line.jpg") 0 0 no-repeat;
+}
 .navMenu li .subMenu dd a:hover,
 .navMenu li .subMenu dd a.action {
   color: #fff;
   background: url("../images/arrowicon-r.png") 110px center no-repeat;
+}
+.navMenu li .subMenu dd a.action .actionIcon {
+  display: block;
 }
 .navMenu li .link_subtit {
   display: none;
@@ -995,7 +1020,7 @@ textarea {
   background-position: 0 -14px;
 }
 .main-shrink .openBtn {
-  background-position: -12px 0;
+  background-position: -11px 0;
 }
 .main-shrink .logoBox {
   width: 70px;
@@ -1023,36 +1048,36 @@ textarea {
   left: 70px;
   height: auto;
 }
-.main-shrink .navMenu li:last-child .subMenu {
-  top: auto;
-  bottom: 0;
-}
-.main-shrink .openMenu .link_subtit {
+.main-shrink .navMenu li:hover .link_subtit {
   width: 70px;
   height: 60px;
   background: #507bea;
   color: #fff;
 }
-.main-shrink .openMenu .icon_sublease {
+.main-shrink .navMenu li:hover .icon_sublease {
   background-position: -60px -30px;
 }
-.main-shrink .openMenu .icon_subfinance {
+.main-shrink .navMenu li:hover .icon_subfinance {
   background-position: -60px -60px;
 }
-.main-shrink .openMenu .icon_suboa {
+.main-shrink .navMenu li:hover .icon_suboa {
   background-position: -60px -90px;
 }
-.main-shrink .openMenu .icon_subserve {
+.main-shrink .navMenu li:hover .icon_subserve {
   background-position: -60px -120px;
 }
-.main-shrink .openMenu .icon_subroom {
+.main-shrink .navMenu li:hover .icon_subroom {
   background-position: -60px -150px;
 }
-.main-shrink .openMenu .icon_subcount {
+.main-shrink .navMenu li:hover .icon_subcount {
   background-position: -60px -180px;
 }
-.main-shrink .openMenu .icon_subsystem {
+.main-shrink .navMenu li:hover .icon_subsystem {
   background-position: -60px -210px;
+}
+.main-shrink .navMenu li .subBottom {
+  top: auto;
+  bottom: 0;
 }
 .helpBtn {
   position: absolute;
@@ -1147,6 +1172,7 @@ textarea {
   margin-bottom: 10px;
 }
 .titleBox {
+  position: relative;
   width: 100%;
   height: 30px;
   line-height: 30px;
@@ -1158,6 +1184,25 @@ textarea {
   color: #333333;
   padding-left: 10px;
   background: url("../images/line-icon.jpg") 0 center no-repeat;
+}
+.titleBox .vacantTxt {
+  position: absolute;
+  right: -35px;
+  top: 2px;
+  width: 136px;
+  height: 26px;
+  line-height: 26px;
+  background: #ffab91;
+  color: #fff;
+  font-size: 14px;
+  text-indent: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  behavior: url("PIE.htc");
 }
 .titleBox .titOpenBtn {
   float: right;
@@ -1185,10 +1230,11 @@ textarea {
   background: url("../images/open-up.png") right center no-repeat;
 }
 .itemList {
-  width: 100%;
+  float: right;
+  width: 245px;
   height: 30px;
   line-height: 30px;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 .itemList a {
   float: left;
@@ -1221,87 +1267,20 @@ textarea {
 .itemList a.greenBg.notMar {
   margin-right: 0;
 }
-.searchTerm {
-  width: 100%;
-  height: auto;
-}
-.searchTerm .searchTermList {
-  width: 100%;
-  height: 72px;
-  overflow: hidden;
-}
-.searchTerm .searchTermList li {
-  float: left;
-  width: 50%;
-  height: 30px;
+.dataAnalysis {
   margin-top: 5px;
-}
-.searchTerm .searchTermList li label {
-  display: block;
-  float: left;
-  width: 50px;
-  height: 30px;
-  line-height: 30px;
-  font-size: 12px;
-  color: #5e6d82;
-  margin-right: 5px;
-}
-.searchTerm .searchTermList li input[type="text"] {
-  width: 56px;
-  height: 28px;
-  padding: 0 2px;
-}
-.searchTerm .searchTermList li .selectBox {
-  width: 56px;
-  height: auto;
-}
-.searchTerm .searchTermList.searchTermShow {
-  height: auto;
-}
-.searchTerm .searchBtnBox {
-  position: relative;
-  width: 100%;
-  height: 30px;
-  margin-top: 10px;
-}
-.searchTerm .searchBtnBox input[type="button"] {
-  float: left;
-  width: 112px;
-  height: 28px;
-  line-height: 28px;
-  text-align: center;
-  font-size: 12px;
-  cursor: pointer;
-  position: relative;
-  z-index: 1;
-}
-.searchTerm .searchBtnBox .searchBtn {
-  color: #fff;
-  text-indent: 18px;
-  margin-right: 15px;
-  border: none;
-  background: url("../images/searchbtn-icon.png") 28px center no-repeat #92bbff;
-}
-.searchTerm .searchBtnBox .searchBtn:hover {
-  background-color: #458bff;
-}
-.searchTerm .searchBtnBox .seniorBtn {
-  border: 1px solid #92bbff;
-  color: #92bbff;
-  background: #fff;
-}
-.searchTerm .searchBtnBox .seniorBtn:hover {
-  background-color: #92bbff;
-  color: #fff;
+  width: 244px;
+  height: 168px;
 }
 .itemSearch .searchInput {
+  display: none;
   position: relative;
   width: 100%;
   height: 30px;
   line-height: 30px;
   background: #f6f7fb;
   border: 1px solid #e5e5e5;
-  margin: 10px 0;
+  margin-top: 10px;
 }
 .itemSearch .searchInput .itemIcon {
   position: absolute;
@@ -1326,6 +1305,7 @@ textarea {
 .itemSearch .itemSearchList {
   width: 100%;
   height: 210px;
+  margin-top: 10px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -1350,7 +1330,6 @@ textarea {
   text-decoration: underline;
 }
 .operateBox {
-  display: none;
   margin-top: 10px;
 }
 .operateBox .operateList {
@@ -1373,7 +1352,6 @@ textarea {
   text-indent: 10px;
 }
 .spreadBox {
-  display: none;
   margin-top: 10px;
 }
 .spreadBox .spreadTxt {
@@ -1468,14 +1446,23 @@ textarea {
 .gray-col {
   color: #999999;
 }
+.blue-col {
+  color: #92bbff;
+}
 .require {
   display: inline-block;
   color: #fc6365;
   margin-right: 5px;
 }
 .disabled,
-.PopupBtn input[type="button"].disabled {
+.PopupBtn input[type="button"].disabled,
+.wareList tr td .accountName.disabled,
+.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.PopupBtn input[type="button"].wareList tr td .accountName.disabled {
   background: #f4f4f4;
+}
+.conHidden_x {
+  overflow-x: hidden;
 }
 .popup-title-bg .layui-layer-title {
   background-color: #e2eaf3;
@@ -1548,6 +1535,10 @@ textarea {
   width: 90%;
   height: 30px;
 }
+.popupList tr td input[type="text"].citySelect,
+.popupList tr td input[type="password"].citySelect {
+  width: 156px;
+}
 .popupList .fieldName,
 .popupList .fieldName_one {
   width: 80px;
@@ -1564,6 +1555,46 @@ textarea {
   width: 170px;
   height: 30px;
   line-height: 30px;
+}
+.popupList input[type="button"].addCity {
+  width: 66px;
+  height: 30px;
+  min-width: 66px;
+  vertical-align: middle;
+}
+.popupList .infoTxt {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+}
+.popupList .tab_selectWidth {
+  width: 176px;
+}
+.detailList {
+  width: 100%;
+  height: auto;
+  table-layout: fixed;
+}
+.detailList tr th,
+.detailList tr td {
+  position: relative;
+  vertical-align: middle;
+  border: 1px solid #e2e2e2;
+  height: 32px;
+  line-height: 32px;
+  font-size: 12px;
+  text-align: center;
+}
+.detailList .fieldName_one {
+  width: 110px;
+  height: 30px;
+}
+.detailList .detailArea {
+  width: 90%;
+  height: 50px;
+  line-height: 24px;
+  vertical-align: middle;
+  margin: 10px 0;
 }
 .PopupBtn {
   text-align: center;
@@ -1588,7 +1619,8 @@ textarea {
 .PopupBtn input[type="button"].PopupOrange:hover {
   background: #ff7144;
 }
-.PopupBtn input[type="button"].disabled {
+.PopupBtn input[type="button"].disabled,
+.PopupBtn input[type="button"].wareList tr td .accountName.disabled {
   border: 1px solid #d2d2d2;
   height: 28px;
   line-height: 28px;
@@ -1647,11 +1679,13 @@ textarea {
   float: left;
   cursor: pointer;
   text-decoration: none;
+  position: relative;
+  z-index: 1;
 }
 .dataTables_paginate a.ellipsis,
 .dataTables_paginate span.ellipsis {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   line-height: 22px;
   text-align: center;
   color: #333333;
@@ -1707,6 +1741,7 @@ textarea {
 .dataTables_paginate .fg-button.last {
   width: 80px;
   height: 26px;
+  line-height: 24px;
 }
 .dataTables_paginate .paginate_button.previous.ui-state-disabled,
 .dataTables_paginate .paginate_active.previous.ui-state-disabled,
@@ -1755,20 +1790,62 @@ textarea {
 .dataTables_paginate .fg-button.first.PopupBtn input[type="button"].disabled,
 .dataTables_paginate .paginate_button.last.PopupBtn input[type="button"].disabled,
 .dataTables_paginate .paginate_active.last.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .fg-button.last.PopupBtn input[type="button"].disabled {
+.dataTables_paginate .fg-button.last.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.previous.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.previous.wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.previous.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.next.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.next.wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.next.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.first.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.first.wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.first.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.last.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.last.wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.last.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.previous.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.previous.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.previous.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.next.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.next.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.next.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.first.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.first.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.first.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.last.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.last.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.last.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.previous.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.previous.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.previous.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.next.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.next.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.next.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.first.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.first.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.first.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.last.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.last.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.last.PopupBtn input[type="button"].wareList tr td .accountName.disabled {
   border: 1px solid #d2d2d2;
   color: #999999;
 }
 .dataTables_paginate .ui-state-disabled,
 .dataTables_paginate .paginate_button_disabled,
 .dataTables_paginate .disabled,
-.dataTables_paginate .PopupBtn input[type="button"].disabled {
+.dataTables_paginate .PopupBtn input[type="button"].disabled,
+.dataTables_paginate .wareList tr td .accountName.disabled,
+.dataTables_paginate .wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .PopupBtn input[type="button"].wareList tr td .accountName.disabled {
   cursor: default;
 }
 .dataTables_paginate .ui-state-disabled:hover,
 .dataTables_paginate .paginate_button_disabled:hover,
 .dataTables_paginate .disabled:hover,
-.dataTables_paginate .PopupBtn input[type="button"].disabled:hover {
+.dataTables_paginate .PopupBtn input[type="button"].disabled:hover,
+.dataTables_paginate .wareList tr td .accountName.disabled:hover,
+.dataTables_paginate .wareList tr td .accountName.PopupBtn input[type="button"].disabled:hover,
+.dataTables_paginate .PopupBtn input[type="button"].wareList tr td .accountName.disabled:hover {
   background: #f4f4f4;
 }
 .dataTables_wrapper {
@@ -1776,24 +1853,49 @@ textarea {
   display: inline-table;
 }
 .subMainContent {
+  width: 100%;
+  height: 100%;
+  background: #edeff4;
   display: table;
+}
+.focusContent {
   width: 100%;
   height: 100%;
   background: #edeff4;
 }
 .rightContent {
-  display: table-cell;
+  float: right;
+  position: relative;
   width: 274px;
   height: auto;
   padding-top: 10px;
   z-index: 1000;
 }
 .leftContent {
-  display: table-cell;
+  float: left;
+  width: 100%;
   height: 100%;
+  margin-right: -274px;
   padding: 10px;
-  vertical-align: top;
-  line-height: 1;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.shrinkBtn {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 11px;
+  height: 78px;
+  margin-top: -39px;
+  background: url("../images/open_icon.png") 0 -78px no-repeat;
+  cursor: pointer;
+}
+.spreadBg .shrinkBtn {
+  background-position: -11px -78px;
+}
+.focusLeftCon {
+  margin-right: 274px;
 }
 .subMainCon {
   padding: 10px;
@@ -1805,6 +1907,9 @@ textarea {
 }
 .subConBox {
   margin-top: 10px;
+}
+.minCon {
+  min-height: 90%;
 }
 .subTopLeft {
   float: left;
@@ -1854,10 +1959,10 @@ textarea {
 }
 .subTopRight span.register {
   color: #fff;
-  background: url("../images/register_icon.png") 5px center no-repeat #aed581;
+  background: url("../images/register_icon.png") 5px center no-repeat #92bbff;
 }
 .subTopRight span.register:hover {
-  background-color: #89c248;
+  background-color: #458bff;
   color: #fff;
 }
 .subTopRight span.setUpBtn {
@@ -1873,16 +1978,15 @@ textarea {
   color: #1e65c5;
 }
 .searchTerm {
-  width: 100%;
-  height: auto;
   min-height: 40px;
-  margin-bottom: 10px;
+  margin: 10px 0;
+  background: #fff;
+  padding: 10px;
 }
 .searchTerm .searchTab {
   width: 100%;
   height: auto;
   table-layout: fixed;
-  margin: 0 auto;
 }
 .searchTerm .searchTab tr th,
 .searchTerm .searchTab tr td {
@@ -1891,10 +1995,23 @@ textarea {
   height: 40px;
   text-align: left;
 }
+.searchTerm .searchTab tr td input[type="text"] {
+  width: 90%;
+}
 .searchTerm .searchTab tr th {
-  width: 90px;
+  width: 60px;
   height: 40px;
   text-align: right;
+}
+.searchTerm .searchTab.searchWidth_one {
+  float: left;
+  width: 860px;
+}
+.searchTerm .searchTab.searchWidth_two {
+  width: 900px;
+}
+.searchTerm .searchTab.searchWidth_three {
+  width: 980px;
 }
 .searchTerm .tabSearchBtn {
   width: 90px;
@@ -1904,6 +2021,24 @@ textarea {
   text-indent: 20px;
   position: relative;
   z-index: 1;
+}
+.searchMore {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+input[type="button"].searchMoreBtn {
+  background: url("../images/search_more.png") 55px center no-repeat #fff;
+  border: 1px solid #92bbff;
+  color: #92bbff;
+  text-indent: 20px;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+input[type="button"].searchMoreBtn:hover {
+  background: url("../images/search_more_h.png") 55px center no-repeat #92bbff;
+  color: #fff;
 }
 .wareList {
   width: 99.7%;
@@ -1946,6 +2081,16 @@ textarea {
   text-overflow: inherit;
   white-space: normal;
 }
+.wareList tr td .wareListClick {
+  display: block;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  color: #92bbff;
+}
+.wareList tr td .accountName {
+  width: 90%;
+}
 .wareList tr th {
   background: #f3f6fd;
   color: #333333;
@@ -1970,6 +2115,10 @@ textarea {
 }
 .wareList.workBookList tr td .operateBtn {
   margin: 5px 0;
+}
+.wareList.wareTrNoBg tr,
+.wareList.wareTrNoBg tr.trBack {
+  background: none;
 }
 .operationBox {
   position: relative;
@@ -2023,8 +2172,9 @@ textarea {
 .operationBox .subOperMenu li .operMenu {
   position: relative;
   display: block;
-  font-size: 14px;
+  font-size: 12px;
   color: #333333;
+  line-height: 24px;
   text-align: left;
   padding: 0 12px;
   overflow: hidden;
@@ -2076,6 +2226,7 @@ textarea {
 .userRightContent {
   display: table-cell;
   padding-top: 10px;
+  padding-right: 10px;
   height: 98%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -2225,7 +2376,7 @@ textarea {
 }
 .powerOptionBox {
   width: 100%;
-  height: 316px;
+  height: 256px;
   margin-bottom: 5px;
   overflow: auto;
 }
@@ -2254,6 +2405,9 @@ label.powerLabel {
 label.powerLabel input[type='checkbox'] {
   margin: 8px 5px;
   vertical-align: top;
+}
+label.powerLabel.marRig {
+  margin-right: 10px;
 }
 label.labelRed {
   color: #fc6365;
@@ -2319,27 +2473,43 @@ label.labelRed {
   font-size: 14px;
   text-indent: 20px;
 }
+.roomStateBox {
+  position: relative;
+  padding-left: 30px;
+  background: #f1f1f1;
+  border-bottom: 1px solid #e5e5e5;
+}
+.roomStateBox .floorNum {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  margin-top: -24px;
+  width: 20px;
+  height: 48px;
+  line-height: 24px;
+  color: #333333;
+  font-size: 12px;
+  text-align: center;
+}
 .roomStateList {
   width: 100%;
   height: auto;
-  padding: 0 20px;
+  padding: 10px 0;
+  background: #fff;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  border-bottom: 1px dashed #e5e5e5;
-}
-.roomStateList:last-child {
-  border-bottom: none;
 }
 .roomStateList li {
   float: left;
-  width: 196px;
+  width: auto;
   height: 122px;
+  min-width: 192px;
   border: 1px solid #e5e5e5;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
-  margin: 10px;
+  margin: 10px 0 10px 20px;
   behavior: url("PIE.htc");
   position: relative;
   z-index: 1;
@@ -2463,10 +2633,13 @@ label.labelRed {
   height: 50px;
 }
 .textareaBox textarea {
-  width: 99.5%;
-  height: 40px;
+  width: 100%;
+  height: 50px;
   padding: 5px 0.5%;
-  font-size: 14px;
+  font-size: 12px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .pactSelect {
   float: left !important;
@@ -2484,9 +2657,9 @@ label.labelRed {
 }
 .workTxt {
   width: auto;
-  height: 40px;
-  line-height: 40px;
-  font-size: 16px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
   padding-left: 20px;
 }
 .workPadd {
@@ -2540,4 +2713,85 @@ label.labelRed {
   height: 286px;
   overflow-y: auto;
   margin-bottom: 10px;
+}
+.sortBox.setAccHei {
+  height: 346px;
+}
+.addGroupBox {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+.addGroupBox .addGroupList {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 10px;
+}
+.addGroupBox .addGroupList .groupName,
+.addGroupBox .addGroupList .groupInput,
+.addGroupBox .addGroupList .groupImg {
+  float: left;
+}
+.addGroupBox .addGroupList .groupName {
+  width: 110px;
+  height: 30px;
+  line-height: 30px;
+  text-align: right;
+}
+.addGroupBox .addGroupList .groupInput {
+  width: 226px;
+  height: 30px;
+}
+.addGroupBox .addGroupList .groupImg {
+  width: 14px;
+  height: 14px;
+  margin: 8px;
+  cursor: pointer;
+}
+.addGroupBox .addGroupList .groupImg.deleteGroup {
+  background: url("../images/workclose_icon.png") 0 0 no-repeat;
+}
+.addGroupBox .addGroupList .groupImg.addGroup {
+  background: url("../images/add_icon.png") 0 0 no-repeat;
+}
+.keepIcon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 0 auto;
+  background: url("../images/keep_icon.png") 0 0 no-repeat;
+  cursor: pointer;
+}
+.keepIcon:hover {
+  background-position: 0 -16px;
+}
+@media screen and (max-width: 2560px) {
+  .roomStateList li {
+    width: 10%;
+  }
+}
+@media screen and (max-width: 2370px) {
+  .roomStateList li {
+    width: 11.3%;
+  }
+}
+@media screen and (max-width: 2048px) {
+  .roomStateList li {
+    width: 12.8%;
+  }
+}
+@media screen and (max-width: 1920px) {
+  .roomStateList li {
+    width: 15%;
+  }
+}
+@media screen and (max-width: 1700px) {
+  .roomStateList li {
+    width: 17.8%;
+  }
+}
+@media screen and (max-width: 1400px) {
+  .roomStateList li {
+    width: 17.8%;
+  }
 }

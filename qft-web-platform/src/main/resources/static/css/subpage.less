@@ -3,23 +3,47 @@
 
 //内页主体
 .subMainContent{
+  &:extend(.clearfix all);
+  .square(100%);
+  background: @blue-body;
   display: table;
+}
+.focusContent{
   &:extend(.clearfix all);
   .square(100%);
   background: @blue-body;
 }
 .rightContent{
-  display: table-cell;
+  .right;
+  .relative;
   .size(274px; auto);
   padding-top: @padding-10;
   z-index: @zindex-base;
 }
 .leftContent{
-  display: table-cell;
-  height: 100%;
+  .left;
+  .square(100%);
+  margin-right: -274px;
   padding: @padding-10;
-  vertical-align:top;
-  line-height: 1;
+  .box-sizing;
+}
+//集中整租右边收缩按钮
+.shrinkBtn{
+  .absolute;
+  top: 50%;
+  left: 0;
+  .size(11px; 78px);
+  margin-top: -39px;
+  background: url("../images/open_icon.png") 0 -78px no-repeat;
+  cursor: pointer;
+}
+.spreadBg{
+  .shrinkBtn{
+    background-position: -11px -78px;
+  }
+}
+.focusLeftCon{
+  margin-right: 274px;
 }
 //内页全屏盒子
 .subMainCon{
@@ -34,6 +58,10 @@
 }
 .subConBox{
   margin-top: @margin-10;
+}
+//最小高度
+.minCon{
+  min-height: 90%;
 }
 .subTopLeft{
   .left;
@@ -74,9 +102,9 @@
     cursor: pointer;
     &.register{
       color: @txt-base;
-      background: url("../images/register_icon.png") 5px center no-repeat @green-btn;
+      background: url("../images/register_icon.png") 5px center no-repeat @blue-btn;
       &:hover{
-        background-color: @green-btn-h;
+        background-color: @blue-btn-h;
         color: @txt-base;
       }
     }
@@ -98,13 +126,14 @@
 }
 //搜索条件
 .searchTerm{
-  .size(100%; auto);
+  &:extend(.clearfix all);
   min-height: 40px;
-  margin-bottom: @margin-10;
+  margin: @margin-10 0;
+  background: @txt-base;
+  padding: @padding-10;
   .searchTab{
     .size(100%; auto);
     table-layout: fixed;
-    margin: 0 auto;
     tr th,
     tr td {
       font-size: @font-size-small;
@@ -112,10 +141,26 @@
       height: 40px;
       .align(left);
     }
+    tr td {
+      input[type="text"]{
+        width: 90%;
+      }
+    }
     tr th {
-       .size(90px; 40px);
+       .size(60px; 40px);
       .align(right);
      }
+    //搜索条件的宽度
+    &.searchWidth_one{
+      .left;
+      width: 860px;
+    }
+    &.searchWidth_two{
+      width: 900px;
+    }
+    &.searchWidth_three{
+      width: 980px;
+    }
   }
   .tabSearchBtn{
     width: 90px;
@@ -124,6 +169,25 @@
     font-size: @font-size-small;
     text-indent: 20px;
     .behavior-relative;
+  }
+}
+//更多搜索条件
+.searchMore{
+  &:extend(.clearfix all);
+  .hide;
+  .size(100%; auto);
+}
+//更多搜索按钮
+input[type="button"].searchMoreBtn{
+  background: url("../images/search_more.png") 55px center no-repeat @txt-base;
+  .border(1px; @blue-btn);
+  color: @blue-btn;
+  text-indent: 20px;
+  .align(left);
+  .behavior-relative;
+  &:hover{
+    background: url("../images/search_more_h.png") 55px center no-repeat @blue-btn;
+    color: @txt-base;
   }
 }
 //table列表
@@ -164,6 +228,18 @@
       text-overflow: inherit;
       white-space: normal;
     }
+    .wareListClick{
+      display: block;
+      .size(100%; 40px);
+      line-height: 40px;
+      color: @blue-btn;
+    }
+    .accountName{
+      width: 90%;
+      &.disabled{
+        &:extend(.disabled all);
+      }
+    }
   }
   tr th {
     background: @tabel-header;
@@ -190,6 +266,13 @@
       .operateBtn{
         margin: @margin-05 0;
       }
+    }
+  }
+  //取消隔行变色
+  &.wareTrNoBg{
+    tr,
+    tr.trBack{
+      background: none;
     }
   }
 }
@@ -234,8 +317,9 @@
       .operMenu{
         .relative;
         display: block;
-        font-size: @font-size-base;
+        font-size: @font-size-small;
         color: @gray-dark;
+        line-height: 24px;
         .align(left);
         padding: 0 12px;
         overflow: hidden;
@@ -282,6 +366,7 @@
 .userRightContent{
   display: table-cell;
   padding-top: @padding-10;
+  padding-right: @padding-10;
   height: 98%;
   .box-sizing;
   overflow: hidden;
@@ -424,7 +509,7 @@
 }
 //权限选项
 .powerOptionBox{
-  .size(100%; 316px);
+  .size(100%; 256px);
   margin-bottom: @margin-05;
   overflow: auto;
   .powerOption{
@@ -454,6 +539,9 @@ label.powerLabel{
   input[type='checkbox']{
     margin: 8px 5px;
     vertical-align: top;
+  }
+  &.marRig{
+    margin-right: @margin-10;
   }
 }
 //label红色
@@ -523,21 +611,36 @@ label.labelRed{
   text-indent: 20px;
 }
 //房态图列表
+.roomStateBox{
+  .relative;
+  padding-left: @padding-30;
+  background: @gray-cancel-back;
+  .border-bottom(1px; @input-border-col);
+  .floorNum{
+    .absolute;
+    left: 5px;
+    top: 50%;
+    margin-top: -24px;
+    .size(20px; 48px);
+    line-height: 24px;
+    color: @gray-dark;
+    font-size: @font-size-small;
+    .align(center);
+  }
+}
 .roomStateList{
   &:extend(.clearfix all);
   .size(100%; auto);
-  padding: 0 @padding-20;
+  padding: @padding-10 0;
+  background: @txt-base;
   .box-sizing;
-  border-bottom: 1px dashed @input-border-col;
-  &:last-child{
-    border-bottom:none;
-  }
   li{
     .left;
-    .size(196px; 122px);
+    .size(auto; 122px);
+    min-width:192px;
     .border(1px; @input-border-col);
     .border-radius(@border-radius-large);
-    margin: @margin-10;
+    margin: @margin-10 0 @margin-10 @margin-20;
     .behavior;
     .behavior-relative;
     color: @search-txt;
@@ -650,9 +753,10 @@ label.labelRed{
 .textareaBox{
   .size(100%; 50px);
   textarea{
-    .size(99.5%; 40px);
+    .size(100%; 50px);
     padding: @padding-05 .5%;
-    font-size: @font-size-base;
+    font-size: @font-size-small;
+    .box-sizing;
   }
 }
 //合同期限
@@ -672,9 +776,9 @@ label.labelRed{
 }
 //字典设置
 .workTxt{
-  .size(auto; 40px);
-  line-height: 40px;
-  font-size: @font-size-in;
+  .size(auto; 30px);
+  line-height: 30px;
+  font-size: @font-size-base;
   padding-left: @padding-20;
 }
 .workPadd{
@@ -724,4 +828,52 @@ label.labelRed{
   .size(auto; 286px);
   overflow-y: auto;
   margin-bottom: @margin-10;
+  &.setAccHei{
+    height: 346px;
+  }
+}
+//添加门店 - 添加分组
+.addGroupBox{
+  .hide;
+  &:extend(.clearfix all);
+  .size(100%; auto);
+  .addGroupList{
+    .size(100%; 30px);
+    margin-bottom: @margin-10;
+    .groupName,
+    .groupInput,
+    .groupImg{
+      .left;
+    }
+    .groupName{
+      .size(110px; 30px);
+      line-height: 30px;
+      .align(right);
+    }
+    .groupInput{
+      .size(226px; 30px);
+    }
+    .groupImg{
+      .square(14px);
+      margin: 8px;
+      cursor: pointer;
+      &.deleteGroup{
+        background: url("../images/workclose_icon.png") 0 0 no-repeat;
+      }
+      &.addGroup{
+        background: url("../images/add_icon.png") 0 0 no-repeat;
+      }
+    }
+  }
+}
+//设置账户 - 保存图标
+.keepIcon{
+  display: block;
+  .square(16px);
+  margin: 0 auto;
+  background: url("../images/keep_icon.png") 0 0 no-repeat;
+  cursor: pointer;
+  &:hover{
+    background-position: 0 -16px;
+  }
 }

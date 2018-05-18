@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.born.mapper.StoreGroupMapper">
+
+	
+	<!-- 根据店面ID删除店面 -->
+	<update id="deleteGroupById">
+		UPDATE qft_store_grouping sg
+		SET sg.is_delete = 1
+		WHERE
+			sg.id = ${id}
+	</update>
+	<!-- 根据店面ID查询店面分组 -->
+	<select id="selectGroupListByStoreId" resultType="com.born.facade.vo.store.StoreGroupVO">
+		SELECT
+			sg.id,
+			sg.name,
+			sg.store_id storeId,
+			sg.company_id companyId,
+			sg.creater_id createrId,
+			sg.create_time createTime,
+			sg.updater_id updaterId
+		FROM
+			qft_store_grouping sg
+		WHERE
+			sg.is_delete = 0
+		AND sg.store_id = ${storeId}
+	</select>
+</mapper>

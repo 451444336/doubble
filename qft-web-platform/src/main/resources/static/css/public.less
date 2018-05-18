@@ -20,8 +20,12 @@ input[type="password"]{
   .border-radius(@border-radius-small);
   vertical-align: middle;
   background: @txt-base;
-  .behavior;
-  .behavior-relative;
+  //.behavior;
+  //.behavior-relative;
+  &.noBorder{
+    border:none;
+    background: none;
+  }
 }
 input[type="text"],
 input[type="password"] {
@@ -29,6 +33,7 @@ input[type="password"] {
   padding: 0 @padding-05;
   &:focus {
     .border(1px; @blue-btn);
+    background: @txt-base;
   }
 }
 
@@ -618,8 +623,8 @@ textarea{
   .absolute;
   right: 0;
   top: 50%;
-  margin-top: -44px;
-  .size(12px; 88px);
+  margin-top: -39px;
+  .size(11px; 78px);
   background: url("../images/open_icon.png") 0 0 no-repeat;
   cursor: pointer;
   z-index: @zindex-modal-bg;
@@ -649,14 +654,29 @@ textarea{
         line-height: 40px;
         a{
           display: block;
+          .relative;
           .size(128px; 40px);
           font-size:@font-size-soso;
           color: @nav-menu-color;
           text-indent: 30px;
+          .actionIcon{
+            display: none;
+            .absolute;
+            left: 5px;
+            top: 50%;
+            margin-top: -15px;
+            .size(4px; 30px);
+            background: url("../images/action_line.jpg") 0 0 no-repeat;
+          }
           &:hover,
           &.action{
             color: @txt-base;
             background: url("../images/arrowicon-r.png") 110px center no-repeat;
+          }
+          &.action{
+            .actionIcon{
+              display: block;
+            }
           }
         }
       }
@@ -679,7 +699,7 @@ textarea{
 }
 .main-shrink{
   .openBtn{
-    background-position: -12px 0;
+    background-position: -11px 0;
   }
   .logoBox{
     .size(70px; 40px);
@@ -707,40 +727,39 @@ textarea{
         left: 70px;
         height: auto;
       }
-      &:last-child{
-         .subMenu{
-           top: auto;
-           bottom: 0;
-         }
+      &:hover{
+        .link_subtit{
+          .size(70px; 60px);
+          background: @blue-nav-bg;
+          color: @txt-base;
+        }
+        .icon_sublease{
+          background-position: -60px -30px;
+        }
+        .icon_subfinance{
+          background-position: -60px -60px;
+        }
+        .icon_suboa{
+          background-position: -60px -90px;
+        }
+        .icon_subserve{
+          background-position: -60px -120px;
+        }
+        .icon_subroom{
+          background-position: -60px -150px;
+        }
+        .icon_subcount{
+          background-position: -60px -180px;
+        }
+        .icon_subsystem{
+          background-position: -60px -210px;
+        }
       }
-    }
-  }
-  .openMenu{
-    .link_subtit{
-      .size(70px; 60px);
-      background: @blue-nav-bg;
-      color: @txt-base;
-    }
-    .icon_sublease{
-      background-position: -60px -30px;
-    }
-    .icon_subfinance{
-      background-position: -60px -60px;
-    }
-    .icon_suboa{
-      background-position: -60px -90px;
-    }
-    .icon_subserve{
-      background-position: -60px -120px;
-    }
-    .icon_subroom{
-      background-position: -60px -150px;
-    }
-    .icon_subcount{
-      background-position: -60px -180px;
-    }
-    .icon_subsystem{
-      background-position: -60px -210px;
+      //最后一个二级菜单样式
+      .subBottom{
+        top: auto;
+        bottom: 0;
+      }
     }
   }
 }
@@ -839,6 +858,7 @@ textarea{
 //共用标题
 .titleBox{
   &:extend(.clearfix all);
+  .relative;
   .size(100%; 30px);
   line-height: 30px;
   h2{
@@ -848,6 +868,21 @@ textarea{
     color: @gray-dark;
     padding-left: @padding-10;
     background: url("../images/line-icon.jpg") 0 center no-repeat;
+  }
+  //空置数量
+  .vacantTxt{
+    .absolute;
+    right: -35px;
+    top: 2px;
+    .size(136px; 26px);
+    line-height: 26px;
+    background: @orange-btn;
+    color: @txt-base;
+    font-size: @font-size-base;
+    text-indent: 20px;
+    .text-overflow;
+    .border-radius(50px);
+    .behavior;
   }
   .titOpenBtn{
     .right;
@@ -874,9 +909,10 @@ textarea{
   }
 }
 .itemList{
-  .size(100%; 30px);
+  .right;
+  .size(245px; 30px);
   line-height: 30px;
-  margin: @margin-10 0;
+  margin: @margin-05 0;
   a{
     .left;
     display: block;
@@ -908,82 +944,22 @@ textarea{
     }
   }
 }
-//房源搜索条件
-.searchTerm{
-  .size(100%; auto);
-  .searchTermList{
-    .size(100%; 72px);
-    overflow: hidden;
-    &:extend(.clearfix all);
-    li{
-      .left;
-      .size(50%; 30px);
-      margin-top: @margin-05;
-      label{
-        display:block;
-        .left;
-        .size(50px; 30px);
-        line-height: 30px;
-        font-size:@font-size-small;
-        color: @search-txt;
-        margin-right: @margin-05;
-      }
-      input[type="text"]{
-        .size(56px; 28px);
-        padding: 0 2px;
-      }
-      .selectBox{
-        .size(56px; auto);
-      }
-    }
-    &.searchTermShow{
-      height: auto;
-    }
-  }
-  .searchBtnBox{
-    .relative;
-    &:extend(.clearfix all);
-    .size(100%; 30px);
-    margin-top: @margin-10;
-    input[type="button"]{
-      .left;
-      .size(112px; 28px);
-      line-height: 28px;
-      .align(center);
-      font-size: @font-size-small;
-      cursor: pointer;
-      .behavior-relative;
-    }
-    .searchBtn{
-      color: @txt-base;
-      text-indent: 18px;
-      margin-right: @margin-15;
-      border: none;
-      background: url("../images/searchbtn-icon.png") 28px center no-repeat @blue-btn;
-      &:hover{
-        background-color: @blue-btn-h;
-      }
-    }
-    .seniorBtn{
-      .border(1px; @blue-btn);
-      color: @blue-btn;
-      background: @txt-base;
-      &:hover{
-        background-color: @blue-btn;
-        color: @txt-base;
-      }
-    }
-  }
+//空置分析图表
+.dataAnalysis{
+  margin-top: @margin-05;
+  .size(244px; 168px);
 }
+
 //项目搜索
 .itemSearch{
   .searchInput{
+    .hide;
     .relative;
     .size(100%; 30px);
     line-height: 30px;
     background: @item-input-bg;
     .border(1px; @input-border-col);
-    margin: @margin-10 0;
+    margin-top: @margin-10;
     .itemIcon{
       .absolute;
       left: 10px;
@@ -1006,6 +982,7 @@ textarea{
   //搜索列表
   .itemSearchList{
     .size(100%; 210px);
+    margin-top: @margin-10;
     overflow-y: auto;
     overflow-x: hidden;
     li{
@@ -1028,7 +1005,6 @@ textarea{
 }
 //经营数据
 .operateBox{
-  display: none;
   margin-top: @margin-10;
   .operateList{
     &:extend(.clearfix all);
@@ -1049,7 +1025,6 @@ textarea{
 }
 //推广数据
 .spreadBox{
-  display: none;
   margin-top: @margin-10;
   .spreadTxt{
     &:extend(.clearfix all);
@@ -1135,6 +1110,9 @@ textarea{
 .gray-col{
   color: @gray-cont;
 }
+.blue-col{
+  color: @blue-btn;
+}
 //公用标注样式
 .require {
   display: inline-block;
@@ -1144,6 +1122,10 @@ textarea{
 //禁止输入文本框样式
 .disabled {
   background: @disabled-bg;
+}
+//横坐标超出隐藏
+.conHidden_x{
+  overflow-x: hidden;
 }
 //弹层标题颜色
 .popup-title-bg{
@@ -1215,8 +1197,13 @@ textarea{
     input[type="text"],
     input[type="password"]{
       .size(90%; 30px);
+      //店面设置 - 添加城市
+      &.citySelect{
+        width: 156px;
+      }
     }
   }
+  //th宽度
   .fieldName,
   .fieldName_one{
     .size(80px; 30px);
@@ -1230,6 +1217,44 @@ textarea{
   .fieldName_two{
     .size(170px; 30px);
     line-height: 30px;
+  }
+  input[type="button"].addCity{
+    .size(66px; 30px);
+    min-width: 66px;
+    vertical-align: middle;
+  }
+  //td内容样式
+  .infoTxt{
+    .size(100%; 30px);
+    line-height: 30px;
+  }
+  //select宽度
+  .tab_selectWidth{
+    width: 176px;
+  }
+}
+//详情弹出层列表
+.detailList{
+  .size(100%; auto);
+  table-layout: fixed;
+  tr th,
+  tr td{
+    .relative;
+    vertical-align: middle;
+    .border(1px; @tabel-border);
+    height: 32px;
+    line-height: 32px;
+    font-size: @font-size-small;
+    .align(center);
+  }
+  .fieldName_one{
+    .size(110px; 30px);
+  }
+  .detailArea{
+    .size(90%; 50px);
+    line-height: 24px;
+    vertical-align: middle;
+    margin: @margin-10 0;
   }
 }
 //弹出层共用按钮
@@ -1316,8 +1341,9 @@ textarea{
     float: left;
     cursor: pointer;
     text-decoration: none;
+    .behavior-relative;
     &.ellipsis {
-      .square(30px);
+      .square(26px);
       line-height: 22px;
       text-align: center;
       color: @gray-dark;
@@ -1352,6 +1378,7 @@ textarea{
     &.first,
     &.last {
       .size(80px; 26px);
+      line-height: 24px;
       &.ui-state-disabled,
       &.paginate_button_disabled,
       &.disabled {

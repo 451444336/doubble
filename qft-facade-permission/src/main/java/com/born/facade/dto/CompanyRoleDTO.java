@@ -42,7 +42,7 @@ public class CompanyRoleDTO extends PageBean {
     /**
      * 删除状态
      */
-    private Integer IsDelete;
+    private Byte IsDelete;
 	/**
 	 * 角色名称
 	 */
@@ -50,11 +50,11 @@ public class CompanyRoleDTO extends PageBean {
 	/**
 	 * 是否能权限编辑
 	 */
-	private Integer isAuthEdit;
+	private Byte isAuthEdit;
 	/**
 	 * 是否有效
 	 */
-	private Integer isValid;
+	private Byte isValid;
 	/**
 	 * 公司ID
 	 */

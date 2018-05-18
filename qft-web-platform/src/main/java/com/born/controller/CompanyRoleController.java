@@ -56,7 +56,7 @@ public class CompanyRoleController {
     })
 	@PostMapping(value = "/save")
 	@ResponseBody
-	public Result saveRole(String roleName , int isAuthEdit) {
+	public Result saveRole(String roleName , byte isAuthEdit) {
 		// 验证参数
 		if (StringUtils.isBlank(roleName) || (isAuthEdit != 0 && isAuthEdit != 1)) {
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
@@ -86,7 +86,7 @@ public class CompanyRoleController {
     })
 	@PostMapping(value = "/update")
 	@ResponseBody
-	public Result updateRole(String roleName, Long id, int isAuthEdit) {
+	public Result updateRole(String roleName, Long id, byte isAuthEdit) {
 		// 验证参数
 		if (StringUtils.isBlank(roleName) || id == null || id < 0 || (isAuthEdit != 0 && isAuthEdit != 1)) {
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);

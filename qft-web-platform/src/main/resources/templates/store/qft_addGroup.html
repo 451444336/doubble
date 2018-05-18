@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>添加分组</title>
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+</head>
+<body>
+<!--分组列表-->
+<div class="PopupBox sortBox" id="groups">
+	<input th:id="storeId" type="hidden" th:value="${storeId}"/>
+    <h2 class="PopupTitle">分组信息 <span class="modulepower JS_addGroup">添加组</span></h2>
+    <table class="wareList">
+        <thead>
+        <tr>
+            <th width="100">组名</th>
+            <th>当前存在房源</th>
+            <th width="170">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="storeGroupVO : ${groupList}">
+                <td th:text="${storeGroupVO.name}"/>
+                <td> </td>
+                <td>
+                	<a class="operateBtn deleteCol JS_delete" href="javascript:void(0);" th:id = '${storeGroupVO.id}'>删除</a>&nbsp;|&nbsp;
+                	<a class="operateBtn JS_edit" href="javascript:void(0);" th:id = '${storeGroupVO.id}' th:name='${storeGroupVO.name}'>修改</a>&nbsp;|&nbsp;
+                	<a class="operateBtn JS_transfer" href="javascript:void(0);" th:id = '${storeGroupVO.id}'>房源转移</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!--end 分组列表-->
+<!--共用按钮-->
+<div class="PopupBtn">
+    <input name="submit" type="button" value="保存">
+</div>
+<!--end 共用按钮-->
+<!--修改组名-->
+<div class="PopupBox hide" id="qft_editGroupBox">
+    <form id="groupForm" action="" method="">
+        <table class="popupList">
+            <tr>
+                <th class="fieldName">组名：</th>
+                <td><input name="groupName" type="text" />
+            </tr>
+        </table>
+    </form>
+</div>
+<!--end 修改组名-->
+<!--转移本组房源-->
+<div class="PopupBox hide" id="qft_transferBox">
+    <form id="transferForm" action="" method="">
+        <table class="popupList">
+            <tr>
+                <th class="fieldName_one">转移房源类型：</th>
+                <td>
+                    <label class="powerLabel marRig"><input class="checkAll commonly_checkbox" name="" type="checkbox">整租</label>
+                    <label class="powerLabel marRig"><input class="checkAll commonly_checkbox" name="" type="checkbox">合租</label>
+                    <label class="powerLabel marRig"><input class="checkAll commonly_checkbox" name="" type="checkbox">集中</label>
+                </td>
+            </tr>
+            <tr>
+                <th class="fieldName_one">转移到：</th>
+                <td>
+                    <select class="tab_selectWidth">
+                        <option value="">全部</option>
+                        <option value="">重庆</option>
+                        <option value="">四川</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!--end 转移本组房源-->
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--layer弹出层-->
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
+<script>
+    $(function(){
+        //添加组
+        $('.PopupTitle').on('click', '.JS_addGroup', function(){
+            var listHtml = '<tr>\n' +
+                '   <td><input class="accountName" name="accountName" type="text" /> </td>\n' +
+                '   <td></td>\n' +
+                '   <td><a class="operateBtn deleteCol JS_delete" href="javascript:void(0);">删除</a>&nbsp;|&nbsp;<a class="operateBtn JS_edit" href="javascript:void(0);">修改</a>&nbsp;|&nbsp;<a class="operateBtn JS_transfer" href="javascript:void(0);">房源转移</a></td>\n' +
+                '</tr>';
+            $('.wareList').append(listHtml);
+        });
+        //获取分组信息
+        function getStoreGroupList(){
+        	var storeId = $('#groups input[id=storeId]').val();
+        	
+        	layer.open({
+                type: 2,
+                title: '添加分组',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['760px','400px'],
+                btnAlign: 'c',
+                content: '/web/group/getGroupList/'+storeId,
+            });
+        }
+        //保存
+        $('input[name=submit]').on('click',function(){
+        	var storeId = $('#groups input[id=storeId]').val();
+        	var groupNames = '';
+    		$("#groups input[name=accountName]").each(function(){
+        		var value = $(this).val();
+        		if(value != ''){
+        			groupNames +=value+',';
+        		}
+        	});
+    		if(groupNames == ''){
+    	    	parent.layer.close(index);
+    		}else{
+    			params = 'storeId=' +storeId+ '&groupNames=' +groupNames;
+    			$.ajax({
+                    dataType: 'json',
+                    type: 'post',
+                    data: params,
+                    url: '/web/group/save',
+                    success: function(result){
+                    	layer.msg(result.message);
+                    	layer.close(index);
+                    	parent.dataTable.ajax.reload();
+                    }
+                });
+    		}
+        });
+      	//删除
+        $('.wareList').on('click','.JS_delete',function(){
+        	var id = this.id;
+            layer.confirm('是否确定删除？',{
+                title: '信息确认',
+                skin: 'popup-title-bg', //样式类名
+                icon: 3,
+                btnAlign: 'c',
+                area: ['350px','170px'],
+                closeBtn : 0
+            },function(){
+            	$.ajax({
+                    dataType: 'json',
+                    type: 'post',
+                    url: '/web/group/delete/'+id,
+                    success: function(result){
+                    	layer.alert(result.message);
+            	    	parent.dataTable.ajax.reload();
+                    }
+                });
+            });
+        });
+      	//修改组名
+        $('.wareList').on('click','.JS_edit',function(){
+        	var id = this.id;
+        	var name = this.name;
+        	$("input[name='groupName']").val(name);
+            layer.open({
+                type: 1,
+                title: '修改分组信息',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['300px','170px'],
+                btn:['保存','取消'],
+                yes: function(index, layero){
+                	var value = $("input[name='groupName']").val();
+                	var params = 'id='+ id +'&name='+ value;
+        			$.ajax({
+                        dataType: 'json',
+                        type: 'post',
+                        data: params,
+                        url: '/web/group/update/',
+                        success: function(result){
+                        	layer.msg(result.message);
+                        	layer.close(index);
+                        	getStoreGroupList();
+                	    	parent.dataTable.ajax.reload();
+                        }
+                    });
+                },
+                btnAlign: 'c',
+                content: $('#qft_editGroupBox')
+            });
+        });
+        //转移本组房源
+        $('.wareList').on('click','.JS_transfer',function(){
+            layer.open({
+                type: 1,
+                title: '修改分组信息',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['400px','215px'],
+                btn:['保存','取消'],
+                yes: function(){
+                    $('#groupForm').submit();
+                },
+                btnAlign: 'c',
+                content: $('#qft_transferBox')
+            });
+        });
+    })
+</script>
+</body>
+</html>

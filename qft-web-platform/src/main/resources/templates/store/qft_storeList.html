@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>店面列表</title>
+    <!--ztree样式表-->
+    <link rel="stylesheet" th:href="@{/static/js/ztree/ztree.css}">
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+</head>
+<body class="bodyBack">
+<!--店面列表-->
+<div class="subMainCon">
+    <!--添加店面按钮-->
+    <div class="subTopBox">
+        <div class="subTopLeft">
+            <a class="subTopBtn JS_addStore" href="javascript:void(0);">添加店面</a>
+            <a class="subTopBtn JS_addEditCompany" href="javascript:void(0);">修改公司信息</a>
+        </div>
+    </div>
+    <!--店面列表-->
+    <div class="subConBox">
+        <table class="wareList" id="example"></table>
+    </div>
+</div>
+ <!--end 店面列表-->
+<!--修改公司信息-->
+<div class="PopupBox hide" id="qft_companyInfoBox">
+    <form id="companyInfo" action="" method="">
+        <h2 class="PopupTitle">修改公司信息</h2>
+        <table class="popupList">
+            <tr>
+                <th class="fieldName">公司名称：</th>
+                <td><p class="infoTxt">重庆新凯公寓</p></td>
+                <th class="fieldName">创建时间：</th>
+                <td><p class="infoTxt">2018-04-25</p></td>
+            </tr>
+            <tr>
+                <th class="fieldName"><span class="require">*</span>地址：</th>
+                <td><input name="" type="text" placeholder="请输入地址"></td>
+                <th class="fieldName"><span class="require">*</span>座机号码：</th>
+                <td><input name="" type="text" placeholder="请输入座机号码"></td>
+            </tr>
+            <tr>
+                <th class="fieldName_one">联系方式：</th>
+                <td><p class="infoTxt">15730676666</p></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!--end 修改公司信息-->
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--dataTable-->
+<script type="text/javascript" th:src="@{/static/js/datatables/jquery.dataTables.js}"></script>
+<!--layer弹出层-->
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
+<!--表单验证-->
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+var dataTable = "";
+$(function(){
+	//修改公司信息
+    $('.subTopBox').on('click','.JS_addEditCompany',function(){
+        layer.open({
+            type: 1,
+            title: '修改公司信息',
+            skin: 'popup-title-bg', //样式类名
+            closeBtn : 1,
+            area: ['660px','298px'],
+            btn:['确定'],
+            btnAlign: 'c',
+            content: $('#qft_companyInfoBox')
+        });
+    });
+    //添加店面
+    $('.subTopLeft').on('click','.JS_addStore',function(){
+        layer.open({
+            type: 2,
+            title: '添加店面',
+            skin: 'popup-title-bg', //样式类名
+            closeBtn : 1,
+            area: ['660px','540px'],
+            btnAlign: 'c',
+            content: '/web/store/saveIndex',
+            end: function () {
+            	dataTable.ajax.reload();
+            } 
+        });
+    });
+    //编辑店面
+    $('.wareList').on('click','.JS_editStore',function(){
+    	var id = this.id;
+        layer.open({
+            type: 2,
+            title: '编辑店面',
+            skin: 'popup-title-bg', //样式类名
+            closeBtn : 1,
+            area: ['450px','500px'],
+            btnAlign: 'c',
+            content: '/web/store/getStoreById/'+id,
+            end: function () {
+            	dataTable.ajax.reload();
+            }
+        });
+    });
+    //删除
+    $('.wareList').on('click','.JS_delete',function(){
+    	var id = this.id;
+    	if(id == null || id == '' || id < 0){
+    		layer.alert('参数错误！');
+    		return;
+    	}
+        layer.confirm('是否确定删除？',{
+            title: '信息确认',
+            skin: 'popup-title-bg', //样式类名
+            icon: 3,
+            btnAlign: 'c',
+            area: ['350px','170px'],
+            closeBtn : 0
+        },function(){
+        	$.ajax({
+                dataType: 'json',
+                type: 'post',
+                url: '/web/store/delete/'+id,
+                success: function(result){
+                	layer.alert(result.message);
+                	dataTable.ajax.reload();
+                }
+            });
+        });
+    });
+    //列表点击添加分组
+    $('.wareList').on('click','.JS_group',function(){
+    	var storeId = this.id;
+        layer.open({
+            type: 2,
+            title: '添加分组',
+            skin: 'popup-title-bg', //样式类名
+            closeBtn : 1,
+            area: ['760px','400px'],
+            btnAlign: 'c',
+            content: '/web/group/getGroupList/'+storeId,
+        });
+    });
+    //datatable
+    dataTable = $('#example').DataTable({
+        "bServerSide": true,
+        "sPaginationType": "full_numbers",
+        "sDom": '<"">t<"F"ip>',
+        "autoWidth": false,  //自适应宽度
+        "sAjaxSource": "/web/store/getPageList", //ajax调用接口
+        "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
+        "aoColumns": [
+            {"sTitle": "所属城市", "mData": "city"},
+            {"sTitle": "店面名称", "mData": "name"},
+            {"sTitle": "所在地", "mData": "adress"},
+            {"sTitle": "当前房源", "mData": "", "mRender" : function ( data, type, full ) {
+            	var house = '整租：' + full.housing + '\t合租：' + full.cotenant + '\t集中：' + full.focus;
+        		return  house;
+            	}
+        	},
+            {"sTitle": "座机号", "mData": "phone"},
+            {"sTitle": "分组", "mData": "id", "mRender" : function ( data, type, full ) {
+	            	if(full.groupingStatus == 0){
+	            		
+	            		var group = '<a class="wareListClick JS_group" href="javascript:void(0);" id= "'+data+'">'+ full.grouping +'</a>';
+	            		return group;
+	            	}else{
+	            		var group = '<a class="wareListClick JS_group" href="javascript:void(0);" id= "'+data+'">点击添加</a>';
+	            		return group;
+	            	}
+            	}
+           	},
+            {"sTitle": "创建时间", "mData": "createTime"},
+            {"sWidth": "210px", "sTitle" : "基本操作","mData" : "id","sClass":"tab_operate", "mRender" : function ( data, type, full ) {
+            	 	var text = '<a class="operateBtn deleteCol JS_delete" href="javascript:void(0);" id= "'+data+'">删除</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
+                    text += '<a class="operateBtn JS_editStore" href="javascript:void(0);" id="' +data+ '">编辑</a>';
+                    return text;
+                }
+            }
+        ],
+        "oLanguage": {
+            "sProcessing": "数据加载中······",
+            "sLengthMenu": "显示 _MENU_ 条记录",
+            "sZeroRecords": "没有您要搜索的内容！",
+            "sEmptyTable": "列表中无数据存在！",
+            "sInfo": "当前显示 _START_ 到 _END_ 条数据，共 _TOTAL_ 条数据",
+            "sInfoEmpty": "显示 0 到 0 条记录",
+            "sInfoFiltered": "数据列表中共  _MAX_ 条记录",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上一页",
+                "sNext": "下一页",
+                "sLast": "末页"
+            }
+        },
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+            oSettings.jqXHR = $.ajax({
+                "dataType": 'json',
+                "type": "GET",
+                "async": 'false',
+                "url": sSource,
+                "data": {
+                    'pageNum': (aoData[3].value / aoData[4].value) + 1,
+                    'pageSize': aoData[4].value
+                },
+                "success": fnCallback
+            });
+       }
+    });
+})
+</script>
+</body>
+</html>
