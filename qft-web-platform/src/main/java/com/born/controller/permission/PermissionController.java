@@ -107,7 +107,9 @@ public class PermissionController {
 			}
 			rList = backMenuAuths(menus, map, haveMenus);
 		}
-		return ResultUtil.getResult(RespCode.Code.SUCCESS, rList);
+		Result result = ResultUtil.getResult(RespCode.Code.SUCCESS, rList);
+		log.info("查询菜单权限返回数据={}", JSON.toJSONString(result));
+		return result;
 	}
 	/**
 	 * 
@@ -131,9 +133,8 @@ public class PermissionController {
 							: MenuAuthEnum.NOT_CHECK.getStatus());
 					mv.setMenuId(m.getId());
 					mv.setMenuName(m.getMenuName());
-				} else {
-					m.setPermission(mv);
 				}
+				m.setPermission(mv);
 				backMenuAuths(m.getChilds(), map, haveMenus);
 			}
 		}
