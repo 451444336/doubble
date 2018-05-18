@@ -73,6 +73,12 @@
 			<artifactId>qft-facade-permission</artifactId>
 			<version>${qft-parent.version}</version>
 		</dependency>
+		<!-- 基础模块 -->
+		<dependency>
+			<groupId>com.born</groupId>
+			<artifactId>qft-facade-basicbusiness</artifactId>
+			<version>${qft-parent.version}</version>
+		</dependency>
     </dependencies>
 
 	<build>
