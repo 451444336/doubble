@@ -565,38 +565,38 @@ public class PermissionServiceImpl implements IPermissionService {
 
 	@Override
 	@Transactional
-	public Result addPersonalPermissions(Long userId, List<Long> authorityIds,Long[] menuIds) {
+	public Result addPersonalPermissions(Long userId, List<Long> authorityIds, Long[] menuIds) {
 		log.info("新增个人权限数据入参={},authorityIds={}", userId, JSON.toJSONString(authorityIds));
 		Result result = ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
-		if (CollectionUtils.isEmpty(authorityIds)) {
-			result.setMessage("权限ID不能为空");
-			return result;
-		}
 		if (null == userId) {
 			result.setMessage("用户ID不能为空");
 			return result;
 		}
 		try {
-			UserAuthority delete = new UserAuthority();
-			delete.setUserId(userId);
-			staffAuthorityMapper.delete(delete);
-			final List<UserAuthority> recordList = new ArrayList<>(authorityIds.size());
-			final UserAuthority insert = new UserAuthority();
-			insert.setCreaterId(userId);
-			insert.setCreateTime(new Date());
-			insert.setUserId(userId);
-			for (Long id : authorityIds) {
-				insert.setAuthorityId(id);
-				recordList.add(insert.clone());
+			if (CollectionUtils.isNotEmpty(authorityIds)) {
+				UserAuthority delete = new UserAuthority();
+				delete.setUserId(userId);
+				staffAuthorityMapper.delete(delete);
+				final List<UserAuthority> recordList = new ArrayList<>(authorityIds.size());
+				final UserAuthority insert = new UserAuthority();
+				insert.setCreaterId(userId);
+				insert.setCreateTime(new Date());
+				insert.setUserId(userId);
+				for (Long id : authorityIds) {
+					insert.setAuthorityId(id);
+					recordList.add(insert.clone());
+				}
+				staffAuthorityMapper.insertList(recordList);
 			}
-			staffAuthorityMapper.insertList(recordList);
-			//菜单角色用户权限添加
-			List<RoleVO> voList = companyRoleMapper.selectRoleListByUserId(userId);
-			if(voList==null) {
-				result.setMessage("用户角色不能为空");
-				return result;
+			if (null != menuIds && menuIds.length > 0) {
+				// 菜单角色用户权限添加
+				List<RoleVO> voList = companyRoleMapper.selectRoleListByUserId(userId);
+				if (CollectionUtils.isEmpty(voList)) {
+					result.setMessage("用户角色不能为空");
+					return result;
+				}
+				companyRoleService.bindRoleMenu(menuIds, voList.get(0).getId(), userId, new Date());
 			}
-			companyRoleService.bindRoleMenu(menuIds, voList.get(0).getId(), userId, new Date());
 			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 		} catch (Exception e) {
 			log.error("新增个人权限数据异常", e);
