@@ -46,7 +46,7 @@ public class DefRedisProperties {
 		/**
 		 * 最大活动对象数
 		 */
-		//private int maxActive = 200;
+		private int maxActive = 200;
 		/**
 		 * 最大等待时间
 		 */
@@ -70,13 +70,13 @@ public class DefRedisProperties {
 			this.minIdle = minIdle;
 		}
 
-/*		public int getMaxActive() {
+		public int getMaxActive() {
 			return this.maxActive;
 		}
 
 		public void setMaxActive(int maxActive) {
 			this.maxActive = maxActive;
-		}*/
+		}
 
 		public int getMaxWait() {
 			return this.maxWait;
