@@ -122,6 +122,8 @@ public class LoginController {
 			corUrl = SessionUtil.getCorUrl(request);
 			if (StringUtils.isNotBlank(corUrl) && !"login".equals(corUrl)) {
 				return "redirect:/" + corUrl;
+			} else {
+				return "redirect:/";
 			}
 		}
 		if (StringUtils.isNotBlank(corUrl)) {
