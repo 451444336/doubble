@@ -257,6 +257,7 @@ public class MenuServiceImpl implements IMenuService {
 		if (CollectionUtils.isNotEmpty(allMenu)) {
 			for (CompanyMenu m : allMenu) {
 				existsMap.put(m.getBaseMenuId(), m);
+				checkSet.add(m.getBaseMenuId());
 				if (MenuAuthEnum.DELETE.getStatus().equals(m.getIsDelete())) {
 					exists.add(m.getId());
 				}
