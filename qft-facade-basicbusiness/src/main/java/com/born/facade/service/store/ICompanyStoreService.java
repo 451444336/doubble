@@ -41,7 +41,7 @@ public interface ICompanyStoreService {
 	 * @param id
 	 * @return
 	 */
-	Result getStoreById(CompanyStoreDTO dto);
+	Result getStoreById(Long id);
 	
 	
 	

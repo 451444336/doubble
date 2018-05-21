@@ -37,6 +37,10 @@ public class CompanyStoreVO {
 	 */
 	private String companyId;
 	/**
+	 * 公司名称
+	 */
+	private String companyName;
+	/**
 	 * 城市
 	 */
 	private String city;

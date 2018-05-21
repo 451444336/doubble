@@ -107,15 +107,15 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 	}
 	
 	@Override
-	public Result getStoreById(CompanyStoreDTO dto) {
+	public Result getStoreById(Long id) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		// 验证参数
-		if (dto.getId() == null ) {
+		if (id == null ) {
 			result.setMessage("主键不能为空");
 			return result;
 		}
 		try {
-			ResultUtil.setResult(result, RespCode.Code.SUCCESS, companyStoreMapper.selectCompanyStore(dto));
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS, companyStoreMapper.selectByPrimaryKey(id));
 		} catch (Exception e) {
 			log.error("查询店面失败(CompanyStoreServiceImpl.getStoreById).......................", e);
 		}

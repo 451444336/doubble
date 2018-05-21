@@ -5,6 +5,7 @@ package com.born.controller.store;
 
 import java.util.Date;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +55,7 @@ public class CompanyStoreController {
     public String saveIndex(Model model) {
 		UserInfoVO su = TokenManager.getLoginUser();
 		CompanyStoreVO vo = new CompanyStoreVO();
-		vo.setCompanyId(su.getCompanyId());
+		vo.setCompanyName(su.getCompanyName());
 		model.addAttribute("store", vo);
 		System.out.println(su.getCompanyId());
         return "store/qft_add_store";
@@ -93,7 +94,6 @@ public class CompanyStoreController {
 	 *            店面ID
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@ApiOperation(value = "根据店面ID查询店面",notes = "确保填写参数是否正确")
     @ApiResponses(value = {
             @ApiResponse(code = 10100,message = "请求参数有误"),
@@ -101,15 +101,14 @@ public class CompanyStoreController {
     })
 	@GetMapping(value = "/getStoreById/{id}")
 	public String getStoreById(@PathVariable Long id, Model model){
-		CompanyStoreDTO dto = new CompanyStoreDTO();
-		dto.setIsDelete(0);
-		dto.setId(id);
+		
+		Result result = companyStoreService.getStoreById(id);
+		CompanyStoreVO vo = new CompanyStoreVO();
+		BeanUtils.copyProperties(result.getData(), vo);
 		// 获取当前登录用户
 		UserInfoVO su = TokenManager.getLoginUser();
-		dto.setCompanyId(su.getCompanyId());
-		Result result = companyStoreService.getStoreById(dto);
-		Page<CompanyStoreDTO> page = (Page<CompanyStoreDTO>)result.getData();
-		model.addAttribute("store", page.get(0));
+		vo.setCompanyName(su.getCompanyName());
+		model.addAttribute("store", vo);
 		return "store/qft_edit_store";
 	}
 	
