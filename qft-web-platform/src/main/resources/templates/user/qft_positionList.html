@@ -28,7 +28,7 @@
         <table class="popupList">
             <tr>
                 <th class="fieldName"><span class="require">*</span>职位名称：</th>
-                <td><input name="name" id="name" type="text" value="" placeholder="请填写职位名称" required></td>
+                <td><input name="name" id="name"  class="validate[required]" type="text" value="" ></td>
             </tr>
         </table>
     </form>
@@ -40,21 +40,24 @@
 <!--layer弹出层-->
 <script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <!--表单验证-->
-<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
 <script th:inline="javascript">
 var tb;
     $(function(){
-    	 //添加部门
+    	 //添加职位
         $('.subTopLeft').on('click','.qft_addPlace,.JS_edit',function(){
             layer.open({
                 type: 1,
                 title: '添加职位',
                 skin: 'popup-title-bg', //样式类名
                 closeBtn : 1,
-                area: ['460px','165px'],
+                area: ['460px','170px'],
                 btn:['保存','取消'],
                 yes: function(){
+                	if (!$("#roleForm").validationEngine("validate")) {
+                        return false;
+                    }
                 	var params = $("#roleForm").serialize();
                     $.post("/web/pos/addPosition",params, function (data) { 
                         layer.alert(data.message, {  
@@ -85,11 +88,10 @@ var tb;
             });
         });
         //表单验证
-        $("#roleForm").validate({
-            onfocusout: function(element){
-                $(element).valid();
-            },
-            errorClass: 'formError'
+       $("#roleForm").validationEngine({
+            addPromptClass: 'formError-text',
+            showArrow: false,
+            promptPosition: 'bottomLeft:5 0'
         });
         //删除
         $('.wareList').on('click','.JS_delete',function(){

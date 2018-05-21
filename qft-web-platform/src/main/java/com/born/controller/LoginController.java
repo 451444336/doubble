@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
-import com.born.config.shiro.MyShiroRealm;
+import com.born.config.shiro.CustomShiroRealm;
 import com.born.config.shiro.token.ShiroToken;
 import com.born.config.shiro.token.TokenManager;
 import com.born.facade.dto.user.UserDTO;
@@ -50,7 +50,7 @@ public class LoginController {
 
 
     @Autowired
-    private MyShiroRealm myShiroRealm;
+    private CustomShiroRealm myShiroRealm;
     
     @Reference(version="1.0.0")
     private IUserService userService;
@@ -237,20 +237,21 @@ public class LoginController {
 		ShiroToken token = new ShiroToken(user.getAccount(), user.getPassword(), rememberMe,
 				IPUtil.getIpAddress(request));
 		// 获取当前的Subject
-		Subject currentUser = SecurityUtils.getSubject();
+		Subject subject = SecurityUtils.getSubject();
 		log.info("对用户[" + user.getAccount() + "]进行登录验证..验证开始");
-		currentUser.login(token);
+		subject.login(token);
 		log.info("对用户[" + user.getAccount() + "]进行登录验证..验证通过");
 		// 验证是否登录成功
-		if (currentUser.isAuthenticated()) {
+		if (subject.isAuthenticated()) {
 			log.info("用户[" + user.getAccount() + "]登录认证通过(这里可以进行一些认证通过后的一些系统参数初始化操作)");
 			// 清除权限缓存
-			myShiroRealm.getAuthorizationCache().remove(currentUser.getPrincipals());
+			myShiroRealm.getAuthorizationCache().remove(subject.getPrincipals());
 			UserInfoVO uInfo = TokenManager.getLoginUser();
 			uInfo.setCorUrl(user.getCorUrl());
 			CompanyInfoVO cif = cor.getData(CompanyInfoVO.class);
 			uInfo.setCompanyId(cif.getCompanyId());
 			uInfo.setCompanyName(cif.getCompanyName());
+			subject.hasRole("");
 			return ResultUtil.getResult(RespCode.Code.SUCCESS);
 		} else {
 			token.clear();

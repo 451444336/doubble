@@ -3,7 +3,7 @@ package com.born.config.shiro.token;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.mgt.RealmSecurityManager;
 
-import com.born.config.shiro.MyShiroRealm;
+import com.born.config.shiro.CustomShiroRealm;
 import com.born.facade.vo.UserInfoVO;
 
 
@@ -42,7 +42,7 @@ public class TokenManager {
 	 */
 	public static void clearAuth() {
 		RealmSecurityManager rsm = (RealmSecurityManager) SecurityUtils.getSecurityManager();
-		MyShiroRealm realm = (MyShiroRealm) rsm.getRealms().iterator().next();
+		CustomShiroRealm realm = (CustomShiroRealm) rsm.getRealms().iterator().next();
 		realm.clearAuthz();
 	}
 }

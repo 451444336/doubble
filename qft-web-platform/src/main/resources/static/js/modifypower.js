@@ -57,6 +57,7 @@ function showSubMeunTwo(id){
 
 //全选操作
 function allSelectByTpye(obj,type){
+	alert();
     $("#box_"+type).click();
     var isCheck = $("#box_"+type).is(':checked');
     if('checked' == isCheck || isCheck){

@@ -30,7 +30,7 @@
         <table class="popupList">
             <tr>
                 <th class="fieldName"><span class="require">*</span>部门名称：</th>
-                <td><input name="deptName" id="deptName" type="text" value="" placeholder="请填写部门名称" required></td>
+                <td><input name="deptName" class="validate[required]" id="deptName" type="text" value="" placeholder="请填写部门名称" required></td>
             </tr>
         </table>
     </form>
@@ -42,8 +42,8 @@
 <!--layer弹出层-->
 <script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <!--表单验证-->
-<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
 <script th:inline="javascript">
 	var tb;
     $(function(){
@@ -56,9 +56,12 @@
                 title: '添加部门',
                 skin: 'popup-title-bg', //样式类名
                 closeBtn : 1,
-                area: ['460px','165px'],
+                area: ['460px','170px'],
                 btn:['保存','取消'],
                 yes: function(){
+                	 if (!$("#roleForm").validationEngine("validate")) {
+                         return false;
+                     }
                 	var params = $("#roleForm").serialize();
                     $.post("/web/dept/editDept",params, function (data) { 
                         layer.alert(data.message, {  
@@ -85,9 +88,12 @@
                 title: '编辑部门',
                 skin: 'popup-title-bg', //样式类名
                 closeBtn : 1,
-                area: ['460px','165px'],
+                area: ['460px','170px'],
                 btn:['保存','取消'],
                 yes: function(){
+                	if (!$("#roleForm").validationEngine("validate")) {
+                        return false;
+                    }
                     var params = $("#roleForm").serialize();
                     $.post("/web/dept/editDept",params, function (data) { 
                         layer.alert(data.message, {  
@@ -104,11 +110,10 @@
             });
         });
         //表单验证
-        $("#roleForm").validate({
-            onfocusout: function(element){
-                $(element).valid();
-            },
-            errorClass: 'formError'
+       $("#roleForm").validationEngine({
+            addPromptClass: 'formError-text',
+            showArrow: false,
+            promptPosition: 'bottomLeft:5 0'
         });
         //删除
         $('.wareList').on('click','.JS_delete',function(){

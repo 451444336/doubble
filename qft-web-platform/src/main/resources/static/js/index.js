@@ -1,9 +1,22 @@
+
+function StringBuffer() {
+	    this.__strings__ = new Array();
+}
+StringBuffer.prototype.append = function (str) {
+	    this.__strings__.push(str);
+	    return this;    //方便链式操作
+}
+StringBuffer.prototype.toString = function () {
+	    return this.__strings__.join("");
+}
+	
 $(function(){
     //禁止鼠标右键
-    $(document).bind("contextmenu",function(e){
+    /*$(document).bind("contextmenu",function(e){
         return false;
-    });
+    });*/
     //左侧导航
+	
     var Accordion = function(el, multiple) {
         this.el = el || {};
         this.multiple = multiple || false;

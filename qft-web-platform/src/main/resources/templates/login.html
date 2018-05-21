@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>全房通公寓管理系统</title>
@@ -200,7 +200,6 @@
             dataType:"json",
             data: $("#" + form_id).serialize(),
             error: function(){
-            	layer.alert("登录异常");
             },
             success: function (d) {
                 if (d.success) {
