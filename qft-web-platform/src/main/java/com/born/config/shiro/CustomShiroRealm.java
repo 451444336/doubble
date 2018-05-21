@@ -21,6 +21,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -51,7 +52,7 @@ import lombok.extern.slf4j.Slf4j;
 *
  */
 @Slf4j
-public class MyShiroRealm extends AuthorizingRealm {
+public class CustomShiroRealm extends AuthorizingRealm {
 
     // 用户接口
     @Autowired
@@ -125,6 +126,11 @@ public class MyShiroRealm extends AuthorizingRealm {
 			for (String s : info.getStringPermissions()) {
 				log.info(s);
 			}
+			//获取当前的Subject把权限按钮放入Session中
+            Session session = SecurityUtils.getSubject().getSession();
+            for (String s : permissions) {
+                session.setAttribute(s, s);
+            }
 		}
 		return info;
 	}

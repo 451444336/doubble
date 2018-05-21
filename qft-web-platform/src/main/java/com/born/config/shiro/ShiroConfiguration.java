@@ -70,8 +70,8 @@ public class ShiroConfiguration {
     * @throws
      */
 	@Bean(name = "myShiroRealm")
-	public MyShiroRealm myShiroRealm(EhCacheManager cacheManager) {
-		MyShiroRealm realm = new MyShiroRealm();
+	public CustomShiroRealm myShiroRealm(EhCacheManager cacheManager) {
+		CustomShiroRealm realm = new CustomShiroRealm();
 		realm.setCacheManager(cacheManager);
 		return realm;
 	}
@@ -178,7 +178,7 @@ public class ShiroConfiguration {
     * @throws
      */
 	@Bean(name = "securityManager")
-	public DefaultWebSecurityManager getDefaultWebSecurityManager(MyShiroRealm myShiroRealm,
+	public DefaultWebSecurityManager getDefaultWebSecurityManager(CustomShiroRealm myShiroRealm,
 			DefaultWebSessionManager sessionManager) {
 		DefaultWebSecurityManager dwsm = new DefaultWebSecurityManager();
 		dwsm.setRealm(myShiroRealm);
@@ -249,7 +249,7 @@ public class ShiroConfiguration {
     */
 	@Bean(name = "shiroFilter")
 	public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager securityManager,
-			MyShiroRealm myShiroRealm) {
+			CustomShiroRealm myShiroRealm) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
 		// 必须设置 SecurityManager
