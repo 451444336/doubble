@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.facade.dto.store.CompanyStoreDTO;
+import com.born.facade.dto.store.StoreGroupDTO;
 import com.born.facade.entity.store.CompanyStore;
 import com.born.facade.entity.store.StoreGroup;
 import com.born.facade.service.store.ICompanyStoreService;
@@ -131,7 +132,9 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 	        for(CompanyStoreVO vo : list){
 	        	String grouping = "";
 	        	//根据店面ID获取对应的分组列表
-	        	List<StoreGroupVO> groupList= storeGroupMapper.selectGroupListByStoreId(vo.getId());
+	        	StoreGroupDTO groupDto = new StoreGroupDTO();
+	        	groupDto.setStoreId(vo.getId());
+	        	List<StoreGroupVO> groupList= storeGroupMapper.selectGroupListByStoreId(groupDto);
 	        	for(StoreGroupVO groupVO : groupList){
 	        		grouping += groupVO.getName() + ",";
 	        	}

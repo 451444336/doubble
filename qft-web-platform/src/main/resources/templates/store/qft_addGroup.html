@@ -10,30 +10,11 @@
 </head>
 <body>
 <!--分组列表-->
-<div class="PopupBox sortBox" id="groups">
-	<input th:id="storeId" type="hidden" th:value="${storeId}"/>
-    <h2 class="PopupTitle">分组信息 <span class="modulepower JS_addGroup">添加组</span></h2>
-    <table class="wareList">
-        <thead>
-        <tr>
-            <th width="100">组名</th>
-            <th>当前存在房源</th>
-            <th width="170">操作</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr th:each="storeGroupVO : ${groupList}">
-                <td th:text="${storeGroupVO.name}"/>
-                <td> </td>
-                <td>
-                	<a class="operateBtn deleteCol JS_delete" href="javascript:void(0);" th:id = '${storeGroupVO.id}'>删除</a>&nbsp;|&nbsp;
-                	<a class="operateBtn JS_edit" href="javascript:void(0);" th:id = '${storeGroupVO.id}' th:name='${storeGroupVO.name}'>修改</a>&nbsp;|&nbsp;
-                	<a class="operateBtn JS_transfer" href="javascript:void(0);" th:id = '${storeGroupVO.id}'>房源转移</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<div class="PopupBox" id="groups">
+		<input th:id="storeId" type="hidden" th:value="${storeId}"/>
+		<h2 class="PopupTitle">分组信息 <span class="modulepower JS_addGroup">添加组</span></h2>
+        <table class="wareList" id="example"></table>
+    </div>
 <!--end 分组列表-->
 <!--共用按钮-->
 <div class="PopupBtn">
@@ -80,10 +61,18 @@
 <!--end 转移本组房源-->
 <script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--dataTable-->
+<script type="text/javascript" th:src="@{/static/js/datatables/jquery.dataTables.js}"></script>
 <!--layer弹出层-->
 <script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
+<!--表单验证-->
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
 <script>
+	var dataGroupTable = "";
     $(function(){
+    	//获取店面ID
+    	var storeId = $('#groups input[id=storeId]').val();
         //添加组
         $('.PopupTitle').on('click', '.JS_addGroup', function(){
             var listHtml = '<tr>\n' +
@@ -93,23 +82,8 @@
                 '</tr>';
             $('.wareList').append(listHtml);
         });
-        //获取分组信息
-        function getStoreGroupList(){
-        	var storeId = $('#groups input[id=storeId]').val();
-        	
-        	layer.open({
-                type: 2,
-                title: '添加分组',
-                skin: 'popup-title-bg', //样式类名
-                closeBtn : 1,
-                area: ['760px','400px'],
-                btnAlign: 'c',
-                content: '/web/group/getGroupList/'+storeId,
-            });
-        }
         //保存
         $('input[name=submit]').on('click',function(){
-        	var storeId = $('#groups input[id=storeId]').val();
         	var groupNames = '';
     		$("#groups input[name=accountName]").each(function(){
         		var value = $(this).val();
@@ -127,9 +101,11 @@
                     data: params,
                     url: '/web/group/save',
                     success: function(result){
-                    	layer.msg(result.message);
-                    	layer.close(index);
-                    	parent.dataTable.ajax.reload();
+                    	layer.alert(result.message);
+                    	//刷新分组列表
+                    	dataGroupTable.ajax.reload();
+                    	//刷新店面列表
+            	    	parent.dataTable.ajax.reload();
                     }
                 });
     		}
@@ -151,6 +127,9 @@
                     url: '/web/group/delete/'+id,
                     success: function(result){
                     	layer.alert(result.message);
+                    	//刷新分组列表
+                    	dataGroupTable.ajax.reload();
+                    	//刷新店面列表
             	    	parent.dataTable.ajax.reload();
                     }
                 });
@@ -177,9 +156,10 @@
                         data: params,
                         url: '/web/group/update/',
                         success: function(result){
-                        	layer.msg(result.message);
-                        	layer.close(index);
-                        	getStoreGroupList();
+                        	layer.alert(result.message);
+                        	//刷新分组列表
+                        	dataGroupTable.ajax.reload();
+                        	//刷新店面列表
                 	    	parent.dataTable.ajax.reload();
                         }
                     });
@@ -203,6 +183,54 @@
                 btnAlign: 'c',
                 content: $('#qft_transferBox')
             });
+        });
+      //datatable
+        dataGroupTable = $('#example').DataTable({
+            "bServerSide": true,
+            "sPaginationType": "full_numbers",
+            "sDom": '<"">t<"F"ip>',
+            "autoWidth": false,  //自适应宽度
+            "sAjaxSource": "/web/group/getGroupList?storeId="+storeId, //ajax调用接口
+            "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
+            "aoColumns": [
+                {"sTitle": "组名", "mData": "name"},
+                {"sTitle": "当前存在房源", "mData": ""},
+                {"sWidth": "210px", "sTitle" : "基本操作","mData" : "id","sClass":"tab_operate", "mRender" : function ( data, type, full ) {
+                	 	var text = '<a class="operateBtn deleteCol JS_delete" href="javascript:void(0);" id= "'+data+'">删除</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
+                	 	text += '<a class="operateBtn JS_edit" href="javascript:void(0);" id= "'+data+'"name="'+full.name+'">修改</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
+                        text += '<a class="operateBtn JS_transfer" href="javascript:void(0);" id="' +data+ '">房源转移</a>';
+                        return text;
+                    }
+                }
+            ],
+            "oLanguage": {
+                "sProcessing": "数据加载中······",
+                "sLengthMenu": "显示 _MENU_ 条记录",
+                "sZeroRecords": "没有您要搜索的内容！",
+                "sEmptyTable": "列表中无数据存在！",
+                "sInfo": "当前显示 _START_ 到 _END_ 条数据，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示 0 到 0 条记录",
+                "sInfoFiltered": "数据列表中共  _MAX_ 条记录",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "sLast": "末页"
+                }
+            },
+            "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+                oSettings.jqXHR = $.ajax({
+                    "dataType": 'json',
+                    "type": "GET",
+                    "async": 'false',
+                    "url": sSource,
+                    "data": {
+                        'pageNum': (aoData[3].value / aoData[4].value) + 1,
+                        'pageSize': aoData[4].value
+                    },
+                    "success": fnCallback
+                });
+           }
         });
     })
 </script>

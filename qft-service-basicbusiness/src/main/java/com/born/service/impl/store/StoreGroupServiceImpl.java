@@ -4,7 +4,6 @@ package com.born.service.impl.store;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,11 +12,14 @@ import com.born.facade.dto.store.StoreGroupDTO;
 import com.born.facade.entity.store.CompanyStore;
 import com.born.facade.entity.store.StoreGroup;
 import com.born.facade.service.store.IStoreGroupService;
+import com.born.facade.vo.store.StoreGroupVO;
 import com.born.mapper.CompanyStoreMapper;
 import com.born.mapper.StoreGroupMapper;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -101,13 +103,23 @@ public class StoreGroupServiceImpl implements IStoreGroupService {
 	}
 	
 	@Override
-	public Result getGroupListByStoreId(Long storeId) {
-		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
-		if(storeId == null){
-			result.setMessage("店面ID不能为空！");
-			return result;
+	public Result getGroupListByStoreId(StoreGroupDTO dto) {
+		// 验证参数
+		if (dto.getStoreId() == null) {
+			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR, dto);
 		}
-		ResultUtil.setResult(result, RespCode.Code.SUCCESS,storeGroupMapper.selectGroupListByStoreId(storeId));
+		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		try {
+		 	PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
+		 	//获取店面列表
+	        List<StoreGroupVO> list = storeGroupMapper.selectGroupListByStoreId(dto);
+	        PageInfo<StoreGroupVO> pageInfo = new PageInfo<>(list);
+	        result.setData(pageInfo.getList());
+			result.setCount(pageInfo.getTotal());
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
+		} catch (Exception e) {
+			log.error("查询分页数据异常", e);
+		}
 		return result;
 	}
 }

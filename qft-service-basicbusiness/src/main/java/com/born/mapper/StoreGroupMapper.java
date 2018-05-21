@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
+import com.born.facade.dto.store.StoreGroupDTO;
 import com.born.facade.entity.store.StoreGroup;
 import com.born.facade.vo.store.StoreGroupVO;
 
@@ -29,7 +30,7 @@ public interface StoreGroupMapper extends BaseMapper<StoreGroup> {
 	 * @param dto
 	 * @return
 	 */
-	List<StoreGroupVO> selectGroupListByStoreId(@Param("storeId") Long storeId);
+	List<StoreGroupVO> selectGroupListByStoreId(StoreGroupDTO dto);
 	
 	
 }

@@ -120,7 +120,7 @@ public class StoreGroupController {
 		dto.setId(id);
 		dto.setName(name);
 		dto.setUpdateTime(new Date());
-		dto.setUpdaterId(1L);
+		dto.setUpdaterId(su.getId());
 		return storeGroupService.update(dto);
 	}
 
@@ -144,6 +144,22 @@ public class StoreGroupController {
 	}
 	
 	/**
+	 * 
+	* @Title: list 
+	* @Description: 跳转到添加店面分组页面
+	* @param @return
+	* @author 黄伟
+	* @return String
+	* @date 2018年5月17日 下午1:36:28 
+	* @throws
+	 */
+	@GetMapping(value = "/getGroupPage/{storeId}")
+    public String getGroupPage(@PathVariable Long storeId, Model model) {
+		model.addAttribute("storeId",storeId);
+        return "store/qft_addGroup";
+    }
+	
+	/**
 	 * @Description 根据店面ID查询店面分组
 	 * @author 黄伟
 	 * @date 2018年5月17日 上午11:36:21
@@ -153,11 +169,10 @@ public class StoreGroupController {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
     })
-	@GetMapping(value = "/getGroupList/{storeId}")
-	public String getGroupListByStoreId(@PathVariable Long storeId, Model model) {
-		Result result = storeGroupService.getGroupListByStoreId(storeId);
-		model.addAttribute("groupList", result.getData());
-		model.addAttribute("storeId",storeId);
-		return "store/qft_addGroup";
+	@GetMapping(value = "/getGroupList")
+	@ResponseBody
+	public Result getGroupListByStoreId(StoreGroupDTO dto) {
+		
+		return storeGroupService.getGroupListByStoreId(dto);
 	}
 }

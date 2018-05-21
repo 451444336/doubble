@@ -42,5 +42,5 @@ public interface IStoreGroupService {
 	 * @param pageModel
 	 * @return
 	 */
-	Result getGroupListByStoreId(Long storeId);
+	Result getGroupListByStoreId(StoreGroupDTO dto);
 }
