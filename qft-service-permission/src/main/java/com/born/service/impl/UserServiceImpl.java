@@ -133,6 +133,7 @@ public class UserServiceImpl implements IUserService {
 				ur.setRoleName(r.getRoleName());
 				ur.setIsAuthEdit(r.getIsAuthEdit());
 				ur.setRoleCode(r.getRoleCode());
+				ur.setIsSuperManager(r.getIsSuperManager());
 				roles.add(ur);
 			}
 			result.setRoles(roles);

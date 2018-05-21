@@ -11,7 +11,8 @@
 			b.create_time createTime,
 			b.is_auth_edit isAuthEdit,
 			b.is_valid isValid,
-			b.role_code roleCode
+			b.role_code roleCode,
+			b.is_super_manager isSuperManager
 		FROM
 			qft_user_role a
 		LEFT JOIN qft_company_role b ON b.id = a.role_id

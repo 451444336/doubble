@@ -34,4 +34,8 @@ public class UserRoleVO implements Serializable {
      * 是否能权限编辑：0、不能编辑 1、可以编辑
      */
     private Byte isAuthEdit;
+    /**
+     * 是否是超级管理员：0、否 1、是
+     */
+    private Byte isSuperManager;
 }

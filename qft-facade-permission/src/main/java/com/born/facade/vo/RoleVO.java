@@ -37,6 +37,10 @@ public class RoleVO implements Serializable {
      */
     private Byte isAuthEdit;
     /**
+     * 是否是超级管理员：0、否 1、是
+     */
+    private Byte isSuperManager;
+    /**
      * 角色编码
      */
     private String roleCode;
