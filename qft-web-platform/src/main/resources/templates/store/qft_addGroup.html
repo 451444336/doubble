@@ -157,6 +157,7 @@
                         url: '/web/group/update/',
                         success: function(result){
                         	layer.alert(result.message);
+                        	layer.close(index);
                         	//刷新分组列表
                         	dataGroupTable.ajax.reload();
                         	//刷新店面列表

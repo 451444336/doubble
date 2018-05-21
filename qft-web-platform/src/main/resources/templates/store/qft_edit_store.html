@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/js/bootstrapselect/css/bootstrap-select.css}"/>
     <!--主样式表-->
     <link rel="stylesheet" th:href="@{/static/css/models.css}">
+    <!-- 城市选择样式 -->
+    <link rel="stylesheet" th:href="@{/static/css/cityselect.css}">
 </head>
 <body>
 <!--编辑店面-->
@@ -20,9 +22,9 @@
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>所属城市：</th>
                 <td>
-                    <input name="city" type="text" th:value="*{city}" required>
+                    <input class="validate[required]" id="citySelect" name="city" type="text" th:value="*{city}" required>
                 </td>
-                <td class="redState">智能选择城市</td>
+                <td class="redState">点击输入框修改城市</td>
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>店面名称：</th>
@@ -82,18 +84,20 @@
 <script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap-select.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrapselect/select.js}"></script>
 <!--表单验证-->
-<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
+<!-- 城市选择 -->
+<script type="text/javascript" th:src="@{/static/js/cityselect.js}"></script>
 <!--layer弹出层-->
 <script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <script>
+	var test=new Vcity.CitySelector({input:'citySelect'});
     $(function(){
-        //表单验证
-        $("#editStoreForm").validate({
-            onfocusout: function(element){
-                $(element).valid();
-            },
-            errorClass: 'formError'
+      //表单验证
+        $("#editStoreForm").validationEngine({
+            addPromptClass: 'formError-text',
+            showArrow: false,
+            promptPosition: 'bottomLeft:5 0'
         });
         $("input[class='cancel']").on('click',function(){
         	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引

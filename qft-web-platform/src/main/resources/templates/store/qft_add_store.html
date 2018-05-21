@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/js/bootstrapselect/css/bootstrap-select.css}"/>
     <!--主样式表-->
     <link rel="stylesheet" th:href="@{/static/css/models.css}">
+    <!-- 城市选择样式 -->
+    <link rel="stylesheet" th:href="@{/static/css/cityselect.css}">
 </head>
 <body>
 <!-- 添加店面 -->
@@ -19,10 +21,9 @@
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>所属城市：</th>
                 <td>
-                    <input class="citySelect" name="city" type="text" placeholder="请输入城市"  required>
-                    <input class="addCity" type="button" value="添加">
+                    <input class="validate[required]" id="citySelect" name="city" type="text" placeholder="请输入城市"  required>
                 </td>
-                <td class="gray-col">点击添加按钮添加城市</td>
+                <td class="redState">点击输入框添加城市</td>
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>店面名称：</th>
@@ -131,17 +132,22 @@
 <!--end 共用按钮-->
 <script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
-<!--bootstrap-select-->
-<script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap-select.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/bootstrapselect/select.js}"></script>
 <!--表单验证-->
-<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
+<!-- 城市选择 -->
+<script type="text/javascript" th:src="@{/static/js/cityselect.js}"></script>
 <!--layer弹出层-->
 <script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <script>
+	var test=new Vcity.CitySelector({input:'citySelect'});
     $(function(){
+      	//表单验证
+        $("#addStoreForm").validationEngine({
+            addPromptClass: 'formError-text',
+            showArrow: false,
+            promptPosition: 'bottomLeft:5 0'
+        });
     	//添加城市
         $('.PopupBox').on('click', '.addCity', function(){
             layer.open({
@@ -172,13 +178,6 @@
         $('.addGroupBox').on('click','.addGroup', function(){
             var groupHtml = '<p class="addGroupList"><span class="groupName">组名：</span><input class="groupInput" name="" type="text" ><span class="groupImg deleteGroup"></span></p>';
             $('.addGroupBox').find('.addGroupList').eq(-2).after(groupHtml);
-        });
-        //表单验证
-        $("#addStoreForm").validate({
-            onfocusout: function(element){
-                $(element).valid();
-            },
-            errorClass: 'formError'
         });
         //关闭窗口
         $("input[class='cancel']").on('click',function(){
