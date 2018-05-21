@@ -248,7 +248,9 @@ public class LoginController {
 			myShiroRealm.getAuthorizationCache().remove(currentUser.getPrincipals());
 			UserInfoVO uInfo = TokenManager.getLoginUser();
 			uInfo.setCorUrl(user.getCorUrl());
-			uInfo.setCompanyId(cor.getData(CompanyInfoVO.class).getCompanyId());
+			CompanyInfoVO cif = cor.getData(CompanyInfoVO.class);
+			uInfo.setCompanyId(cif.getCompanyId());
+			uInfo.setCompanyName(cif.getCompanyName());
 			return ResultUtil.getResult(RespCode.Code.SUCCESS);
 		} else {
 			token.clear();
