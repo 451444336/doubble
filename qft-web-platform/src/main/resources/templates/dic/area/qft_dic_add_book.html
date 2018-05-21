@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>字典列表</title>
+    <!--bootstrap-select  css文件-->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/js/bootstrapselect/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/js/bootstrapselect/css/bootstrap-select.css}"/>
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+</head>
+<body>
+<div class="subMainContent">
+    <!--子页顶部内容-->
+    <div class="subTopBox">
+        <div class="subTopLeft">
+            <a class="subTopBtn subHover JS_addEegion" href="javascript:void(0);">添加<span th:text="*{name}"></span></a><a class="subTopBtn" href="javascript:void(0);">还原字典</a><a class="subTopBtn JS_sortOne" href="javascript:void(0);">一级字典排序</a>
+        </div>
+        <div class="subTopRight">
+            <span class="resizeBtn" >刷新缓存</span>
+        </div>
+    </div>
+    <!--end 子页顶部内容-->
+    <!--子页主体内容-->
+    <div class="subConBox">
+        <div class="PopupBtn PopupBtnRight">
+            <input class="PopupOrange JS_delete" name="" type="button" value="删除"><input class="amendBtn" id="JS_amend" name="" type="button" value="修改">
+        </div>
+        <table class="wareList workBookList"  id="example">
+            <!-- <thead>
+            <tr>
+                <th width="50px"><input class="check-all" type="checkbox"></th>
+                <th width="110px">区域</th>
+                <th>物业地址</th>
+                <th width="90px">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input class="ids" name="" type="checkbox"></td>
+                <td>杨家坪</td>
+                <td>
+                    <ul class="workBookBox">
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                    </ul>
+                </td>
+                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
+            </tr>
+            <tr>
+                <td><input class="ids" name="" type="checkbox"></td>
+                <td>杨家坪</td>
+                <td>
+                    <ul class="workBookBox">
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                    </ul>
+                </td>
+                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
+            </tr>
+            <tr>
+                <td><input class="ids" name="" type="checkbox"></td>
+                <td>杨家坪</td>
+                <td>
+                    <ul class="workBookBox">
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                    </ul>
+                </td>
+                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
+            </tr>
+            <tr>
+                <td><input class="ids" name="" type="checkbox"></td>
+                <td>杨家坪</td>
+                <td>
+                    <ul class="workBookBox">
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                    </ul>
+                </td>
+                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
+            </tr>
+            <tr>
+                <td><input class="ids" name="" type="checkbox"></td>
+                <td>杨家坪</td>
+                <td>
+                    <ul class="workBookBox">
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                    </ul>
+                </td>
+                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
+            </tr>
+            <tr>
+                <td><input class="ids" name="" type="checkbox"></td>
+                <td>杨家坪</td>
+                <td>
+                    <ul class="workBookBox">
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
+                    </ul>
+                </td>
+                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
+            </tr> -->
+            </tbody>
+        </table>
+    </div>
+    <!--end 子页主体内容-->
+</div>
+<!--添加区域-->
+<div class="PopupBox hide" id="qft_addEegionBox">
+    <form id="roleForm" action="" method="">
+        <table class="popupList">
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span名称：</th>
+                <td><input class="validate[required]"  name="names"  type="text"></td>
+                <td class="gray-col">如：朝阳区</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span名称：</th>
+                <td><input class="validate[required]"  name="names"  type="text"></td>
+                <td class="gray-col">如：海淀区</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span名称：</th>
+                <td><input class="validate[required]"  name="names"  type="text"></td>
+                <td class="gray-col">如：丰台区</td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!--end 添加区域-->
+<!--修改区域-->
+<div class="PopupBox hide" id="qft_amendBox">
+    <form id="roleFormOne" action="" method="">
+        <table class="popupList">
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span>名称：</th>
+                <td><input class="validate[required]"  id="name" name="name"  type="text"></td>
+                <td class="gray-col">如：朝阳区</td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!--end 修改区域-->
+<!--添加物业地址-->
+<div class="PopupBox hide" id="qft_addPropertyBox">
+    <table class="popupList">
+        <tr>
+            <th class="fieldName_two"><span th:text="*{name}"></span>二级字典名称：</th>
+            <td><input class="validate[required]"  name="subName"  type="text"></td>
+        </tr>
+        <tr>
+            <th class="fieldName_two"><span th:text="*{name}"></span>二级字典名称：</th>
+            <td><input class="validate[required]" name="subName"  type="text"></td>
+        </tr>
+        <tr>
+            <th class="fieldName_two"><span th:text="*{name}"></span>二级字典名称：</th>
+            <td><input class="validate[required]" name="subName"  type="text"></td>
+        </tr>
+    </table>
+</div>
+<!--end 添加物业地址-->
+<!--修改物业地址-->
+<div class="PopupBox hide" id="qft_amendPropertyBox">
+    <table class="popupList">
+        <tr>
+            <th class="fieldName_two"><span th:text="*{name}"></span>二级字典名称：</th>
+            <td><input class="validate[required]" type="text" value="斌鑫世纪城（珠江路）"></td>
+        </tr>
+    </table>
+</div>
+<!--end 修改物业地址-->
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--bootstrap-select-->
+<script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap-select.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrapselect/select.js}"></script>
+<!--dataTable-->
+<script type="text/javascript" th:src="@{/static/js/datatables/jquery.dataTables.js}"></script>
+<!--layer弹出层-->
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
+<!--表单验证-->
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
+<script th:inline="javascript">
+    $(function(){
+    	
+    	var pid = [[${id}]];
+        var name = [[${name}]];
+    	
+        //判断修改按钮
+        $('.wareList').on('click','input[type="checkbox"]',function(){
+            var btnState = $("input[type='checkbox']:checked").length;
+            if(btnState >= 2){
+                $('#JS_amend').addClass('disabled');
+                $("#JS_amend").attr('disabled',true);
+            }else{
+                $('#JS_amend').removeClass('disabled');
+                $("#JS_amend").attr('disabled',false);
+            }
+        });
+        //批量删除
+        $('.PopupBtn').on('click','.JS_delete',function(){
+            layer.confirm('是否确定删除？',{
+                title: '信息确认',
+                skin: 'popup-title-bg', //样式类名
+                icon: 3,
+                btnAlign: 'c',
+                area: ['350px','170px'],
+                closeBtn : 0
+            }, function(){
+            	layer.closeAll('dialog');
+            	var chkV = $("input:checkbox[name='checkbox']:checked");
+            	var param = new Array();
+            	for(var i=0;i<chkV.length;i++){
+            		var val=$(chkV[i]).attr("data-id");
+            		if(val != '' && val != null){
+            			param.push(val);
+            		}
+            	}
+        		if(params.length > 0){
+	            	$.ajax({
+	                    "dataType": 'json',
+	                    "type": "delete",
+	                    "url": "/web/dic/delete/item/data/"+param.join(),
+	                    "success": function(result){
+	                    	 layer.alert(result.message, {icon:6},function(){
+	                    		 location.reload(); 
+	                    	 });
+	                    } 
+	                });
+            	}
+            });
+        });
+        //二级字典删除
+        $('.wareList').on('click','.workClose',function(){
+        	var id = $(this).siblings().attr('data-id');
+        	layer.confirm('警告：是否确定删除二级字典?',{
+                title: '信息确认',
+                skin: 'popup-title-bg', //样式类名
+                icon: 3,
+                btnAlign: 'c',
+                area: ['350px','170px'],
+                closeBtn : 0
+            },function(){
+            	if(id != undefined && id != null){
+                	$.ajax({
+                        "dataType": 'json',
+                        "type": "delete",
+                        "url": "/web/dic/delete/sub/item/data/"+id,
+                        "success": function(result){
+                        	 layer.alert(result.message, {icon:6},function(){
+                        		 location.reload(); 
+                        	 });
+                        } 
+                    });
+        		}
+            });
+        });
+        //添加一级
+        $('.subTopBox').on('click','.JS_addEegion',function(){
+            layer.open({
+                type: 1,
+                title: '添加'+name,
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['500px','260px'],
+                btn:['保存'],
+                yes: function(){
+                	var data = $("input[name='names']");
+                	var param = new Array();
+                	for(var i=0;i<data.length;i++){
+                		var val=$(data[i]).val();
+                		if(val != '' && val != null){
+                			param.push(val);
+                		}
+                	}
+            		if(param.length > 0){
+	                	$.ajax({
+	                        "dataType": 'json',
+	                        "type": "POST",
+	                        "url": "/web/dic/add/item/data",
+	                        "data":{'pId':pid,'names':param.join()},
+	                        "success": function(result){
+	                        	 layer.alert(result.message, {icon:6},function(){
+	                        		 location.reload(); 
+	                        	 });
+	                        } 
+	                    });
+            		}
+                },
+                btnAlign: 'c',
+                content: $('#qft_addEegionBox')
+            });
+        });
+        //编辑区域名称
+        $('.PopupBtn').on('click','.amendBtn',function(){
+        	var _id = $("input:checkbox[name='checkbox']:checked").attr("data-id");
+        	var _name =$("input:checkbox[name='checkbox']:checked").attr("data-name");
+            layer.open({
+                type: 1,
+                title: '编辑'+name,
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['500px','168px'],
+                btn:['保存'],
+                yes: function(){
+                	layer.closeAll('dialog');
+                	$.ajax({
+                        "dataType": 'json',
+                        "type": "PUT",
+                        "url": "/web/dic/update/item/data",
+                        "contentType": 'application/json;charset=utf-8',
+                        "data":JSON.stringify({'id': _id, 'name': $("#name").val()}),
+                        "success": function(result){
+                        	 layer.alert(result.message, {icon:6},function(){
+                        		 location.reload(); 
+                        	 });
+                        } 
+                    });
+                },
+                btnAlign: 'c',
+                content: $('#qft_amendBox')
+            });
+        });
+        //一级字典排序
+        $('.subTopBox').on('click','.JS_sortOne',function(){
+            layer.open({
+                type: 2,
+                title: '字典排序',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['550px','400px'],
+                //btn:['保存','关闭'],
+                btnAlign: 'c',
+                content: 'qft_workSort.html'
+            });
+        });
+        //二级字典排序
+        $('.wareList').on('click','.JS_sortTwo',function(){
+            layer.open({
+                type: 2,
+                title: '字典排序',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['550px','400px'],
+                //btn:['保存','关闭'],
+                btnAlign: 'c',
+                content: 'qft_workSort.html'
+            });
+        });
+        //二级字典添加
+        $('.wareList').on('click','.JS_addProperty',function(){
+        	var pid = $(this).attr('data-id');
+            layer.open({
+                type: 1,
+                title: '添加'+name,
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['500px','260px'],
+                btn:['保存'],
+                yes: function(){
+                	var data = $("input[name='subName']");
+                	var param = new Array();
+                	for(var i=0;i<data.length;i++){
+                		var val=$(data[i]).val();
+                		if(val != '' && val != null){
+                			param.push(val);
+                		}
+                	}
+					if(param.length > 0){
+						$.ajax({
+	                        "dataType": 'json',
+	                        "type": "POST",
+	                        "url": "/web/dic/add/sub/item/data",
+	                        "data":{'pId':pid,'names':param.join()},
+	                        "success": function(result){
+	                        	 layer.alert(result.message, {icon:6},function(){
+	                        		 location.reload(); 
+	                        	 });
+	                        } 
+	                    });
+					}
+                },
+                btnAlign: 'c',
+                content: $('#qft_addPropertyBox')
+            });
+        });
+        //二级字典修改
+        $('.wareList').on('click','.workBookTxt',function(){
+            layer.open({
+                type: 1,
+                title: '修改'+name,
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['500px','168px'],
+                btnAlign: 'c',
+                btn:['保存'],
+                content: $('#qft_amendPropertyBox')
+            });
+        });
+        //表单验证
+        $("#roleForm,#roleFormOne").validationEngine({
+            addPromptClass: 'formError-text',
+            showArrow: false,
+            promptPosition: 'bottomLeft:5 0'
+        });
+        
+        $('#example').DataTable({
+            "bServerSide": true,
+            "sPaginationType": "full_numbers",
+            "sDom": '<"">t<"F"ip>',
+            "autoWidth": false,  //自适应宽度
+            "sAjaxSource": "/web/dic/find/item/data", 
+            "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
+            "aoColumns": [
+            	{"sWidth": "50px","sTitle": "<input width=50px class=check-all type=checkbox >", "mData": "id","mRender" : function ( data, type, full ) {
+            		return '<input class="ids" name="checkbox" data-id='+full.id+' data-name='+full.name+'  type="checkbox">'
+            		}
+            	},
+                {"sWidth": "110px","sTitle": name,"mData": "name" },
+            	{"sTitle": name+'二级字典',"mData": "itemlist","mRender" : function ( data, type, full ) {
+            		if(full.itemlist != undefined && full.itemlist != null){
+            			var buffer = new StringBuffer();
+            			buffer.append('<ul class="workBookBox">');
+            			$(full.itemlist).each(function(i, d){
+            				buffer.append('	<li><p class="workBookTxt" data-id='+d.id+'>'+d.name+'</p><span class="workClose"></span></li>');
+            			});
+            			buffer.append('</ul>');
+            			return buffer.toString();
+        			}
+            		return "";
+            	 }
+                },
+            	{"sWidth": "120px", "sTitle" : "操作","mData" : "id","sClass":"tab_operate", "mRender" : function ( data, type, full ) {
+                      var text = '<a class="operateBtn JS_addProperty" href="javascript:void(0);" data-id='+full.id+'>添加二级字典</a>';
+                      text += '<a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a>';
+                      return text;
+                }
+              }
+            ],
+            "oLanguage": {
+                "sProcessing": "数据加载中······",
+                "sLengthMenu": "显示 _MENU_ 条记录",
+                "sZeroRecords": "没有您要搜索的内容！",
+                "sEmptyTable": "列表中无数据存在！",
+                "sInfo": "当前显示 _START_ 到 _END_ 条数据，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示 0 到 0 条记录",
+                "sInfoFiltered": "数据列表中共  _MAX_ 条记录",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "sLast": "末页"
+                }
+            },
+            "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+                oSettings.jqXHR = $.ajax({
+                    "dataType": 'json',
+                    "type": "GET",
+                    "async": 'false',
+                    "url": sSource,
+                    "data": {
+                        'pageNum': (aoData[3].value / aoData[4].value) + 1,
+                        'pageSize': aoData[4].value,
+                        'pId':pid
+                    },
+                    "success": fnCallback
+                });
+            }
+        });
+    })
+</script>
+</body>
+</html>

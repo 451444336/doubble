@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>字典说明</title>
+    <!--bootstrap-select  css文件-->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/js/bootstrapselect/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/js/bootstrapselect/css/bootstrap-select.css}"/>
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+</head>
+<body>
+<div class="subMainContent">
+    <!--子页顶部内容-->
+    <div class="subTopBox">
+        <div class="subTopRight" style="float:left;">
+            <span class="resizeBtn">刷新缓存</span>
+        </div>
+    </div>
+    <!--end 子页顶部内容-->
+    <!--子页主体内容-->
+    <div class="subConBox">
+        <p class="workTxt">1.什么是字典？</p>
+        <p class="workTxt workPadd">全房通软件中，所有界面使用的下拉选项数据为字典。</p>
+        <p class="workTxt">2. 为什么不直接输入，要使用下拉框选择，直接输入不是更直接吗？</p>
+        <p class="workTxt workPadd">例子：比如户型，有一室一厅 ，二室一厅，三室一厅，如果手动打字，可能会花费不少时间，如果直接选择，只需要2秒钟。这样节约了录入时间。</p>
+        <p class="workTxt">3.为什么使用字典？</p>
+        <p class="workTxt workPadd"> 如果你使用的字典中，少了数据怎么办，找研发商解决？ NO，那样太麻烦了，效率低下，所以需要你自己加一条数据，比如选中户型：添加一室一厅一卫，一次操作解决所有问题!</p>
+    </div>
+    <!--end 子页主体内容-->
+</div>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+</body>
+</html>
