@@ -160,16 +160,17 @@
         document.onkeydown = function (e) {
             var ev = document.all ? window.event : e;
             if (ev.keyCode == 13) {
-                var flag = $("#en_form_id").validationEngine("validate");
-                if (!flag) {
+                var flage = $("#en_form_id").validationEngine("validate");
+                var flagc = $("#ch_form_id").validationEngine("validate");
+                if (!flage && !flagc) {
                     return false;
                 }
-                //校验验证码
-                flag = checkCode();
-                if (!flag) {
-                    return false;
+                if(flage){
+                	login("en_form_id");
                 }
-                $("#en_login_Btn").submit();
+                if(flagc){
+                	login("ch_form_id");
+                }
             }
         };
         if (window != top) {
