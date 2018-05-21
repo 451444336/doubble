@@ -71,6 +71,7 @@
 			u.id as id,
 			<include refid="base_staff_select"/>
 			,
+			u.create_time as createTime,
 			u.account as account,
 			u.password as password,
 			u.status as status,
@@ -135,7 +136,7 @@
 			and	u.status = #{status}
 		</if>
 		<if test="attendanceId != null and attendanceId != ''">
-			and	u.attendance_id = #{attendanceId}
+			and	s.attendance_id = #{attendanceId}
 		</if>
 	</select>
 	

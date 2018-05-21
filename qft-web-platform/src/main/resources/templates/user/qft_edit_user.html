@@ -21,7 +21,7 @@
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>可看房源城市：</th>
                 <td>
-                    <select name="cityList" class="selectpicker" multiple data-live-search="true" data-actions-box="true" >
+                    <select name="cityList" class="selectpicker validate[required]" multiple data-live-search="true" data-actions-box="true" >
                         <option value="">请选择</option>
    						<option th:each="city : ${select_city}" th:value="${city.id}" th:text="${city.name}" th:selected="${city.id}==*{cityList}"></option>
                     </select>
@@ -31,7 +31,7 @@
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>可看房源店面：</th>
                 <td>
-                    <select name="storegrouping" class="selectpicker" multiple data-live-search="true" data-actions-box="true" >
+                    <select name="storegrouping" class="selectpicker validate[required]" multiple data-live-search="true" data-actions-box="true" >
                         <option value="">请选择</option>
    						<option th:each="city : ${select_city}" th:value="${city.id}" th:text="${city.name}" th:selected="${city.id}==*{storegrouping}"></option>
                     </select>
@@ -41,7 +41,7 @@
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>工作城市：</th>
                 <td>
-                    <select name="cityId" class="selectpicker" data-live-search="true" >
+                    <select name="cityId" class="selectpicker validate[required]" data-live-search="true" >
                         <option value="">请选择</option>
    						<option th:each="city : ${select_city}" th:value="${city.id}" th:text="${city.name}" th:selected="${city.id}==*{cityId}"></option>
                     </select>
@@ -51,7 +51,7 @@
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>工作店面：</th>
                 <td>
-                    <select name="workstore" class="selectpicker workShop" data-live-search="true" >
+                    <select name="workstore" class="selectpicker validate[required] workShop" data-live-search="true" >
                          <option value="">请选择</option>
    						<option th:each="city : ${select_city}" th:value="${city.id}" th:text="${city.name}" th:selected="${city.id}==*{workstore}"></option>
                     </select>
@@ -64,13 +64,13 @@
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>姓名：</th>
-                <td><input name="realname" type="text" th:value="*{realname}" placeholder="请输入姓名" ></td>
+                <td><input name="realname" class="validate[required,custom[special]]" type="text" th:value="*{realname}" placeholder="请输入姓名" ></td>
                 <td class="gray-col">请填写真实姓名</td>
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>职位：</th>
                 <td>
-                    <select name="positionId" class="selectpicker" >
+                    <select name="positionId" class="selectpicker validate[required]" >
                        		  <option value="">请选择</option>
    							  <option th:each="position : ${select_position}" th:value="${position.id}" th:text="${position.name}" th:selected="${position.id}==*{positionId}"></option>
                     </select>
@@ -79,32 +79,32 @@
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>登录账号：</th>
-                <td><input name="account" type="text" th:value="*{account}"  placeholder="请输入登录账号" required></td>
+                <td><input class="validate[required]" name="account" type="text" th:value="*{account}"  placeholder="请输入登录账号" ></td>
                 <td class="gray-col">中英文均可，也可以用下面填写的手机号登录</td>
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>联系方式：</th>
-                <td><input name="phone" type="text" th:value="*{phone}" placeholder="请输入联系方式" required></td>
+                <td><input class="validate[required,custom[phone]]" name="phone" type="text" th:value="*{phone}" placeholder="请输入联系方式" ></td>
                 <td class="gray-col">请填写11位手机号</td>
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>身份证：</th>
-                <td><input name="idcard" type="text" th:value="*{idcard}" placeholder="请输入身份证号" required></td>
+                <td><input class="validate[required,custom[chinaIdLoose]]" name="idcard" type="text" th:value="*{idcard}" placeholder="请输入身份证号" ></td>
                 <td class="gray-col">请填写身份证号</td>
             </tr>
             <tr>
                 <th class="fieldName_one">APP登录：</th>
                 <td>
-                    <select name="isEnableApp" class="selectpicker" required>
+                    <select name="isEnableApp" class="selectpicker" >
                         <option value="1" th:selected="*{isEnableApp}=='1'">开通</option>
                         <option value="0" th:selected="*{isEnableApp}=='0'">关闭</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <th class="fieldName_one"><span class="require">*</span>系统锁定：</th>
+                <th class="fieldName_one">系统锁定：</th>
                 <td>
-                    <select name="sysStatus"  class="selectpicker" required>
+                    <select name="sysStatus"  class="selectpicker" >
                         <option value="1" th:selected="*{sysStatus}=='1'">永不注销</option>
                         <option value="2" th:selected="*{sysStatus}=='2'">3天未登录</option>
                         <option value="3" th:selected="*{sysStatus}=='3'">5天未登录</option>
@@ -131,19 +131,21 @@
 <!--layer弹出层-->
 <script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <!--表单验证-->
-<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
 <script>
     $(function(){
         //表单验证
-        $("#addUserForm").validate({
-            onfocusout: function(element){
-                $(element).valid();
-            },
-            errorClass: 'formError'
+        $("#addUserForm").validationEngine({
+            addPromptClass: 'formError-text',
+            showArrow: false,
+            promptPosition: 'bottomLeft:5 0'
         });
         //编辑用户
         $('#keep').on('click',function(){
+        	if (!$("#addUserForm").validationEngine("validate")) {
+                return false;
+            }
         	$.ajax({
                 "dataType": 'json',
                 "type": "POST",
@@ -165,12 +167,6 @@
         	parent.layer.closeAll()
         });
     })
-    
-    
-    function initial(){
-    	//加载职位
-    	
-    }
 </script>
 </body>
 </html>

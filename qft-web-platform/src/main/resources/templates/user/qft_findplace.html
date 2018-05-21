@@ -28,9 +28,6 @@
 <script type="text/javascript" th:src="@{/static/js/datatables/jquery.dataTables.js}"></script>
 <!--layer弹出层-->
 <script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
-<!--表单验证-->
-<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
 <script th:inline="javascript">
 var tb;
     $(function(){
@@ -57,13 +54,6 @@ var tb;
                 btnAlign: 'c',
                 content: '/web/pos/editIndex/1'
             });
-        });
-        //表单验证
-        $("#roleForm").validate({
-            onfocusout: function(element){
-                $(element).valid();
-            },
-            errorClass: 'formError'
         });
         //删除
         $('.wareList').on('click','.JS_delete',function(){

@@ -76,6 +76,9 @@
         });
       //编辑用户权限
         $('#keep').on('click',function(){
+        	if (!$("#modifyForm").validationEngine("validate")) {
+                return false;
+            }
         	$.ajax({
                 "dataType": 'json',
                 "type": "POST",

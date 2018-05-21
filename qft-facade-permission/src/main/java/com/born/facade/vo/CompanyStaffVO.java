@@ -80,6 +80,9 @@ public class CompanyStaffVO implements Serializable{
 	//上次登录时间
 	private String lastTime;
 	
+	//创建时间
+	private String createTime;
+	
 	//部门名称
 	private String deptName;
 	
