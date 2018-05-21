@@ -48,7 +48,7 @@
         <!--end 权限管理-->
         <!--授权按钮-->
         <div class="powerBtnBox btnCenter margin0 fixedButton">
-            <input class="powerBtn" id="keep" type="button" value="授权给个人"><input class="powerBtn" type="button" value="关闭">
+            <input class="powerBtn" id="keep" type="button" value="授权给个人"><input class="powerBtn cancel" type="button" value="关闭">
         </div>
         <!--end 授权按钮-->
     </form>
@@ -71,6 +71,9 @@
             addPromptClass: 'formError-text',
             showArrow: false,
             promptPosition: 'bottomLeft:5 0'
+        });
+        $('.cancel').on('click',function(){
+        	parent.layer.closeAll()
         });
       //编辑用户权限
         $('#keep').on('click',function(){
