@@ -93,7 +93,7 @@
 <script>
 	var test=new Vcity.CitySelector({input:'citySelect'});
     $(function(){
-      //表单验证
+      	//表单验证
         $("#editStoreForm").validationEngine({
             addPromptClass: 'formError-text',
             showArrow: false,
@@ -104,6 +104,9 @@
         	parent.layer.close(index);
         });
         $("input[type='submit']").on('click',function(){
+        	if (!$("#editStoreForm").validationEngine("validate")) {
+                return false;
+            }
         	$("#editStoreForm").submit(function (envent){
    			    envent.preventDefault();  
    			    var form = $(this);  

@@ -115,11 +115,14 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 	@Transactional
 	public Result bindRoleMenu(Long[] menuIds, Long roleId, Long createrId, Date createTime) {
 		// 验证参数
-		if (menuIds == null || menuIds.length == 0 || roleId == null || createrId == null || createTime == null) {
+		if (roleId == null || createrId == null || createTime == null) {
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
 		}
 		// 清空原有菜单
 		companyRoleMapper.deleteRoleMenuByRoleId(roleId);
+		if(menuIds[0] == null){
+			return ResultUtil.getResult(RespCode.Code.SUCCESS);
+		}
 		// 绑定新菜单
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
 		map.put("menuIds", menuIds);

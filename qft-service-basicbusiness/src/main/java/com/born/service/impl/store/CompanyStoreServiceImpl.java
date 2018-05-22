@@ -56,7 +56,7 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 		group.setUpdaterId(dto.getUpdaterId());
 		group.setUpdateTime(dto.getUpdateTime());
 		group.setStoreId(dto.getId());
-		if(dto.getGroupingStatus() == 0){
+		if(dto.getGroupingStatus() == 0 && !"".equals(dto.getGrouping())){
 			String[] groupName = dto.getGrouping().split(",");
 			for(String name : groupName){
 				group.setName(name);
@@ -135,8 +135,14 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 	        	StoreGroupDTO groupDto = new StoreGroupDTO();
 	        	groupDto.setStoreId(vo.getId());
 	        	List<StoreGroupVO> groupList= storeGroupMapper.selectGroupListByStoreId(groupDto);
-	        	for(StoreGroupVO groupVO : groupList){
-	        		grouping += groupVO.getName() + ",";
+	        	for(int i=0;i<groupList.size();i++){
+	        		StoreGroupVO groupVO = groupList.get(i);
+	        		if(i<3){
+	        			grouping += groupVO.getName() + "\t";
+	        		}else{
+	        			grouping += "...";
+	        		}
+	        		
 	        	}
 	        	if(groupList.size()>0){
 	        		grouping += "（共" + groupList.size() + "组）";
