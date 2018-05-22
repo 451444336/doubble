@@ -23,7 +23,7 @@ public class CompanyStoreVO {
 	/**
      * 创建时间
      */
-    private Date createTime;
+    private String createTime;
 	/**
      * 修改人ID
      */
@@ -31,7 +31,7 @@ public class CompanyStoreVO {
 	/**
      * 修改时间
      */
-    private Date updateTime;
+    private String updateTime;
     /**
 	 * 公司ID
 	 */
