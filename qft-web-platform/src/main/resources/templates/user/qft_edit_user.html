@@ -31,6 +31,16 @@
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>可看房源店面：</th>
                 <td>
+                    <select name="store" class="selectpicker validate[required]" multiple data-live-search="true" data-actions-box="true" >
+                        <option value="">请选择</option>
+   						<option th:each="city : ${select_city}" th:value="${city.id}" th:text="${city.name}" th:selected="${city.id}==*{store}"></option>
+                    </select>
+                </td>
+                <td class="gray-col">选择两个店及以上时默认可以看该选择店面下所有组房源</td>
+            </tr>
+            <tr>
+                <th class="fieldName_one"><span class="require">*</span>可看房源分组：</th>
+                <td>
                     <select name="storegrouping" class="selectpicker validate[required]" multiple data-live-search="true" data-actions-box="true" >
                         <option value="">请选择</option>
    						<option th:each="city : ${select_city}" th:value="${city.id}" th:text="${city.name}" th:selected="${city.id}==*{storegrouping}"></option>

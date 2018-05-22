@@ -110,7 +110,7 @@
         <table class="popupList">
             <tr>
                 <th class="fieldName"><span class="require">*</span>新密码：</th>
-                <td><input name="password" type="password" value="" placeholder="请输入新密码" required></td>
+                <td><input name="password" class="validate[required]" type="password" placeholder="请输入新密码"></td>
             </tr>
         </table>
     </form>
@@ -126,8 +126,8 @@
 <!--layer弹出层-->
 <script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <!--表单验证-->
-<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
 <script type="text/javascript" th:inline="javascript">
 	var tb;
     $(function(){
@@ -166,6 +166,13 @@
         $('.wareList').on('click','.modifyPass',function(){
         	var id = $(this).attr("data_id");
         	var account = $(this).attr("account");
+        	if(id==null||''==id||account==null||''==account){
+         		 layer.alert('信息参数不全', {  
+                      title: "提示信息",  
+                      btn: ['确定']  
+                  });
+         		 return;
+         	}
         	$("#id").val(id);
         	$("#account").val(account);
             layer.open({
@@ -173,9 +180,16 @@
                 title: '修改密码',
                 skin: 'popup-title-bg', //样式类名
                 closeBtn : 1,
-                area: ['460px','375px'],
+                area: ['460px','400px'],
                 btn:['确认密码'],
                 yes: function(){
+                	if (''==$('input[name=password]').val()||null==$('input[name=password]').val()) {
+                		 layer.alert('信息参数不全', {  
+                             title: "提示信息",  
+                             btn: ['确定']  
+                         });
+                		 return;
+                    }
                     $.ajax({
                         "dataType": 'json',
                         "type": "POST",
@@ -199,6 +213,13 @@
         //编辑用户
         $('.wareList').on('click','.JS_userEdit',function(){
         	var id = $(this).attr("data_id");
+        	if(id==null||''==id){
+          		 layer.alert('信息参数不全', {  
+                       title: "提示信息",  
+                       btn: ['确定']  
+                   });
+          		 return;
+          	}
             layer.open({
                 type: 2,
                 title: '编辑用户',
@@ -211,28 +232,34 @@
             });
         });
         //表单验证
-        $("#roleForm").validate({
-            onfocusout: function(element){
-                $(element).valid();
-            },
-            errorClass: 'formError'
+       $("#roleForm").validationEngine({
+            addPromptClass: 'formError-text',
+            showArrow: false,
+            promptPosition: 'bottomLeft:5 0'
         });
         //开通关闭状态变色
         $('.wareList').on('change','.tab_select',function(){
             var valTxt = $(this).children('option:selected').val();
+            var id = $(this).attr("data_id");
+            if(id==null||''==id||valTxt==null||''==valTxt){
+       		 	layer.alert('信息参数不全', {  
+                    title: "提示信息",  
+                    btn: ['确定']  
+                });
+       			 return;
+       		}
             if(valTxt == '0'){
                 $(this).addClass('errorCol');
             }else{
                 $(this).removeClass('errorCol');
             }
-            var id = $(this).attr("data_id");
             $.ajax({
                 "dataType": 'json',
                 "type": "POST",
                 "url": "/web/staff/updateUserStu?userId="+id+"&status="+valTxt,
                 "success": function(result){
                 	 layer.alert(result.message, {  
-                         title: "用户操作",  
+                         title: "修改操作",  
                          btn: ['确定']  
                      },  
                          function (index, item) { 
@@ -244,6 +271,13 @@
         //删除
         $('.wareList').on('click','.JS_delete',function(){
         	var id = $(this).attr("data_id");
+        	if(id==null||''==id){
+       		 layer.alert('信息参数不全', {  
+                    title: "提示信息",  
+                    btn: ['确定']  
+                });
+       		 return;
+         	}
             layer.confirm('是否确定删除？',{
                 title: '信息确认',
                 skin: 'popup-title-bg', //样式类名
@@ -276,6 +310,13 @@
         	var id = $(this).attr("data_id");
         	var data_name = $(this).attr("data_name");
         	var data_positionId = $(this).attr("data_positionId");
+        	if(id==null||''==id||data_name==null||''==data_name||data_positionId==null||''==data_positionId){
+        		 layer.alert('信息参数不全', {  
+                     title: "提示信息",  
+                     btn: ['确定']  
+                 });
+        		return;
+        	}
             layer.open({
                 type: 2,
                 title: '权限修改',
@@ -300,14 +341,19 @@
                 {"sTitle": "用户账号", "mData": "account"},
                 {"sTitle": "联系方式", "mData": "phone"},
                 {"sTitle": "可看房源城市", "mData": "cityList"},
-                {"sTitle": "可看房源店面", "mData": "storegrouping"},
-                {"sTitle": "可看房源分组", "mData": "attendanceId"},
+                {"sTitle": "可看房源店面", "mData": "store"},
+                {"sTitle": "可看房源分组", "mData": "storegrouping"},
                 {"sTitle": "工作城市", "mData": "cityId"},
                 {"sTitle": "工作店面", "mData": "workstore"},
                 {"sTitle": "所属部门", "mData": "deptName"},
                 {"sTitle": "所属职位", "mData": "positionName"},
                 {"sTitle": "创建时间", "mData": "createTime"},
-                {"sTitle": "上次登录时间", "mData": "lastTime"},
+                {"sTitle": "上次登录时间", "mData": "lastTime","mRender": function(data,type,full){
+                	if(data==null||''==data){
+                		data = '暂无登陆记录';
+                	}
+                	return data;
+                }},
                 {"sWidth": "90px", "sTitle": "状态", "mData": "status", "mRender" : function ( data, type, full ) {
                 		var status_html = '<select class="tab_select" name="status" id="status" data_id="'+full.id+'">';
                 		if(data==1){

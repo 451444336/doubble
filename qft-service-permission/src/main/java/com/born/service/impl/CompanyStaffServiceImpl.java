@@ -14,12 +14,15 @@ import com.born.facade.dto.staff.FindStaffListDTO;
 import com.born.facade.dto.staff.PositionStaffDTO;
 import com.born.facade.dto.user.DeteleUserDTO;
 import com.born.facade.dto.user.UserRoleDTO;
+import com.born.facade.entity.CompanyRole;
 import com.born.facade.entity.CompanyStaff;
 import com.born.facade.entity.User;
 import com.born.facade.exception.PermissionException;
 import com.born.facade.exception.PermissionExceptionEnum;
 import com.born.facade.service.ICompanyStaffService;
 import com.born.facade.vo.CompanyStaffVO;
+import com.born.facade.vo.RoleVO;
+import com.born.mapper.CompanyRoleMapper;
 import com.born.mapper.CompanyStaffMapper;
 import com.born.mapper.SysUserMapper;
 import com.born.util.result.RespCode;
@@ -44,6 +47,9 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 	
 	@Autowired
 	private SysUserMapper userMapper;
+	
+	@Autowired
+	private CompanyRoleMapper roleMapper;
 
 	@Override
 	public Result getCompanyStaff(String userId) {
@@ -247,8 +253,16 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 		if(userId==null) {
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
 		}
-		
 		try {
+			//获取这个用户角色权限
+			CompanyRole role = new CompanyRole();
+			role.setId(userId);
+			List<RoleVO> rolelist = roleMapper.selectRoleListByUserId(userId);
+			if(rolelist!=null) {
+				if(rolelist.get(0).getIsSuperManager()==1) {
+					return ResultUtil.getResult(RespCode.Code.UNAUTHORIZED);
+				}
+			}
 			//删除用户
 			DeteleUserDTO deteleUserDTO = new DeteleUserDTO();
 			deteleUserDTO.setId(userId);
@@ -287,6 +301,7 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 	}
 
 	@Override
+	@Transactional
 	public Result updateUser(CompanyStaffDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		//校验参数
