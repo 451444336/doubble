@@ -150,14 +150,16 @@ public class CompanyRoleController {
 	@ResponseBody
 	public Result bindMenus(String menuIds, Long roleId) {
 		// 验证参数
-		if (StringUtils.isBlank(menuIds) || roleId == null) {
+		if (roleId == null) {
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
 		}
 		// 拆分字符串 1,2,3,4,5,
 		String[] split = menuIds.split(",");
 		Long[] ids = new Long[split.length];
-		for (int i = 0; i < split.length; i++) {
-			ids[i] = Long.parseLong(split[i]);
+		if(!"".equals(menuIds)){
+			for (int i = 0; i < split.length; i++) {
+				ids[i] = Long.parseLong(split[i]);
+			}
 		}
 		// 获取当前用户信息
 		UserInfoVO su = TokenManager.getLoginUser();

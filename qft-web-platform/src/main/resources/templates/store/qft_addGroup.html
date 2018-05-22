@@ -27,7 +27,7 @@
         <table class="popupList">
             <tr>
                 <th class="fieldName">组名：</th>
-                <td><input name="groupName" type="text" />
+                <td><input class="validate[required]" name="groupName" type="text" />
             </tr>
         </table>
     </form>
@@ -66,33 +66,47 @@
 <!--layer弹出层-->
 <script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <!--表单验证-->
-<script type="text/javascript" th:src="@{/static/js/validate/jquery.validate.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/validate/messages_zh.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
 <script>
 	var dataGroupTable = "";
     $(function(){
     	//获取店面ID
     	var storeId = $('#groups input[id=storeId]').val();
+    	//表单验证
+        $("#groupForm").validationEngine({
+            addPromptClass: 'formError-text',
+            showArrow: false,
+            promptPosition: 'bottomLeft:5 0'
+        });
         //添加组
         $('.PopupTitle').on('click', '.JS_addGroup', function(){
-            var listHtml = '<tr>\n' +
+            var listHtml = '<tr id="addGroup">\n' +
                 '   <td><input class="accountName" name="accountName" type="text" /> </td>\n' +
                 '   <td></td>\n' +
-                '   <td></td>\n' +
+                '   <td><a class="operateBtn deleteCol JS_delete" href="javascript:void(0);">删除</a></td>\n' +
                 '</tr>';
             $('.wareList').append(listHtml);
         });
         //保存
         $('input[name=submit]').on('click',function(){
         	var groupNames = '';
+        	var flag = false;
     		$("#groups input[name=accountName]").each(function(){
         		var value = $(this).val();
         		if(value != ''){
         			groupNames +=value+',';
+        		}else{
+        			flag = true;
         		}
         	});
+    		if(flag){
+    			layer.msg('请填写组名！');
+    			return false;
+    		}
     		if(groupNames == ''){
-    	    	parent.layer.close(index);
+	    		var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+	        	parent.layer.close(index); 
     		}else{
     			params = 'storeId=' +storeId+ '&groupNames=' +groupNames;
     			$.ajax({
@@ -113,6 +127,12 @@
       	//删除
         $('.wareList').on('click','.JS_delete',function(){
         	var id = this.id;
+        	if(id == '' || id == null){
+        		 var n = $(this).parents("tr").index();
+        		 n += 1
+                 $(".wareList").find("tr:eq("+n+")").remove();
+        		return false;
+        	}
             layer.confirm('是否确定删除？',{
                 title: '信息确认',
                 skin: 'popup-title-bg', //样式类名
@@ -150,6 +170,9 @@
                 yes: function(index, layero){
                 	var value = $("input[name='groupName']").val();
                 	var params = 'id='+ id +'&name='+ value;
+                	if (!$("#groupForm").validationEngine("validate")) {
+                        return false;
+                    }
         			$.ajax({
                         dataType: 'json',
                         type: 'post',
@@ -157,6 +180,7 @@
                         url: '/web/group/update/',
                         success: function(result){
                         	layer.alert(result.message);
+                        	layer.close(index);
                         	//刷新分组列表
                         	dataGroupTable.ajax.reload();
                         	//刷新店面列表

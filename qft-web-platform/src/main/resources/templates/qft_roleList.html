@@ -243,10 +243,6 @@ $(function(){
             yes: function(){
             	var treeObj=$.fn.zTree.getZTreeObj("allotPower"); 
                 nodes=treeObj.getCheckedNodes(true);
-                if(nodes.length == 0){
-                	layer.closeAll();
-                	return;
-                }
                 var menuIds= '';
             	nodes.forEach(function(node){
             		menuIds+=node.id + ',';

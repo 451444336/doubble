@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>设置账户</title>
+    <!--主样式表-->
+    <link rel="stylesheet" href="css/models.css">
+    <!--[if lt IE 9]>
+    <script src="js/support/html5shiv.min.js"></script>
+    <script src="js/support/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--分组列表-->
+<div class="PopupBox sortBox setAccHei noBorder">
+    <h2 class="PopupTitle">收款账户设置（ <span class="">店面名称</span>）</h2>
+    <table class="wareList wareTrNoBg">
+        <thead>
+        <tr>
+            <th width="80">账户类型</th>
+            <th>账户名称</th>
+            <th>账户开户行</th>
+            <th>账户</th>
+            <th width="100">保存到本店</th>
+            <th width="100">保存到全部店</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>个人账户</td>
+                <td><input class="accountName noBorder" name="" type="text" placeholder="点击填写" /></td>
+                <td><input class="accountName noBorder" name="" type="text" placeholder="点击填写" /></td>
+                <td><input class="accountName noBorder" name="" type="text" placeholder="点击填写" /></td>
+                <td><span class="keepIcon" title="保存到本店"></span></td>
+                <td><span class="keepIcon" title="保存到全部店"></span></td>
+            </tr>
+            <tr>
+                <td>对公账户</td>
+                <td><input class="accountName noBorder" name="" type="text" placeholder="点击填写" /></td>
+                <td><input class="accountName noBorder" name="" type="text" placeholder="点击填写" /></td>
+                <td><input class="accountName noBorder" name="" type="text" placeholder="点击填写" /></td>
+                <td><span class="keepIcon" title="保存到本店"></span></td>
+                <td><span class="keepIcon" title="保存到全部店"></span></td>
+            </tr>
+            <tr>
+                <td>支付宝</td>
+                <td><input class="accountName noBorder" name="" type="text" placeholder="点击填写" /></td>
+                <td><input class="accountName disabled noBorder" name="" type="text" disabled="disabled" /></td>
+                <td><input class="accountName noBorder" name="" type="text" placeholder="点击填写" /></td>
+                <td><span class="keepIcon" title="保存到本店"></span></td>
+                <td><span class="keepIcon" title="保存到全部店"></span></td>
+            </tr>
+            <tr>
+                <td>QQ钱包</td>
+                <td><input class="accountName disabled noBorder" name="" type="text" disabled="disabled"  /></td>
+                <td><input class="accountName disabled noBorder" name="" type="text" disabled="disabled"  /></td>
+                <td><input class="accountName noBorder" name="" type="text" placeholder="点击填写" /></td>
+                <td><span class="keepIcon" title="保存到本店"></span></td>
+                <td><span class="keepIcon" title="保存到全部店"></span></td>
+            </tr>
+        </tbody>
+    </table>
+    <h2 class="PopupTitle">备注</h2>
+    <p class="textareaBox">此处设置的账号作用主要是展示到微信租客登录后的界面，只起到展示作用。另外可以自动导入到自动生成的纸质版合同里面去，除此之外与其他功能没有任何关联。所以，此处可设置也可不设置。</p>
+</div>
+<!--end 分组列表-->
+<!--共用按钮-->
+<div class="PopupBtn">
+    <input name="" type="button" value="保存">
+</div>
+<!--end 共用按钮-->
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<!--layer弹出层-->
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<!--[if lt IE 10]>
+<script type="text/javascript" src="js/placeholder/placeholder.js"></script>
+<![endif]-->
+<script>
+    $(function(){
+        //保存
+        $('.wareList').on('click','.keepIcon',function(){
+            layer.confirm('是否确定保存？',{
+                title: '信息确认',
+                skin: 'popup-title-bg', //样式类名
+                icon: 3,
+                btnAlign: 'c',
+                btn:['确定','取消'],
+                area: ['350px','170px'],
+                closeBtn : 0
+            });
+        });
+    })
+</script>
+</body>
+</html>

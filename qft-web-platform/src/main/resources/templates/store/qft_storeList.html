@@ -15,7 +15,6 @@
     <div class="subTopBox">
         <div class="subTopLeft">
             <a class="subTopBtn JS_addStore" href="javascript:void(0);">添加店面</a>
-            <a class="subTopBtn JS_addEditCompany" href="javascript:void(0);">修改公司信息</a>
         </div>
     </div>
     <!--店面列表-->
@@ -144,6 +143,19 @@ $(function(){
             content: '/web/group/getGroupPage/'+storeId,
         });
     });
+  	//列表点击设置账号
+    $('.wareList').on('click','.JS_setAccount',function(){
+        layer.open({
+            type: 2,
+            title: '设置账户',
+            skin: 'popup-title-bg', //样式类名
+            closeBtn : 1,
+            area: ['760px','460px'],
+            //btn:['确定'],
+            btnAlign: 'c',
+            content: 'qft_setAccount.html'
+        });
+    });
     //datatable
     dataTable = $('#example').DataTable({
         "bServerSide": true,
@@ -162,6 +174,10 @@ $(function(){
             	}
         	},
             {"sTitle": "座机号", "mData": "phone"},
+            {"sWidth": "90px", "sTitle": "收租账号", "mData": "id5", "mRender" : function(data, type, full){
+                return '<a class="wareListClick JS_setAccount" href="javascript:void(0);">点击设置</a>'
+            	}
+        	},
             {"sTitle": "分组", "mData": "id", "mRender" : function ( data, type, full ) {
 	            	if(full.groupingStatus == 0){
 	            		
