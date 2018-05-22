@@ -251,7 +251,7 @@ public class LoginController {
 			CompanyInfoVO cif = cor.getData(CompanyInfoVO.class);
 			uInfo.setCompanyId(cif.getCompanyId());
 			uInfo.setCompanyName(cif.getCompanyName());
-			subject.hasRole("");
+			subject.hasRole(uInfo.getRoles().get(0).getRoleCode());
 			return ResultUtil.getResult(RespCode.Code.SUCCESS);
 		} else {
 			token.clear();

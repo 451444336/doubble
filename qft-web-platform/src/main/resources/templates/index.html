@@ -48,8 +48,8 @@
                 </li>
             </ul>
             <div class="layui-tab-content" style="min-height: 150px;">
-                <div class="layui-tab-item layui-show">
-                    <iframe class="iframeBox" frameborder="0" src="qft_focusList.html"></iframe>
+                <div class="layui-tab-item layui-show" th:include="welcome :: main-content">
+                    <iframe class="iframeBox" frameborder="0" th:src="@{welcome.html}"></iframe>
                 </div>
             </div>
         </div>
