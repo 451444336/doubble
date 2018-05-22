@@ -1,7 +1,7 @@
 package com.born.facade.vo.dic;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -37,6 +37,6 @@ public class DicItemVO implements Serializable{
 	/**
 	 * 子节点
 	 */
-	private Set<DicItemVO> itemlist;
+	private List<DicItemVO> itemlist;
 
 }

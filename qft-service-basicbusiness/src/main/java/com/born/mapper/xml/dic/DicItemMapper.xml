@@ -19,16 +19,44 @@
     <delete id="batchDeleteItemByIds" parameterType="java.util.HashMap">
         delete from qft_dicitem where companyid=#{companyId} 
         and dicRank = 1 and id in
-        <foreach item="items" collection="array" open="(" separator="," close=")">
+        <foreach item="items" collection="ids" open="(" separator="," close=")">
             #{items}
         </foreach>
     </delete>
     <!-- 按父级ID批量删除二级字典信息 -->
     <delete id="batchDeleteSubItemByIds" parameterType="java.util.HashMap">
     	delete from qft_dicitem where companyid=#{companyId}  and dicRank = 2 and parentid in
-    	<foreach item="items" collection="array" open="(" separator="," close=")">
+    	<foreach item="items" collection="ids" open="(" separator="," close=")">
             #{items}
         </foreach>
     </delete>
+    
+     <resultMap id="findDicItemSortResultMap"   type="com.born.facade.vo.dic.DicItemSortVO">
+        	<id property="id" column="id"/>
+        	<result property="name" column="diname"/>
+        	<result property="sort" column="ordernum"/>
+    </resultMap>
+    <!-- 根据父ID查询字典 -->
+    <select id="findItemAllById" parameterType="java.util.HashMap" resultMap="findDicItemSortResultMap">
+    	select id,diname,ordernum from qft_dicitem  where companyid=#{companyId}  
+    	and dicRank = #{rank} and parentid=#{pId} order by ordernum asc
+    </select>
+    
+    <!-- 批量更新排序字典 -->
+    <update id="batchUpdateDicItemSortById" parameterType="java.util.List">  
+	    <!-- 接收list参数，循环着组装sql语句，注意for循环的写法  
+	         separator=";" 代表着每次循环完，在sql后面放一个分号  
+	         item="item" 循环List的每条的结果集  
+	         collection="list" list 即为 map传过来的参数key -->  
+	      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	        	update qft_dicitem 
+	        	 <set>
+	                <if test="item.sort !=null">
+	                    ordernum=${item.sort}
+	                </if>
+            	</set>
+				where id = '${item.id}'
+	    </foreach>  
+	</update>  
 
 </mapper>

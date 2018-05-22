@@ -56,7 +56,7 @@
     <resultMap id="findDicItemResultMap"   type="com.born.facade.vo.dic.DicItemVO">
         	<id property="id" column="id"/>
         	<result property="name" column="diname"/>
-        	<collection property="itemlist" javaType="java.util.Set" column="id"  select="selectSubItem"></collection>
+        	<collection property="itemlist"  column="id"  select="selectSubItem"></collection>
     </resultMap>
     <sql id="selectItem">
 		SELECT DISTINCT
@@ -77,7 +77,7 @@
         	<id property="id" column="id"/>
         	<result property="name" column="diname"/>
         	<!-- 这句collection可以无限级数查询 -->
-        	<collection property="itemlist" javaType="java.util.Set" column="id"  select="selectSubItem"></collection>
+        	<collection property="itemlist"  column="id"  select="selectSubItem"></collection>
     </resultMap>
 	<select id="selectSubItem"  resultMap="findDicSubItemResultMap" >
         <include refid="selectItem"></include>
