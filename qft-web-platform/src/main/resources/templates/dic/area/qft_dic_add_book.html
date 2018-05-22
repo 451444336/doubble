@@ -15,7 +15,7 @@
     <!--子页顶部内容-->
     <div class="subTopBox">
         <div class="subTopLeft">
-            <a class="subTopBtn subHover JS_addEegion" href="javascript:void(0);">添加<span th:text="*{name}"></span></a><a class="subTopBtn" href="javascript:void(0);">还原字典</a><a class="subTopBtn JS_sortOne" href="javascript:void(0);">一级字典排序</a>
+            <a class="subTopBtn subHover JS_addEegion" href="javascript:void(0);">添加<span th:text="*{name}"></span></a><a class="subTopBtn JS_sortOne" href="javascript:void(0);">一级字典排序</a>
         </div>
         <div class="subTopRight">
             <span class="resizeBtn" >刷新缓存</span>
@@ -27,192 +27,7 @@
         <div class="PopupBtn PopupBtnRight">
             <input class="PopupOrange JS_delete" name="" type="button" value="删除"><input class="amendBtn" id="JS_amend" name="" type="button" value="修改">
         </div>
-        <table class="wareList workBookList"  id="example">
-            <!-- <thead>
-            <tr>
-                <th width="50px"><input class="check-all" type="checkbox"></th>
-                <th width="110px">区域</th>
-                <th>物业地址</th>
-                <th width="90px">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><input class="ids" name="" type="checkbox"></td>
-                <td>杨家坪</td>
-                <td>
-                    <ul class="workBookBox">
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                    </ul>
-                </td>
-                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
-            </tr>
-            <tr>
-                <td><input class="ids" name="" type="checkbox"></td>
-                <td>杨家坪</td>
-                <td>
-                    <ul class="workBookBox">
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                    </ul>
-                </td>
-                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
-            </tr>
-            <tr>
-                <td><input class="ids" name="" type="checkbox"></td>
-                <td>杨家坪</td>
-                <td>
-                    <ul class="workBookBox">
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                    </ul>
-                </td>
-                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
-            </tr>
-            <tr>
-                <td><input class="ids" name="" type="checkbox"></td>
-                <td>杨家坪</td>
-                <td>
-                    <ul class="workBookBox">
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                    </ul>
-                </td>
-                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
-            </tr>
-            <tr>
-                <td><input class="ids" name="" type="checkbox"></td>
-                <td>杨家坪</td>
-                <td>
-                    <ul class="workBookBox">
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                    </ul>
-                </td>
-                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
-            </tr>
-            <tr>
-                <td><input class="ids" name="" type="checkbox"></td>
-                <td>杨家坪</td>
-                <td>
-                    <ul class="workBookBox">
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                        <li><p class="workBookTxt">斌鑫世纪城（珠江路）</p><span class="workClose"></span></li>
-                    </ul>
-                </td>
-                <td><a class="operateBtn JS_addProperty" href="javascript:void(0);">添加物业地址</a><a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a></td>
-            </tr> -->
-            </tbody>
-        </table>
+        <table class="wareList workBookList"  id="example"></table>
     </div>
     <!--end 子页主体内容-->
 </div>
@@ -275,7 +90,7 @@
     <table class="popupList">
         <tr>
             <th class="fieldName_two"><span th:text="*{name}"></span>二级字典名称：</th>
-            <td><input class="validate[required]" type="text" value="斌鑫世纪城（珠江路）"></td>
+            <td><input class="validate[required]" id="idTwo"  name="nameTwo" type="text" value=""></td>
         </tr>
     </table>
 </div>
@@ -299,6 +114,11 @@
     	var pid = [[${id}]];
         var name = [[${name}]];
     	
+        
+        $(".subTopRight").on('click','.resizeBtn',function(){
+        	 location.reload();
+        });
+        
         //判断修改按钮
         $('.wareList').on('click','input[type="checkbox"]',function(){
             var btnState = $("input[type='checkbox']:checked").length;
@@ -408,6 +228,7 @@
         $('.PopupBtn').on('click','.amendBtn',function(){
         	var _id = $("input:checkbox[name='checkbox']:checked").attr("data-id");
         	var _name =$("input:checkbox[name='checkbox']:checked").attr("data-name");
+        	$("#name").val(_name);
             layer.open({
                 type: 1,
                 title: '编辑'+name,
@@ -444,11 +265,15 @@
                 area: ['550px','400px'],
                 //btn:['保存','关闭'],
                 btnAlign: 'c',
-                content: 'qft_workSort.html'
+                content: '/web/dic/sort/'+pid+'/1',
+                end: function () {
+                    location.reload();
+                }
             });
         });
         //二级字典排序
         $('.wareList').on('click','.JS_sortTwo',function(){
+        	var p = $(this).attr('data-id');
             layer.open({
                 type: 2,
                 title: '字典排序',
@@ -457,7 +282,10 @@
                 area: ['550px','400px'],
                 //btn:['保存','关闭'],
                 btnAlign: 'c',
-                content: 'qft_workSort.html'
+                content: '/web/dic/sort/'+p+'/2',
+                end: function () {
+                    location.reload();
+                }
             });
         });
         //二级字典添加
@@ -499,6 +327,8 @@
         });
         //二级字典修改
         $('.wareList').on('click','.workBookTxt',function(){
+        	var _id = $(this).attr('data-id');
+        	$("#idTwo").val($(this).html());
             layer.open({
                 type: 1,
                 title: '修改'+name,
@@ -507,6 +337,21 @@
                 area: ['500px','168px'],
                 btnAlign: 'c',
                 btn:['保存'],
+                yes: function(){
+                	layer.closeAll('dialog');
+                	$.ajax({
+                        "dataType": 'json',
+                        "type": "PUT",
+                        "url": "/web/dic/update/item/data",
+                        "contentType": 'application/json;charset=utf-8',
+                        "data":JSON.stringify({'id': _id, 'name': $("#idTwo").val()}),
+                        "success": function(result){
+                        	 layer.alert(result.message, {icon:6},function(){
+                        		 location.reload(); 
+                        	 });
+                        } 
+                    });
+                },
                 content: $('#qft_amendPropertyBox')
             });
         });
@@ -545,7 +390,7 @@
                 },
             	{"sWidth": "120px", "sTitle" : "操作","mData" : "id","sClass":"tab_operate", "mRender" : function ( data, type, full ) {
                       var text = '<a class="operateBtn JS_addProperty" href="javascript:void(0);" data-id='+full.id+'>添加二级字典</a>';
-                      text += '<a class="operateBtn JS_sortTwo" href="javascript:void(0);">二级字典排序</a>';
+                      text += '<a class="operateBtn JS_sortTwo" data-id="'+full.id+'" href="javascript:void(0);">二级字典排序</a>';
                       return text;
                 }
               }

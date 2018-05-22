@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.facade.dto.dic.DicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemDTO;
+import com.born.facade.dto.dic.UpdateDicItemSortDTO;
 import com.born.facade.entity.dic.DicItem;
 import com.born.facade.service.dic.IDicService;
+import com.born.facade.vo.dic.DicItemSortVO;
 import com.born.facade.vo.dic.DicItemVO;
 import com.born.facade.vo.dic.DicMenuVO;
 import com.born.mapper.DicItemMapper;
@@ -45,6 +48,8 @@ public class DicServiceImpl implements IDicService {
 	@Autowired
 	private DicItemMapper dicItemMapper;
 
+	private String companyId = "Company_20170319112315J3Awn";
+
 	@Override
 	public Result findDicZtree() {
 		try {
@@ -65,7 +70,7 @@ public class DicServiceImpl implements IDicService {
 			if (params != null) {
 				Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 				PageHelper.startPage(params.getPageNum(), params.getPageSize());
-				List<DicItemVO> list = dicMapper.findDicItem(params.getPId(), "Company_20170319112315J3Awn");
+				List<DicItemVO> list = dicMapper.findDicItem(params.getPId(), companyId);
 				PageInfo<DicItemVO> pageInfo = new PageInfo<>(list);
 				result.setData(pageInfo.getList());
 				result.setCount(pageInfo.getTotal());
@@ -82,14 +87,15 @@ public class DicServiceImpl implements IDicService {
 	}
 
 	@Override
+	@Transactional
 	public Result updateDicItemById(UpdateDicItemDTO updateDicItemDTO) {
 		log.info("更新字典参数 {}", updateDicItemDTO.getId(), updateDicItemDTO.getName());
 		if (StringUtils.isBlank(updateDicItemDTO.getId()) || StringUtils.isBlank(updateDicItemDTO.getName())) {
 			return ResultUtil.getResult(RespCode.Code.FAIL);
 		}
 		try {
-			int i = dicItemMapper.updateDicItemById(updateDicItemDTO.getId(), updateDicItemDTO.getName(),
-					"Company_20170319112315J3Awn");
+			int i = dicItemMapper.updateDicItemById(updateDicItemDTO.getId(),
+					StringEscapeUtils.escapeHtml4(updateDicItemDTO.getName()), companyId);
 			if (i > 0) {
 				return ResultUtil.getResult(RespCode.Code.SUCCESS);
 			}
@@ -100,6 +106,7 @@ public class DicServiceImpl implements IDicService {
 	}
 
 	@Override
+	@Transactional
 	public Result addDicItem(String pId, String dicItem) {
 		try {
 
@@ -114,10 +121,10 @@ public class DicServiceImpl implements IDicService {
 			for (int i = 0; i < data.length; i++) {
 				DicItem item = new DicItem();
 				item.setId(String.valueOf(UUID.randomUUID()));
-				item.setCompanyid("Company_20170319112315J3Awn");
+				item.setCompanyid(companyId);
 				item.setCreatetime(String.valueOf(new Date().getTime()));
 				item.setDicRank("1");
-				item.setDiname(data[i]);
+				item.setDiname(StringEscapeUtils.escapeHtml4(data[i]));
 				item.setIsdefault("1");
 				item.setIspubDic("2");
 				item.setOrdernum("0");
@@ -144,8 +151,8 @@ public class DicServiceImpl implements IDicService {
 				return ResultUtil.getResult(RespCode.Code.FAIL);
 			}
 			String[] data = ids.split(",");
-			int a = dicItemMapper.batchDeleteItemByIds("Company_20170319112315J3Awn", data);
-			int b = dicItemMapper.batchDeleteSubItemByIds("Company_20170319112315J3Awn", data);
+			int a = dicItemMapper.batchDeleteItemByIds(companyId, data);
+			int b = dicItemMapper.batchDeleteSubItemByIds(companyId, data);
 			if (a > 0) {
 				log.error("批量删除二级字典返回结果 {} ", b > 0 ? true : false);
 				return ResultUtil.getResult(RespCode.Code.SUCCESS);
@@ -157,6 +164,7 @@ public class DicServiceImpl implements IDicService {
 	}
 
 	@Override
+	@Transactional
 	public Result addDicSubItem(String pId, String dicSubItem) {
 		try {
 
@@ -171,10 +179,10 @@ public class DicServiceImpl implements IDicService {
 			for (int i = 0; i < data.length; i++) {
 				DicItem item = new DicItem();
 				item.setId(String.valueOf(UUID.randomUUID()));
-				item.setCompanyid("Company_20170319112315J3Awn");
+				item.setCompanyid(companyId);
 				item.setCreatetime(String.valueOf(new Date().getTime()));
 				item.setDicRank("2");
-				item.setDiname(data[i]);
+				item.setDiname(StringEscapeUtils.escapeHtml4(data[i]));
 				item.setIsdefault("1");
 				item.setIspubDic("2");
 				item.setOrdernum("0");
@@ -199,7 +207,7 @@ public class DicServiceImpl implements IDicService {
 			if (StringUtils.isBlank(id)) {
 				return ResultUtil.getResult(RespCode.Code.FAIL);
 			}
-			int a = dicItemMapper.deleteItemById("Company_20170319112315J3Awn", id);
+			int a = dicItemMapper.deleteItemById(companyId, id);
 			if (a > 0) {
 				log.error("删除二级字典返回结果 [成功]");
 				return ResultUtil.getResult(RespCode.Code.SUCCESS);
@@ -208,6 +216,38 @@ public class DicServiceImpl implements IDicService {
 			log.error("删除字典数据异常", e);
 		}
 		return ResultUtil.getResult(RespCode.Code.FAIL);
+	}
+
+	@Override
+	public Result findDicItemAllById(String pId, String rank) {
+		try {
+			List<DicItemSortVO> list = dicItemMapper.findItemAllById(companyId, pId, rank);
+			if (list.size() == 0) {
+				return ResultUtil.getResult(RespCode.Code.SUCCESS, "获取数据为空");
+			}
+			for (DicItemSortVO dicItemSortVO : list) {
+				dicItemSortVO.setCount(list.size());
+			}
+			return ResultUtil.getResult(RespCode.Code.SUCCESS, list);
+		} catch (Exception e) {
+			log.error("获取字典数据异常", e);
+			return ResultUtil.getResult(RespCode.Code.FAIL);
+		}
+	}
+
+	@Override
+	@Transactional
+	public Result updateDicItemSort(List<UpdateDicItemSortDTO> list) {
+		try {
+			int res = dicItemMapper.batchUpdateDicItemSortById(list);
+			if (res > 0) {
+				return ResultUtil.getResult(RespCode.Code.SUCCESS);
+			}
+			return ResultUtil.getResult(RespCode.Code.FAIL);
+		} catch (Exception e) {
+			log.error("更新字典排序数据异常", e);
+			return ResultUtil.getResult(RespCode.Code.FAIL);
+		}
 	}
 
 }

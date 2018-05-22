@@ -1,7 +1,10 @@
 package com.born.facade.service.dic;
 
+import java.util.List;
+
 import com.born.facade.dto.dic.DicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemDTO;
+import com.born.facade.dto.dic.UpdateDicItemSortDTO;
 import com.born.util.result.Result;
 
 /**
@@ -101,11 +104,39 @@ public interface IDicService {
 	 * 
 	 * @Title: deleteDicItemById
 	 * @Description: 根据单个ID删除二级字典数据
-	 * @param id 二级字典ID
+	 * @param id
+	 *            二级字典ID
 	 * @return
 	 * @author 张永胜
 	 * @return Result
 	 * @date 2018年5月21日 下午4:59:44
 	 */
 	Result deleteDicItemById(String id);
+
+	/**
+	 * 
+	 * @Title: findDicItemAllById
+	 * @Description: 获取当前类型下所有的字典数据
+	 * @param pId
+	 *            父ID
+	 * @param rank
+	 *            几级字典
+	 * @return
+	 * @author 张永胜
+	 * @return Result
+	 * @date 2018年5月21日 下午6:00:50
+	 */
+	Result findDicItemAllById(String pId, String rank);
+
+	/**
+	 * 
+	 * @Title: updateDicItemSort
+	 * @Description: 批量更新字典排序
+	 * @param list
+	 * @return
+	 * @author 张永胜
+	 * @return Result
+	 * @date 2018年5月22日 上午11:01:27
+	 */
+	Result updateDicItemSort(List<UpdateDicItemSortDTO> list);
 }
