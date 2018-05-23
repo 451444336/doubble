@@ -83,6 +83,10 @@
         var pid = [[${id}]];
         var name = [[${name}]];
     	
+        $(".subTopRight").on('click','.resizeBtn',function(){
+       	 	location.reload();
+       	});
+        
         $('#example').on('click','.check-all',function(){
         	 var flag=this.checked;  
         	 $(":checkbox[name='checkbox']").attr('checked',flag);  
