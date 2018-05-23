@@ -2,8 +2,6 @@ package com.born.util.result;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 
 /**
@@ -21,12 +19,6 @@ public class Result implements Serializable	{
 	 * 
 	 */
 	private static final long serialVersionUID = 2540464186250760929L;
-
-	/**
-	 * 是否成功(true:成功 false:失败)
-	 */
-	@JsonIgnore
-	private boolean success;
 	/**
 	 * 异常码
 	 */
@@ -44,39 +36,24 @@ public class Result implements Serializable	{
 	 */
 	private long count;
 
-	public Result(boolean success) {
-		this.success = success;
-	}
-
-	public Result(boolean success, String code, String message) {
-		this.success = success;
+	public Result(String code, String message) {
 		this.code = code;
 		this.message = message;
 
 	}
-	public Result(boolean success, String code, String message,Object data) {
-		this.success = success;
+
+	public Result(String code, String message, Object data) {
 		this.code = code;
 		this.message = message;
-		this.data=data;
+		this.data = data;
 	}
 
-	public Result(boolean success, String message, Object data) {
-		this.success = success;
+	public Result(String message, Object data) {
 		this.message = message;
 		this.data = data;
 	}
 
-	public Result(boolean success, Object data, long count) {
-		super();
-		this.success = success;
-		this.data = data;
-		this.count = count;
-	}
-
-	public Result(boolean success,String code, String message, Object data, long count) {
-		super();
-		this.success = success;
+	public Result(String code, String message, Object data, long count) {
 		this.code = code;
 		this.message = message;
 		this.data = data;
