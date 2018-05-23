@@ -35,7 +35,8 @@
             <tr>
                 <th class="fieldName_one">分店座机号码：</th>
                 <td>
-                    <input name="phone" type="text" >
+                    <input name="phone" type="text" pattern="([\d]{4}-[\d]{7,8})|(400-[\d]{3}-[\d]{4})" 
+                    	title="请输入400电话或座机电话，格式：400-XXX-XXXX或XXXX-XXXXXXX或XXXX-XXXXXXXX" >
                 </td>
                 <td class="redState">400电话和座机电话均可</td>
             </tr>
