@@ -97,7 +97,7 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 				return ResultUtil.getResult(RespCode.Code.NOT_QUERY_DATA);
 			}
 			BeanUtils.copyProperties(dto, store);
-			// 保存数据
+			// 更新店面信息
 			log.info("执行修改操作...");
 			ResultUtil.setResult(result,RespCode.Code.SUCCESS, companyStoreMapper.updateByPrimaryKeySelective(store));
 			log.info("修改操作成功...");
