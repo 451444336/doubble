@@ -12,7 +12,7 @@
 			sg.id = ${id}
 	</update>
 	<!-- 根据店面ID查询店面分组 -->
-	<select id="selectGroupListByStoreId" resultType="com.born.facade.vo.store.StoreGroupVO">
+	<select id="selectGroupByStoreId" resultType="com.born.facade.vo.store.StoreGroupVO">
 		SELECT
 			sg.id,
 			sg.name,

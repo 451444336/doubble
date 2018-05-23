@@ -42,7 +42,7 @@ public class StoreGroupServiceImpl implements IStoreGroupService {
 	
 	@Override
 	@Transactional
-	public Result insertBatch(List<StoreGroupDTO> list) {
+	public Result batchAdd(List<StoreGroupDTO> list) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		// 验证参数
 		if (list.size()<0) {
@@ -130,7 +130,7 @@ public class StoreGroupServiceImpl implements IStoreGroupService {
 	}
 	
 	@Override
-	public Result getGroupListByStoreId(StoreGroupDTO dto) {
+	public Result getGroupByStoreId(StoreGroupDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		// 验证参数
 		if (dto.getStoreId() == null) {
@@ -139,7 +139,7 @@ public class StoreGroupServiceImpl implements IStoreGroupService {
 		try {
 		 	PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
 		 	//获取店面列表
-	        List<StoreGroupVO> list = storeGroupMapper.selectGroupListByStoreId(dto);
+	        List<StoreGroupVO> list = storeGroupMapper.selectGroupByStoreId(dto);
 	        PageInfo<StoreGroupVO> pageInfo = new PageInfo<>(list);
 	        result.setData(pageInfo.getList());
 			result.setCount(pageInfo.getTotal());

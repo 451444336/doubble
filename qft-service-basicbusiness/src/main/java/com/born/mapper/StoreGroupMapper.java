@@ -30,7 +30,7 @@ public interface StoreGroupMapper extends BaseMapper<StoreGroup> {
 	 * @param dto
 	 * @return
 	 */
-	List<StoreGroupVO> selectGroupListByStoreId(StoreGroupDTO dto);
+	List<StoreGroupVO> selectGroupByStoreId(StoreGroupDTO dto);
 	
 	
 }

@@ -82,7 +82,7 @@ $(function(){
             closeBtn : 1,
             area: ['660px','540px'],
             btnAlign: 'c',
-            content: '/web/store/saveIndex',
+            content: '/web/store/addPage',
             end: function () {
             	dataTable.ajax.reload();
             } 
@@ -162,7 +162,7 @@ $(function(){
         "sPaginationType": "full_numbers",
         "sDom": '<"">t<"F"ip>',
         "autoWidth": false,  //自适应宽度
-        "sAjaxSource": "/web/store/getPageList", //ajax调用接口
+        "sAjaxSource": "/web/store/getStoreList", //ajax调用接口
         "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
         "aoColumns": [
             {"sTitle": "所属城市", "mData": "city"},

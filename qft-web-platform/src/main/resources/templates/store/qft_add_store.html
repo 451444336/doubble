@@ -16,7 +16,7 @@
 <body>
 <!-- 添加店面 -->
 <div class="PopupBox">
-    <form id="addStoreForm" th:action="@{/web/store/save}" method="POST" th:Object="${store}">
+    <form id="addStoreForm" th:action="@{/web/store/add}" method="POST" th:Object="${store}">
         <table class="popupList">
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>所属城市：</th>
@@ -173,7 +173,6 @@
         		$('input[name=grouping]').val(grouping);
    			    envent.preventDefault();  
    			    var form = $(this); 
-   			    console.log(form.serialize());
    			    $.ajax({  
    			        url: form.attr("action"),  
    			        type: form.attr("method"),  

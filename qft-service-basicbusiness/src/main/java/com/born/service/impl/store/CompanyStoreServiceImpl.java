@@ -44,7 +44,7 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 	
 	@Override
 	@Transactional
-	public Result insert(CompanyStoreDTO dto) {
+	public Result add(CompanyStoreDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		// 验证参数
 		if (StringUtils.isBlank(dto.getCity()) || StringUtils.isBlank(dto.getName())) {
@@ -158,7 +158,7 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 	        	//根据店面ID获取对应的分组列表
 	        	StoreGroupDTO groupDto = new StoreGroupDTO();
 	        	groupDto.setStoreId(vo.getId());
-	        	List<StoreGroupVO> groupList= storeGroupMapper.selectGroupListByStoreId(groupDto);
+	        	List<StoreGroupVO> groupList= storeGroupMapper.selectGroupByStoreId(groupDto);
 	        	for(int i=0;i<groupList.size();i++){
 	        		StoreGroupVO groupVO = groupList.get(i);
 	        		if(i<3){

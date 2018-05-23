@@ -44,20 +44,6 @@ public class StoreGroupController {
 	IStoreGroupService storeGroupService;
 
 	/**
-	 * 
-	* @Title: saveIndex 
-	* @Description: 跳转到添加店面分组页面
-	* @param @return
-	* @author 黄伟
-	* @return String
-	* @date 2018年5月17日 下午1:36:28 
-	* @throws
-	 */
-	@GetMapping(value = "/saveIndex")
-    public String saveIndex() {
-        return "store/qft_addGroup";
-    }
-	/**
 	 * @Description 保存店面分组
 	 * @author 黄伟
 	 * @date 2018年5月17日 上午10:35:03
@@ -69,9 +55,9 @@ public class StoreGroupController {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
     })
-	@PostMapping(value = "/save")
+	@PostMapping(value = "/add")
 	@ResponseBody
-	public Result saveStore(Long storeId, String groupNames) {
+	public Result addGroup(Long storeId, String groupNames) {
 		if (groupNames == null || "".equals(groupNames) || storeId == null) {
 			
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
@@ -92,7 +78,7 @@ public class StoreGroupController {
 			dto.setName(name);
 			list.add(dto);
 		}
-		return storeGroupService.insertBatch(list);
+		return storeGroupService.batchAdd(list);
 	}
 
 	/**
@@ -109,7 +95,7 @@ public class StoreGroupController {
     })
 	@PostMapping(value = "/update")
 	@ResponseBody
-	public Result updateStore(Long id, String name) {
+	public Result updateGroup(Long id, String name) {
 		if(id == null || StringUtils.isBlank(name)){
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
 		}
@@ -139,7 +125,7 @@ public class StoreGroupController {
     })
 	@PostMapping(value = "/delete/{id}")
 	@ResponseBody
-	public Result deleteStore(@PathVariable Long id) {
+	public Result deleteGroup(@PathVariable Long id) {
 		return storeGroupService.deleteById(id);
 	}
 	
@@ -169,10 +155,10 @@ public class StoreGroupController {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
     })
-	@GetMapping(value = "/getGroupList")
+	@GetMapping(value = "/getGroupByStoreId")
 	@ResponseBody
-	public Result getGroupListByStoreId(StoreGroupDTO dto) {
+	public Result getGroupByStoreId(StoreGroupDTO dto) {
 		
-		return storeGroupService.getGroupListByStoreId(dto);
+		return storeGroupService.getGroupByStoreId(dto);
 	}
 }

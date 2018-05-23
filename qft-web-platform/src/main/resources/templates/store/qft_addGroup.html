@@ -113,7 +113,7 @@
                     dataType: 'json',
                     type: 'post',
                     data: params,
-                    url: '/web/group/save',
+                    url: '/web/group/add',
                     success: function(result){
                     	layer.alert(result.message);
                     	//刷新分组列表
@@ -214,7 +214,7 @@
             "sPaginationType": "full_numbers",
             "sDom": '<"">t<"F"ip>',
             "autoWidth": false,  //自适应宽度
-            "sAjaxSource": "/web/group/getGroupList?storeId="+storeId, //ajax调用接口
+            "sAjaxSource": "/web/group/getGroupByStoreId?storeId="+storeId, //ajax调用接口
             "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
             "aoColumns": [
                 {"sTitle": "组名", "mData": "name"},

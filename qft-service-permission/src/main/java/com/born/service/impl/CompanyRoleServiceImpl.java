@@ -50,7 +50,7 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 	
 	@Override
 	@Transactional
-	public Result insert(CompanyRoleDTO dto) {
+	public Result add(CompanyRoleDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		// 验证参数
 		if (StringUtils.isBlank(dto.getRoleName()) || dto.getIsAuthEdit() == null) {
@@ -133,7 +133,7 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 
 	@Override
 	@Transactional
-	public Result bindRoleMenu(Long[] menuIds, Long roleId, Long createrId, Date createTime) {
+	public Result addRoleMenus(Long[] menuIds, Long roleId, Long createrId, Date createTime) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		// 验证参数
 		if (roleId == null || createrId == null || createTime == null) {
@@ -177,7 +177,7 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 	}
 
 	@Override
-	public Result getPageList(CompanyRoleDTO dto) {
+	public Result getRoleList(CompanyRoleDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		try {
 		 	PageHelper.startPage(dto.getPageNum(), dto.getPageSize());

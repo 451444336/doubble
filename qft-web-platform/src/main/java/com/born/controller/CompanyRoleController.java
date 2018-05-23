@@ -56,7 +56,7 @@ public class CompanyRoleController {
     })
 	@PostMapping(value = "/save")
 	@ResponseBody
-	public Result saveRole(String roleName , byte isAuthEdit) {
+	public Result addRole(String roleName , byte isAuthEdit) {
 		// 验证参数
 		if (StringUtils.isBlank(roleName) || (isAuthEdit != 0 && isAuthEdit != 1)) {
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
@@ -69,7 +69,7 @@ public class CompanyRoleController {
 		UserInfoVO su = TokenManager.getLoginUser();
 		role.setCreaterId(su.getId());
 		role.setCompanyId(su.getCompanyId());
-		return companyRoleService.insert(role);
+		return companyRoleService.add(role);
 	}
 
 	/**
@@ -146,9 +146,9 @@ public class CompanyRoleController {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
     })
-	@PostMapping(value = "/bindMenus")
+	@PostMapping(value = "addRoleMenus")
 	@ResponseBody
-	public Result bindMenus(String menuIds, Long roleId) {
+	public Result addRoleMenus(String menuIds, Long roleId) {
 		// 验证参数
 		if (roleId == null) {
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
@@ -163,7 +163,7 @@ public class CompanyRoleController {
 		}
 		// 获取当前用户信息
 		UserInfoVO su = TokenManager.getLoginUser();
-		return companyRoleService.bindRoleMenu(ids, roleId, su.getId(), new Date());
+		return companyRoleService.addRoleMenus(ids, roleId, su.getId(), new Date());
 	}
 	
 	/**
@@ -190,10 +190,10 @@ public class CompanyRoleController {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
     })
-	@GetMapping(value = "/getPageList")
+	@GetMapping(value = "/getRoleList")
 	@ResponseBody
-	public Result getPageList(CompanyRoleDTO dto) {
-		return companyRoleService.getPageList(dto);
+	public Result getRoleList(CompanyRoleDTO dto) {
+		return companyRoleService.getRoleList(dto);
 	}
 	
 	/**
