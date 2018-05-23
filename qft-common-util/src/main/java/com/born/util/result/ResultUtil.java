@@ -55,7 +55,7 @@ public final class ResultUtil {
     /**
      * 
     * @Title: getResult 
-    * @Description: TODO(这里用一句话描述这个方法的作用) 
+    * @Description: 
     * @param respCode
     * @param data
     * @return 
@@ -73,7 +73,7 @@ public final class ResultUtil {
    /**
     * 
    * @Title: getResult  
-   * @Description: TODO(这里用一句话描述这个方法的作用)  
+   * @Description:  
    * @param @param respCode
    * @param @return    参数  
    * @return Result    返回类型  
@@ -105,7 +105,7 @@ public final class ResultUtil {
     /**
      * 
     * @Title: setResult 
-    * @Description: TODO(这里用一句话描述这个方法的作用) 
+    * @Description: 
     * @param @param result
     * @param @param respCode
     * @param @return    设定文件 
@@ -121,7 +121,7 @@ public final class ResultUtil {
     /**
      * 
     * @Title: setResult  
-    * @Description: TODO 
+    * @Description:  
     * @param: @param result
     * @param: @param respCode
     * @param: @param data
