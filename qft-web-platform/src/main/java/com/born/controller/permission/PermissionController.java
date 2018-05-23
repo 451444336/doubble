@@ -82,7 +82,7 @@ public class PermissionController {
 		Result mresult = menuService.getMenuTreeByCompanyId(userInfo.getCompanyId(),
 				MenuAuthEnum.PC_MENU_AUTH.getStatus());
 		log.info("查询菜单返回数据={}", JSON.toJSONString(mresult));
-		if (mresult.isSuccess()) {
+		if (RespCode.Code.SUCCESS.getCode().equals(mresult.getCode())) {
 			List<MenuVO> menus = mresult.getData(List.class);
 			PermissionQueryDTO dto = new PermissionQueryDTO();
 			dto.setCompanyId(userInfo.getCompanyId());
@@ -173,7 +173,7 @@ public class PermissionController {
 	private List<MenuPermissionVO> getMenuPermissions(PermissionQueryDTO dto){
 		Result result = permissionService.getAuthorizeData(dto);
 		log.info("查询权限返回数据={}",JSON.toJSONString(result));
-		if(result.isSuccess()){
+		if(RespCode.Code.SUCCESS.getCode().equals(result.getCode())){
 			return result.getData(List.class);
 		}
 		return new ArrayList<>();

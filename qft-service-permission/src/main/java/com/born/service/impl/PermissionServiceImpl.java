@@ -140,7 +140,7 @@ public class PermissionServiceImpl implements IPermissionService {
 			} else {
 				Result addMenuResult = menuService.addMenu(menus);
 				log.info("添加菜单返回数据={}", JSON.toJSONString(addMenuResult));
-				if (!addMenuResult.isSuccess()) {
+				if (!RespCode.Code.SUCCESS.getCode().equals(addMenuResult.getCode())) {
 					throw new PermissionException(PermissionExceptionEnum.ADD_MENU_ERROR);
 				}
 			}

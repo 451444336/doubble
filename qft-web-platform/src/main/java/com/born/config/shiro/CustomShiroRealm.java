@@ -187,7 +187,7 @@ public class CustomShiroRealm extends AuthorizingRealm {
 		// 查询用户操作权限
 		final Set<Long> authSet = new HashSet<>();
 		Result uAuths = menuAuthService.getAuthorityListByUserId(userId);
-		if (uAuths.isSuccess()) {
+		if (RespCode.Code.SUCCESS.getCode().equals(uAuths.getCode())) {
 			List<UserAuthVO> uAuthList = (List<UserAuthVO>) uAuths.getData();
 			if (CollectionUtils.isNotEmpty(uAuthList)) {
 				for (UserAuthVO ua : uAuthList) {
@@ -202,7 +202,7 @@ public class CustomShiroRealm extends AuthorizingRealm {
 		}
 		// 根据菜单ID 获取菜单操作权限数据
 		Result maResult = menuAuthService.getAuthorityListByMenuIds(menuIds);
-		if (maResult.isSuccess()) {
+		if (RespCode.Code.SUCCESS.getCode().equals(maResult.getCode())) {
 			List<MenuAuthorityVO> malist = (List<MenuAuthorityVO>) maResult.getData();
 			if (CollectionUtils.isNotEmpty(malist)) {
 				for (MenuAuthorityVO ma : malist) {
@@ -236,7 +236,7 @@ public class CustomShiroRealm extends AuthorizingRealm {
 		if (log.isInfoEnabled()) {
 			log.info("根据角色ID查询菜单返回数据={}", JSON.toJSONString(menuResult));
 		}
-		if (menuResult.isSuccess()) {
+		if (RespCode.Code.SUCCESS.getCode().equals(menuResult.getCode())) {
 			return (List<MenuVO>) menuResult.getData();
 		}
 		return null;
@@ -261,7 +261,7 @@ public class CustomShiroRealm extends AuthorizingRealm {
 		loginDto.setIp(token.getIp());
 		loginDto.setPassword(token.getPswd());
 		Result result = userService.login(loginDto);
-		if (!result.isSuccess()) {
+		if (!RespCode.Code.SUCCESS.getCode().equals(result.getCode())) {
 			if (RespCode.Code.REQUEST_DATA_ERROR.getCode().equals(result.getCode())
 					|| PermissionExceptionEnum.AUTHENTICATION.getCode().equals(result.getCode())) {
 				throw new AccountException("帐号或密码不正确");
