@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.born.core.page.PageBean;
 import com.born.facade.dto.permission.AddPermissionDTO;
-import com.born.facade.dto.permission.MenuDTO;
 import com.born.facade.dto.permission.PermissionQueryDTO;
 import com.born.util.result.Result;
 
