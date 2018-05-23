@@ -2,6 +2,10 @@ package com.born.util.result;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Data;
+
 /**
  * 
 * @ClassName: Result  
@@ -10,6 +14,7 @@ import java.io.Serializable;
 * @date 2018年4月25日  
 *
  */
+@Data
 public class Result implements Serializable	{
 	
 	/**
@@ -20,6 +25,7 @@ public class Result implements Serializable	{
 	/**
 	 * 是否成功(true:成功 false:失败)
 	 */
+	@JsonIgnore
 	private boolean success;
 	/**
 	 * 异常码
@@ -79,36 +85,6 @@ public class Result implements Serializable	{
 
 	public Result() {
 		super();
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	public Object getData() {
-		return data;
-	}
-	public void setData(Object data) {
-		this.data = data;
-	}
-	public long getCount() {
-		return count;
-	}
-	public void setCount(long count) {
-		this.count = count;
-	}
-	public boolean isSuccess() {
-		return success;
-	}
-	public void setSuccess(boolean success) {
-		this.success = success;
 	}
 
 	public <T> T getData(Class<T> tClass) {
