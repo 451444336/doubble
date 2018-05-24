@@ -1,6 +1,6 @@
 spring:
    profiles:
-     active: dev
+     active: test
 #mybatis扫描包
 mybatis:
     type-aliases-package: com.born.facade.entity
@@ -35,7 +35,7 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://114.215.30.91:3306/qft_new?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+      url: jdbc:mysql://192.168.50.244:3306/qft_new?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
       username: root
       password: root
       max-active: 50
@@ -70,7 +70,7 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.50.244:3306/xk_oa?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+      url: jdbc:mysql://114.215.30.91:3306/xk_oa?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
       username: root
       password: root
       max-active: 50
