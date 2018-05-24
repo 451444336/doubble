@@ -92,7 +92,7 @@ public interface DicItemMapper extends BaseMapper<DicItem> {
 	 * @return List<DicItemSortVO>
 	 * @date 2018年5月21日 下午5:58:24
 	 */
-	List<DicItemSortVO> findItemAllById(@Param(value = "companyId") String companyId, @Param(value = "pId") String pId,
+	List<DicItemSortVO> selectItemAllById(@Param(value = "companyId") String companyId, @Param(value = "pId") String pId,
 			@Param(value = "rank") String rank);
 
 	/**
