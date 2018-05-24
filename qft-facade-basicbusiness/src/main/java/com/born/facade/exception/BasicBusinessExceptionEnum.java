@@ -14,9 +14,11 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum OrderExceptionEnum implements RespCode {
+public enum BasicBusinessExceptionEnum implements RespCode {
 	
-	ADD_ORDER_ERROR("20001", "添加订单异常")
+	ADD_ORDER_ERROR("20001", "添加订单异常"),
+	ADD_NOTICE_ERROR("20002", "添加公告异常"),
+	ADD_NEWS_ERROR("20003", "添加新闻异常")
     ;
 	private String code;
     private String msg;

@@ -10,22 +10,22 @@ import com.born.util.result.RespCode;
 * @date 2018年5月15日 下午12:55:49 
 *
  */
-public class OrderException extends BizException {
+public class BasicBusinessException extends BizException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public OrderException(RespCode exceptionEnum) {
+	public BasicBusinessException(RespCode exceptionEnum) {
 		super(exceptionEnum.getMsg(), exceptionEnum.getCode());
 	}
 
-	public OrderException() {
+	public BasicBusinessException() {
 		super();
 	}
 
-	public OrderException(String message) {
+	public BasicBusinessException(String message) {
 		super(message);
 	}
 }

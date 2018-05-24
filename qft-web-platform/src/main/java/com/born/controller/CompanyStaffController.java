@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.config.shiro.token.TokenManager;
 import com.born.facade.dto.CompanyPositionDTO;
 import com.born.facade.dto.CompanyStaffDTO;
+import com.born.facade.dto.ValidateDTO;
 import com.born.facade.dto.staff.FindStaffListDTO;
 import com.born.facade.service.ICompanyPositionService;
 import com.born.facade.service.ICompanyStaffService;
@@ -252,5 +254,26 @@ public class CompanyStaffController {
 		UserInfoVO user = TokenManager.getLoginUser();
 		staff.setUpdaterId(user.getId());
 		return staffService.updateUser(staff);
+	}
+	
+	/**
+	 * 验证
+	 * 
+	 * @param dto
+	 *            参数对象
+	 * @return Result 返回对象
+	 */
+	@ApiOperation(value = "修改员工状态", notes = "必须传入员工ID")
+	@ApiResponses(value = { @ApiResponse(code = 10100, message = "请求参数有误"),
+			@ApiResponse(code = 200, message = "操作成功") })
+	@ResponseBody
+	@RequestMapping(value = "validate", method = RequestMethod.GET)
+	public String validate(ValidateDTO dto){
+		try {
+			return staffService.validation(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "验证失败";
+		}
 	}
 }

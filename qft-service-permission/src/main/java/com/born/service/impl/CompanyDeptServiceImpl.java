@@ -187,19 +187,19 @@ public class CompanyDeptServiceImpl implements ICompanyDeptService {
 			result.setMessage("主键参数非法");
 			return result;
 		}
-		CompanyDept dept = new CompanyDept();
-		String errorStr = dto.validateForm();
-		if(StringUtils.isNotBlank(errorStr)) {
-			result.setMessage(errorStr);
-			return result;
-		}
-		//转换实体
-		BeanUtils.copyProperties(dto, dept);
-		//设置时间
-		dept.setCreateTime(new Date());
-		dept.setCreaterId(dto.getUserId());
-		dept.setId(null);
 		try {
+			CompanyDept dept = new CompanyDept();
+			String errorStr = dto.validateForm();
+			if(StringUtils.isNotBlank(errorStr)) {
+				result.setMessage(errorStr);
+				return result;
+			}
+			//转换实体
+			BeanUtils.copyProperties(dto, dept);
+			//设置时间
+			dept.setCreateTime(new Date());
+			dept.setCreaterId(dto.getUserId());
+			dept.setId(null);
 			return ResultUtil.setResult(result,RespCode.Code.SUCCESS, deptMapper.insertSelective(dept));
 		} catch (Exception e) {
 			log.error("添加部门失败（DeptServiceImpl.addDept）", e);

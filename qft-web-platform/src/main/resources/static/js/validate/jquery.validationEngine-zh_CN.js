@@ -238,8 +238,26 @@
                 "special":{
                     "regex":/^[\u4E00-\u9FA5\uf900-\ufa2d\w\.\s]+$/,
                     "alertText":" 不能输入特殊字符！"
-                }
-				
+                },
+				"add_user_account": {  
+					"url": "/web/staff/validate",
+		            "alertTextOk": "* 此用户名已被其他人使用",
+		            "alertText": " 此名称已被其他人使用",
+                    "alertTextLoad": " 正在确认帐号名称是否有其他人使用，请稍等。"
+		         },  
+                "add_user_phone": {  
+		            "url": "/web/staff/validate",
+		            "alertTextOk": "* 此联系方式已被其他人使用",
+		            "alertText": " 此名称已被其他人使用",
+                    "alertTextLoad": " 正在确认帐号名称是否有其他人使用，请稍等。"
+		         }, 
+                "add_user_idcard": {  
+                	"url": "/web/staff/validate",
+		            "alertTextOk": "* 此身份证已被其他人使用",
+		            "alertText": " 此名称已被其他人使用",
+                    "alertTextLoad": " 正在确认帐号名称是否有其他人使用，请稍等。"
+		            	
+		         }  
 				/**
 				 * 自定义公用提示信息：
 				 * 外部通过 $.validationEngineLanguage.allRules.validate2fields.alertText 可获取

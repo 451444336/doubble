@@ -171,4 +171,24 @@
 		where 
 			user_id = #{userId}
 	</insert>
+	
+	<!-- 验证员工 -->
+	<select id="validation" resultType="Integer" parameterType="com.born.facade.vo.CompanyStaffVO">
+		select count(1) from 
+			qft_user u
+		left join 
+			qft_user_info s
+		on 
+			s.user_id = u.id
+		where 1=1 
+		<if test="account != null and account != ''">
+			and	u.account = #{account}
+		</if>
+		<if test="phone != null and phone != ''">
+			and	s.phone = #{phone}
+		</if>
+		<if test="idcard != null and idcard != ''">
+			and	s.idcard = #{idcard}
+		</if>
+	</select>
 </mapper>

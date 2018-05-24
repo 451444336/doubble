@@ -86,21 +86,21 @@
     <table class="popupList">
         <tr>
             <th class="fieldName">姓名：</th>
-            <td><input class="disabled" name="" type="text" value="管理员" disabled></td>
+            <td><input class="disabled" id="realname" type="text"  disabled></td>
             <th class="fieldName">登录名：</th>
-            <td><input class="disabled" name="" type="text" value="admin" disabled></td>
+            <td><input class="disabled" id="accounts" type="text"  disabled></td>
         </tr>
         <tr>
             <th class="fieldName">部门：</th>
-            <td><input class="disabled" name="" type="text" value="管理权限" disabled></td>
+            <td><input class="disabled" id="deptName" type="text"  disabled></td>
             <th class="fieldName">职位：</th>
-            <td><input class="disabled" name="" type="text" value="1001套以上" disabled></td>
+            <td><input class="disabled" id="positionName" type="text"  disabled></td>
         </tr>
         <tr>
             <th class="fieldName">店面：</th>
-            <td><input class="disabled" name="" type="text" value="" disabled></td>
+            <td><input class="disabled" id="workstore" type="text"  disabled></td>
             <th class="fieldName">电话：</th>
-            <td><input class="disabled" name="" type="text" value="13896041111" disabled></td>
+            <td><input class="disabled" id="phone" type="text"  disabled></td>
         </tr>
     </table>
     <h2 class="PopupTitle">密码修改</h2>
@@ -175,6 +175,12 @@
          	}
         	$("#id").val(id);
         	$("#account").val(account);
+        	$("#realname").val($(this).attr("realname"));
+        	$("#phone").val($(this).attr("phone"));
+        	$("#deptName").val($(this).attr("deptName"));
+        	$("#positionName").val($(this).attr("positionName"));
+        	$("#workstore").val($(this).attr("workstore"));
+        	$("#accounts").val($(this).attr("account"));
             layer.open({
                 type: 1,
                 title: '修改密码',
@@ -369,7 +375,8 @@
                         var text = '<a class="operateBtn JS_modifypower" href="javascript:void(0);" data_positionId="'+full.positionId+'" data_name="'+full.realname+'" data_id="'+data+'">权限修改</a>&nbsp;|&nbsp;';
                         text += '<a class="operateBtn JS_userEdit" href="javascript:void(0);" data_id="'+data+'">用户编辑</a>&nbsp;|&nbsp;';
                         text += '<a class="operateBtn deleteCol JS_delete" href="javascript:void(0);" data_id="'+data+'" >删除</a>&nbsp;|&nbsp;';
-                        text += '<a class="operateBtn modifyPass" href="javascript:void(0);" data_id="'+data+'" account="'+full.account+'">修改密码</a>';
+                        text += '<a class="operateBtn modifyPass" href="javascript:void(0);" realname="'+full.realname+'" phone="'+full.phone+'"'+
+                        		'workstore="'+full.workstore+'" deptName="'+full.deptName+'" positionName="'+full.positionName+'" data_id="'+data+'" account="'+full.account+'">修改密码</a>';
                         return text;
                     }
                 }

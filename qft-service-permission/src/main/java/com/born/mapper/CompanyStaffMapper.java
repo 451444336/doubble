@@ -68,4 +68,17 @@ public interface CompanyStaffMapper extends BaseMapper<CompanyStaff> {
 	 * @param PositionStaffDTO
 	 */
 	void updatePositionStaff(PositionStaffDTO dto);
+	
+	/**
+	 * 
+	* @Title: validation 
+	* @Description: 用户验证
+	* @param @param dto
+	* @param @return
+	* @author 明成
+	* @return Integer
+	* @date 2018年5月23日 上午10:12:24 
+	* @throws
+	 */
+	Integer validation(FindStaffListDTO dto);
 }

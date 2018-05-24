@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.facade.dto.CompanyStaffDTO;
+import com.born.facade.dto.ValidateDTO;
 import com.born.facade.dto.staff.FindStaffListDTO;
 import com.born.facade.dto.staff.PositionStaffDTO;
 import com.born.facade.dto.user.DeteleUserDTO;
@@ -327,5 +328,34 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
 		}
 		return result;
+	}
+
+	@Override
+	public String validation (ValidateDTO dto) throws Exception {
+		if(dto==null) {
+			return "参数不能为空";
+		}
+		FindStaffListDTO staffListDTO = new FindStaffListDTO();
+		switch (dto.getFieldId()) {
+		case "account":
+			staffListDTO.setAccount(dto.getFieldValue());
+			break;
+		case "idcard":
+			staffListDTO.setIdcard(dto.getFieldValue());
+			break;	
+		case "phone":
+			staffListDTO.setPhone(dto.getFieldValue());
+			break;	
+		default:
+			break;
+		}
+		Integer count = staffMapper.validation(staffListDTO);
+		String validat = "";
+		if(count>0) {
+			validat = "[\""+dto.getFieldId()+"\",false]";
+		}else {
+			validat = "[\""+dto.getFieldId()+"\",true]";
+		}
+		return validat;
 	}
 }

@@ -1,6 +1,7 @@
 package com.born.facade.service;
 
 import com.born.facade.dto.CompanyStaffDTO;
+import com.born.facade.dto.ValidateDTO;
 import com.born.facade.dto.staff.FindStaffListDTO;
 import com.born.util.result.Result;
 
@@ -92,4 +93,17 @@ public interface ICompanyStaffService {
 	 * @return Result 通用消息返回
 	 */
 	Result updateUser(CompanyStaffDTO staffDTO);
+	
+	/**
+	 * 
+	* @Title: validation 
+	* @Description: 用户验证
+	* @param @param dto
+	* @param @return
+	* @author 明成
+	* @return String
+	* @date 2018年5月23日 上午10:12:24 
+	* @throws
+	 */
+	String validation (ValidateDTO dto)throws Exception;
 }
