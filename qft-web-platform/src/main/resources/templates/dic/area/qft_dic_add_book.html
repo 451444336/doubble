@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -36,17 +36,17 @@
     <form id="roleForm" action="" method="">
         <table class="popupList">
             <tr>
-                <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span名称：</th>
+                <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span>名称：</th>
                 <td><input class="validate[required]"  name="names"  type="text"></td>
                 <td class="gray-col">如：朝阳区</td>
             </tr>
             <tr>
-                <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span名称：</th>
+                <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span>名称：</th>
                 <td><input class="validate[required]"  name="names"  type="text"></td>
                 <td class="gray-col">如：海淀区</td>
             </tr>
             <tr>
-                <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span名称：</th>
+                <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span>名称：</th>
                 <td><input class="validate[required]"  name="names"  type="text"></td>
                 <td class="gray-col">如：丰台区</td>
             </tr>
