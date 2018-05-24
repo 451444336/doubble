@@ -11,9 +11,12 @@
 <body>
 <!--分组列表-->
 <div class="PopupBox" id="groups">
-		<input th:id="storeId" type="hidden" th:value="${storeId}"/>
-		<h2 class="PopupTitle">分组信息 <span class="modulepower JS_addGroup">添加组</span></h2>
-        <table class="wareList" id="example"></table>
+		<a href="javascript:void (0);" class="addbtn JS_addGroup">添加分组</a>
+		<div class="groupInfo">
+			<input th:id="storeId" type="hidden" th:value="${storeId}"/>
+			<h2 class="PopupTitle margin_top0">分组信息 </h2>
+	        <table class="wareList" id="example"></table>
+	    </div>
     </div>
 <!--end 分组列表-->
 <!--共用按钮-->
@@ -80,7 +83,7 @@
             promptPosition: 'bottomLeft:5 0'
         });
         //添加组
-        $('.PopupTitle').on('click', '.JS_addGroup', function(){
+        $('.PopupBox').on('click', '.JS_addGroup', function(){
             var listHtml = '<tr id="addGroup">\n' +
                 '   <td><input class="accountName" name="accountName" type="text" /> </td>\n' +
                 '   <td></td>\n' +
