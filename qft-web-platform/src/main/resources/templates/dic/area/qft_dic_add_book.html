@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/js/bootstrapselect/css/bootstrap-select.css}"/>
     <!--主样式表-->
     <link rel="stylesheet" th:href="@{/static/css/models.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/validform.style.css}" />
+        
 </head>
 <body>
 <div class="subMainContent">
@@ -37,17 +39,17 @@
         <table class="popupList">
             <tr>
                 <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span>名称：</th>
-                <td><input class="validate[required]"  name="names"  type="text"></td>
+                <td><input   name="names"  type="text"></td>
                 <td class="gray-col">如：朝阳区</td>
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span>名称：</th>
-                <td><input class="validate[required]"  name="names"  type="text"></td>
+                <td><input  name="names"  type="text"></td>
                 <td class="gray-col">如：海淀区</td>
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span>名称：</th>
-                <td><input class="validate[required]"  name="names"  type="text"></td>
+                <td><input name="names"  type="text"></td>
                 <td class="gray-col">如：丰台区</td>
             </tr>
         </table>
@@ -56,11 +58,11 @@
 <!--end 添加区域-->
 <!--修改区域-->
 <div class="PopupBox hide" id="qft_amendBox">
-    <form id="roleFormOne" action="" method="">
+    <form id="roleFormOne" >
         <table class="popupList">
             <tr>
                 <th class="fieldName_one"><span class="require">*</span><span th:text="*{name}"></span>名称：</th>
-                <td><input class="validate[required]"  id="name" name="name"  type="text"></td>
+                <td><input  id="name" name="name"  type="text"></td>
                 <td class="gray-col">如：朝阳区</td>
             </tr>
         </table>
@@ -72,15 +74,15 @@
     <table class="popupList">
         <tr>
             <th class="fieldName_two"><span th:text="*{name}"></span>二级字典名称：</th>
-            <td><input class="validate[required]"  name="subName"  type="text"></td>
+            <td><input   name="subName"  type="text"></td>
         </tr>
         <tr>
             <th class="fieldName_two"><span th:text="*{name}"></span>二级字典名称：</th>
-            <td><input class="validate[required]" name="subName"  type="text"></td>
+            <td><input name="subName"  type="text"></td>
         </tr>
         <tr>
             <th class="fieldName_two"><span th:text="*{name}"></span>二级字典名称：</th>
-            <td><input class="validate[required]" name="subName"  type="text"></td>
+            <td><input name="subName"  type="text"></td>
         </tr>
     </table>
 </div>
@@ -90,12 +92,13 @@
     <table class="popupList">
         <tr>
             <th class="fieldName_two"><span th:text="*{name}"></span>二级字典名称：</th>
-            <td><input class="validate[required]" id="idTwo"  name="nameTwo" type="text" value=""></td>
+            <td><input id="idTwo"  name="nameTwo" type="text" value="" datatype="s5-16" nullmsg="请填写名称" errormsg="名称至少5个字符,最多16个字符！"><span class="Validform_checktip"></span></td>
         </tr>
     </table>
 </div>
 <!--end 修改物业地址-->
 <script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validform/Validform_v5.3.2_min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
 <!--bootstrap-select-->
 <script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap.min.js}"></script>
@@ -105,16 +108,29 @@
 <script type="text/javascript" th:src="@{/static/js/datatables/jquery.dataTables.js}"></script>
 <!--layer弹出层-->
 <script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
-<!--表单验证-->
-<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
+
 <script th:inline="javascript">
     $(function(){
     	
     	var pid = [[${id}]];
         var name = [[${name}]];
     	
-        
+		var bool = false;  //所有验证通过了才为true
+    	
+    	$(".popupList").Validform({
+    		  ignoreHidden:true,
+	    		tiptype:function(msg,o,cssctl){
+	            if(!o.obj.is("form")){
+	                var objtip=o.obj.siblings(".Validform_checktip");
+	                cssctl(objtip,o.type);
+	                objtip.text(msg);
+					if(parseInt(o.type) == 2){
+						bool = true;
+	            	}
+	            }
+	        }
+    	});
+    	
         $(".subTopRight").on('click','.resizeBtn',function(){
         	 location.reload();
         });
@@ -334,32 +350,28 @@
                 title: '修改'+name,
                 skin: 'popup-title-bg', //样式类名
                 closeBtn : 1,
-                area: ['500px','168px'],
+                area: ['500px','180px'],
                 btnAlign: 'c',
                 btn:['保存'],
                 yes: function(){
-                	layer.closeAll('dialog');
-                	$.ajax({
-                        "dataType": 'json',
-                        "type": "PUT",
-                        "url": "/web/dic/update/item/data",
-                        "contentType": 'application/json;charset=utf-8',
-                        "data":JSON.stringify({'id': _id, 'name': $("#idTwo").val()}),
-                        "success": function(result){
-                        	 layer.alert(result.message, {icon:6},function(){
-                        		 location.reload(); 
-                        	 });
-                        } 
-                    });
+                	if(bool){
+                		layer.closeAll('dialog');
+                    	$.ajax({
+                            "dataType": 'json',
+                            "type": "PUT",
+                            "url": "/web/dic/update/item/data",
+                            "contentType": 'application/json;charset=utf-8',
+                            "data":JSON.stringify({'id': _id, 'name': $("#idTwo").val()}),
+                            "success": function(result){
+                            	 layer.alert(result.message, {icon:6},function(){
+                            		 location.reload(); 
+                            	 });
+                            } 
+                        });
+                	}
                 },
                 content: $('#qft_amendPropertyBox')
             });
-        });
-        //表单验证
-        $("#roleForm,#roleFormOne").validationEngine({
-            addPromptClass: 'formError-text',
-            showArrow: false,
-            promptPosition: 'bottomLeft:5 0'
         });
         
         $('#example').DataTable({
