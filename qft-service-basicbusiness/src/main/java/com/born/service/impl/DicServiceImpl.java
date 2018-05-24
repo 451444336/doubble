@@ -53,7 +53,7 @@ public class DicServiceImpl implements IDicService {
 	@Override
 	public Result findDicZtree() {
 		try {
-			List<DicMenuVO> list = dicMapper.findDicZtree();
+			List<DicMenuVO> list = dicMapper.selectDicZtree();
 			if (list.size() == 0) {
 				return ResultUtil.getResult(RespCode.Code.SUCCESS, "获取数据为空");
 			}
@@ -70,7 +70,7 @@ public class DicServiceImpl implements IDicService {
 			if (params != null) {
 				Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 				PageHelper.startPage(params.getPageNum(), params.getPageSize());
-				List<DicItemVO> list = dicMapper.findDicItem(params.getPId(), companyId);
+				List<DicItemVO> list = dicMapper.selectDicItemList(params.getPId(), companyId);
 				PageInfo<DicItemVO> pageInfo = new PageInfo<>(list);
 				result.setData(pageInfo.getList());
 				result.setCount(pageInfo.getTotal());
@@ -221,7 +221,7 @@ public class DicServiceImpl implements IDicService {
 	@Override
 	public Result findDicItemAllById(String pId, String rank) {
 		try {
-			List<DicItemSortVO> list = dicItemMapper.findItemAllById(companyId, pId, rank);
+			List<DicItemSortVO> list = dicItemMapper.selectItemAllById(companyId, pId, rank);
 			if (list.size() == 0) {
 				return ResultUtil.getResult(RespCode.Code.SUCCESS, "获取数据为空");
 			}

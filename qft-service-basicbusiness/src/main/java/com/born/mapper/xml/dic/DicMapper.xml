@@ -23,7 +23,7 @@
 		WHERE
 	</sql>
 	<!-- 获取字典数据 -->
-	<select id="findDicZtree" resultMap="findDicZtreeResultMap">
+	<select id="selectDicZtree" resultMap="findDicZtreeResultMap">
 		<include refid="selectZtree"></include>
 		m.parent_id = 0 AND m.is_delete = 0 ORDER BY m.menu_seq ASC
 	</select>
@@ -67,7 +67,7 @@
 		WHERE
 	</sql>
     <!-- 必须要有跟模板公司查询 -->
-    <select id="findDicItem" parameterType="java.util.HashMap" resultMap="findDicItemResultMap">
+    <select id="selectDicItemList" parameterType="java.util.HashMap" resultMap="findDicItemResultMap">
 		<include refid="selectItem"></include>
 			item.parentid = #{pId}
 			AND item.companyid = #{companyId}

@@ -31,13 +31,13 @@
         </foreach>
     </delete>
     
-     <resultMap id="findDicItemSortResultMap"   type="com.born.facade.vo.dic.DicItemSortVO">
+     <resultMap id="dicItemSortResultMap"   type="com.born.facade.vo.dic.DicItemSortVO">
         	<id property="id" column="id"/>
         	<result property="name" column="diname"/>
         	<result property="sort" column="ordernum"/>
     </resultMap>
     <!-- 根据父ID查询字典 -->
-    <select id="findItemAllById" parameterType="java.util.HashMap" resultMap="findDicItemSortResultMap">
+    <select id="selectItemAllById" parameterType="java.util.HashMap" resultMap="dicItemSortResultMap">
     	select id,diname,ordernum from qft_dicitem  where companyid=#{companyId}  
     	and dicRank = #{rank} and parentid=#{pId} order by ordernum asc
     </select>
