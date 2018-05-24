@@ -18,7 +18,7 @@ public interface ICompanyStoreService {
 	 * @param store
 	 * @return
 	 */
-	Result insert(CompanyStoreDTO dto);
+	Result add(CompanyStoreDTO dto);
 
 	/**
 	 * 删除店面

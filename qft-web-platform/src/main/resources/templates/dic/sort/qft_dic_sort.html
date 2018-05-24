@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>字典排序</title>
+    <!--bootstrap-select  css文件-->
+    <link rel="stylesheet" type="text/css"  th:href="@{/static/js/bootstrapselect/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css"  th:href="@{/static/js/bootstrapselect/css/bootstrap-select.css}"/>
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+</head>
+<body>
+<!--字典排序-->
+<div class="PopupBox sortBox">
+    <table class="wareList"  id="example"></table>
+</div>
+<!--end 字典排序-->
+<!--共用按钮-->
+<div class="PopupBtn">
+    <input name=""  id="save" type="button" value="保存">
+</div>
+<!--end 共用按钮-->
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--bootstrap-select-->
+<script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrapselect/bootstrap-select.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrapselect/select.js}"></script>
+<!--layer弹出层-->
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
+<!--dataTable-->
+<script type="text/javascript" th:src="@{/static/js/datatables/jquery.dataTables.js}"></script>
+<script th:inline="javascript">
+	var pId = [[${pId}]];
+	var rank = [[${rank}]];
+	
+	var param = new Array();
+	
+	$('.wareList').on('change','.sort-select',function(){
+		var param_v = {};
+		param_v.id=$(this).attr('data-id');
+		param_v.sort = $(this).val();
+		if(param.length>0){
+			for(var i=0;i<param.length;i++){
+				var index = param[i].id.indexOf(param_v.id);
+				if(index > -1){
+					param.splice(i, 1);
+				}
+			}
+		}
+		param.push(param_v);
+    });
+	$('.PopupBtn').on('click','#save',function(){
+		console.log(param);
+		$.ajax({
+            "dataType": 'json',
+            "type": "put",
+            "url": "/web/dic/update/item/sort/data",
+            "contentType": 'application/json;charset=utf-8',
+            "data":JSON.stringify(param),
+            "success": function(result){
+            	 layer.alert(result.message, {icon:6},function(){
+            		 location.reload(); 
+            	 });
+            } 
+        });
+    });
+	$('#example').DataTable({
+        "bServerSide": true,
+        "paging": false, // 禁止分页
+        "bInfo": false,//页脚信息
+        "sPaginationType": "full_numbers",
+        "sDom": '<"">t<"F"ip>',
+        "autoWidth": false,  //自适应宽度
+        "sAjaxSource": "/web/dic/find/sort/data", 
+        "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
+        "aoColumns": [
+            {"sWidth": "110px","sTitle": "字典名称","mData": "name" },
+        	{"sTitle" : "操作","mData" : "id","sClass":"tab_operate overflowCon", "mRender" : function ( data, type, full ) {
+        			var buffer = new StringBuffer();
+        			buffer.append('<span class="sort"><select data-id="'+data+'" class="sort-select">');
+        			for(var i=1;i<=parseInt(full.count);i++){
+        				if(parseInt(full.sort) == i){
+        					buffer.append('<option value="'+i+'" selected = selected">'+i+'</option>');
+        				}else{
+        					buffer.append('<option value="'+i+'" >'+i+'</option>');
+        				}
+        			}
+                  buffer.append(' </select></span>');
+                  return buffer.toString();
+            }
+          }
+        ], 
+        "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+            oSettings.jqXHR = $.ajax({
+                "dataType": 'json',
+                "type": "GET",
+                "async": 'false',
+                "url": sSource,
+                "data": {
+                    'pId':pId,
+                    'rank':rank
+                },
+                "success": fnCallback
+            });
+        }
+    });
+
+</script>
+</body>
+</html>

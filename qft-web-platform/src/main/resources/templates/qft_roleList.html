@@ -134,7 +134,7 @@ $(function(){
 	                    dataType: 'json',
 	                    data: params,
 	                    type: 'post',
-	                    url: '/web/role/save',
+	                    url: '/web/role/add',
 	                    success: function(result){
 	                    	layer.closeAll();
 	                    	layer.alert(result.message);
@@ -205,13 +205,13 @@ $(function(){
         });
     }
     //提交分配的菜单权限
-    function bindMenus(roleId,menuIds){
+    function addRoleMenus(roleId,menuIds){
     	var params= 'roleId='+ roleId + '&menuIds='+ menuIds;
         $.ajax({
             dataType: 'json',
             data: params,
             type: 'post',
-            url: '/web/role/bindMenus',
+            url: '/web/role/addRoleMenus',
             success: function(result){
             	layer.alert(result.message);
             }
@@ -247,7 +247,7 @@ $(function(){
             	nodes.forEach(function(node){
             		menuIds+=node.id + ',';
            	 	})
-                bindMenus(roleId,menuIds);
+                addRoleMenus(roleId,menuIds);
             },
             btnAlign: 'c',
             content: $('#qft_allotPowerBox')
@@ -285,7 +285,7 @@ $(function(){
         "sPaginationType": "full_numbers",
         "sDom": '<"">t<"F"ip>',
         "autoWidth": false,  //自适应宽度
-        "sAjaxSource": "/web/role/getPageList", //ajax调用接口
+        "sAjaxSource": "/web/role/getRoleList", //ajax调用接口
         "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
         "aoColumns": [
             {"sTitle": "角色名称", "mData": "roleName"},

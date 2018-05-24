@@ -76,4 +76,9 @@ public class CompanyRole extends BaseEntity<CompanyRole> {
 	 */
 	@Column(name="is_super_manager")
 	private Byte isSuperManager;
+	/**
+	 * 公司ID
+	 */
+	@Column(name="company_id")
+	private String companyId;
 }

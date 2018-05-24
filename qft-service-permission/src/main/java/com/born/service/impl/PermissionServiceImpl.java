@@ -140,7 +140,7 @@ public class PermissionServiceImpl implements IPermissionService {
 			} else {
 				Result addMenuResult = menuService.addMenu(menus);
 				log.info("添加菜单返回数据={}", JSON.toJSONString(addMenuResult));
-				if (!addMenuResult.isSuccess()) {
+				if (!RespCode.Code.SUCCESS.getCode().equals(addMenuResult.getCode())) {
 					throw new PermissionException(PermissionExceptionEnum.ADD_MENU_ERROR);
 				}
 			}
@@ -595,7 +595,7 @@ public class PermissionServiceImpl implements IPermissionService {
 					result.setMessage("用户角色不能为空");
 					return result;
 				}
-				companyRoleService.bindRoleMenu(menuIds, voList.get(0).getId(), userId, new Date());
+				companyRoleService.addRoleMenus(menuIds, voList.get(0).getId(), userId, new Date());
 			}
 			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 		} catch (Exception e) {

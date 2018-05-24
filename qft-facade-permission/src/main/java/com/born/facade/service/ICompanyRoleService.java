@@ -21,7 +21,7 @@ public interface ICompanyRoleService {
 	 * @param role
 	 * @return
 	 */
-	Result insert(CompanyRoleDTO dto);
+	Result add(CompanyRoleDTO dto);
 
 	/**
 	 * 删除角色
@@ -57,7 +57,7 @@ public interface ICompanyRoleService {
 	 * @param createTime 添加时间
 	 * @return
 	 */
-	Result bindRoleMenu(Long[] menuIds,Long roleId,Long createrId,Date createTime);
+	Result addRoleMenus(Long[] menuIds,Long roleId,Long createrId,Date createTime);
 	/**
 	 * 
 	* @Title: getRoleByUserId 
@@ -75,7 +75,7 @@ public interface ICompanyRoleService {
 	 * @param pageModel
 	 * @return
 	 */
-	Result getPageList(CompanyRoleDTO dto);
+	Result getRoleList(CompanyRoleDTO dto);
 
 	/**
 	 * 根据角色ID查询菜单

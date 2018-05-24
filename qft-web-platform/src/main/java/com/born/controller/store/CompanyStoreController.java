@@ -21,7 +21,6 @@ import com.born.facade.service.store.ICompanyStoreService;
 import com.born.facade.vo.UserInfoVO;
 import com.born.facade.vo.store.CompanyStoreVO;
 import com.born.util.result.Result;
-import com.github.pagehelper.Page;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -43,7 +42,7 @@ public class CompanyStoreController {
 
 	/**
 	 * 
-	* @Title: saveIndex 
+	* @Title: addIndex 
 	* @Description: 跳转到添加店面页面
 	* @param @return
 	* @author 黄伟
@@ -51,8 +50,8 @@ public class CompanyStoreController {
 	* @date 2018年5月15日 下午1:36:28 
 	* @throws
 	 */
-	@GetMapping(value = "/saveIndex")
-    public String saveIndex(Model model) {
+	@GetMapping(value = "/addPage")
+    public String addIndex(Model model) {
 		UserInfoVO su = TokenManager.getLoginUser();
 		CompanyStoreVO vo = new CompanyStoreVO();
 		vo.setCompanyName(su.getCompanyName());
@@ -72,9 +71,9 @@ public class CompanyStoreController {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
     })
-	@PostMapping(value = "/save")
+	@PostMapping(value = "/add")
 	@ResponseBody
-	public Result saveStore(CompanyStoreDTO dto) {
+	public Result addStore(CompanyStoreDTO dto) {
 		// 获取当前登录用户
 		UserInfoVO su = TokenManager.getLoginUser();
 		// 设置默认值
@@ -83,7 +82,7 @@ public class CompanyStoreController {
 		dto.setCreaterId(su.getId());
 		dto.setUpdaterId(su.getId());
 		dto.setCompanyId(su.getCompanyId());
-		return companyStoreService.insert(dto);
+		return companyStoreService.add(dto);
 	}
 
 	/**
@@ -178,9 +177,9 @@ public class CompanyStoreController {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
     })
-	@GetMapping(value = "/getPageList")
+	@GetMapping(value = "/getStoreList")
 	@ResponseBody
-	public Result getPageList(CompanyStoreDTO dto) {
+	public Result getStoreList(CompanyStoreDTO dto) {
 		
 		return companyStoreService.getPageList(dto);
 	}

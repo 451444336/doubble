@@ -202,7 +202,7 @@
             error: function(){
             },
             success: function (d) {
-                if (d.success) {
+                if (d.code == 200) {
                 	window.location.href="/web/index"
                 } else {
                 	$("#error_message").text(d.message);

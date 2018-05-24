@@ -17,9 +17,9 @@ import lombok.EqualsAndHashCode;
  * 
  * @ClassName: BaseEntity
  * @Description:实体base类
- * @author lijie
+ * @author chen
  * @date 2018年4月27日 上午11:08:10
- *
+ *  ces 
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

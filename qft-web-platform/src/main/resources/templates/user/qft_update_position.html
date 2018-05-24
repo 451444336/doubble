@@ -12,41 +12,44 @@
 <!--添加职位与权限分配-->
 <div class="PopupBox" id="qft_modifyBox">
     <form id="modifyForm">
-        <input name="id" id="positionId" type="hidden" th:value="*{positionId}"/>
-        <table class="popupList">
-            <tr>
-                <th class="fieldName">职位名称：</th>
-                <td><input class="validate[required]" name="name" type="text" th:value="*{name}" required></td>
-                <td colspan="3" class="gray-col">如果您不知道你的员工应该授哪些权限，可直接点击下面的使用模板权限按钮，可以帮助你一键授权，等您熟练使用系统后再来修改权限。</td>
-            </tr>
-        </table>
-        <h2 class="PopupTitle">修改权限 <span class="modulepower">使用模版权限</span></h2>
-        <!--使用模版权限-->
-        <div class="powerBtnBox hide JS_powerBtn">
-            <input class="powerBtn" type="button" value="全部权限"><input class="powerBtn" type="button" value="业务员"><input class="powerBtn" type="button" value="财务"><input class="powerBtn" type="button" value="经理或店长">
-        </div>
-        <!--end 使用模版权限-->
-        <!--权限菜单-->
-        <div class="powerMeunBox">
-            <ul class="mainMeun">
-            </ul>
-            <div class="subMeunBox">
-                <!--end 设置管理-->
-            </div>
-        </div>
-        <!--end 权限菜单-->
-        <!--使用模版权限-->
-        <div class="powerBtnBox" id="powerBtn">
-            <input class="powerBtn" type="button" value="全选查看权限" onclick="allSelectByTpye(this,'search')"><input class="powerBtn" type="button" value="全选操作权限" onclick="allSelectByTpye(this,'operate')"><input class="powerBtn" type="button" value="全选删除权限" onclick="allSelectByTpye(this,'delete')">
-            <div id="tempbox" style="display: none;"><input id="box_search" type="checkbox"><input id="box_operate" type="checkbox"><input id="box_delete" type="checkbox"></div>
-        </div>
-        <!--end 使用模版权限-->
-        <!--权限管理-->
-        <div class="powerOptionBox">
-        </div>
-        <!--end 权限管理-->
+	    <div class="powerSetUp">
+	        <input name="id" id="positionId" type="hidden" th:value="*{positionId}"/>
+	        <table class="popupList">
+	            <tr>
+	                <th class="fieldName">职位名称：</th>
+	                <td><input class="validate[required]" name="name" type="text" th:value="*{name}" required></td>
+	                <td colspan="3" class="gray-col"><a href="javascript:void(0);" class="redState">我是新手，我不知道怎么授权怎么办，点击这里</a></td>
+	            </tr>
+	        </table>
+	        <p class="powerInfo">如果您不知道你的员工应该授哪些权限，可直接点击下面的使用模板权限按钮，可以帮助你一键授权，等您熟练使用系统后再来修改权限。</p>
+	        <h2 class="PopupTitle">修改权限 <span class="modulepower">使用模版权限</span></h2>
+	        <!--使用模版权限-->
+	        <div class="powerBtnBox hide JS_powerBtn">
+	            <input class="powerBtn" type="button" value="全部权限"><input class="powerBtn" type="button" value="业务员"><input class="powerBtn" type="button" value="财务"><input class="powerBtn" type="button" value="经理或店长">
+	        </div>
+	        <!--end 使用模版权限-->
+	        <!--权限菜单-->
+	        <div class="powerMeunBox">
+	            <ul class="mainMeun">
+	            </ul>
+	            <div class="subMeunBox">
+	                <!--end 设置管理-->
+	            </div>
+	        </div>
+	        <!--end 权限菜单-->
+	        <!--使用模版权限-->
+	        <div class="powerBtnBox" id="powerBtn">
+	            <input class="powerBtn" type="button" value="全选查看权限" onclick="allSelectByTpye(this,'search')"><input class="powerBtn" type="button" value="全选操作权限" onclick="allSelectByTpye(this,'operate')"><input class="powerBtn" type="button" value="全选删除权限" onclick="allSelectByTpye(this,'delete')">
+	            <div id="tempbox" style="display: none;"><input id="box_search" type="checkbox"><input id="box_operate" type="checkbox"><input id="box_delete" type="checkbox"></div>
+	        </div>
+	        <!--end 使用模版权限-->
+	        <!--权限管理-->
+	        <div class="powerOptionBox">
+	        </div>
+	        <!--end 权限管理-->
+	    </div>
         <!--授权按钮-->
-        <div class="powerBtnBox btnCenter margin0 fixedButton">
+       <div class="powerBtnBox btnCenter fixedButton">
             <input class="powerBtn" id="keep" type="button" value="授权给职位"><!-- <input class="powerBtn" type="button" value="授权给个人"> --><input class="powerBtn cancel" type="button" value="关闭">
         </div>
         <!--end 授权按钮-->
@@ -74,7 +77,11 @@
         $('.cancel').on('click',function(){
         	parent.layer.closeAll()
         });
-      //编辑用户权限
+      	//如何设置权限说明
+        $('.redState').on('click',function(){
+            $('.powerInfo').slideToggle();
+        });
+      	//编辑用户权限
         $('#keep').on('click',function(){
         	if (!$("#modifyForm").validationEngine("validate")) {
                 return false;

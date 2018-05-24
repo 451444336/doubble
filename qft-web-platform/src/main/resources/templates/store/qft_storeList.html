@@ -14,7 +14,7 @@
     <!--添加店面按钮-->
     <div class="subTopBox">
         <div class="subTopLeft">
-            <a class="subTopBtn JS_addStore" href="javascript:void(0);">添加店面</a>
+            <a class="addbtn JS_addStore" href="javascript:void(0);">添加店面</a>
         </div>
     </div>
     <!--店面列表-->
@@ -80,9 +80,9 @@ $(function(){
             title: '添加店面',
             skin: 'popup-title-bg', //样式类名
             closeBtn : 1,
-            area: ['660px','540px'],
+            area: ['660px','375px'],
             btnAlign: 'c',
-            content: '/web/store/saveIndex',
+            content: '/web/store/addPage',
             end: function () {
             	dataTable.ajax.reload();
             } 
@@ -162,7 +162,7 @@ $(function(){
         "sPaginationType": "full_numbers",
         "sDom": '<"">t<"F"ip>',
         "autoWidth": false,  //自适应宽度
-        "sAjaxSource": "/web/store/getPageList", //ajax调用接口
+        "sAjaxSource": "/web/store/getStoreList", //ajax调用接口
         "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
         "aoColumns": [
             {"sTitle": "所属城市", "mData": "city"},

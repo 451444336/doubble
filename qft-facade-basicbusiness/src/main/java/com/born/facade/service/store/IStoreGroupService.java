@@ -20,7 +20,7 @@ public interface IStoreGroupService {
 	 * @param store
 	 * @return
 	 */
-	Result insertBatch(List<StoreGroupDTO> list);
+	Result batchAdd(List<StoreGroupDTO> list);
 
 	/**
 	 * 删除店面分组
@@ -42,5 +42,5 @@ public interface IStoreGroupService {
 	 * @param pageModel
 	 * @return
 	 */
-	Result getGroupListByStoreId(StoreGroupDTO dto);
+	Result getGroupByStoreId(StoreGroupDTO dto);
 }

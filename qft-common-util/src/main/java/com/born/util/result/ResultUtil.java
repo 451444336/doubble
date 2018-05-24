@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 
 * @ClassName: ResultUtil  
-* @Description: TODO(这里用一句话描述这个类的作用)  
+* @Description: 统一返回结果 
 * @author lijie
 * @date 2018年4月25日  
 *
@@ -15,7 +15,7 @@ public final class ResultUtil {
     /**
      * 
     * @Title: getResult  
-    * @Description: TODO(这里用一句话描述这个方法的作用)  
+    * @Description: 得到返回结果 
     * @param @param respCode
     * @param @param data
     * @param @param count
@@ -30,14 +30,13 @@ public final class ResultUtil {
         result.setMessage(respCode.getMsg());
         result.setCode(respCode.getCode());
         result.setCount(count);
-        result.setSuccess(RespCode.Code.SUCCESS.getCode().equals(respCode.getCode()));
         return result;
     }
 
    /**
     * 
    * @Title: getResult  
-   * @Description: TODO(这里用一句话描述这个方法的作用)  
+   * @Description: 
    * @param @param respCode
    * @param @param data
    * @param @return    参数  
@@ -50,14 +49,13 @@ public final class ResultUtil {
         result.setData(data);
         result.setMessage(respCode.getMsg());
         result.setCode(respCode.getCode());
-        result.setSuccess(RespCode.Code.SUCCESS.getCode().equals(respCode.getCode()));
         return result;
     }
     
     /**
      * 
     * @Title: getResult 
-    * @Description: TODO(这里用一句话描述这个方法的作用) 
+    * @Description: 
     * @param respCode
     * @param data
     * @return 
@@ -67,17 +65,15 @@ public final class ResultUtil {
      */
     public static Result getResult(RespCode respCode, String message) {
         Result result = new Result();
-        result.setData(null);
         result.setMessage(message);
         result.setCode(respCode.getCode());
-        result.setSuccess(RespCode.Code.SUCCESS.getCode().equals(respCode.getCode()));
         return result;
     }
 
    /**
     * 
    * @Title: getResult  
-   * @Description: TODO(这里用一句话描述这个方法的作用)  
+   * @Description:  
    * @param @param respCode
    * @param @return    参数  
    * @return Result    返回类型  
@@ -88,7 +84,6 @@ public final class ResultUtil {
         Result result = new Result();
         result.setMessage(respCode.getMsg());
         result.setCode(respCode.getCode());
-        result.setSuccess(RespCode.Code.SUCCESS.getCode().equals(respCode.getCode()));
         return result;
     }
 
@@ -105,13 +100,12 @@ public final class ResultUtil {
     public static Result setResult(Result result, RespCode respCode) {
         result.setMessage(respCode.getMsg());
         result.setCode(respCode.getCode());
-        result.setSuccess(RespCode.Code.SUCCESS.getCode().equals(respCode.getCode()));
         return result;
     }
     /**
      * 
     * @Title: setResult 
-    * @Description: TODO(这里用一句话描述这个方法的作用) 
+    * @Description: 
     * @param @param result
     * @param @param respCode
     * @param @return    设定文件 
@@ -122,13 +116,12 @@ public final class ResultUtil {
 	public static Result setResult(Result result, RespCode respCode, String message) {
 		result.setMessage(StringUtils.isBlank(message) ? respCode.getMsg() : message);
 		result.setCode(respCode.getCode());
-		result.setSuccess(RespCode.Code.SUCCESS.getCode().equals(respCode.getCode()));
 		return result;
 	}
     /**
      * 
     * @Title: setResult  
-    * @Description: TODO 
+    * @Description:  
     * @param: @param result
     * @param: @param respCode
     * @param: @param data
@@ -140,7 +133,6 @@ public final class ResultUtil {
 	public static Result setResult(Result result, RespCode respCode, Object data) {
 		result.setMessage(respCode.getMsg());
 		result.setCode(respCode.getCode());
-		result.setSuccess(RespCode.Code.SUCCESS.getCode().equals(respCode.getCode()));
 		result.setData(data);
 		return result;
 	}
@@ -192,7 +184,6 @@ public final class ResultUtil {
      */
     private static void setResultValue(Result result, boolean flag, String message) {
         result.setCode(flag ? RespCode.Code.SUCCESS.getCode() : RespCode.Code.FAIL.getCode());
-        result.setSuccess(flag);
         result.setMessage(message);
     }
 }

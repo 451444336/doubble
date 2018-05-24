@@ -16,47 +16,48 @@
 <body>
 <!-- 添加店面 -->
 <div class="PopupBox">
-    <form id="addStoreForm" th:action="@{/web/store/save}" method="POST" th:Object="${store}">
+    <form id="addStoreForm" th:action="@{/web/store/add}" method="POST" th:Object="${store}">
         <table class="popupList">
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>所属城市：</th>
                 <td>
                     <input class="validate[required]" id="citySelect" name="city" type="text" placeholder="请输入城市"  required>
                 </td>
-                <td class="redState">点击输入框添加城市</td>
+                <td class="gray-col">点击输入框添加城市</td>
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>店面名称：</th>
                 <td>
                     <input class="validate[required,maxSize[4]]" name="name" type="text"  placeholder="请输入店面名称"  required>
                 </td>
-                <td class="redState">*例如：XX店（限4个字）</td>
+                <td class="gray-col">*例如：XX店（限4个字）</td>
             </tr>
             <tr>
                 <th class="fieldName_one">分店座机号码：</th>
                 <td>
-                    <input name="phone" type="text" >
+                    <input name="phone" type="text" pattern="([\d]{4}-[\d]{7,8})|(400-[\d]{3}-[\d]{4})" 
+                    	title="请输入400电话或座机电话，格式：400-XXX-XXXX或XXXX-XXXXXXX或XXXX-XXXXXXXX" >
                 </td>
-                <td class="redState">400电话和座机电话均可</td>
+                <td class="gray-col">400电话和座机电话均可</td>
             </tr>
             <tr>
                 <th class="fieldName_one">店面所在地：</th>
                 <td>
                 	<input name="adress" type="text" >
                 </td>
-                <td class="redState">电子合同中生成店面地址</td>
+                <td class="gray-col">电子合同中生成店面地址</td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <th class="fieldName_one">地图定位地址：</th>
                 <td>
                     <input name="localizeAdd" type="text" >
                 </td>
-                <td class="redState">*在地图中定位地址</td>
-            </tr>
+                <td class="gray-col">*在地图中定位地址</td>
+            </tr> -->
             <tr>
                 <th class="fieldName_one">公司名称：</th>
                 <td><input name="companyName" type="text" th:value="*{companyName}"></td>
-                <td class="redState">用于电子合同生成的公司名称</td>
+                <td class="gray-col"><p class="companyDesc">公司名称 是用于电子合同生成的公司名称，有的公司是合伙人模式或加盟模式... <a class="companyDescMore" href="javascript:void(0);">更多&gt;&gt;</a></p></td>
             </tr>
             <tr>
                 <th class="fieldName_one">是否分组：</th>
@@ -70,7 +71,7 @@
                         </label>
                     </div>
                 </td>
-                <td class="redState">公司下面进行分组</td>
+                <td class="gray-col">在店面下面再分小组，如“万达广场店”下面又分A组、B组、C组。</td>
             </tr>
         </table>
         <div class="addGroupBox  hide" id="groups">
@@ -96,12 +97,12 @@
             	<span class="groupImg addGroup"></span>
             </p>
         </div>
-        <div class="PopupBox">
+        <!-- <div class="PopupBox">
         	<h2 class="PopupTitle">备注</h2>
 	        <p class="textareaBox">
 	        	<textarea class="disabled" name="" id="" disabled="disabled">公司名称 是用于电子合同生成的公司名称，有的公司是合伙人模式或加盟模式，每个店面生成出来的合同公司名称不一样，所以需要在这里填写公司名称。如果你的所有店面生成的公司名称都一样，则可不用填写。</textarea>
 	        </p>
-        </div>
+        </div> -->
 		<div class="PopupBtn">
 		    <input name="" type="submit" value="保存"><input class="cancel" name="" type="button" value="关闭">
 		</div>
@@ -146,6 +147,19 @@
             var groupHtml = '<p class="addGroupList"><span class="groupName">组名：</span><input class="groupInput" name="" type="text" ><span class="groupImg deleteGroup"></span></p>';
             $('.addGroupBox').find('.addGroupList').eq(-2).after(groupHtml);
         });
+        //查看更多公司描述
+        $('.companyDesc').on('click', '.companyDescMore', function(){
+            layer.open({
+                type: 1,
+                title: '信息',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['300px','215px'],
+                btn:['关闭'],
+                btnAlign: 'c',
+                content: '<p style="padding: 10px;">公司名称 是用于电子合同生成的公司名称，有的公司是合伙人模式或加盟模式，每个店面生成出来的合同公司名称不一样，所以需要在这里填写公司名称。如果你的所有店面生成的公司名称都一样，则可不用填写。</p>'
+            });
+        });
         //关闭窗口
         $("input[class='cancel']").on('click',function(){
         	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
@@ -172,7 +186,6 @@
         		$('input[name=grouping]').val(grouping);
    			    envent.preventDefault();  
    			    var form = $(this); 
-   			    console.log(form.serialize());
    			    $.ajax({  
    			        url: form.attr("action"),  
    			        type: form.attr("method"),  

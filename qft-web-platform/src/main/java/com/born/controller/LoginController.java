@@ -128,7 +128,7 @@ public class LoginController {
 		}
 		if (StringUtils.isNotBlank(corUrl)) {
 			Result cor = permissionService.getCompanyInfoByCorUrl(corUrl);
-			if (cor.isSuccess()) {
+			if (RespCode.Code.SUCCESS.getCode().equals(cor.getCode())) {
 				model.addAttribute("corUrl", corUrl);
 				SessionUtil.setCorUrl(request, corUrl);
 				return "login";
@@ -228,7 +228,7 @@ public class LoginController {
 			return result;
 		}
 		Result cor = permissionService.getCompanyInfoByCorUrl(user.getCorUrl());
-		if (!cor.isSuccess()) {
+		if (!RespCode.Code.SUCCESS.getCode().equals(cor.getCode())) {
 			result.setMessage("公司不存在");
 			return result;
 		}
@@ -251,7 +251,7 @@ public class LoginController {
 			CompanyInfoVO cif = cor.getData(CompanyInfoVO.class);
 			uInfo.setCompanyId(cif.getCompanyId());
 			uInfo.setCompanyName(cif.getCompanyName());
-			subject.hasRole("");
+			subject.hasRole(uInfo.getRoles().get(0).getRoleCode());
 			return ResultUtil.getResult(RespCode.Code.SUCCESS);
 		} else {
 			token.clear();

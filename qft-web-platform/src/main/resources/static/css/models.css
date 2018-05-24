@@ -318,13 +318,11 @@ select:focus {
 input[type="button"],
 input[type="submit"] {
   height: 30px;
-  line-height: 30px;
   color: #fff;
   border: none;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
-  behavior: url("PIE.htc");
   font-size: 14px;
   font-family: 'Microsoft YaHei';
   min-width: 90px;
@@ -376,13 +374,7 @@ textarea {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
-  behavior: url("PIE.htc");
   padding: 5px;
-}
-.fixedButton {
-  position: fixed;
-  left: 0;
-  bottom: 10px;
 }
 .loginBox {
   position: relative;
@@ -424,7 +416,6 @@ textarea {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  behavior: url("PIE.htc");
 }
 .loginBox .loginTxt .loginLeft {
   float: left;
@@ -495,7 +486,7 @@ textarea {
 }
 .loginBox .loginTxt .formBtnBox .formBtn {
   width: 338px;
-  height: 60px;
+  height: 45px;
   font-size: 24px;
   line-height: 45px;
   background: #579bfe;
@@ -615,10 +606,10 @@ textarea {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   background: #fff;
-  behavior: url("PIE.htc");
-  position: relative;
-  z-index: 1;
 }
 .downloadBox .downloadCon .downloadConRight .downloadBtn.downloadBtnEn {
   text-indent: 10px;
@@ -899,7 +890,7 @@ textarea {
   color: #fff;
 }
 .headRightMenu .headMenu li a:hover {
-  color: #98b9f9;
+  color: #c3d7ff;
 }
 .headRightMenu .headMenu li .subHeadMenuList {
   display: none;
@@ -968,7 +959,7 @@ textarea {
   font-size: 14px;
   line-height: 50px;
   cursor: pointer;
-  color: #98b9f9;
+  color: #c3d7ff;
 }
 .navMenu li .subMenu {
   display: none;
@@ -985,7 +976,7 @@ textarea {
   width: 128px;
   height: 40px;
   font-size: 13px;
-  color: #98b9f9;
+  color: #c3d7ff;
   text-indent: 30px;
 }
 .navMenu li .subMenu dd a .actionIcon {
@@ -1013,7 +1004,7 @@ textarea {
   padding-top: 8px;
   text-align: center;
   font-size: 14px;
-  color: #98b9f9;
+  color: #c3d7ff;
   line-height: 24px;
 }
 .navMenu li.openMenu .ricon {
@@ -1091,7 +1082,6 @@ textarea {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
-  behavior: url("PIE.htc");
   color: #fff;
   text-align: center;
   font-size: 12px;
@@ -1379,6 +1369,8 @@ textarea {
   -moz-border-radius: 20px;
   border-radius: 20px;
   behavior: url("PIE.htc");
+  position: relative;
+  z-index: 1;
 }
 .spreadBox .spreadTxt .spreadRig {
   float: right;
@@ -1455,10 +1447,20 @@ textarea {
   margin-right: 5px;
 }
 .disabled,
+input[type="text"].disabled,
+input[type="password"].disabled,
 .PopupBtn input[type="button"].disabled,
+input[type="text"].PopupBtn input[type="button"].disabled,
+input[type="password"].PopupBtn input[type="button"].disabled,
 .wareList tr td .accountName.disabled,
+input[type="text"].wareList tr td .accountName.disabled,
+input[type="password"].wareList tr td .accountName.disabled,
 .wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.PopupBtn input[type="button"].wareList tr td .accountName.disabled {
+input[type="text"].wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+input[type="password"].wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+input[type="text"].PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+input[type="password"].PopupBtn input[type="button"].wareList tr td .accountName.disabled {
   background: #f4f4f4;
 }
 .conHidden_x {
@@ -1495,7 +1497,7 @@ textarea {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.PopupTitle:first-child {
+.PopupTitle.margin_top0 {
   margin-top: 0;
 }
 .PopupTitle .modulepower {
@@ -1511,9 +1513,6 @@ textarea {
   padding: 0 10px;
   margin-left: 10px;
   cursor: pointer;
-  behavior: url("PIE.htc");
-  position: relative;
-  z-index: 1;
 }
 .PopupTitle .modulepower:hover {
   color: #fff;
@@ -1527,17 +1526,13 @@ textarea {
 .popupList tr th,
 .popupList tr td {
   position: relative;
-  vertical-align: top;
+  vertical-align: middle;
   height: 45px;
 }
 .popupList tr td input[type="text"],
 .popupList tr td input[type="password"] {
-  width: 90%;
+  width: 95%;
   height: 30px;
-}
-.popupList tr td input[type="text"].citySelect,
-.popupList tr td input[type="password"].citySelect {
-  width: 156px;
 }
 .popupList .fieldName,
 .popupList .fieldName_one {
@@ -1569,6 +1564,11 @@ textarea {
 }
 .popupList .tab_selectWidth {
   width: 176px;
+  vertical-align: middle;
+}
+.popupList .phoneTel {
+  float: left !important;
+  vertical-align: top;
 }
 .detailList {
   width: 100%;
@@ -1598,12 +1598,10 @@ textarea {
 }
 .PopupBtn {
   text-align: center;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 .PopupBtn input[type="button"] {
   margin: 0 10px;
-  position: relative;
-  z-index: 1;
 }
 .PopupBtn input[type="button"].cancel {
   background: #f1f1f1;
@@ -1638,7 +1636,7 @@ textarea {
 .qft_errorTxt {
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -8px;
   width: auto;
   height: 18px;
   line-height: 18px;
@@ -1679,8 +1677,6 @@ textarea {
   float: left;
   cursor: pointer;
   text-decoration: none;
-  position: relative;
-  z-index: 1;
 }
 .dataTables_paginate a.ellipsis,
 .dataTables_paginate span.ellipsis {
@@ -1695,10 +1691,9 @@ textarea {
 .dataTables_paginate .paginate_active,
 .dataTables_paginate .fg-button {
   border: 1px solid #d2d2d2;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  behavior: url("PIE.htc");
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1916,29 +1911,10 @@ textarea {
   width: auto;
   height: 30px;
 }
-.subTopLeft .subTopBtn {
+.subTopLeft .subTopBtn,
+.subTopLeft .addbtn {
   float: left;
-  width: auto;
-  height: 28px;
-  line-height: 28px;
-  border: 1px solid #c8c8c8;
-  text-align: center;
-  color: #0d2c56;
-  padding: 0 15px;
-  font-size: 12px;
   margin-right: 10px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  behavior: url("PIE.htc");
-  position: relative;
-  z-index: 1;
-}
-.subTopLeft .subTopBtn.subHover,
-.subTopLeft .subTopBtn:hover {
-  color: #fff;
-  background: #92bbff;
-  border: 1px solid #92bbff;
 }
 .subTopRight {
   float: right;
@@ -1976,6 +1952,41 @@ textarea {
 }
 .subTopRight span:hover {
   color: #1e65c5;
+}
+.subTopBtn {
+  width: auto;
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid #c8c8c8;
+  text-align: center;
+  color: #0d2c56;
+  padding: 0 15px;
+  font-size: 12px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.subTopBtn.subHover,
+.subTopBtn:hover {
+  color: #fff;
+  background: #92bbff;
+  border: 1px solid #92bbff;
+}
+.addbtn {
+  display: inline-block;
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  padding: 0 10px 0 30px;
+  cursor: pointer;
+  color: #fff;
+  background: url("../images/register_icon.png") 5px center no-repeat #92bbff;
+}
+.addbtn:hover,
+.addbtn:active {
+  background-color: #458bff;
+  color: #fff;
 }
 .searchTerm {
   min-height: 40px;
@@ -2019,8 +2030,6 @@ textarea {
   background: url("../images/tabsearchbtn-icon.png") 20px center no-repeat #92bbff;
   font-size: 12px;
   text-indent: 20px;
-  position: relative;
-  z-index: 1;
 }
 .searchMore {
   display: none;
@@ -2028,13 +2037,14 @@ textarea {
   height: auto;
 }
 input[type="button"].searchMoreBtn {
-  background: url("../images/search_more.png") 55px center no-repeat #fff;
+  background: url("../images/search_more.png") 54px center no-repeat #fff;
   border: 1px solid #92bbff;
   color: #92bbff;
-  text-indent: 20px;
+  text-indent: 22px;
+  line-height: 28px;
   text-align: left;
-  position: relative;
-  z-index: 1;
+  vertical-align: top;
+  font-size: 12px;
 }
 input[type="button"].searchMoreBtn:hover {
   background: url("../images/search_more_h.png") 55px center no-repeat #92bbff;
@@ -2142,9 +2152,6 @@ input[type="button"].searchMoreBtn:hover {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
-  behavior: url("PIE.htc");
-  position: relative;
-  z-index: 1;
 }
 .operationBox .operationList,
 .operationBox .subOperMenu {
@@ -2266,7 +2273,6 @@ input[type="button"].searchMoreBtn:hover {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
-  behavior: url("PIE.htc");
   cursor: pointer;
 }
 .frameworkTit .operateChart:hover {
@@ -2302,7 +2308,6 @@ input[type="button"].searchMoreBtn:hover {
   border-radius: 4px;
   border: 1px solid #b4bfcf;
   color: #60666e;
-  behavior: url("PIE.htc");
 }
 .powerBtnBox .powerBtn:hover,
 .powerBtnBox .powerBtn.actionBtn {
@@ -2318,6 +2323,11 @@ input[type="button"].searchMoreBtn:hover {
 }
 .margin0 {
   margin: 0;
+}
+.powerSetUp {
+  width: 100%;
+  height: 480px;
+  overflow-y: auto;
 }
 .powerMeunBox {
   width: 100%;
@@ -2365,9 +2375,6 @@ input[type="button"].searchMoreBtn:hover {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  behavior: url("PIE.htc");
-  position: relative;
-  z-index: 1;
 }
 .powerMeunBox .powerSubMeun li:hover .link_subMeun,
 .powerMeunBox .powerSubMeun li.subMeunHover .link_subMeun {
@@ -2376,12 +2383,15 @@ input[type="button"].searchMoreBtn:hover {
 }
 .powerOptionBox {
   width: 100%;
-  height: 256px;
-  margin-bottom: 5px;
+  height: 275px;
   overflow: auto;
 }
 .powerOptionBox .powerOption {
   margin-bottom: 10px;
+}
+.powerInfo {
+  display: none;
+  line-height: 24px;
 }
 .subPowerTit {
   padding: 0 10px;
@@ -2487,9 +2497,12 @@ label.labelRed {
   width: 20px;
   height: 48px;
   line-height: 24px;
-  color: #333333;
   font-size: 12px;
+  color: #5e6d82;
   text-align: center;
+}
+.roomStateBox:last-child {
+  border-bottom: none;
 }
 .roomStateList {
   width: 100%;
@@ -2630,7 +2643,8 @@ label.labelRed {
 }
 .textareaBox {
   width: 100%;
-  height: 50px;
+  height: auto;
+  line-height: 24px;
 }
 .textareaBox textarea {
   width: 100%;
@@ -2674,7 +2688,6 @@ label.labelRed {
 }
 .workBookBox li {
   position: relative;
-  z-index: 1;
   float: left;
   width: 140px;
   height: 24px;
@@ -2685,7 +2698,7 @@ label.labelRed {
   text-align: center;
   color: #666666;
   font-size: 12px;
-  margin: 5px 10px;
+  margin: 5px 0 5px 10px;
   line-height: 24px;
   cursor: pointer;
 }
@@ -2742,16 +2755,42 @@ label.labelRed {
   width: 226px;
   height: 30px;
 }
-.addGroupBox .addGroupList .groupImg {
+.groupInfo {
+  margin-top: 10px;
+  width: 100%;
+  height: 246px;
+  overflow-y: auto;
+}
+.companyDesc {
+  width: 100%;
+  height: 40px;
+  line-height: 20px;
+  overflow: hidden;
+}
+.companyDesc .companyDescMore {
+  color: #fb6464;
+}
+.existBox {
+  text-align: center;
+  font-size: 12px;
+  line-height: 26px;
+}
+.storeName {
+  display: inline-block;
+  line-height: 30px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+.groupImg {
   width: 14px;
   height: 14px;
   margin: 8px;
   cursor: pointer;
 }
-.addGroupBox .addGroupList .groupImg.deleteGroup {
+.groupImg.deleteGroup {
   background: url("../images/workclose_icon.png") 0 0 no-repeat;
 }
-.addGroupBox .addGroupList .groupImg.addGroup {
+.groupImg.addGroup {
   background: url("../images/add_icon.png") 0 0 no-repeat;
 }
 .keepIcon {

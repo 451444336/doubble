@@ -30,7 +30,7 @@ public interface DicMapper extends BaseMapper<DicTypeVO> {
 	 * @return Set<DicType>
 	 * @date 2018年5月17日 下午3:44:12
 	 */
-	List<DicMenuVO> findDicZtree();
+	List<DicMenuVO> selectDicZtree();
 
 	/**
 	 * 这里可以无限查询字典级数数据
@@ -46,6 +46,6 @@ public interface DicMapper extends BaseMapper<DicTypeVO> {
 	 * @return List<DicItem>
 	 * @date 2018年5月18日 上午10:36:40
 	 */
-	List<DicItemVO> findDicItem(@Param(value = "pId") String pId, @Param(value = "companyId") String companyId);
+	List<DicItemVO> selectDicItemList(@Param(value = "pId") String pId, @Param(value = "companyId") String companyId);
 
 }

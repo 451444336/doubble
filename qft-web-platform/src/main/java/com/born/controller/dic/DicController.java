@@ -1,5 +1,7 @@
 package com.born.controller.dic;
 
+import java.util.List;
+
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.facade.dto.dic.DicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemDTO;
+import com.born.facade.dto.dic.UpdateDicItemSortDTO;
 import com.born.facade.service.dic.IDicService;
 import com.born.util.json.JsonResult;
 import com.born.util.json.ResultCode;
@@ -68,6 +71,46 @@ public class DicController {
 	@GetMapping(value = "/explain")
 	public String explain() {
 		return "dic/qft_dic_explain";
+	}
+
+	/**
+	 * 
+	 * @Title: sort
+	 * @Description: 一级二级字典排序
+	 * @param pId
+	 *            父级ID
+	 * @param rank
+	 *            几级字典
+	 * @return
+	 * @author 张永胜
+	 * @return String
+	 * @date 2018年5月21日 下午5:46:44
+	 */
+	@GetMapping(value = "/sort/{pId}/{rank}")
+	public String sort(@PathVariable(value = "pId") String pId, @PathVariable(value = "rank") String rank,
+			Model model) {
+		model.addAttribute("pId", pId);
+		model.addAttribute("rank", rank);
+		return "dic/sort/qft_dic_sort";
+	}
+
+	/**
+	 * 
+	 * @Title: sort
+	 * @Description: 获取字典排序数据
+	 * @param pId
+	 *            父级ID
+	 * @param rank
+	 *            几级字典
+	 * @return
+	 * @author 张永胜
+	 * @return Result
+	 * @date 2018年5月21日 下午6:16:54
+	 */
+	@ResponseBody
+	@GetMapping(value = "/find/sort/data")
+	public Result sort(@Param(value = "pId") String pId, @Param(value = "rank") String rank) {
+		return iDicService.findDicItemAllById(pId, rank);
 	}
 
 	/**
@@ -142,6 +185,26 @@ public class DicController {
 	@PutMapping(value = "/update/item/data")
 	public ResultEntity<Object> updateDicItemData(@RequestBody UpdateDicItemDTO updateDicItemDTO) {
 		Result result = iDicService.updateDicItemById(updateDicItemDTO);
+		if (RespCode.Code.SUCCESS.getCode().equals(result.getCode())) {
+			return JsonResult.info(ResultCode.SUCCESS);
+		}
+		return JsonResult.info(ResultCode.FAIL);
+	}
+
+	/**
+	 * 
+	 * @Title: updateDicItemSortData
+	 * @Description: 批量更新字典排序
+	 * @param list
+	 * @return
+	 * @author 张永胜
+	 * @return ResultEntity<Object>
+	 * @date 2018年5月22日 下午2:26:46
+	 */
+	@ResponseBody
+	@PutMapping(value = "/update/item/sort/data")
+	public ResultEntity<Object> updateDicItemSortData(@RequestBody List<UpdateDicItemSortDTO> list) {
+		Result result = iDicService.updateDicItemSort(list);
 		if (RespCode.Code.SUCCESS.getCode().equals(result.getCode())) {
 			return JsonResult.info(ResultCode.SUCCESS);
 		}

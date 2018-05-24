@@ -85,8 +85,8 @@ public class BaseErrorController {
 	@ExceptionHandler(value = BizException.class)
 	@ResponseBody
 	public Result bizExceptionHandler(BizException e) {
-		log.error("异常信息, msg={},code={},e={}", e.getMsg(), e.getCode(), e.getStackTrace());
-		return new Result(false, e.getCode(), e.getMsg());
+		log.error("异常信息, msg={},code={},e", e.getMsg(), e.getCode(), e);
+		return new Result(e.getCode(), e.getMsg());
 	}
 	/**
 	 * 
