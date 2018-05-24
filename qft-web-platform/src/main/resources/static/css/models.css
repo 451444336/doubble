@@ -1598,7 +1598,7 @@ input[type="password"].PopupBtn input[type="button"].wareList tr td .accountName
 }
 .PopupBtn {
   text-align: center;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 .PopupBtn input[type="button"] {
   margin: 0 10px;
