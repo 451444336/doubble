@@ -468,7 +468,7 @@ public class ExcelImportUtil {
 			case SHORT:
 				return getBigDecimal(value).shortValue();
 			case DATE:
-				return SyncDateUtil.strToDate(value.toString(), false);
+				return SyncDateUtil.strToDate(value.toString());
 			case LONG:
 				return getBigDecimal(value).longValue();
 			case DOUBLE:

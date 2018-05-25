@@ -88,7 +88,7 @@ public class SyncDateUtil {
      *
      * @return
      */
-    public static Date strToDate(String pattern, String dateStr, boolean isRemove) {
+    public static Date strToDate(String pattern, String dateStr) {
         Date date = null;
         if (StringUtils.isBlank(dateStr) || StringUtils.isBlank(pattern)) {
             return date;
@@ -97,10 +97,6 @@ public class SyncDateUtil {
             date = getDateFormat(pattern).parse(dateStr);
         } catch (Exception e) {
             logger.error("String to date error", e);
-        } finally {
-            if (isRemove) {
-                remove();
-            }
         }
         return date;
     }
@@ -110,20 +106,16 @@ public class SyncDateUtil {
      *
      * @return
      */
-    public static Date strToDate(String dateStr, boolean isRemove) {
+    public static Date strToDate(String dateStr) {
         Date date = null;
         if (StringUtils.isBlank(dateStr)) {
             return date;
         }
         try {
-            date = strToDateByYmdHms(dateStr, isRemove);
+            date = strToDateByYmdHms(dateStr);
         } catch (Exception e) {
             logger.error("String to date error", e);
-            date = strToDateByYmd(dateStr, isRemove);
-        } finally {
-            if (isRemove) {
-                remove();
-            }
+            date = strToDateByYmd(dateStr);
         }
         return date;
     }
@@ -136,7 +128,7 @@ public class SyncDateUtil {
      * @Title: strToDateByYmdHms
      * @Description: yyyy-MM-dd HH:mm:ss
      */
-    public static Date strToDateByYmdHms(String dateStr, boolean isRemove) {
+    public static Date strToDateByYmdHms(String dateStr) {
         Date date = null;
         if (StringUtils.isBlank(dateStr)) {
             return date;
@@ -145,10 +137,6 @@ public class SyncDateUtil {
             date = getDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateStr);
         } catch (Exception e) {
             logger.error("String to date error yyyy-MM-dd HH:mm:ss ", e);
-        } finally {
-            if (isRemove) {
-                remove();
-            }
         }
         return date;
     }
@@ -161,7 +149,7 @@ public class SyncDateUtil {
      * @Title: strToDateByYmd
      * @Description: yyyy-MM-dd
      */
-    public static Date strToDateByYmd(String dateStr, boolean isRemove) {
+    public static Date strToDateByYmd(String dateStr) {
         Date date = null;
         if (StringUtils.isBlank(dateStr)) {
             return date;
@@ -170,10 +158,6 @@ public class SyncDateUtil {
             date = getDateFormat("yyyy-MM-dd").parse(dateStr);
         } catch (ParseException e) {
             logger.error("String to date error yyyy-MM-dd ", e);
-        } finally {
-            if (isRemove) {
-                remove();
-            }
         }
         return date;
     }
@@ -185,7 +169,7 @@ public class SyncDateUtil {
      * @param date
      * @return
      */
-    public static String dateToString(String pattern, Date date, boolean isRemove) {
+    public static String dateToString(String pattern, Date date) {
         String str = null;
         if (null == date || StringUtils.isBlank(pattern)) {
             return str;
@@ -194,10 +178,6 @@ public class SyncDateUtil {
             str = getDateFormat(pattern).format(date);
         } catch (Exception e) {
             logger.error("date to string error ", e);
-        } finally {
-            if (isRemove) {
-                remove();
-            }
         }
         return str;
     }
@@ -208,9 +188,9 @@ public class SyncDateUtil {
      * @param dateStr pattern格式参数
      * @return
      */
-    public static String strToFormat(String dateStr, String pattern, boolean isRemove) {
+    public static String strToFormat(String dateStr, String pattern) {
 
-        return dateToString(pattern, strToDate(pattern, dateStr, isRemove), isRemove);
+        return dateToString(pattern, strToDate(pattern, dateStr));
     }
 
     /**
@@ -224,9 +204,9 @@ public class SyncDateUtil {
      * @Description:将时间转换成指定时间格式
      * @author lijie
      */
-    public static Date dateToFormat(Date newDate, String pattern, boolean isRemove) {
+    public static Date dateToFormat(Date newDate, String pattern) {
 
-        return strToDate(pattern, dateToString(pattern, newDate, isRemove), isRemove);
+        return strToDate(pattern, dateToString(pattern, newDate));
     }
 
     /**
@@ -260,13 +240,13 @@ public class SyncDateUtil {
                     .append(getMaxDayByYearMonth(Integer.parseInt(strs[0]), Integer.parseInt(strs[1])))
                     .append(" 23:59:59");
             time = sbud.toString();
-            return strToDateByYmdHms(time, true);
+            return strToDateByYmdHms(time);
         } else if (MONTH_MIN.equals(size)) {
             StringBuilder sbud = new StringBuilder(time)
                     .append("-01")
                     .append(" 00:00:00");
             time = sbud.toString();
-            return strToDateByYmdHms(time, true);
+            return strToDateByYmdHms(time);
         }
         throw new RuntimeException("跟据月份计算当前月的最大与最小时间错误，请检查计算格式");
     }
@@ -289,6 +269,6 @@ public class SyncDateUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(dateToString("yyyy-MM-dd HH:mm:ss", getDate(null, MONTH_MIN), true));
+        System.out.println(dateToString("yyyy-MM-dd HH:mm:ss", getDate(null, MONTH_MIN)));
     }
 }
