@@ -241,20 +241,20 @@
                 },
 				"add_user_account": {  
 					"url": "/web/staff/validate",
-		            "alertTextOk": "* 此用户名已被其他人使用",
-		            "alertText": " 此名称已被其他人使用",
+		            "alertTextOk": "此用户名可以使用",
+		            "alertText": "* 此名称已被其他人使用",
                     "alertTextLoad": " 正在确认帐号名称是否有其他人使用，请稍等。"
 		         },  
                 "add_user_phone": {  
 		            "url": "/web/staff/validate",
-		            "alertTextOk": "* 此联系方式已被其他人使用",
-		            "alertText": " 此名称已被其他人使用",
+		            "alertTextOk": "此联系方式可以使用",
+		            "alertText": "* 此联系方式已被其他人使用",
                     "alertTextLoad": " 正在确认帐号名称是否有其他人使用，请稍等。"
 		         }, 
                 "add_user_idcard": {  
                 	"url": "/web/staff/validate",
-		            "alertTextOk": "* 此身份证已被其他人使用",
-		            "alertText": " 此名称已被其他人使用",
+		            "alertTextOk": "此身份证可以使用",
+		            "alertText": "* 此身份证已被其他人使用",
                     "alertTextLoad": " 正在确认帐号名称是否有其他人使用，请稍等。"
 		            	
 		         }  

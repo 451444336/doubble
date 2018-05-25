@@ -89,17 +89,17 @@
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>登录账号：</th>
-                <td><input class="validate[required]" name="account" type="text" th:value="*{account}"  placeholder="请输入登录账号" ></td>
+                <td><input class="validate[required]" name="account" disabled="disabled" type="text" th:value="*{account}"  placeholder="请输入登录账号" ></td>
                 <td class="gray-col">中英文均可，也可以用下面填写的手机号登录</td>
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>联系方式：</th>
-                <td><input class="validate[required,custom[phone]]" name="phone" type="text" th:value="*{phone}" placeholder="请输入联系方式" ></td>
+                <td><input class="validate[required,custom[phone]]" disabled="disabled" name="phone" type="text" th:value="*{phone}" placeholder="请输入联系方式" ></td>
                 <td class="gray-col">请填写11位手机号</td>
             </tr>
             <tr>
                 <th class="fieldName_one"><span class="require">*</span>身份证：</th>
-                <td><input class="validate[required,custom[chinaIdLoose]]" name="idcard" type="text" th:value="*{idcard}" placeholder="请输入身份证号" ></td>
+                <td><input class="validate[required,custom[chinaIdLoose]]" disabled="disabled" name="idcard" type="text" th:value="*{idcard}" placeholder="请输入身份证号" ></td>
                 <td class="gray-col">请填写身份证号</td>
             </tr>
             <tr>

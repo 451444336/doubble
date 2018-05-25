@@ -263,7 +263,7 @@ public class CompanyStaffController {
 	 *            参数对象
 	 * @return Result 返回对象
 	 */
-	@ApiOperation(value = "修改员工状态", notes = "必须传入员工ID")
+	@ApiOperation(value = "验证", notes = "必须传入员工ID")
 	@ApiResponses(value = { @ApiResponse(code = 10100, message = "请求参数有误"),
 			@ApiResponse(code = 200, message = "操作成功") })
 	@ResponseBody

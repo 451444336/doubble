@@ -26,6 +26,7 @@ import com.born.facade.vo.RoleVO;
 import com.born.mapper.CompanyRoleMapper;
 import com.born.mapper.CompanyStaffMapper;
 import com.born.mapper.SysUserMapper;
+import com.born.util.encrypt.password.PasswordUtil;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
@@ -187,7 +188,7 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 		//转换对应的用户数据
 		BeanUtils.copyProperties(dto, user);
 		user.setCreateTime(new Date());
-		user.setPassword("123456");
+		user.setPassword(PasswordUtil.encrypt(user.getAccount(), "123456"));
 		user.setSysStatus(new Byte(dto.getSysStatus()));
 		user.setStatus(new Byte("1"));
 		user.setIsAppNotice(0);
