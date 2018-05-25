@@ -11,7 +11,7 @@ import com.born.facade.constant.MenuAuthEnum;
 import com.born.facade.dto.permission.PermissionQueryDTO;
 import com.born.facade.vo.permission.MenuPermissionVO;
 import com.born.facade.vo.permission.PermissionVO;
-import com.born.util.ContainerUtil;
+import com.born.util.ContainerUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,7 +33,7 @@ public class PositionmMenuAuth extends MenuPermissionGen {
 		final List<PermissionVO> menuAuths = getPermissionsByMenuIds(dto.getMenuIds());
 		if (CollectionUtils.isEmpty(menuAuths)) {
 			log.info("根据菜单ID:" + JSON.toJSONString(dto.getMenuIds()) + "未查询到相关数据");
-			return ContainerUtil.aList();
+			return ContainerUtils.aList();
 		}
 		// 职位权限数据ID
 		final Set<Long> positionAuthIds = getPositionPermissionIds(getPositionPermissions(dto.getPositionId()));

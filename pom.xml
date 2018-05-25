@@ -16,6 +16,8 @@
   	<module>qft-task</module>
   	<module>qft-service-basicbusiness</module>
   	<module>qft-facade-basicbusiness</module>
+  	<module>qft-service-lease</module>
+  	<module>qft-facade-lease</module>
   </modules>
   
   

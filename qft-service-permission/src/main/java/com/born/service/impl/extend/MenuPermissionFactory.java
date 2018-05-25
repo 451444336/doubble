@@ -8,7 +8,7 @@ import com.born.core.exception.BizException;
 import com.born.facade.constant.MenuAuthEnum;
 import com.born.facade.dto.permission.PermissionQueryDTO;
 import com.born.facade.vo.permission.MenuPermissionVO;
-import com.born.util.bean.SpringUtil;
+import com.born.util.bean.SpringUtils;
 /**
  * 
 * @ClassName: MenuPermissionFactory 
@@ -24,9 +24,9 @@ public class MenuPermissionFactory implements MenuPermissionContent {
 
 	private MenuPermissionContent getMenuPermissionContent(final Byte type) {
 		if (MenuAuthEnum.POSITION_AUTH.getStatus().equals(type)) {
-			menuPermission = SpringUtil.getBeanByName("positionmMenuAuth", PositionmMenuAuth.class);
+			menuPermission = SpringUtils.getBeanByName("positionmMenuAuth", PositionmMenuAuth.class);
 		} else if (MenuAuthEnum.PERSION_AUTH.getStatus().equals(type)) {
-			menuPermission = SpringUtil.getBeanByName("persionMenuAuth", PersionMenuAuth.class);
+			menuPermission = SpringUtils.getBeanByName("persionMenuAuth", PersionMenuAuth.class);
 		}
 		if (null == menuPermission) {
 			throw new BizException("MenuPermissionContent class project is null ");

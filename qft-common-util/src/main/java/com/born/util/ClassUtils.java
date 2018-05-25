@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2017年3月13日
  */
 @Slf4j
-public final class ClassUtil {
+public final class ClassUtils {
     /**
      * 根据clas 获取字段名
      * 不获取父类

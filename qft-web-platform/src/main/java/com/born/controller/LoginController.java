@@ -28,7 +28,7 @@ import com.born.facade.vo.UserInfoVO;
 import com.born.facade.vo.UserRoleVO;
 import com.born.facade.vo.company.CompanyInfoVO;
 import com.born.util.encrypt.password.PasswordUtil;
-import com.born.util.http.IPUtil;
+import com.born.util.http.IPUtils;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
@@ -235,7 +235,7 @@ public class LoginController {
 		// MD5加密
 		user.setPassword(PasswordUtil.encrypt(user.getAccount(), user.getPassword()));
 		ShiroToken token = new ShiroToken(user.getAccount(), user.getPassword(), rememberMe,
-				IPUtil.getIpAddress(request));
+				IPUtils.getIpAddress(request));
 		// 获取当前的Subject
 		Subject subject = SecurityUtils.getSubject();
 		log.info("对用户[" + user.getAccount() + "]进行登录验证..验证开始");

@@ -14,7 +14,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.ui.Model;
 
-import com.born.util.ClassUtil;
+import com.born.util.ClassUtils;
 
 /**
  * 
@@ -94,7 +94,7 @@ public class AspectHandle {
 					if (isFilter(objects[i])) {
 						continue;
 					}
-					result = ClassUtil.getProValue(name, objects[i]);
+					result = ClassUtils.getProValue(name, objects[i]);
 					if (null != result) {
 						break;
 					}

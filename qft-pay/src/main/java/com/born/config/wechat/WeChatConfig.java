@@ -1,6 +1,6 @@
 package com.born.config.wechat;
 
-import com.born.util.bean.SpringUtil;
+import com.born.util.bean.SpringUtils;
 
 /**
  * 
@@ -12,7 +12,7 @@ import com.born.util.bean.SpringUtil;
  */
 public class WeChatConfig {
 	
-	private static final WechatProperties WECHAT_CORE = SpringUtil.getBeanByClass(WechatProperties.class);
+	private static final WechatProperties WECHAT_CORE = SpringUtils.getBeanByClass(WechatProperties.class);
 	
 	/**
 	 * 服务号应用密码：正式:fd3f7bac2b400651805b82f61f41bd3e

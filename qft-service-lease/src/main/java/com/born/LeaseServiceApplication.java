@@ -10,18 +10,18 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 import org.springframework.context.annotation.Bean;
 /**
  * 
-* @ClassName: BasicbusinessServiceApplication  
-* @Description: spring boot start config
-* @author lijie
-* @date 2018年4月25日  
+* @ClassName: LeaseServiceApplication 
+* @Description: 租赁管理启动类
+* @author lijie 
+* @date 2018年5月25日 下午5:20:11 
 *
  */
 @MapperScan(basePackages = "com.born.mapper")
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
-public class BasicbusinessServiceApplication {
+public class LeaseServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BasicbusinessServiceApplication.class, args);
+		SpringApplication.run(LeaseServiceApplication.class, args);
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class BasicbusinessServiceApplication {
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 		TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
-		factory.setPort(20012);
+		factory.setPort(20013);
 		return factory;
 	}
 }

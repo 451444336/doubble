@@ -31,4 +31,8 @@ public final class PasswordUtil {
 		sb.append("_" + account);
 		return Md5Util.encode(sb.toString());
 	}
+	
+	public static void main(String[] args) {
+		System.out.println(encrypt("15823690857", "123456"));
+	}
 }

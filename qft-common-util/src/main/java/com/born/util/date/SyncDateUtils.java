@@ -15,17 +15,17 @@ import org.slf4j.LoggerFactory;
  * @Description: 时间转换
  * @date 2017年3月23日
  */
-public class SyncDateUtil {
+public class SyncDateUtils {
     /**
      * 私有构造方法
      */
-    private SyncDateUtil() {
+    private SyncDateUtils() {
     }
 
     /**
      * 日志log
      */
-    private static final Logger logger = LoggerFactory.getLogger(SyncDateUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(SyncDateUtils.class);
     /**
      * 构造线程隔离DateFormat
      */

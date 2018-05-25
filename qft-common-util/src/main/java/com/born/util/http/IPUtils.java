@@ -18,9 +18,9 @@ import org.slf4j.LoggerFactory;
 * @date 2018年4月25日  
 *
  */
-public class IPUtil {
+public class IPUtils {
 
-	protected static Logger log = LoggerFactory.getLogger(IPUtil.class);
+	protected static Logger log = LoggerFactory.getLogger(IPUtils.class);
 	
    /**
 	 * 获取请求的真实IP地址(适用于公网和局域网)

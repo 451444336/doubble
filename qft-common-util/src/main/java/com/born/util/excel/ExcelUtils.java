@@ -21,13 +21,13 @@ import java.util.List;
  * @Copyright: 2017
  */
 @Slf4j
-public class ExcelUtil {
+public class ExcelUtils {
 
 
     /**
      * 构造私有
      */
-    private ExcelUtil() {
+    private ExcelUtils() {
     }
 
     /**
@@ -48,7 +48,7 @@ public class ExcelUtil {
         } else {
             datas = new Object[]{excelData};
         }
-        HSSFWorkbook excel = ExcelUtil.createExcel(datas);
+        HSSFWorkbook excel = ExcelUtils.createExcel(datas);
         // 生成文件
         HSSFSheet sheet = excel.getSheetAt(0);
         HSSFFooter footer = sheet.getFooter();
@@ -343,7 +343,7 @@ public class ExcelUtil {
         excelBean.setSheetName(name);
         excelBean.setHeaderCenter(name + "列表");
         excelBean.setTableHeader(tableHeads);
-        excelBean.setColWidth(ExcelUtil.getColWidth(tableHeads.length));
+        excelBean.setColWidth(ExcelUtils.getColWidth(tableHeads.length));
         excelBean.setSheetData(sheetData);
         return excelBean;
     }

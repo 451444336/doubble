@@ -33,7 +33,7 @@ import com.born.facade.vo.MenuVO;
 import com.born.mapper.CompanyMenuMapper;
 import com.born.mapper.CompanyRoleMenuMapper;
 import com.born.mapper.MenuAuthorityMapper;
-import com.born.util.ClassUtil;
+import com.born.util.ClassUtils;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
@@ -157,7 +157,7 @@ public class MenuServiceImpl implements IMenuService {
 		log.info("添加菜单数据入参={}", JSON.toJSONString(list));
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		try {
-			String errorStr = ClassUtil.checkRequest(list);
+			String errorStr = ClassUtils.checkRequest(list);
 			if (StringUtils.isNotBlank(errorStr)) {
 				return ResultUtil.setResult(result, RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 			}

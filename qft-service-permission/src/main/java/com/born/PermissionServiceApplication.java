@@ -3,8 +3,6 @@ package com.born;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 *
  */
 @MapperScan(basePackages = "com.born.mapper")
-@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
+@SpringBootApplication
 public class PermissionServiceApplication {
 
 	public static void main(String[] args) {
@@ -31,7 +29,7 @@ public class PermissionServiceApplication {
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 		TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
-		factory.setPort(20002);
+		factory.setPort(20011);
 		return factory;
 	}
 }

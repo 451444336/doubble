@@ -20,7 +20,7 @@ import com.born.core.annotation.LimitIPRequest;
 import com.born.core.exception.LimitIPRequestException;
 import com.born.core.rediscache.ICacheService;
 import com.born.util.constants.AppConstants;
-import com.born.util.http.IPUtil;
+import com.born.util.http.IPUtils;
 import com.born.util.json.JsonResult;
 import com.born.util.json.ResultCode;
 
@@ -80,7 +80,7 @@ public class LimitIPRequestAspect {
 				return null;
 			}
 
-			String ip = IPUtil.getIpAddress(request);
+			String ip = IPUtils.getIpAddress(request);
 			String uri = request.getRequestURI().toString();
 			String redisKey = AppConstants.LIMIT_IP_REQUEST + ":" + uri + ":" + ip;
 

@@ -28,8 +28,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.born.util.ClassUtil;
-import com.born.util.date.SyncDateUtil;
+import com.born.util.ClassUtils;
+import com.born.util.date.SyncDateUtils;
 
 /**
  * 
@@ -39,14 +39,14 @@ import com.born.util.date.SyncDateUtil;
 * @date 2017年3月22日  
 *
  */
-public class ExcelImportUtil {
+public class ExcelImportUtils {
 
 	/**
 	 * 格式化数字
 	 */
 	private static final DecimalFormat NF = new DecimalFormat("#0");
 
-	private ExcelImportUtil(){}
+	private ExcelImportUtils(){}
 	/**
 	 * 
 	* @Title: getExcelImportInfos 
@@ -69,7 +69,7 @@ public class ExcelImportUtil {
 				MultipartFile mfile = entry.getValue();
 				InputStream in = mfile.getInputStream();
 				String filePath = mfile.getOriginalFilename();
-				ts = ExcelImportUtil.readExcel(clas, names, in, filePath);
+				ts = ExcelImportUtils.readExcel(clas, names, in, filePath);
 			}
 		}
 		return ts;
@@ -406,7 +406,7 @@ public class ExcelImportUtil {
 				result.add(invokeTester);
 			}
 		} finally {
-			SyncDateUtil.remove();
+			SyncDateUtils.remove();
 		}
 		return result;
 	}
@@ -468,7 +468,7 @@ public class ExcelImportUtil {
 			case SHORT:
 				return getBigDecimal(value).shortValue();
 			case DATE:
-				return SyncDateUtil.strToDate(value.toString());
+				return SyncDateUtils.strToDate(value.toString());
 			case LONG:
 				return getBigDecimal(value).longValue();
 			case DOUBLE:
@@ -530,7 +530,7 @@ public class ExcelImportUtil {
 			for (Method m : mh) {
 				name = m.getName();
 				if (name.startsWith("set")) {
-					map.put(ClassUtil.toLowerCase(name.substring("set".length())),
+					map.put(ClassUtils.toLowerCase(name.substring("set".length())),
 							new Object[] { name, m.getParameterTypes()[0] });
 				}
 			}
