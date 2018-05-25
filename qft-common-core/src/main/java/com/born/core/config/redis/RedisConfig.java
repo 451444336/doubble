@@ -26,11 +26,12 @@ import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
- * @项目：mammon-parent
- * @描述：redis配置类
- * @创建时间：2017/11/26
- * @Copyright @2017 by Mr.chang
- * @author Mr.chang
+ * 
+* @ClassName: RedisConfig 
+* @Description: redis配置类 
+* @author lijie 
+* @date 2018年5月25日 上午9:17:06 
+*
  */
 @Slf4j
 @Configuration
