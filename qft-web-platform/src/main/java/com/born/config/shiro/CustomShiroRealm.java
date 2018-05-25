@@ -23,9 +23,9 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.born.config.shiro.token.ShiroToken;
 import com.born.facade.dto.user.LoginDTO;
@@ -55,13 +55,13 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomShiroRealm extends AuthorizingRealm {
 
     // 用户接口
-    @Autowired
+	@Reference(version = "1.0.0")
     private IUserService userService;
     // 菜单接口
-    @Autowired
+	@Reference(version = "1.0.0")
     private IMenuService menuService;
     // 菜单权限接口
-    @Autowired
+	@Reference(version = "1.0.0")
     private IMenuAuthorityService menuAuthService;
 
    /**

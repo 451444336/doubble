@@ -1,6 +1,7 @@
 package com.born.config;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
+import com.alibaba.dubbo.config.ConsumerConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
 import lombok.Data;
@@ -49,7 +50,22 @@ public class DubboConsumer {
 		applicationConfig.setLogger("slf4j");
 		return applicationConfig;
 	}
-
+	/**
+	 * 
+	* @Title: consumerConfig 
+	* @Description: 消费者配置
+	* @param @return    设定文件 
+	* @return ConsumerConfig    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	@Bean
+	public ConsumerConfig consumerConfig() {
+		ConsumerConfig consumerConfig = new ConsumerConfig();
+		// 设置启动时不检查注册中心
+		consumerConfig.setCheck(false);
+		return consumerConfig;
+	}
    /**
     * 
    * @Title: registryConfig 

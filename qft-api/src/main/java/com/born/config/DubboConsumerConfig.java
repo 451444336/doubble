@@ -62,7 +62,7 @@ public class DubboConsumerConfig {
     /**
      * 
     * @Title: consumerConfig  
-    * @Description: TODO(这里用一句话描述这个方法的作用)  
+    * @Description: 消费者配置  
     * @param @return    参数  
     * @return ConsumerConfig    返回类型  
     * @author lijie
