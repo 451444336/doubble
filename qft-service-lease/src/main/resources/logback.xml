@@ -2,7 +2,7 @@
 <!DOCTYPE configuration>
 <configuration scan="true" scanPeriod="30 minutes" debug="false">
     <!-- 日志存储根路径 -->
-    <property name="log.dir.root" value="/data/qft/logs/basicbusiness"/>
+    <property name="log.dir.root" value="/data/qft/logs/lease"/>
 
     <!-- 彩色日志 -->
     <!-- 彩色日志依赖的渲染类 -->
