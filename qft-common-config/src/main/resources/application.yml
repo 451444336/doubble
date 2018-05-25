@@ -20,7 +20,7 @@ logging:
   level:
     org.apache.zookeeper: off
     com.alibaba: off
-    com.aq.mapper: debug
+    com.born.mapper: debug
 
 #pageHelper分页设置
 pagehelper:
