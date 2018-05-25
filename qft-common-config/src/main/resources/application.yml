@@ -1,6 +1,6 @@
 spring:
    profiles:
-     active: test
+     active: dev
 #mybatis扫描包
 mybatis:
     type-aliases-package: com.born.facade.entity
@@ -31,7 +31,7 @@ pagehelper:
 
 ---
 spring:
-  profiles: test
+  profiles: dev
   datasource:
     druid:
       driver-class-name: com.mysql.jdbc.Driver
@@ -66,7 +66,7 @@ spring:
 
 ---
 spring:
-  profiles: dev
+  profiles: test
   datasource:
     druid:
       driver-class-name: com.mysql.jdbc.Driver
