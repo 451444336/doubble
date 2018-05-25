@@ -39,7 +39,7 @@ public interface RespCode {
          */
     	SUCCESS("200","操作成功"),
         FAIL("300","操作失败"),
-        ILLEGALARGUMENT("400 ","请求参数非法"),
+        ILLEGALARGUMENT("400","请求参数非法"),
         UNAUTHORIZED("401","未授权"),
         INTERNAL_SERVER_ERROR("0405", "服务器内部错误"),
         PERMISSION_DENIED("10101","没有权限访问！"),
