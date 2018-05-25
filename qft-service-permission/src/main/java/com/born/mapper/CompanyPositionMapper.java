@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
+import com.born.entity.CompanyPosition;
 import com.born.facade.dto.CompanyPositionDTO;
 import com.born.facade.dto.position.PositionAuthDTO;
-import com.born.facade.entity.CompanyPosition;
 import com.born.facade.vo.companyPosition.CompanyPositionVO;
 /**
  * 

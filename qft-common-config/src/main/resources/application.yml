@@ -3,7 +3,7 @@ spring:
      active: dev
 #mybatis扫描包
 mybatis:
-    type-aliases-package: com.born.facade.entity
+    type-aliases-package: com.born.entity
     #Mapper指定扫描包
     mapper-locations: classpath*:**/mapper/xml/**/*.xml
 

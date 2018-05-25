@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.born.entity.notice.Notice;
 import com.born.facade.dto.notice.NoticeDTO;
-import com.born.facade.entity.notice.Notice;
 import com.born.facade.exception.BasicBusinessException;
 import com.born.facade.exception.BasicBusinessExceptionEnum;
 import com.born.facade.service.notice.INoticeService;

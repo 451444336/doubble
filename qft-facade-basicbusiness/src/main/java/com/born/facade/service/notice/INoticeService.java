@@ -1,7 +1,6 @@
 package com.born.facade.service.notice;
 
 import com.born.facade.dto.notice.NoticeDTO;
-import com.born.facade.entity.notice.Notice;
 import com.born.util.result.Result;
 
 /**

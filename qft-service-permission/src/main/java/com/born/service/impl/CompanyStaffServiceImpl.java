@@ -9,15 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.born.entity.CompanyRole;
+import com.born.entity.CompanyStaff;
+import com.born.entity.User;
 import com.born.facade.dto.CompanyStaffDTO;
 import com.born.facade.dto.ValidateDTO;
 import com.born.facade.dto.staff.FindStaffListDTO;
 import com.born.facade.dto.staff.PositionStaffDTO;
 import com.born.facade.dto.user.DeteleUserDTO;
 import com.born.facade.dto.user.UserRoleDTO;
-import com.born.facade.entity.CompanyRole;
-import com.born.facade.entity.CompanyStaff;
-import com.born.facade.entity.User;
 import com.born.facade.exception.PermissionException;
 import com.born.facade.exception.PermissionExceptionEnum;
 import com.born.facade.service.ICompanyStaffService;

@@ -3,7 +3,7 @@ package com.born.mapper;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
-import com.born.facade.entity.CompanyRoleMenu;
+import com.born.entity.CompanyRoleMenu;
 /**
  * 
 * @ClassName: CompanyRoleMenuMapper 

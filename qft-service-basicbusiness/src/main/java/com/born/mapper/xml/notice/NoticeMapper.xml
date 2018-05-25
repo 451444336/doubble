@@ -10,7 +10,7 @@
 	    	is_delete = 1
 	    	 WHERE id = #{id}
 	</update> 
-	<select id="selectPageList" resultType="com.born.facade.entity.notice.Notice" parameterType="com.born.facade.dto.notice.NoticeDTO">
+	<select id="selectPageList" resultType="com.born.entity.notice.Notice" parameterType="com.born.facade.dto.notice.NoticeDTO">
 		select 
 			id as id,
 			title as title,

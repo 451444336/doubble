@@ -4,8 +4,8 @@ package com.born.mapper;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
+import com.born.entity.OperateLogAuthority;
 import com.born.facade.dto.OperateLogAuthorityDTO;
-import com.born.facade.entity.OperateLogAuthority;
 
 /**
  * @Description: 操作日志记录Mapper

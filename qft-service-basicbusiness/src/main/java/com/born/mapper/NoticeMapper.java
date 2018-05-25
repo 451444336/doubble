@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
+import com.born.entity.notice.Notice;
 import com.born.facade.dto.notice.NoticeDTO;
-import com.born.facade.entity.notice.Notice;
 
 /**
  * 

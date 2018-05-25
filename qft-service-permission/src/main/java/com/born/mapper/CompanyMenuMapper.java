@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
+import com.born.entity.CompanyMenu;
 import com.born.facade.dto.menu.MenuQueryDTO;
-import com.born.facade.entity.CompanyMenu;
 import com.born.facade.vo.MenuVO;
 import com.born.facade.vo.appauth.UserRoleMenuVo;
 /**

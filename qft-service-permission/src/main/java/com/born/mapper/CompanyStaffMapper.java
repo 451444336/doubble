@@ -6,10 +6,10 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
+import com.born.entity.CompanyStaff;
 import com.born.facade.dto.staff.DeteleStaffDTO;
 import com.born.facade.dto.staff.FindStaffListDTO;
 import com.born.facade.dto.staff.PositionStaffDTO;
-import com.born.facade.entity.CompanyStaff;
 import com.born.facade.vo.CompanyStaffVO;
 
 @Repository

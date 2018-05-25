@@ -5,7 +5,7 @@
 
 	<!-- 获取登录账户 -->
 	<select id="selectUserByAccount"
-		resultType="com.born.facade.entity.User">
+		resultType="com.born.entity.User">
 		select
 		id,account,password,status,is_app_notice as isAppNotice,
 		is_web_notice as isWebNotice,source_type as sourceType,

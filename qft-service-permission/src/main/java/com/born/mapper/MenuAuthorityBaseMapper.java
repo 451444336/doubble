@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
-import com.born.facade.entity.MenuAuthorityBase;
+import com.born.entity.MenuAuthorityBase;
 /**
  * 
 * @ClassName: MenuAuthorityBaseMapper 

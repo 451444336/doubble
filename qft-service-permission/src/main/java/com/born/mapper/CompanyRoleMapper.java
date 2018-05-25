@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
+import com.born.entity.CompanyRole;
 import com.born.facade.dto.CompanyRoleDTO;
-import com.born.facade.entity.CompanyRole;
 import com.born.facade.vo.CompanyRoleVO;
 import com.born.facade.vo.RoleMenuVO;
 import com.born.facade.vo.RoleVO;

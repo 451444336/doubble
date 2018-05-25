@@ -24,7 +24,7 @@
 
 	<!-- 根据用户ID获取员工信息 -->
 	<select id="selectStaffByUserId"
-		resultType="com.born.facade.entity.CompanyStaff">
+		resultType="com.born.entity.CompanyStaff">
 		select
 		id,phone,realname,note,idcard,workstore,attendance_id as attendanceId,
 		grouping,city_id as cityId,city_list as cityList,store_grouping as

@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
+import com.born.entity.store.CompanyStore;
 import com.born.facade.dto.store.CompanyStoreDTO;
-import com.born.facade.entity.store.CompanyStore;
 import com.born.facade.vo.store.CompanyStoreVO;
 
 /**

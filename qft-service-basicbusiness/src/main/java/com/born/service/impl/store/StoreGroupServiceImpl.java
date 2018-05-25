@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.born.entity.store.CompanyStore;
+import com.born.entity.store.StoreGroup;
 import com.born.facade.dto.store.StoreGroupDTO;
-import com.born.facade.entity.store.CompanyStore;
-import com.born.facade.entity.store.StoreGroup;
 import com.born.facade.exception.StoreException;
 import com.born.facade.exception.StoreExceptionEnum;
 import com.born.facade.service.store.IStoreGroupService;

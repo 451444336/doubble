@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
+import com.born.entity.dic.DicItem;
 import com.born.facade.dto.dic.UpdateDicItemSortDTO;
-import com.born.facade.entity.dic.DicItem;
 import com.born.facade.vo.dic.DicItemSortVO;
 
 /**
