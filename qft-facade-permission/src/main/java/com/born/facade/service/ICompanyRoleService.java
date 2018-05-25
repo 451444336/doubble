@@ -4,8 +4,6 @@ import java.util.Date;
 
 import com.born.facade.dto.CompanyRoleDTO;
 import com.born.facade.dto.OperateLogAuthorityDTO;
-import com.born.facade.entity.CompanyRole;
-import com.born.facade.vo.RoleVO;
 import com.born.util.result.Result;
 
 /**
@@ -37,15 +35,6 @@ public interface ICompanyRoleService {
 	 * @return
 	 */
 	Result update(CompanyRoleDTO dto);
-
-	/**
-	 * 根据ID查询角色
-	 * 
-	 * @param id
-	 * @return
-	 */
-	CompanyRole queryById(Long id);
-	
 	
 	/**
 	 * @Description 绑定角色菜单

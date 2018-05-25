@@ -1,4 +1,4 @@
-package com.born.facade.entity;
+package com.born.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -8,32 +8,31 @@ import com.born.core.base.BaseEntity;
 import lombok.Data;
 /**
  * 
-* @ClassName: CompanyMenu 
-* @Description: 菜单实体 
+* @ClassName: CompanyAuthority 
+* @Description: 公司权限 
 * @author lijie 
-* @date 2018年4月28日 上午10:49:27 
+* @date 2018年5月3日 下午2:32:02 
 *
  */
 @Data
-@Table(name="qft_company_menu")
-public class CompanyMenu extends BaseEntity<CompanyMenu> {
-	
+@Table(name="qft_company_authority")
+public class CompanyAuthority extends BaseEntity<CompanyAuthority> {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2952542399879354178L;
+	private static final long serialVersionUID = -7051556679204423855L;
 	/**
 	 * 公司ID
 	 */
-	@Column(name = "company_id")
+	@Column(name="company_id")
 	private String companyId;
 	/**
-	 * 上级菜单ID
+	 * 权限ID
 	 */
-	@Column(name = "parent_id")
-	private Long parentId;
+	@Column(name="base_authority_id")
+	private String baseAuthorityId;
 	/**
-	 * 菜单基础数据ID
+	 * 菜单ID
 	 */
 	@Column(name="base_menu_id")
 	private String baseMenuId;
@@ -45,13 +44,13 @@ public class CompanyMenu extends BaseEntity<CompanyMenu> {
 	/**
 	 * 权限名称
 	 */
-	@Column(name="menu_name")
-	private String menuName;
+	@Column(name="authority_name")
+	private String authorityName;
 	/**
 	 * 权限地址
 	 */
-	@Column(name="menu_url")
-	private String menuUrl;
+	@Column(name="authority_url")
+	private String authorityUrl;
 	/**
 	 * 权限归属类型：1、pc  2、手机
 	 */
@@ -75,10 +74,10 @@ public class CompanyMenu extends BaseEntity<CompanyMenu> {
 	/**
 	 * 权限排序
 	 */
-	@Column(name="menu_seq")
-	private Integer menuSeq;
+	@Column(name="authority_seq")
+	private Integer authoritySeq;
 	/**
-	 * 权限类型：1、正常菜单 2、后台菜单 3、首页菜单 4、公有菜单
+	 * 权限类型：1、查看 2、修改删除 3、操作 4、特殊
 	 */
 	@Column(name="type")
 	private Byte type;
@@ -87,4 +86,9 @@ public class CompanyMenu extends BaseEntity<CompanyMenu> {
 	 */
 	@Column(name="is_delete")
 	private Byte isDelete;
+	/**
+	 * 权限编码
+	 */
+	@Column(name="auth_code")
+	private String authCode;
 }

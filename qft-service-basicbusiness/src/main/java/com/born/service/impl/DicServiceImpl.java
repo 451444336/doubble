@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.born.entity.dic.DicItem;
 import com.born.facade.dto.dic.DicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemSortDTO;
-import com.born.facade.entity.dic.DicItem;
 import com.born.facade.service.dic.IDicService;
 import com.born.facade.vo.dic.DicItemSortVO;
 import com.born.facade.vo.dic.DicItemVO;

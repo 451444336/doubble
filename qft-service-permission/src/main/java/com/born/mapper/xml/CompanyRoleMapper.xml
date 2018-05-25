@@ -22,7 +22,7 @@
 	</select>
 	<!-- APP根据用户ID 获取角色列表 -->
 	<select id="selectRoleByUserId"
-	resultType="com.born.facade.entity.CompanyRole">
+	resultType="com.born.entity.CompanyRole">
 		SELECT
 			qcr.id,
 			qcr.role_name AS roleName,

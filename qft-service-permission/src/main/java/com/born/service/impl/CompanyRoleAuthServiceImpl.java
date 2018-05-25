@@ -7,7 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.born.facade.entity.CompanyRole;
+import com.born.entity.CompanyRole;
 import com.born.facade.service.ICompanyRoleAuthService;
 import com.born.facade.vo.appauth.UserRoleAuthVO;
 import com.born.facade.vo.appauth.UserRoleMenuVo;

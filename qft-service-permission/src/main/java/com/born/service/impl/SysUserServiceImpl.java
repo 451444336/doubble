@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.born.facade.entity.User;
+import com.born.entity.User;
 import com.born.facade.service.ISysUserService;
 import com.born.mapper.SysUserMapper;
 import com.born.util.result.RespCode;

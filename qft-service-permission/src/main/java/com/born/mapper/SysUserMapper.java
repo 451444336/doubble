@@ -6,10 +6,10 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
+import com.born.entity.User;
 import com.born.facade.dto.user.DeteleUserDTO;
 import com.born.facade.dto.user.UserDTO;
 import com.born.facade.dto.user.UserRoleDTO;
-import com.born.facade.entity.User;
 import com.born.facade.vo.UserVO;
 
 @Repository

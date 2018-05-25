@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
-import com.born.facade.entity.MenuAuthority;
+import com.born.entity.MenuAuthority;
 import com.born.facade.vo.MenuAuthorityVO;
 import com.born.facade.vo.UserAuthVO;
 

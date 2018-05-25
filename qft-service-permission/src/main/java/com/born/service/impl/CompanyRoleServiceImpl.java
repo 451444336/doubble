@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.born.entity.CompanyRole;
+import com.born.entity.RoleRelation;
 import com.born.facade.dto.CompanyRoleDTO;
 import com.born.facade.dto.OperateLogAuthorityDTO;
-import com.born.facade.entity.CompanyRole;
-import com.born.facade.entity.RoleRelation;
 import com.born.facade.exception.PermissionException;
 import com.born.facade.exception.PermissionExceptionEnum;
 import com.born.facade.service.ICompanyRoleService;
@@ -123,12 +123,6 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 			throw new PermissionException(PermissionExceptionEnum.UPDATE_ROLE_ERROE);
 		}
 		return result;
-	}
-
-	@Override
-	public CompanyRole queryById(Long id) {
-		CompanyRole role = companyRoleMapper.selectByPrimaryKey(id);
-		return role;
 	}
 
 	@Override

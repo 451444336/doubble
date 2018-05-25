@@ -1,4 +1,4 @@
-package com.born.facade.entity;
+package com.born.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -8,31 +8,32 @@ import com.born.core.base.BaseEntity;
 import lombok.Data;
 /**
  * 
-* @ClassName: CompanyAuthority 
-* @Description: 公司权限 
+* @ClassName: CompanyMenu 
+* @Description: 菜单实体 
 * @author lijie 
-* @date 2018年5月3日 下午2:32:02 
+* @date 2018年4月28日 上午10:49:27 
 *
  */
 @Data
-@Table(name="qft_company_authority")
-public class CompanyAuthority extends BaseEntity<CompanyAuthority> {
+@Table(name="qft_company_menu")
+public class CompanyMenu extends BaseEntity<CompanyMenu> {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7051556679204423855L;
+	private static final long serialVersionUID = 2952542399879354178L;
 	/**
 	 * 公司ID
 	 */
-	@Column(name="company_id")
+	@Column(name = "company_id")
 	private String companyId;
 	/**
-	 * 权限ID
+	 * 上级菜单ID
 	 */
-	@Column(name="base_authority_id")
-	private String baseAuthorityId;
+	@Column(name = "parent_id")
+	private Long parentId;
 	/**
-	 * 菜单ID
+	 * 菜单基础数据ID
 	 */
 	@Column(name="base_menu_id")
 	private String baseMenuId;
@@ -44,13 +45,13 @@ public class CompanyAuthority extends BaseEntity<CompanyAuthority> {
 	/**
 	 * 权限名称
 	 */
-	@Column(name="authority_name")
-	private String authorityName;
+	@Column(name="menu_name")
+	private String menuName;
 	/**
 	 * 权限地址
 	 */
-	@Column(name="authority_url")
-	private String authorityUrl;
+	@Column(name="menu_url")
+	private String menuUrl;
 	/**
 	 * 权限归属类型：1、pc  2、手机
 	 */
@@ -74,10 +75,10 @@ public class CompanyAuthority extends BaseEntity<CompanyAuthority> {
 	/**
 	 * 权限排序
 	 */
-	@Column(name="authority_seq")
-	private Integer authoritySeq;
+	@Column(name="menu_seq")
+	private Integer menuSeq;
 	/**
-	 * 权限类型：1、查看 2、修改删除 3、操作 4、特殊
+	 * 权限类型：1、正常菜单 2、后台菜单 3、首页菜单 4、公有菜单
 	 */
 	@Column(name="type")
 	private Byte type;
@@ -86,9 +87,4 @@ public class CompanyAuthority extends BaseEntity<CompanyAuthority> {
 	 */
 	@Column(name="is_delete")
 	private Byte isDelete;
-	/**
-	 * 权限编码
-	 */
-	@Column(name="auth_code")
-	private String authCode;
 }

@@ -3,7 +3,7 @@ package com.born.mapper;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
-import com.born.facade.entity.Order;
+import com.born.entity.Order;
 /**
  * 
 * @ClassName: OrderMapper 

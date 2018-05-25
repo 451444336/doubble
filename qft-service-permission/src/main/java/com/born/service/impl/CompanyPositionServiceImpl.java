@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.born.entity.CompanyPosition;
 import com.born.facade.dto.CompanyPositionDTO;
 import com.born.facade.dto.position.PositionAuthDTO;
-import com.born.facade.entity.CompanyPosition;
 import com.born.facade.exception.PermissionException;
 import com.born.facade.exception.PermissionExceptionEnum;
 import com.born.facade.service.ICompanyPositionService;

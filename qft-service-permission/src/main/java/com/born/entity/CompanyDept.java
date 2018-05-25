@@ -1,4 +1,4 @@
-package com.born.facade.entity;
+package com.born.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
