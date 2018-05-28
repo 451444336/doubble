@@ -10,7 +10,6 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.cglib.beans.BeanMap;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -47,37 +46,6 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 
 	/**
 	 * 
-	* @Title: getDataBaseParameters  
-	* @Description: 获取数据操作对象 
-	* @param: @return
-	* @return DataBaseParameters<E>
-	* @author lijie
-	* @throws
-	 */
-	private synchronized DataBaseParameters<E> getDataBaseParameters() {
-		DataBaseParameters<E> result = new DataBaseParameters<>();
-		result.setEntityClass(this.entityClass);
-		result.setMapper(this.mapper);
-		return result;
-	}
-	/**
-	 * 
-	* @Title: changeDataBaseParameters  
-	* @Description: 改变数据操作对象 
-	* @param: @param entityClass
-	* @param: @param mapper
-	* @return void
-	* @author lijie
-	* @throws
-	 */
-	public synchronized void changeDataBaseParameters(Class<E> entityClass, BaseMapper<E> mapper) {
-		Assert.notNull(entityClass, "execute changeDataBaseParameters method entityClass is null");
-		Assert.notNull(entityClass, "execute changeDataBaseParameters method BaseMapper is null");
-		this.entityClass = entityClass;
-		this.mapper = mapper;
-	}
-	/**
-	 * 
 	* @Title: initDataBaseParameters  
 	* @Description: 数据操作mapper 
 	* @param: @return
@@ -85,7 +53,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 	* @author lijie
 	* @throws
 	 */
-	protected abstract DataBaseParameters<E> initDataBaseParameters();
+	protected abstract DataBaseParameters<E> getDataBaseParameters();
 	/**
 	 * 
 	* @Title: init  
@@ -115,9 +83,6 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			if (StringUtils.isNotBlank(errorStr)) {
 				return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 			}
-			final DataBaseParameters<E> exec = getDataBaseParameters();
-			final Class<E> entityClass = exec.getEntityClass();
-			final BaseMapper<E> mapper = exec.getMapper();
 			E update = entityClass.newInstance();
 			BeanUtils.copyProperties(record, update);
 			final int r = mapper.updateByPrimaryKeySelective(update);
@@ -164,9 +129,6 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 	* @throws
 	 */
 	private int execDelByLogic(List<Long> ids, Long userId) throws InstantiationException, IllegalAccessException {
-		final DataBaseParameters<E> exec = getDataBaseParameters();
-		final Class<E> entityClass = exec.getEntityClass();
-		final BaseMapper<E> mapper = exec.getMapper();
 		E record = entityClass.newInstance();
 		Example example = new Example(record.getClass());
 		Criteria criteria = example.createCriteria();
@@ -186,9 +148,6 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			log.info("del by ids request data ids = {}", JSON.toJSONString(ids));
 		}
 		try {
-			final DataBaseParameters<E> exec = getDataBaseParameters();
-			final Class<E> entityClass = exec.getEntityClass();
-			final BaseMapper<E> mapper = exec.getMapper();
 			Example example = new Example(entityClass);
 			Criteria criteria = example.createCriteria();
 			criteria.andIn("id", ids);
@@ -232,8 +191,6 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			log.info("del by id request data id = {}", id);
 		}
 		try {
-			final DataBaseParameters<E> exec = getDataBaseParameters();
-			final BaseMapper<E> mapper = exec.getMapper();
 			final int r = mapper.deleteByPrimaryKey(id);
 			if (r > 0) {
 				return ResultUtil.getResult(RespCode.Code.SUCCESS, r);
@@ -257,9 +214,6 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			if (StringUtils.isNotBlank(errorStr)) {
 				return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 			}
-			final DataBaseParameters<E> exec = getDataBaseParameters();
-			final Class<E> entityClass = exec.getEntityClass();
-			final BaseMapper<E> mapper = exec.getMapper();
 			E insert = entityClass.newInstance();
 			BeanUtils.copyProperties(record, insert);
 			final int r = mapper.insertSelective(insert);
@@ -285,9 +239,6 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			if (StringUtils.isNotBlank(errorStr)) {
 				return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 			}
-			final DataBaseParameters<E> exec = getDataBaseParameters();
-			final Class<E> entityClass = exec.getEntityClass();
-			final BaseMapper<E> mapper = exec.getMapper();
 			final List<E> inserts = new ArrayList<>(records.size());
 			E insert;
 			for (T record : records) {
@@ -315,8 +266,8 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		try {
 			final DataBaseParameters<E> exec = getDataBaseParameters();
-			final BaseMapper<E> mapper = exec.getMapper();
-			mapper.selectByPrimaryKey(id);
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS,
+					BeanMapUtils.beanToMap(exec.getMapper().selectByPrimaryKey(id)));
 		} catch (Exception e) {
 			log.error("get data by id error", e);
 		}

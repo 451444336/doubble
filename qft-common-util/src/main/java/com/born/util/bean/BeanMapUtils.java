@@ -51,7 +51,16 @@ public class BeanMapUtils {
 		beanMap.putAll(map);
 		return bean;
 	}
-	
+	/**
+	 * 
+	* @Title: objectsToMaps 
+	* @Description: list to map
+	* @param @param objList
+	* @param @return    设定文件 
+	* @return List<Map<String,Object>>    返回类型 
+	* @author lijie
+	* @throws
+	 */
 	public static <T> List<Map<String, Object>> objectsToMaps(List<T> objList) {
 		List<Map<String, Object>> list = Lists.newArrayList();
 		if (objList != null && objList.size() > 0) {
@@ -65,10 +74,22 @@ public class BeanMapUtils {
 		}
 		return list;
 	}
-
+	/**
+	 * 
+	* @Title: mapsToObjects 
+	* @Description: map to list
+	* @param @param maps
+	* @param @param clazz
+	* @param @return
+	* @param @throws InstantiationException
+	* @param @throws IllegalAccessException    设定文件 
+	* @return List<T>    返回类型 
+	* @author lijie
+	* @throws
+	 */
 	public static <T> List<T> mapsToObjects(List<Map<String, Object>> maps, Class<T> clazz)
 			throws InstantiationException, IllegalAccessException {
-		List<T> list = Lists.newArrayList();
+		List<T> result = Lists.newArrayList();
 		if (maps != null && maps.size() > 0) {
 			Map<String, Object> map = null;
 			T bean = null;
@@ -76,9 +97,9 @@ public class BeanMapUtils {
 				map = maps.get(i);
 				bean = clazz.newInstance();
 				mapToBean(map, bean);
-				list.add(bean);
+				result.add(bean);
 			}
 		}
-		return list;
+		return result;
 	}
 }
