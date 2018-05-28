@@ -79,6 +79,12 @@
 			<artifactId>qft-facade-basicbusiness</artifactId>
 			<version>${qft-parent.version}</version>
 		</dependency>
+		<!-- 租赁模块 -->
+		<dependency>
+			<groupId>com.born</groupId>
+			<artifactId>qft-facade-lease</artifactId>
+			<version>${qft-parent.version}</version>
+		</dependency>
     </dependencies>
 
 	<build>
