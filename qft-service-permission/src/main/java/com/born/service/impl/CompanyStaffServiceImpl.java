@@ -23,6 +23,7 @@ import com.born.facade.exception.PermissionExceptionEnum;
 import com.born.facade.service.ICompanyStaffService;
 import com.born.facade.vo.CompanyStaffVO;
 import com.born.facade.vo.RoleVO;
+import com.born.facade.vo.staff.StaffVO;
 import com.born.mapper.CompanyRoleMapper;
 import com.born.mapper.CompanyStaffMapper;
 import com.born.mapper.SysUserMapper;
@@ -46,10 +47,10 @@ import lombok.extern.slf4j.Slf4j;
 public class CompanyStaffServiceImpl implements ICompanyStaffService {
 	@Autowired
 	private CompanyStaffMapper staffMapper;
-	
+
 	@Autowired
 	private SysUserMapper userMapper;
-	
+
 	@Autowired
 	private CompanyRoleMapper roleMapper;
 
@@ -61,7 +62,9 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 		}
 		try {
 			CompanyStaff companyStaff = staffMapper.selectStaffByUserId(userId);
-			return ResultUtil.getResult(RespCode.Code.SUCCESS, companyStaff);
+			StaffVO staffVO = new StaffVO();
+			BeanUtils.copyProperties(companyStaff, staffVO);
+			return ResultUtil.getResult(RespCode.Code.SUCCESS, staffVO);
 		} catch (Exception e) {
 			log.error("查询用户基本信息异常", e);
 			return ResultUtil.getResult(RespCode.Code.FAIL, "查询用户基本信息异常");
@@ -74,16 +77,16 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 	@Override
 	public Result findStaff(Long id) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
-		//校验参数
-		if(null==id) {
+		// 校验参数
+		if (null == id) {
 			result.setMessage("主键不能为空");
 			return result;
 		}
 		try {
-			//获取员工表信息
-			ResultUtil.setResult(result, RespCode.Code.SUCCESS,staffMapper.selectStaffById(id));
+			// 获取员工表信息
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS, staffMapper.selectStaffById(id));
 		} catch (Exception e) {
-			log.error("查询员工失败(StaffServiceImpl.findStaff).......................",e);
+			log.error("查询员工失败(StaffServiceImpl.findStaff).......................", e);
 		}
 		return result;
 	}
@@ -94,22 +97,22 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 	@Override
 	public Result findStaffList(FindStaffListDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
-		//校验参数
-		if(dto!=null) {
+		// 校验参数
+		if (dto != null) {
 			String errorStr = dto.validateForm();
-			if(StringUtils.isNotBlank(errorStr)) {
+			if (StringUtils.isNotBlank(errorStr)) {
 				result.setMessage(errorStr);
 				return result;
 			}
 		}
 		try {
-			ResultUtil.setResult(result, RespCode.Code.SUCCESS,staffMapper.selectStaffList(dto));
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS, staffMapper.selectStaffList(dto));
 		} catch (Exception e) {
-			log.error("查询员工失败（StaffServiceImpl.findStaffList）.......................",e);
+			log.error("查询员工失败（StaffServiceImpl.findStaffList）.......................", e);
 		}
 		return result;
 	}
-	
+
 	/**
 	 * 修改员工
 	 */
@@ -117,18 +120,18 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 	@Transactional
 	public Result updateStaff(CompanyStaffDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
-		//校验参数
-		if(dto==null||dto.getUserId()==null) {
+		// 校验参数
+		if (dto == null || dto.getUserId() == null) {
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
 		}
 		String errorStr = dto.validateForm();
-		if(StringUtils.isNotBlank(errorStr)) {
+		if (StringUtils.isNotBlank(errorStr)) {
 			result.setMessage(errorStr);
 			return result;
 		}
-		//首先保存用户
+		// 首先保存用户
 		User user = new User();
-		//转换对应的用户数据
+		// 转换对应的用户数据
 		BeanUtils.copyProperties(dto, user);
 		user.setUpdateTime(new Date());
 		user.setId(dto.getUserId());
@@ -139,32 +142,32 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 			log.error("修改用户失败（StaffServiceImpl.addStaff）", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
 		}
-		//用户没得问题  然后保存员工
+		// 用户没得问题 然后保存员工
 		CompanyStaff staff = new CompanyStaff();
-		//转换对应的员工数据
+		// 转换对应的员工数据
 		BeanUtils.copyProperties(dto, staff);
-		//设置时间
+		// 设置时间
 		staff.setUpdateTime(new Date());
-		//设置创建人
+		// 设置创建人
 		try {
-			  staffMapper.updateByPrimaryKeySelective(staff);
+			staffMapper.updateByPrimaryKeySelective(staff);
 		} catch (Exception e) {
 			log.error("修改员工失败（StaffServiceImpl.addStaff）", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
 		}
-		//最后保存职位员工中间表
+		// 最后保存职位员工中间表
 		PositionStaffDTO posSta = new PositionStaffDTO();
 		posSta.setPositionId(dto.getPositionId());
 		posSta.setCreaterId(dto.getUpdaterId());
 		posSta.setCreateTime(new Date());
 		posSta.setUserId(user.getId());
 		try {
-			 staffMapper.updatePositionStaff(posSta);
+			staffMapper.updatePositionStaff(posSta);
 		} catch (Exception e) {
 			log.error("修改职位员工失败（StaffServiceImpl.addStaff）", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
 		}
-		return ResultUtil.setResult(result,RespCode.Code.SUCCESS);
+		return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 	}
 
 	/**
@@ -174,156 +177,143 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 	@Transactional
 	public Result addStaff(CompanyStaffDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
-		//校验参数
-		if(dto==null||dto.getId()!=null) {
+		// 校验参数
+		if (dto == null || dto.getId() != null) {
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
 		}
 		String errorStr = dto.validateForm();
-		if(StringUtils.isNotBlank(errorStr)) {
+		if (StringUtils.isNotBlank(errorStr)) {
 			result.setMessage(errorStr);
 			return result;
 		}
-		//首先保存用户
 		User user = new User();
-		//转换对应的用户数据
-		BeanUtils.copyProperties(dto, user);
-		user.setCreateTime(new Date());
-		user.setPassword(PasswordUtil.encrypt(user.getAccount(), "123456"));
-		user.setSysStatus(new Byte(dto.getSysStatus()));
-		user.setStatus(new Byte("1"));
-		user.setIsAppNotice(0);
-		user.setIsWebNotice(0);
-		user.setSourceType("1");
-		user.setIsDelete(new Byte("0"));
 		try {
+			// 首先保存用户
+			// 转换对应的用户数据
+			BeanUtils.copyProperties(dto, user);
+			user.setCreateTime(new Date());
+			user.setPassword(PasswordUtil.encrypt(user.getAccount(), "123456"));
+			user.setSysStatus(new Byte(dto.getSysStatus()));
+			user.setStatus(new Byte("1"));
+			user.setIsAppNotice(0);
+			user.setIsWebNotice(0);
+			user.setSourceType("1");
+			user.setIsDelete(new Byte("0"));
 			userMapper.insertUseGeneratedKeys(user);
-		} catch (Exception e) {
-			log.error("添加用户失败（StaffServiceImpl.addStaff）", e);
-			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
-		}
-		//添加角色关系
-		UserRoleDTO cRole  = new UserRoleDTO();
-		cRole.setCreaterId(dto.getCreaterId());
-		cRole.setCreateTime(new Date());
-		cRole.setRoleId(2L);//默认角色2
-		cRole.setUserId(user.getId());
-		try {
+			// 添加角色关系
+			UserRoleDTO cRole = new UserRoleDTO();
+			cRole.setCreaterId(dto.getCreaterId());
+			cRole.setCreateTime(new Date());
+			cRole.setRoleId(2L);// 默认角色2
+			cRole.setUserId(user.getId());
 			userMapper.insertRoleUser(cRole);
+			// 用户没得问题 然后保存员工
+			CompanyStaff staff = new CompanyStaff();
+			// 转换对应的员工数据
+			BeanUtils.copyProperties(dto, staff);
+			// 设置时间
+			staff.setCreateTime(new Date());
+			// 设置创建人
+			staff.setId(null);
+			staff.setUserId(user.getId());
+			staffMapper.insertSelective(staff);
+			// 最后添加职位员工中间表
+			PositionStaffDTO posSta = new PositionStaffDTO();
+			posSta.setPositionId(dto.getPositionId());
+			posSta.setCreateTime(new Date());
+			posSta.setUserId(user.getId());
+			posSta.setCreaterId(dto.getCreaterId());
+			staffMapper.insertPositionStaff(posSta);
 		} catch (Exception e) {
-			log.error("添加角色关系失败（StaffServiceImpl.addStaff）", e);
+			log.error("添加职位员工失败（StaffServiceImpl.addStaff）", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
 		}
-		//用户没得问题  然后保存员工
-		CompanyStaff staff = new CompanyStaff();
-		//转换对应的员工数据
-		BeanUtils.copyProperties(dto, staff);
-		//设置时间
-		staff.setCreateTime(new Date());
-		//设置创建人
-		staff.setId(null);
-		staff.setUserId(user.getId());
-		try {
-			  staffMapper.insertSelective(staff);
-		} catch (Exception e) {
-			log.error("添加员工失败（StaffServiceImpl.addStaff）", e);
-			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
-		}
-		//最后添加职位员工中间表
-		PositionStaffDTO posSta = new PositionStaffDTO();
-		posSta.setPositionId(dto.getPositionId());
-		posSta.setCreateTime(new Date());
-		posSta.setUserId(user.getId());
-		posSta.setCreaterId(dto.getCreaterId());
-		try {
-			 staffMapper.insertPositionStaff(posSta);
-		} catch (Exception e) {
-			log.error("添加职位员工中间表失败（StaffServiceImpl.addStaff）", e);
-			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
-		}
-		return ResultUtil.setResult(result,RespCode.Code.SUCCESS);
+		return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 	}
 
 	/**
 	 * 逻辑删除员工
-	 * @param Long 员工ID  Long 用户ID 
+	 * 
+	 * @param Long
+	 *            员工ID Long 用户ID
 	 */
 	@Override
 	@Transactional
-	public Result deleteStaff(Long userId ) {
-		//校验参数
+	public Result deleteStaff(Long userId) {
+		// 校验参数
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
-		if(userId==null) {
+		if (userId == null) {
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
 		}
 		try {
-			//获取这个用户角色权限
+			// 获取这个用户角色权限
 			CompanyRole role = new CompanyRole();
 			role.setId(userId);
 			List<RoleVO> rolelist = roleMapper.selectRoleListByUserId(userId);
-			if(rolelist!=null) {
-				if(rolelist.get(0).getIsSuperManager()==1) {
+			if (rolelist != null) {
+				if (rolelist.get(0).getIsSuperManager() == 1) {
 					return ResultUtil.getResult(RespCode.Code.UNAUTHORIZED);
 				}
 			}
-			//删除用户
+			// 删除用户
 			DeteleUserDTO deteleUserDTO = new DeteleUserDTO();
 			deteleUserDTO.setId(userId);
 			deteleUserDTO.setUpdaterId(1L);
 			deteleUserDTO.setUpdateTime(new Date());
 			userMapper.updateUser(deteleUserDTO);
-//			//删除员工
-//			DeteleStaffDTO deteleStaffDTO = new DeteleStaffDTO();
-//			deteleStaffDTO.setId(id);
-//			deteleStaffDTO.setUpdaterId(1L);
-//			deteleStaffDTO.setUpdateTime(new Date());
-//			staffMapper.updateStaff(deteleStaffDTO);
-			//返回消息
+			// //删除员工
+			// DeteleStaffDTO deteleStaffDTO = new DeteleStaffDTO();
+			// deteleStaffDTO.setId(id);
+			// deteleStaffDTO.setUpdaterId(1L);
+			// deteleStaffDTO.setUpdateTime(new Date());
+			// staffMapper.updateStaff(deteleStaffDTO);
+			// 返回消息
 			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("删除员工失败（StaffServiceImpl.deleteStaff）",e);
+			log.error("删除员工失败（StaffServiceImpl.deleteStaff）", e);
 			throw new PermissionException(PermissionExceptionEnum.DETELE_STAFF_ERROR);
 		}
 	}
-	
+
 	@Override
 	public Result getPageList(FindStaffListDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		try {
-		 	PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
-	        List<CompanyStaffVO> list = staffMapper.selectStaffList(dto);
-	        PageInfo<CompanyStaffVO> pageInfo = new PageInfo<>(list);
-	        result.setData(pageInfo.getList());
+			PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
+			List<CompanyStaffVO> list = staffMapper.selectStaffList(dto);
+			PageInfo<CompanyStaffVO> pageInfo = new PageInfo<>(list);
+			result.setData(pageInfo.getList());
 			result.setCount(pageInfo.getTotal());
 			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 		} catch (Exception e) {
 			log.error("查询分页数据异常", e);
 		}
-        return result;
+		return result;
 	}
 
 	@Override
 	@Transactional
 	public Result updateUser(CompanyStaffDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
-		//校验参数
-		if(dto==null||dto.getUserId()==null) {
+		// 校验参数
+		if (dto == null || dto.getUserId() == null) {
 			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
 		}
 		String errorStr = dto.validateForm();
-		if(StringUtils.isNotBlank(errorStr)) {
+		if (StringUtils.isNotBlank(errorStr)) {
 			result.setMessage(errorStr);
 			return result;
 		}
-		//首先保存用户
+		// 首先保存用户
 		User user = new User();
-		//转换对应的用户数据
+		// 转换对应的用户数据
 		BeanUtils.copyProperties(dto, user);
 		user.setUpdateTime(new Date());
 		user.setId(dto.getUserId());
 		user.setStatus(new Byte(dto.getStatus()));
 		try {
-			ResultUtil.setResult(result, RespCode.Code.SUCCESS,userMapper.updateByPrimaryKeySelective(user));
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS, userMapper.updateByPrimaryKeySelective(user));
 		} catch (Exception e) {
 			log.error("修改用户失败（StaffServiceImpl.updateUser）", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_STAFF_ERROR);
@@ -332,8 +322,8 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 	}
 
 	@Override
-	public String validation (ValidateDTO dto) throws Exception {
-		if(dto==null) {
+	public String validation(ValidateDTO dto) throws Exception {
+		if (dto == null) {
 			return "参数不能为空";
 		}
 		FindStaffListDTO staffListDTO = new FindStaffListDTO();
@@ -343,19 +333,19 @@ public class CompanyStaffServiceImpl implements ICompanyStaffService {
 			break;
 		case "idcard":
 			staffListDTO.setIdcard(dto.getFieldValue());
-			break;	
+			break;
 		case "phone":
 			staffListDTO.setPhone(dto.getFieldValue());
-			break;	
+			break;
 		default:
 			break;
 		}
 		Integer count = staffMapper.validation(staffListDTO);
 		String validat = "";
-		if(count>0) {
-			validat = "[\""+dto.getFieldId()+"\",false]";
-		}else {
-			validat = "[\""+dto.getFieldId()+"\",true]";
+		if (count > 0) {
+			validat = "[\"" + dto.getFieldId() + "\",false]";
+		} else {
+			validat = "[\"" + dto.getFieldId() + "\",true]";
 		}
 		return validat;
 	}

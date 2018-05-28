@@ -15,6 +15,7 @@ import com.born.facade.exception.PermissionException;
 import com.born.facade.exception.PermissionExceptionEnum;
 import com.born.facade.service.ICompanyDeptService;
 import com.born.facade.vo.companyDept.CompanyDeptVO;
+import com.born.facade.vo.companyDept.FindDeptVO;
 import com.born.mapper.CompanyDeptMapper;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
@@ -111,7 +112,10 @@ public class CompanyDeptServiceImpl implements ICompanyDeptService {
 			//声明对象
 			CompanyDept dept = new CompanyDept();
 			dept.setId(id);
-			ResultUtil.setResult(result, RespCode.Code.SUCCESS,deptMapper.selectOne(dept));
+			dept = deptMapper.selectOne(dept);
+			FindDeptVO deptVO = new FindDeptVO();
+			BeanUtils.copyProperties(dept, deptVO);
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS,deptVO);
 		} catch (Exception e) {
 			log.error("查询部门失败(DeptServiceImpl.findDept).......................",e);
 		}
@@ -158,13 +162,14 @@ public class CompanyDeptServiceImpl implements ICompanyDeptService {
 			result.setMessage(errorStr);
 			return result;
 		}
-		//转换实体
-		BeanUtils.copyProperties(dto, dept);
-		//设置时间
-		dept.setUpdateTime(new Date());
-		dept.setUpdaterId(dto.getUserId());
 		try {
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS,deptMapper.updateByPrimaryKeySelective(dept));
+			//转换实体
+			BeanUtils.copyProperties(dto, dept);
+			//设置时间
+			dept.setUpdateTime(new Date());
+			dept.setUpdaterId(dto.getUserId());
+			Integer update = deptMapper.updateByPrimaryKeySelective(dept);
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS,update);
 		} catch (Exception e) {
 			log.error("修改部门失败（DeptServiceImpl.updateDept）",e);
 			throw new PermissionException(PermissionExceptionEnum.UPDATE_DEPT_ERROR);
@@ -200,7 +205,8 @@ public class CompanyDeptServiceImpl implements ICompanyDeptService {
 			dept.setCreateTime(new Date());
 			dept.setCreaterId(dto.getUserId());
 			dept.setId(null);
-			return ResultUtil.setResult(result,RespCode.Code.SUCCESS, deptMapper.insertSelective(dept));
+			Integer insert = deptMapper.insertSelective(dept);
+			return ResultUtil.setResult(result,RespCode.Code.SUCCESS,insert);
 		} catch (Exception e) {
 			log.error("添加部门失败（DeptServiceImpl.addDept）", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_DEPT_ERROR);
@@ -219,11 +225,11 @@ public class CompanyDeptServiceImpl implements ICompanyDeptService {
 			result.setMessage("传入参数不能为空");
 			return result;
 		}
-		//修改属性值添加
-		String[] idsStr = dto.getIds().split(",");
-		dto.setUpdateTime(new Date());
-		dto.setUpdaterId(dto.getUserId());
 		try {
+			//修改属性值添加
+			String[] idsStr = dto.getIds().split(",");
+			dto.setUpdateTime(new Date());
+			dto.setUpdaterId(dto.getUserId());
 			//执行修改
 			deptMapper.batchUpdateDept(dto,idsStr);
 			//返回消息

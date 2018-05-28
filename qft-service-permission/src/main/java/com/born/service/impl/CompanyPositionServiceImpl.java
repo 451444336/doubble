@@ -17,6 +17,7 @@ import com.born.facade.exception.PermissionException;
 import com.born.facade.exception.PermissionExceptionEnum;
 import com.born.facade.service.ICompanyPositionService;
 import com.born.facade.vo.companyPosition.CompanyPositionVO;
+import com.born.facade.vo.position.PositionVO;
 import com.born.mapper.CompanyPositionMapper;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
@@ -56,7 +57,10 @@ public class CompanyPositionServiceImpl implements ICompanyPositionService {
 			// 声明对象
 			CompanyPosition position = new CompanyPosition();
 			position.setId(id);
-			ResultUtil.setResult(result, RespCode.Code.SUCCESS, mapper.selectOne(position));
+			position = mapper.selectOne(position);
+			PositionVO positionVO = new PositionVO();
+			BeanUtils.copyProperties(position, positionVO);
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS,positionVO);
 		} catch (Exception e) {
 			log.error("查询职位失败(PositionServiceImpl.findPosition).......................", e);
 		}
@@ -81,7 +85,10 @@ public class CompanyPositionServiceImpl implements ICompanyPositionService {
 			BeanUtils.copyProperties(dto, position);
 		}
 		try {
-			ResultUtil.setResult(result, RespCode.Code.SUCCESS, mapper.select(position));
+			List<CompanyPosition> list =  mapper.select(position);
+			List<PositionVO> positionVO = new ArrayList<>();
+			BeanUtils.copyProperties(list, positionVO);
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS,positionVO);
 		} catch (Exception e) {
 			log.error("查询职位失败（PositionServiceImpl.findPositionList）.......................", e);
 		}
@@ -106,13 +113,14 @@ public class CompanyPositionServiceImpl implements ICompanyPositionService {
 			result.setMessage(errorStr);
 			return result;
 		}
-		// 转换实体
-		BeanUtils.copyProperties(dto, position);
-		// 设置时间
-		position.setUpdateTime(new Date());
-		//先修改职位信息
 		try {
-			 ResultUtil.setResult(result, RespCode.Code.SUCCESS, mapper.updateByPrimaryKeySelective(position));
+			// 转换实体
+			BeanUtils.copyProperties(dto, position);
+			// 设置时间
+			position.setUpdateTime(new Date());
+			//先修改职位信息
+			Integer update = mapper.updateByPrimaryKeySelective(position);
+			 ResultUtil.setResult(result, RespCode.Code.SUCCESS, update);
 		} catch (Exception e) {
 			log.error("修改职位失败（PositionServiceImpl.updatePosition）", e);
 			throw new PermissionException(PermissionExceptionEnum.UPDATE_POSITION_ERROR);
@@ -144,14 +152,15 @@ public class CompanyPositionServiceImpl implements ICompanyPositionService {
 			result.setMessage(errorStr);
 			return result;
 		}
-		// 转换实体
-		BeanUtils.copyProperties(dto, position);
-		// 设置时间
-		position.setCreateTime(new Date());
-		// 设置创建人
-		position.setId(null);
 		try {
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, mapper.insertSelective(position));
+			// 转换实体
+			BeanUtils.copyProperties(dto, position);
+			// 设置时间
+			position.setCreateTime(new Date());
+			// 设置创建人
+			position.setId(null);
+			Integer insert = mapper.insertSelective(position);
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS,insert);
 		} catch (Exception e) {
 			log.error("添加职位失败（PositionServiceImpl.addPosition）", e);
 			throw new PermissionException(PermissionExceptionEnum.ADD_POSITION_ERROR);
