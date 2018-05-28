@@ -203,6 +203,21 @@ public final class ResultUtil {
     /**
      * 
     * @Title: success 
+    * @Description: 成功返回数据以及条数
+    * @param @param data
+    * @param @param count
+    * @param @return    设定文件 
+    * @return Result    返回类型 
+    * @author lijie
+    * @throws
+     */
+	public static Result success(Object data, long count) {
+
+		return getResult(RespCode.Code.SUCCESS, data, count);
+	}
+    /**
+     * 
+    * @Title: success 
     * @Description: 成功返回数据 
     * @param @param result
     * @param @param data
