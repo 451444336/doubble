@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.cglib.beans.BeanMap;
+import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -62,17 +63,14 @@ public class BeanMapUtils {
 	* @throws
 	 */
 	public static <T> List<Map<String, Object>> objectsToMaps(List<T> objList) {
-		List<Map<String, Object>> list = Lists.newArrayList();
-		if (objList != null && objList.size() > 0) {
-			Map<String, Object> map = null;
-			T bean = null;
-			for (int i = 0, size = objList.size(); i < size; i++) {
-				bean = objList.get(i);
-				map = beanToMap(bean);
-				list.add(map);
-			}
+		List<Map<String, Object>> result = Lists.newArrayList();
+		if (CollectionUtils.isEmpty(objList)) {
+			return result;
 		}
-		return list;
+		for (T t : objList) {
+			result.add(beanToMap(t));
+		}
+		return result;
 	}
 	/**
 	 * 
@@ -90,15 +88,11 @@ public class BeanMapUtils {
 	public static <T> List<T> mapsToObjects(List<Map<String, Object>> maps, Class<T> clazz)
 			throws InstantiationException, IllegalAccessException {
 		List<T> result = Lists.newArrayList();
-		if (maps != null && maps.size() > 0) {
-			Map<String, Object> map = null;
-			T bean = null;
-			for (int i = 0, size = maps.size(); i < size; i++) {
-				map = maps.get(i);
-				bean = clazz.newInstance();
-				mapToBean(map, bean);
-				result.add(bean);
-			}
+		if (CollectionUtils.isEmpty(maps)) {
+			return result;
+		}
+		for (Map<String, Object> map : maps) {
+			result.add(mapToBean(map, clazz.newInstance()));
 		}
 		return result;
 	}

@@ -65,11 +65,12 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 	 */
 	@PostConstruct
 	private void init() {
-		Assert.notNull(getDataBaseParameters(), "execute init method data base parameters is null");
-		Assert.notNull(getDataBaseParameters().getEntityClass(), "execute init method  entity class is null");
-		Assert.notNull(getDataBaseParameters().getMapper(), "execute init method  mapper is null");
-		entityClass = getDataBaseParameters().getEntityClass();
-		mapper = getDataBaseParameters().getMapper();
+		final DataBaseParameters<E> dataBase = getDataBaseParameters();
+		Assert.notNull(dataBase, "execute init method data base parameters is null");
+		Assert.notNull(dataBase.getEntityClass(), "execute init method  entity class is null");
+		Assert.notNull(dataBase.getMapper(), "execute init method  mapper is null");
+		entityClass = dataBase.getEntityClass();
+		mapper = dataBase.getMapper();
 	}
 	
 	@Override
@@ -265,9 +266,8 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		}
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		try {
-			final DataBaseParameters<E> exec = getDataBaseParameters();
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS,
-					BeanMapUtils.beanToMap(exec.getMapper().selectByPrimaryKey(id)));
+			Map<String, Object> rData = BeanMapUtils.beanToMap(mapper.selectByPrimaryKey(id));
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, rData);
 		} catch (Exception e) {
 			log.error("get data by id error", e);
 		}
@@ -276,8 +276,20 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 
 	@Override
 	public Result getByIdsList(List<Long> ids) {
-		// TODO Auto-generated method stub
-		return null;
+		if (log.isInfoEnabled()) {
+			log.info("get data By ids request data = {}", ids);
+		}
+		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		try {
+			Example example = new Example(entityClass);
+			Criteria criteria = example.createCriteria();
+			criteria.andIn("id", ids);
+			List<Map<String, Object>> rData = BeanMapUtils.objectsToMaps(mapper.selectByExample(example));
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, rData);
+		} catch (Exception e) {
+			log.error("get data by ids error", e);
+		}
+		return result;
 	}
 
 	@Override
