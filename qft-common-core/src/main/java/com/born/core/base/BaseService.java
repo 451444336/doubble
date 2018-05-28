@@ -266,8 +266,8 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		}
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		try {
-			Map<String, Object> rData = BeanMapUtils.beanToMap(mapper.selectByPrimaryKey(id));
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, rData);
+			E data = mapper.selectByPrimaryKey(id);
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, BeanMapUtils.beanToMap(data));
 		} catch (Exception e) {
 			log.error("get data by id error", e);
 		}
@@ -284,8 +284,8 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			Example example = new Example(entityClass);
 			Criteria criteria = example.createCriteria();
 			criteria.andIn("id", ids);
-			List<Map<String, Object>> rData = BeanMapUtils.objectsToMaps(mapper.selectByExample(example));
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, rData);
+			List<E> list = mapper.selectByExample(example);
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, BeanMapUtils.objectsToMaps(list));
 		} catch (Exception e) {
 			log.error("get data by ids error", e);
 		}
@@ -294,27 +294,35 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 
 	@Override
 	public Result getByEntityList(T entity) {
-		// TODO Auto-generated method stub
-		return null;
+		if (log.isInfoEnabled()) {
+			log.info("get data By entity list request data = {}", JSON.toJSONString(entity));
+		}
+		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		try {
+			E record = entityClass.newInstance();
+			BeanUtils.copyProperties(entity, record);
+			List<E> list = mapper.select(record);
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, BeanMapUtils.objectsToMaps(list));
+		} catch (Exception e) {
+			log.error("get data By entity list error", e);
+		}
+		return result;
 	}
 
 	@Override
 	public Result getByEntityOne(T entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	@Transactional
-	public Result updateByEntity(T record) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	@Transactional
-	public Result batchUpdateByEntity(List<T> entityList) {
-		// TODO Auto-generated method stub
-		return null;
+		if (log.isInfoEnabled()) {
+			log.info("get data By entity one request data = {}", JSON.toJSONString(entity));
+		}
+		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		try {
+			E record = entityClass.newInstance();
+			BeanUtils.copyProperties(entity, record);
+			record = mapper.selectOne(record);
+			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, BeanMapUtils.beanToMap(record));
+		} catch (Exception e) {
+			log.error("get data By entity one error", e);
+		}
+		return result;
 	}
 }

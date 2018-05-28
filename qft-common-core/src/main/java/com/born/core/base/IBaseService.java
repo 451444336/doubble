@@ -134,27 +134,5 @@ public interface IBaseService<T extends BaseModel> {
 	* @throws
 	 */
 	Result getByEntityOne(T entity);
-	/**
-	 * 
-	* @Title: updateByEntity  
-	* @Description: 根据实体修改记录 
-	* @param: @param record
-	* @param: @return
-	* @return Result
-	* @author lijie
-	* @throws
-	 */
-	Result updateByEntity(T record);
-	/**
-	 * 
-	* @Title: batchUpdateByEntity  
-	* @Description: 批量修改 
-	* @param: @param entityList
-	* @param: @return
-	* @return Result
-	* @author lijie
-	* @throws
-	 */
-	Result batchUpdateByEntity(List<T> entityList);
 
 }
