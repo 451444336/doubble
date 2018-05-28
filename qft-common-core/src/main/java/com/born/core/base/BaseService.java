@@ -17,11 +17,14 @@ import com.alibaba.fastjson.JSON;
 import com.born.core.constant.DataBaseEnum;
 import com.born.core.exception.BizException;
 import com.born.core.exception.DataBaseException;
+import com.born.core.page.PageBean;
 import com.born.util.ClassUtils;
 import com.born.util.bean.BeanMapUtils;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 import tk.mybatis.mapper.entity.Example;
@@ -80,15 +83,15 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			log.info("update by model request data = {}", JSON.toJSONString(record));
 		}
 		try {
-			String errorStr = record.validateForm();
+			String errorStr = ClassUtils.checkRequest(record);
 			if (StringUtils.isNotBlank(errorStr)) {
-				return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
+				return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 			}
 			E update = entityClass.newInstance();
 			BeanUtils.copyProperties(record, update);
 			final int r = mapper.updateByPrimaryKeySelective(update);
 			if (r > 0) {
-				return ResultUtil.getResult(RespCode.Code.SUCCESS, r);
+				return ResultUtil.success(r);
 			} else {
 				throw new DataBaseException(String.format("update by model fail [success num : %s]", r));
 			}
@@ -107,7 +110,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		try {
 			final int r = execDelByLogic(ids, userId);
 			if (r > 0) {
-				return ResultUtil.getResult(RespCode.Code.SUCCESS, r);
+				return ResultUtil.success(r);
 			} else {
 				throw new DataBaseException(String.format("del by ids fail [success num : %s]", r));
 			}
@@ -154,7 +157,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			criteria.andIn("id", ids);
 			final int r = mapper.deleteByExample(example);
 			if (r > 0) {
-				return ResultUtil.getResult(RespCode.Code.SUCCESS, r);
+				return ResultUtil.success(r);
 			} else {
 				throw new DataBaseException(String.format("del by ids fail [success num : %s]", r));
 			}
@@ -175,7 +178,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			ids.add(id);
 			final int r = execDelByLogic(ids, userId);
 			if (r > 0) {
-				return ResultUtil.getResult(RespCode.Code.SUCCESS, r);
+				return ResultUtil.success(r);
 			} else {
 				throw new DataBaseException(String.format("del by id fail [success num : %s]", r));
 			}
@@ -194,7 +197,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		try {
 			final int r = mapper.deleteByPrimaryKey(id);
 			if (r > 0) {
-				return ResultUtil.getResult(RespCode.Code.SUCCESS, r);
+				return ResultUtil.success(r);
 			} else {
 				throw new DataBaseException(String.format("del by ids fail [success num : %s]", r));
 			}
@@ -211,15 +214,15 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			log.info("add by model request data = {}", JSON.toJSONString(record));
 		}
 		try {
-			String errorStr = record.validateForm();
+			String errorStr = ClassUtils.checkRequest(record);
 			if (StringUtils.isNotBlank(errorStr)) {
-				return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
+				return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 			}
 			E insert = entityClass.newInstance();
 			BeanUtils.copyProperties(record, insert);
 			final int r = mapper.insertUseGeneratedKeys(insert);
 			if (r > 0) {
-				return ResultUtil.getResult(RespCode.Code.SUCCESS, ClassUtils.getProValue("id", insert));
+				return ResultUtil.success(ClassUtils.getProValue("id", insert));
 			} else {
 				throw new DataBaseException(String.format("update by model fail [success num : %s]", r));
 			}
@@ -238,7 +241,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		try {
 			String errorStr = ClassUtils.checkRequest(records);
 			if (StringUtils.isNotBlank(errorStr)) {
-				return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
+				return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 			}
 			final List<E> inserts = new ArrayList<>(records.size());
 			E insert;
@@ -249,7 +252,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			}
 			final int r = mapper.insertList(inserts);
 			if (r > 0) {
-				return ResultUtil.getResult(RespCode.Code.SUCCESS, r);
+				return ResultUtil.success(r);
 			} else {
 				throw new DataBaseException(String.format("add by list fail [success num : %s]", r));
 			}
@@ -264,10 +267,10 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		if (log.isInfoEnabled()) {
 			log.info("get data By Id request data = {}", id);
 		}
-		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		Result result = ResultUtil.fail();
 		try {
 			E data = mapper.selectByPrimaryKey(id);
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, BeanMapUtils.beanToMap(data));
+			return ResultUtil.success(result, BeanMapUtils.beanToMap(data));
 		} catch (Exception e) {
 			log.error("get data by id error", e);
 		}
@@ -279,13 +282,13 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		if (log.isInfoEnabled()) {
 			log.info("get data By ids request data = {}", ids);
 		}
-		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		Result result = ResultUtil.fail();
 		try {
 			Example example = new Example(entityClass);
 			Criteria criteria = example.createCriteria();
 			criteria.andIn("id", ids);
 			List<E> list = mapper.selectByExample(example);
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, BeanMapUtils.objectsToMaps(list));
+			return ResultUtil.success(result, BeanMapUtils.objectsToMaps(list));
 		} catch (Exception e) {
 			log.error("get data by ids error", e);
 		}
@@ -297,12 +300,12 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		if (log.isInfoEnabled()) {
 			log.info("get data By entity list request data = {}", JSON.toJSONString(entity));
 		}
-		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		Result result = ResultUtil.fail();
 		try {
 			E record = entityClass.newInstance();
 			BeanUtils.copyProperties(entity, record);
 			List<E> list = mapper.select(record);
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, BeanMapUtils.objectsToMaps(list));
+			return ResultUtil.success(result, BeanMapUtils.objectsToMaps(list));
 		} catch (Exception e) {
 			log.error("get data By entity list error", e);
 		}
@@ -314,15 +317,44 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		if (log.isInfoEnabled()) {
 			log.info("get data By entity one request data = {}", JSON.toJSONString(entity));
 		}
-		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		Result result = ResultUtil.fail();
 		try {
 			E record = entityClass.newInstance();
 			BeanUtils.copyProperties(entity, record);
 			record = mapper.selectOne(record);
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS, BeanMapUtils.beanToMap(record));
+			return ResultUtil.success(result, BeanMapUtils.beanToMap(record));
 		} catch (Exception e) {
 			log.error("get data By entity one error", e);
 		}
 		return result;
+	}
+	
+	@Override
+	public Result getAll() {
+		try {
+			return ResultUtil.success(BeanMapUtils.objectsToMaps(mapper.selectAll()));
+		} catch (Exception e) {
+			log.error("get data By entity one error", e);
+			return ResultUtil.fail();
+		}
+	}
+	
+	@Override
+	public Result getListByPage(T model, PageBean pageBean) {
+		if (log.isInfoEnabled()) {
+			log.info("get List By Page request data = {},pageBean = {}", JSON.toJSONString(model),
+					JSON.toJSONString(pageBean));
+		}
+		try {
+			PageHelper.startPage(pageBean.getPageNum(), pageBean.getPageSize());
+			E record = entityClass.newInstance();
+			BeanUtils.copyProperties(model, record);
+			List<E> list = mapper.select(record);
+			PageInfo<E> pageInfo = new PageInfo<>(list);
+			return ResultUtil.success(BeanMapUtils.objectsToMaps(pageInfo.getList()), pageInfo.getTotal());
+		} catch (Exception e) {
+			log.error("get List By Page error", e);
+			return ResultUtil.fail();
+		}
 	}
 }

@@ -9,7 +9,7 @@
 		UPDATE qft_store_grouping sg
 		SET sg.is_delete = 1
 		WHERE
-			sg.id = ${id}
+			sg.id = #{id}
 	</update>
 	<!-- 根据店面ID查询店面分组 -->
 	<select id="selectGroupByStoreId" resultType="com.born.facade.vo.store.StoreGroupVO">
@@ -25,6 +25,6 @@
 			qft_store_grouping sg
 		WHERE
 			sg.is_delete = 0
-		AND sg.store_id = ${storeId}
+		AND sg.store_id = #{storeId}
 	</select>
 </mapper>

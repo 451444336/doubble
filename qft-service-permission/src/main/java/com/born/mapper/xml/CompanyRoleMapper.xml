@@ -75,7 +75,7 @@
 		WHERE
 			r.id not in(1,2)
 		and
-			r.id = ${id}
+			r.id = #{id}
 	</update>
 	
 	<!-- 根据角色ID查询菜单 -->
@@ -86,7 +86,7 @@
 		FROM
 			qft_company_role_menu rm
 		WHERE
-			rm.role_id = ${roleId}
+			rm.role_id = #{roleId}
 	</select>  
 	
 </mapper>
