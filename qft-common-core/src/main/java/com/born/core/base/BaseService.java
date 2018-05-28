@@ -320,8 +320,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		try {
 			E record = entityClass.newInstance();
 			BeanUtils.copyProperties(entity, record);
-			record = mapper.selectOne(record);
-			return ResultUtil.success(result, BeanMapUtils.beanToMap(record));
+			return ResultUtil.success(result, BeanMapUtils.beanToMap(mapper.selectOne(record)));
 		} catch (Exception e) {
 			log.error("get data By entity one error", e);
 		}
