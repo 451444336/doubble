@@ -134,5 +134,14 @@ public interface IBaseService<T extends BaseModel> {
 	* @throws
 	 */
 	Result getByModelOne(T model);
-
+	/**
+	 * 
+	* @Title: getAll 
+	* @Description: 查询所有 
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	Result getAll();
 }

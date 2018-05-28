@@ -186,4 +186,75 @@ public final class ResultUtil {
         result.setCode(flag ? RespCode.Code.SUCCESS.getCode() : RespCode.Code.FAIL.getCode());
         result.setMessage(message);
     }
+    /**
+     * 
+    * @Title: success 
+    * @Description: 成功返回数据 
+    * @param @param data
+    * @param @return    设定文件 
+    * @return Result    返回类型 
+    * @author lijie
+    * @throws
+     */
+    public static Result success(Object data){
+    	
+    	return getResult(RespCode.Code.SUCCESS, data);
+    }
+    /**
+     * 
+    * @Title: success 
+    * @Description: 成功返回数据 
+    * @param @param result
+    * @param @param data
+    * @param @return    设定文件 
+    * @return Result    返回类型 
+    * @author lijie
+    * @throws
+     */
+	public static Result success(Result result, Object data) {
+
+		return setResult(result, RespCode.Code.SUCCESS, data);
+	}
+	/**
+	 * 
+	* @Title: fail 
+	* @Description: 失败
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	public static Result fail(){
+		
+		return ResultUtil.getResult(RespCode.Code.FAIL);
+	}
+	/**
+	 * 
+	* @Title: fail 
+	* @Description: 失败返回 
+	* @param @param code
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	public static Result fail(RespCode code){
+		
+		return ResultUtil.getResult(code);
+	}
+	/**
+	 * 
+	* @Title: fail 
+	* @Description: 失败返回 
+	* @param @param code
+	* @param @param message
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	public static Result fail(RespCode code, String message) {
+
+		return ResultUtil.getResult(code, message);
+	}
 }
