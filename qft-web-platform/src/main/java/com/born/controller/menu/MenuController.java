@@ -1,5 +1,8 @@
 package com.born.controller.menu;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.born.config.shiro.token.TokenManager;
 import com.born.facade.constant.MenuAuthEnum;
 import com.born.facade.dto.menu.MenuQueryDTO;
+import com.born.facade.dto.menu.QueryMenuDTO;
 import com.born.facade.service.IMenuService;
 import com.born.facade.vo.UserInfoVO;
 import com.born.util.result.Result;
@@ -68,5 +72,17 @@ public class MenuController {
 		//获取企业ID
 		UserInfoVO su = TokenManager.getLoginUser();
 		return menuService.getMenuList(su.getCompanyId());
+	}
+	
+	@GetMapping(value = "/test")
+	@ResponseBody
+	public Result test() {
+		QueryMenuDTO dto = new QueryMenuDTO();
+		dto.setId(1L);
+		List<Long> list = new ArrayList<>();
+		list.add(1L);
+		list.add(2L);
+		list.add(3L);
+		return menuService.getByIdsList(list);
 	}
 }

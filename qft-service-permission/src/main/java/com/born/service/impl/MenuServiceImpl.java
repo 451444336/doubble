@@ -18,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
+import com.born.core.base.BaseModel;
+import com.born.core.base.BaseService;
+import com.born.core.base.DataBaseParameters;
 import com.born.core.constant.CommonConstants;
 import com.born.entity.CompanyMenu;
 import com.born.entity.CompanyRoleMenu;
@@ -50,7 +53,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service(version = "1.0.0")
-public class MenuServiceImpl implements IMenuService {
+public class MenuServiceImpl extends BaseService<BaseModel, CompanyMenu> implements IMenuService {
 
 	@Autowired
 	private CompanyMenuMapper companyMenuMapper;
@@ -608,5 +611,13 @@ public class MenuServiceImpl implements IMenuService {
 			log.error("根据用户id菜单数据异常", e);
 		}
 		return result;
+	}
+	
+	@Override
+	protected DataBaseParameters<CompanyMenu> getDataBaseParameters() {
+		DataBaseParameters<CompanyMenu> dataBase = new DataBaseParameters<>();
+		dataBase.setEntityClass(CompanyMenu.class);
+		dataBase.setMapper(companyMenuMapper);
+		return dataBase;
 	}
 }

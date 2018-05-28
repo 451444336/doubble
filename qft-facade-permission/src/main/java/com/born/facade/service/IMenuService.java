@@ -2,6 +2,8 @@ package com.born.facade.service;
 
 import java.util.List;
 
+import com.born.core.base.BaseModel;
+import com.born.core.base.IBaseService;
 import com.born.facade.dto.menu.AddMenuDTO;
 import com.born.facade.dto.menu.MenuQueryDTO;
 import com.born.util.result.Result;
@@ -14,7 +16,7 @@ import com.born.util.result.Result;
 * @date 2018年4月28日 上午11:48:37 
 *
  */
-public interface IMenuService {
+public interface IMenuService extends IBaseService<BaseModel>{
 
 	/**
 	 * 
