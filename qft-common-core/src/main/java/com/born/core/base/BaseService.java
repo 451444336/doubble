@@ -83,7 +83,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			log.info("update by model request data = {}", JSON.toJSONString(record));
 		}
 		try {
-			String errorStr = record.validateForm();
+			String errorStr = ClassUtils.checkRequest(record);
 			if (StringUtils.isNotBlank(errorStr)) {
 				return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 			}
@@ -214,7 +214,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			log.info("add by model request data = {}", JSON.toJSONString(record));
 		}
 		try {
-			String errorStr = record.validateForm();
+			String errorStr = ClassUtils.checkRequest(record);
 			if (StringUtils.isNotBlank(errorStr)) {
 				return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 			}
