@@ -1,6 +1,10 @@
 package com.born.util.result;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+import com.born.util.bean.BeanMapUtils;
 
 import lombok.Data;
 
@@ -64,7 +68,24 @@ public class Result implements Serializable	{
 		super();
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T getData(Class<T> tClass) {
+		if (this.getData() instanceof Map) {
+			try {
+				return BeanMapUtils.mapToBean(((Map<String, Object>) this.getData()), tClass);
+			} catch (Exception e) {
+				return null;
+			}
+		} else if (this.getData() instanceof List) {
+			List<?> list = (List<?>) this.getData();
+			if (list.get(0) instanceof Map) {
+				try {
+					return (T) BeanMapUtils.mapsToObjects((List<Map<String, Object>>) this.getData(), tClass);
+				} catch (Exception e) {
+					return null;
+				}
+			}
+		}
 		return tClass.cast(this.getData());
 	}
 

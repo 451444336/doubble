@@ -37,6 +37,8 @@ public class BeanMapUtils {
 		return map;
 	}
 	/**
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 * 
 	* @Title: mapToBean  
 	* @Description: map 转 bean 
@@ -47,10 +49,11 @@ public class BeanMapUtils {
 	* @author lijie
 	* @throws
 	 */
-	public static <T> T mapToBean(Map<String, Object> map, T bean) {
-		BeanMap beanMap = BeanMap.create(bean);
+	public static <T> T mapToBean(Map<String, Object> map, Class<T> clazz) throws InstantiationException, IllegalAccessException {
+		T result = clazz.newInstance();
+		BeanMap beanMap = BeanMap.create(result);
 		beanMap.putAll(map);
-		return bean;
+		return result;
 	}
 	/**
 	 * 
@@ -92,7 +95,7 @@ public class BeanMapUtils {
 			return result;
 		}
 		for (Map<String, Object> map : maps) {
-			result.add(mapToBean(map, clazz.newInstance()));
+			result.add(mapToBean(map, clazz));
 		}
 		return result;
 	}
