@@ -37,7 +37,7 @@
 			</if>
 			#{companyId},
 			#{groupingStatus},
-			${createrId},
+			#{createrId},
 			#{createTime},
 			${updaterId},
 			#{updateTime}
@@ -48,7 +48,7 @@
 		UPDATE qft_store s
 		SET s.is_delete = 1
 		WHERE
-			s.id = ${id}
+			s.id = #{id}
 	</update>
 	<!-- 查询店面 -->
 	<select id="selectCompanyStore" parameterType="com.born.facade.dto.store.CompanyStoreDTO" resultType="com.born.facade.vo.store.CompanyStoreVO">
@@ -77,7 +77,7 @@
 			AND s.company_id = #{companyId}
 		</if>
 		<if test="id>0">
-			AND s.id = ${id}
+			AND s.id = #{id}
 		</if>
 		order by s.update_time desc
 	</select>
