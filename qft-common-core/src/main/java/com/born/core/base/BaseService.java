@@ -217,9 +217,9 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			}
 			E insert = entityClass.newInstance();
 			BeanUtils.copyProperties(record, insert);
-			final int r = mapper.insertSelective(insert);
+			final int r = mapper.insertUseGeneratedKeys(insert);
 			if (r > 0) {
-				return ResultUtil.getResult(RespCode.Code.SUCCESS, r);
+				return ResultUtil.getResult(RespCode.Code.SUCCESS, ClassUtils.getProValue("id", insert));
 			} else {
 				throw new DataBaseException(String.format("update by model fail [success num : %s]", r));
 			}

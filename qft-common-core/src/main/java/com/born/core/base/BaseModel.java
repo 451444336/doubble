@@ -1,10 +1,5 @@
 package com.born.core.base;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import lombok.Data;
 /**
  * 
  * @ClassName: BaseModel
@@ -12,8 +7,6 @@ import lombok.Data;
  * @author: lijie
  * @date: 2018年5月26日 下午4:27:25
  */
-@Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class BaseModel extends BaseValidate<BaseModel> {
 
 	/**
@@ -22,25 +15,5 @@ public abstract class BaseModel extends BaseValidate<BaseModel> {
 	 * @Description: TODO
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 主键id
-	 */
-	private Long id;
-	/**
-	 * 修改时间
-	 */
-	private Date updateTime;
-	/**
-	 * 创建时间
-	 */
-	private Date createTime;
-	/**
-	 * 创建人ID
-	 */
-	private Long createrId;
-	/**
-	 * 修改人ID
-	 */
-	private Long updaterId;
 
 }
