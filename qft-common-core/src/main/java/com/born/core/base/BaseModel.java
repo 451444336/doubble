@@ -1,7 +1,6 @@
 package com.born.core.base;
 
 import java.util.Date;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -43,9 +42,5 @@ public abstract class BaseModel extends BaseValidate<BaseModel> {
 	 * 修改人ID
 	 */
 	private Long updaterId;
-	/**
-	 * id数组
-	 */
-	private List<Long> ids;
 
 }
