@@ -17,11 +17,14 @@ import com.alibaba.fastjson.JSON;
 import com.born.core.constant.DataBaseEnum;
 import com.born.core.exception.BizException;
 import com.born.core.exception.DataBaseException;
+import com.born.core.page.PageBean;
 import com.born.util.ClassUtils;
 import com.born.util.bean.BeanMapUtils;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 import tk.mybatis.mapper.entity.Example;
@@ -332,6 +335,25 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			return ResultUtil.success(BeanMapUtils.objectsToMaps(mapper.selectAll()));
 		} catch (Exception e) {
 			log.error("get data By entity one error", e);
+			return ResultUtil.fail();
+		}
+	}
+	
+	@Override
+	public Result getListByPage(T model, PageBean pageBean) {
+		if (log.isInfoEnabled()) {
+			log.info("get List By Page request data = {},pageBean = {}", JSON.toJSONString(model),
+					JSON.toJSONString(pageBean));
+		}
+		try {
+			PageHelper.startPage(pageBean.getPageNum(), pageBean.getPageSize());
+			E record = entityClass.newInstance();
+			BeanUtils.copyProperties(model, record);
+			List<E> list = mapper.select(record);
+			PageInfo<E> pageInfo = new PageInfo<>(list);
+			return ResultUtil.success(BeanMapUtils.objectsToMaps(pageInfo.getList()), pageInfo.getTotal());
+		} catch (Exception e) {
+			log.error("get List By Page error", e);
 			return ResultUtil.fail();
 		}
 	}
