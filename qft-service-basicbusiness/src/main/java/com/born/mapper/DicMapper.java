@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
+import com.born.entity.notice.Notice;
 import com.born.facade.vo.dic.DicItemVO;
 import com.born.facade.vo.dic.DicMenuVO;
-import com.born.facade.vo.dic.DicTypeVO;
 
 /**
  * 
@@ -19,7 +19,7 @@ import com.born.facade.vo.dic.DicTypeVO;
  *
  */
 @Repository
-public interface DicMapper extends BaseMapper<DicTypeVO> {
+public interface DicMapper extends BaseMapper<Notice> {
 
 	/**
 	 * 
