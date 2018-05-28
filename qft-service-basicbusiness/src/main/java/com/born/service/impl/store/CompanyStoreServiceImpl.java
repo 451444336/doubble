@@ -138,7 +138,9 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 			return result;
 		}
 		try {
-			ResultUtil.setResult(result, RespCode.Code.SUCCESS, companyStoreMapper.selectByPrimaryKey(id));
+			CompanyStoreDTO dto = new CompanyStoreDTO();
+			BeanUtils.copyProperties(companyStoreMapper.selectByPrimaryKey(id), dto);
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS,dto);
 		} catch (Exception e) {
 			log.error("查询店面失败(CompanyStoreServiceImpl.getStoreById).......................", e);
 		}
