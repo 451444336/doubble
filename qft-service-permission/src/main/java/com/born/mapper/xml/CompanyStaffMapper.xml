@@ -28,7 +28,7 @@
 		select
 		id,phone,realname,note,idcard,workstore,attendance_id as attendanceId,
 		grouping,city_id as cityId,city_list as cityList,store_grouping as
-		storegrouping,store,update_time as updateTime,create_time as createTime
+		storegrouping,store,create_time as createTime
 		from qft_user_info where
 		user_id = #{userId}
 	</select>

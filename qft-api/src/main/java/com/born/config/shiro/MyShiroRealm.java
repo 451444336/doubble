@@ -25,13 +25,14 @@ import com.born.config.exception.login.AppLoginUnifyException;
 import com.born.core.rediscache.ICacheService;
 import com.born.dto.ResultInfo;
 import com.born.dto.UserInfoVO;
-import com.born.facade.entity.CompanyStaff;
-import com.born.facade.entity.User;
 import com.born.facade.service.ICompanyRoleAuthService;
 import com.born.facade.service.ICompanyStaffService;
 import com.born.facade.service.ISysUserService;
+import com.born.facade.vo.UserApiVO;
 import com.born.facade.vo.appauth.UserRoleAuthVO;
+import com.born.facade.vo.staff.StaffVO;
 import com.born.util.AppUtil;
+import com.born.util.String.StringUtil;
 import com.born.util.constants.AppConstants;
 import com.born.util.encrypt.security.SecurityUtil;
 import com.born.util.result.RespCode;
@@ -109,10 +110,16 @@ public class MyShiroRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
 
 		String account = (String) auth.getPrincipal();
-		User user = iSysUserService.getUser(account);
+		Result res = iSysUserService.getUser(account);
 
-		if (user != null) {
-
+		if (!RespCode.Code.FAIL.getCode().equals(res.getCode())) {
+			
+			if( res.getData() == null) {
+				throw new AppLoginUnifyException("获取账户信息数据为空");
+			}
+			
+			UserApiVO user = (UserApiVO) res.getData();
+			
 			/** 检查用户登录错误次数 */
 			Integer eCount = checkLoginCount(user);
 
@@ -144,7 +151,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 			 */
 			eCount++;
 			log.warn("User [{}] Password Is Error Count: {}", account, eCount);
-			iCacheService.set(AppConstants.LOGIN_ERROR_COUNT + ":" + user.getId(), eCount, 1L, TimeUnit.DAYS);
+			iCacheService.set(StringUtil.appendRedisKey(AppConstants.LOGIN_ERROR_COUNT, user.getId()), eCount, 1L, TimeUnit.DAYS);
 			throw new AppLoginPassErrorException();
 		} else {
 
@@ -159,11 +166,11 @@ public class MyShiroRealm extends AuthorizingRealm {
 	 * 
 	 * @param user
 	 */
-	private Integer checkLoginCount(User user) throws AuthenticationException {
+	private Integer checkLoginCount(UserApiVO user) throws AuthenticationException {
 
 		/** 获取缓存中登录错误次数 */
 		Integer eCount = 0;
-		Object obj = iCacheService.get(AppConstants.LOGIN_ERROR_COUNT + ":" + user.getId());
+		Object obj = iCacheService.get(StringUtil.appendRedisKey(AppConstants.LOGIN_ERROR_COUNT, user.getId()));
 
 		if (obj != null) {
 
@@ -183,7 +190,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 	 * 
 	 * @param user
 	 */
-	private void checkUserStatus(User user) {
+	private void checkUserStatus(UserApiVO user) {
 
 		/** 状态判读 */
 		switch (user.getStatus()) {
@@ -222,8 +229,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 			 * 保存当前登录的用户
 			 */
 			AppUtil.saveCurrentUser(iCacheService, user);
-			User u = (User) user;
-
+			UserApiVO u = (UserApiVO) user;
 			String userId = String.valueOf(u.getId());
 			Result resultStaff = iStaffService.getCompanyStaff(userId);
 			Result resultAuth = iCompanyRoleAuthService.findRoleAuthList(userId);
@@ -244,7 +250,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 			 */
 			if (!RespCode.Code.FAIL.getCode().equals(resultStaff.getCode())) {
 				if (resultStaff.getData() != null) {
-					CompanyStaff staff = (CompanyStaff) resultStaff.getData();
+					StaffVO staff = (StaffVO) resultStaff.getData();
 					UserInfoVO infoVo = new UserInfoVO();
 					infoVo.setUserId(u.getId());
 					infoVo.setRealName(staff.getRealname());
@@ -253,7 +259,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 					/**
 					 * 缓存用户基本信息
 					 */
-					iCacheService.set(AppConstants.USER_INFO + ":" + u.getId(), resultStaff.getData());
+					iCacheService.set(StringUtil.appendRedisKey(AppConstants.USER_INFO, u.getId()), resultStaff.getData());
 				}
 			}
 
@@ -267,13 +273,13 @@ public class MyShiroRealm extends AuthorizingRealm {
 					/**
 					 * 缓存用户权限信息
 					 */
-					iCacheService.set(AppConstants.USER_PERMISSION_INFO + ":" + u.getId(), roleAuthList);
+					iCacheService.set(StringUtil.appendRedisKey(AppConstants.USER_PERMISSION_INFO, u.getId()), roleAuthList);
 				}
 			}
 			/**
 			 * 登录成功，移除错误次数
 			 */
-			iCacheService.remove(AppConstants.LOGIN_ERROR_COUNT + ":" + u.getId());
+			iCacheService.remove(StringUtil.appendRedisKey(AppConstants.LOGIN_ERROR_COUNT, u.getId()));
 
 			return info;
 		} catch (Exception e) {

@@ -15,18 +15,14 @@ import com.born.core.constant.CommonConstants;
 import com.born.core.constant.PropertiesConstants;
 import com.born.core.rediscache.ICacheService;
 import com.born.dto.LoginInfo;
-import com.born.dto.RegisterInfo;
 import com.born.dto.ResultInfo;
-import com.born.facade.entity.User;
-import com.born.facade.service.ISysUserService;
 import com.born.util.AppUtil;
+import com.born.util.String.StringUtil;
 import com.born.util.constants.AppConstants;
 import com.born.util.encrypt.security.SecurityUtil;
 import com.born.util.json.JsonResult;
 import com.born.util.json.ResultCode;
 import com.born.util.json.ResultEntity;
-import com.born.util.result.RespCode;
-import com.born.util.result.Result;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -117,9 +113,9 @@ public class LoginHelper {
 			ICacheService<String, Object> iCacheService) {
 		try {
 			String userId = SecurityUtil.decryptDes(token.getUserId());
-			iCacheService.remove(AppConstants.TOKEN_KEY + ":" + userId);
-			iCacheService.remove(AppConstants.USER_INFO + ":" + userId);
-			AppUtil.removeCurrentUser(iCacheService, AppConstants.CURRENT_USER + ":" + userId);
+			iCacheService.remove(StringUtil.appendRedisKey(AppConstants.TOKEN_KEY, userId));
+			iCacheService.remove(StringUtil.appendRedisKey(AppConstants.USER_INFO, userId));
+			AppUtil.removeCurrentUser(iCacheService, StringUtil.appendRedisKey(AppConstants.CURRENT_USER, userId));
 			return JsonResult.info(ResultCode.SUCCESS);
 		} catch (Exception e) {
 			log.error("登出异常", e);
@@ -127,61 +123,4 @@ public class LoginHelper {
 		}
 	}
 
-	/**
-	 * 注册
-	 * 
-	 * @param loginInfo
-	 * @param ip
-	 * @return
-	 */
-	public static final ResultEntity<Object> register(RegisterInfo registerInfo, String ip,
-			ISysUserService iSysUserService) {
-
-		if (registerInfo == null) {
-			return JsonResult.info(ResultCode.INVALID_REQUEST);
-		}
-
-		try {
-
-			String account = registerInfo.getAccount();
-			String password = SecurityUtil.decryptRSAPrivate(registerInfo.getPassword(),
-					PropertiesConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.PRIVATE_KEY));
-			String deviceNumber = registerInfo.getDeviceNumber();
-			String sourceType = registerInfo.getSourceType();
-
-			/**
-			 * SignRSA 验签 防止唯一接口劫持篡改
-			 */
-			if (!SecurityUtil.verifyRSA(SecurityUtil.encryptMd5Hex(account + deviceNumber + password + sourceType),
-					PropertiesConstants.PROPERTIES_RSA_KEY_MAP.get(CommonConstants.SIGN_PUBLIC_KEY), registerInfo.getSign())) {
-				return JsonResult.info(ResultCode.INCORRECT_SIGNATURE);
-			}
-
-			User user = new User();
-			user.setAccount(account);
-			user.setPassword(SecurityUtil.encryptPassword(account, password));
-			user.setDeviceNumber(deviceNumber);
-			user.setSourceType(sourceType);
-
-			/**
-			 * User 其他字段信息在服务里面设置了
-			 */
-			Result result = iSysUserService.saveUser(user);
-
-			if (result == null) {
-				return JsonResult.info(ResultCode.UNKNOWN_ERROR);
-			}
-
-			if (RespCode.Code.FAIL.getCode().equals(result.getCode())) {
-				return JsonResult.info(ResultCode.FAIL);
-			}
-
-			return JsonResult.info(ResultCode.SUCCESS, result.getData());
-
-		} catch (Exception e) {
-			log.error("注册时发生了异常", e);
-			return JsonResult.info(ResultCode.INTERNAL_SERVER_ERROR);
-		}
-
-	}
 }
