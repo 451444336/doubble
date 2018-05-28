@@ -18,7 +18,7 @@
 	<select id="selectCodeSet" resultType="com.born.facade.vo.code.CodeVO">
 		select
 			<include refid="baseSql"></include>,
-			s.store_id as storeId,
+			s.id as storeId,
 			s.name as storeName
 		from
 			qft_store s
@@ -28,7 +28,7 @@
 			s.id = t.store_id
 		where 
 			s.is_delete = 0
-			and company_id = #{companyId}
-		 	
+			and s.company_id = #{companyId}
 	</select>
+	
 </mapper>
