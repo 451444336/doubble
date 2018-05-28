@@ -40,17 +40,6 @@ public interface IPermissionService {
 	Result getCompanyInfoByCorUrl(String corUrl);
 	/**
 	 * 
-	* @Title: gettCompanyInfosByPage 
-	* @Description: 分页查询 demo
-	* @param @param pageBean
-	* @param @return    设定文件 
-	* @return Result    返回类型 
-	* @author lijie
-	* @throws
-	 */
-	Result getCompanyInfosByPage(PageBean pageBean);
-	/**
-	 * 
 	* @Title: getPersonalPermissions 
 	* @Description: 查询个人权限信息 
 	* @param @param userId

@@ -20,12 +20,10 @@ import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.born.core.constant.CommonConstants;
-import com.born.core.page.PageBean;
 import com.born.entity.AuthorityChange;
 import com.born.entity.CompanyAuthority;
 import com.born.entity.CompanyMenu;
 import com.born.entity.MenuAuthority;
-import com.born.entity.MenuAuthorityBase;
 import com.born.entity.UserAuthority;
 import com.born.facade.constant.AuthChangeEnum;
 import com.born.facade.constant.MenuAuthEnum;
@@ -45,15 +43,12 @@ import com.born.mapper.AuthorityChangeMapper;
 import com.born.mapper.CompanyAuthorityMapper;
 import com.born.mapper.CompanyMenuMapper;
 import com.born.mapper.CompanyRoleMapper;
-import com.born.mapper.MenuAuthorityBaseMapper;
 import com.born.mapper.MenuAuthorityMapper;
 import com.born.mapper.UserAuthorityMapper;
 import com.born.service.impl.extend.MenuPermissionFactory;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 /**
@@ -73,9 +68,6 @@ public class PermissionServiceImpl implements IPermissionService {
 	
 	@Autowired
 	private IMenuService menuService;
-	
-	@Autowired
-	private MenuAuthorityBaseMapper menuAuthorityBaseMapper;
 	
 	@Autowired
 	private AuthorityChangeMapper authorityChangeMapper;
@@ -492,22 +484,6 @@ public class PermissionServiceImpl implements IPermissionService {
 			}
 		} catch (Exception e) {
 			log.error("根据公司url获取公司信息", e);
-		}
-		return result;
-	}
-
-	@Override
-	public Result getCompanyInfosByPage(PageBean pageBean) {
-		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
-		try {
-			PageHelper.startPage(pageBean.getPageNum(), pageBean.getPageSize());
-			List<MenuAuthorityBase> list = menuAuthorityBaseMapper.selectAll();
-			PageInfo<MenuAuthorityBase> pageInfo = new PageInfo<>(list);
-			result.setData(pageInfo.getList());
-			result.setCount(pageInfo.getTotal());
-			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
-		} catch (Exception e) {
-			log.error("查询分页数据异常", e);
 		}
 		return result;
 	}
