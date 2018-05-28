@@ -21,7 +21,7 @@ public interface IBaseService<T extends BaseModel> {
 	* @author lijie
 	* @throws
 	 */
-	Result updateByModel(T record);
+	Result updateByModel(T model);
 	/**
 	 * 
 	* @Title: delByIds  
@@ -116,23 +116,23 @@ public interface IBaseService<T extends BaseModel> {
 	 * 
 	* @Title: getByEntityList  
 	* @Description: 根据实体查询列表 
-	* @param: @param entity
+	* @param: @param model
 	* @param: @return
 	* @return Result
 	* @author lijie
 	* @throws
 	 */
-	Result getByEntityList(T entity);
+	Result getByModelList(T model);
 	/**
 	 * 
 	* @Title: getByEntityOne  
 	* @Description: 根据实体查询单个记录 
-	* @param: @param entity
+	* @param: @param model
 	* @param: @return
 	* @return Result
 	* @author lijie
 	* @throws
 	 */
-	Result getByEntityOne(T entity);
+	Result getByModelOne(T model);
 
 }

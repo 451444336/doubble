@@ -293,7 +293,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 	}
 
 	@Override
-	public Result getByEntityList(T entity) {
+	public Result getByModelList(T entity) {
 		if (log.isInfoEnabled()) {
 			log.info("get data By entity list request data = {}", JSON.toJSONString(entity));
 		}
@@ -310,7 +310,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 	}
 
 	@Override
-	public Result getByEntityOne(T entity) {
+	public Result getByModelOne(T entity) {
 		if (log.isInfoEnabled()) {
 			log.info("get data By entity one request data = {}", JSON.toJSONString(entity));
 		}
