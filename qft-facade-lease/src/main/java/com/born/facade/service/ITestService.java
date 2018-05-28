@@ -1,5 +1,8 @@
 package com.born.facade.service;
 
-public interface ITestService {
+import com.born.core.base.BaseModel;
+import com.born.core.base.IBaseService;
+
+public interface ITestService extends IBaseService<BaseModel>{
 
 }

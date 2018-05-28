@@ -1,5 +1,7 @@
 package com.born.facade.dto;
 
-public class TestDTO {
+import com.born.core.base.BaseModel;
+
+public class TestDTO extends BaseModel {
 
 }

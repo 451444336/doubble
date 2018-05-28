@@ -111,6 +111,37 @@ public final class ClassUtils {
 			log.error(e.getMessage(), e);
 		}
 	}
+	/**
+	 * 
+	* @Title: setProValue  
+	* @Description: 批量 
+	* @param: @param fields
+	* @param: @param obj
+	* @param: @param objValue
+	* @return void
+	* @author lijie
+	* @throws
+	 */
+	public static void setProValue(Object obj, Map<String, Object> kv) {
+		Assert.notNull(obj, "set object is null");
+		Assert.notNull(kv, "set object field value is null");
+		try {
+			for (Map.Entry<String, Object> entry : kv.entrySet()) {
+				if (isWriteMethod(obj.getClass(), entry.getKey(), entry.getValue())) {
+					new PropertyDescriptor(entry.getKey(), obj.getClass()).getWriteMethod().invoke(obj,
+							entry.getValue());
+				}
+			}
+		} catch (IntrospectionException e) {
+			log.error(e.getMessage(), e);
+		} catch (IllegalAccessException e) {
+			log.error(e.getMessage(), e);
+		} catch (IllegalArgumentException e) {
+			log.error(e.getMessage(), e);
+		} catch (InvocationTargetException e) {
+			log.error(e.getMessage(), e);
+		}
+	}
 
     /**
      * @throws
