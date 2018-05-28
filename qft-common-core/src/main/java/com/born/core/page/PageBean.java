@@ -7,6 +7,7 @@ import com.born.core.constant.PageConstants;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: PageBean 
@@ -16,7 +17,8 @@ import lombok.Data;
 *
  */
 @Data
-public class PageBean extends BaseValidate {
+@EqualsAndHashCode(callSuper = true)
+public class PageBean extends BaseValidate<PageBean> {
 	
 	/**
 	 * 
