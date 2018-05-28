@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 
 import com.born.core.entity.EntityClone;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
