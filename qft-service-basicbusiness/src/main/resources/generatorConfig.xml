@@ -13,12 +13,12 @@
 		<property name="javaFileEncoding" value="utf-8" />
 
 		<!-- 通过自定义插件类生成自定义注解和接口 -->
-		<plugin type="com.born.config.gen.GenPlugin">
+		<plugin type="com.born.config.generator.GenPlugin">
 			<property name="hasLombok" value="true" />
 		</plugin>
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 
-		<commentGenerator type="com.born.config.gen.RemarksCommentGenerator">
+		<commentGenerator type="com.born.config.generator.RemarksCommentGenerator">
 			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
 			<property name="suppressAllComments" value="true" />
 			<!-- 格式化java代码 -->
@@ -29,7 +29,6 @@
 				value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
 		</commentGenerator>
 
-	
 
 		<!-- 数据库连接属性 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
