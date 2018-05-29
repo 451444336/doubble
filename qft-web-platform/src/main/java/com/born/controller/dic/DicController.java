@@ -219,11 +219,12 @@ public class DicController {
 	 * @return
 	 * @author 张永胜
 	 * @return ResultEntity<Object>
+	 * @throws Exception 
 	 * @date 2018年5月18日 下午5:08:49
 	 */
 	@ResponseBody
 	@PostMapping(value = "/add/item/data")
-	public ResultEntity<Object> addDicItemData(@Param(value = "pId") String pId, @Param(value = "names") String names) {
+	public ResultEntity<Object> addDicItemData(@Param(value = "pId") String pId, @Param(value = "names") String names) throws Exception {
 		Result result = iDicService.addDicItem(pId, names);
 		if (RespCode.Code.SUCCESS.getCode().equals(result.getCode())) {
 			return JsonResult.info(ResultCode.SUCCESS);
@@ -242,12 +243,13 @@ public class DicController {
 	 * @return
 	 * @author 张永胜
 	 * @return ResultEntity<Object>
+	 * @throws Exception 
 	 * @date 2018年5月21日 上午11:54:28
 	 */
 	@ResponseBody
 	@PostMapping(value = "/add/sub/item/data")
 	public ResultEntity<Object> addDicSubItemData(@Param(value = "pId") String pId,
-			@Param(value = "names") String names) {
+			@Param(value = "names") String names) throws Exception {
 		Result result = iDicService.addDicSubItem(pId, names);
 		if (RespCode.Code.SUCCESS.getCode().equals(result.getCode())) {
 			return JsonResult.info(ResultCode.SUCCESS);
