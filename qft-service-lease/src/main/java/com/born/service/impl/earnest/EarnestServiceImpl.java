@@ -7,7 +7,7 @@ import com.born.core.base.BaseModel;
 import com.born.core.base.BaseService;
 import com.born.core.base.DataBaseParameters;
 import com.born.entity.earnest.Earnest;
-import com.born.facade.dto.earnest.EarnestDTO;
+import com.born.facade.dto.income.EarnestDTO;
 import com.born.facade.service.earnest.IEarnestService;
 import com.born.mapper.EarnestMapper;
 import com.born.util.result.Result;

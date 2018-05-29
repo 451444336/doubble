@@ -2,7 +2,7 @@ package com.born.facade.service.earnest;
 
 import com.born.core.base.BaseModel;
 import com.born.core.base.IBaseService;
-import com.born.facade.dto.earnest.EarnestDTO;
+import com.born.facade.dto.income.EarnestDTO;
 import com.born.util.result.Result;
 
 /**
