@@ -67,9 +67,10 @@ public interface IDicService {
 	 * @return
 	 * @author 张永胜
 	 * @return Result
+	 * @throws Exception 
 	 * @date 2018年5月21日 上午11:51:24
 	 */
-	Result addDicItem(String pId, String dicItem);
+	Result addDicItem(String pId, String dicItem) throws Exception;
 
 	/**
 	 * 
@@ -82,9 +83,10 @@ public interface IDicService {
 	 * @return
 	 * @author 张永胜
 	 * @return Result
+	 * @throws Exception 
 	 * @date 2018年5月21日 上午11:50:48
 	 */
-	Result addDicSubItem(String pId, String dicSubItem);
+	Result addDicSubItem(String pId, String dicSubItem) throws Exception;
 
 	/**
 	 * 根据ID删除

@@ -15,4 +15,14 @@
 		WHERE
 			r.id = #{id}; 
 	</update>
+	
+	<!-- 根据ID获取房间创建时间 -->
+	<select id="getRoomCreateTimeById"  resultType="java.util.Date">
+		select create_time from qft_focus_room where id = #{roomId} and company_id = #{companyId}
+	</select>
+	
+	<!-- 根据ID 更改房间状态、定金状态 -->
+	<update id="updateRoomStatusById">
+		UPDATE qft_focus_room SET e_money_status = 0, is_lease = 1 WHERE id = #{roomId} and company_id = #{companyId}
+	</update>
 </mapper>

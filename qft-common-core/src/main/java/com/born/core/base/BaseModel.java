@@ -1,7 +1,5 @@
 package com.born.core.base;
 
-import com.born.core.page.PageBean;
-
 /**
  * 
  * @ClassName: BaseModel
@@ -9,7 +7,7 @@ import com.born.core.page.PageBean;
  * @author: lijie
  * @date: 2018年5月26日 下午4:27:25
  */
-public abstract class BaseModel extends PageBean {
+public abstract class BaseModel extends BaseValidate<BaseModel> {
 
 	/**
 	 * @fieldName: serialVersionUID

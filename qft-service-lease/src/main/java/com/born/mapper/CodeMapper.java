@@ -24,7 +24,7 @@ public interface CodeMapper extends BaseMapper<Code> {
 	/**
 	 * 
 	* @Title: selectCodeSet 
-	* @Description: 查询店面编号设置
+	* @Description: 查询编号设置
 	* @param @param companyId
 	* @param @return
 	* @author 明成

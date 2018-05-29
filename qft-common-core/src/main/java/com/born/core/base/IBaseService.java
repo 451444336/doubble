@@ -2,6 +2,7 @@ package com.born.core.base;
 
 import java.util.List;
 
+import com.born.core.page.PageBean;
 import com.born.util.result.Result;
 
 /**
@@ -154,5 +155,5 @@ public interface IBaseService<T extends BaseModel> {
 	* @author lijie
 	* @throws
 	 */
-	Result getListByPage(T model);
+	Result getListByPage(T model, PageBean pageBean);
 }

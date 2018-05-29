@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.born.core.constant.DataBaseEnum;
 import com.born.core.exception.BizException;
 import com.born.core.exception.DataBaseException;
+import com.born.core.page.PageBean;
 import com.born.util.ClassUtils;
 import com.born.util.bean.BeanMapUtils;
 import com.born.util.result.RespCode;
@@ -338,12 +339,13 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 	}
 	
 	@Override
-	public Result getListByPage(T model) {
+	public Result getListByPage(T model, PageBean pageBean) {
 		if (log.isInfoEnabled()) {
-			log.info("get List By Page request data = {", JSON.toJSONString(model));
+			log.info("get List By Page request data = {},pageBean={}", JSON.toJSONString(model),
+					JSON.toJSONString(pageBean));
 		}
 		try {
-			PageHelper.startPage(model.getPageNum(), model.getPageSize());
+			PageHelper.startPage(pageBean.getPageNum(), pageBean.getPageSize());
 			E record = entityClass.newInstance();
 			BeanUtils.copyProperties(model, record);
 			List<E> list = mapper.select(record);

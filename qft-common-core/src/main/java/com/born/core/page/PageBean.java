@@ -1,7 +1,5 @@
 package com.born.core.page;
 
-import javax.validation.constraints.NotNull;
-
 import com.born.core.base.BaseValidate;
 import com.born.core.constant.PageConstants;
 
@@ -27,14 +25,12 @@ public class PageBean extends BaseValidate<PageBean> {
 	/**
 	 * 当前页数
 	 */
-	@ApiModelProperty(value = "当前页数(默认为1)", required = true)
-	@NotNull(message = "当前页码不能为空")
+	@ApiModelProperty(value = "当前页数(默认为1)")
 	private Integer pageNum;
 	/**
 	 * 每页条数
 	 */
-	@ApiModelProperty(value = "每页条数(默认为20)", required = true)
-	@NotNull(message = "每页条数不能为空")
+	@ApiModelProperty(value = "每页条数(默认为20)")
 	private Integer pageSize;
 
 	public PageBean(int pageNum, int pageSize) {

@@ -60,8 +60,8 @@ public class CodeController {
 	}
 	/**
 	 * 
-	* @Title: editDept 
-	* @Description: TODO(这里用一句话描述这个方法的作用) 
+	* @Title: editCode 
+	* @Description: 编辑编号
 	* @param @param dto
 	* @param @return
 	* @author 明成
@@ -81,7 +81,7 @@ public class CodeController {
 		dto.setCreaterId(user.getId());
 		dto.setCreateTime(new Date());
 		dto.setCompanyId(user.getCompanyId());
-		return codeService.updateCode(dto);
+		return codeService.updateByModel(dto);
 	}
 	
 	/**
@@ -99,6 +99,6 @@ public class CodeController {
 	public Result addCode(CodeDTO dto){
 		UserInfoVO user = TokenManager.getLoginUser();
 		dto.setCreaterId(user.getId());
-		return codeService.addCode(dto);
+		return codeService.addByModel(dto);
 	}
 }
