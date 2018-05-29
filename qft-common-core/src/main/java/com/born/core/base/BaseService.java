@@ -17,7 +17,6 @@ import com.alibaba.fastjson.JSON;
 import com.born.core.constant.DataBaseEnum;
 import com.born.core.exception.BizException;
 import com.born.core.exception.DataBaseException;
-import com.born.core.page.PageBean;
 import com.born.util.ClassUtils;
 import com.born.util.bean.BeanMapUtils;
 import com.born.util.result.RespCode;
@@ -321,8 +320,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		try {
 			E record = entityClass.newInstance();
 			BeanUtils.copyProperties(entity, record);
-			record = mapper.selectOne(record);
-			return ResultUtil.success(result, BeanMapUtils.beanToMap(record));
+			return ResultUtil.success(result, BeanMapUtils.beanToMap(mapper.selectOne(record)));
 		} catch (Exception e) {
 			log.error("get data By entity one error", e);
 		}
@@ -340,13 +338,12 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 	}
 	
 	@Override
-	public Result getListByPage(T model, PageBean pageBean) {
+	public Result getListByPage(T model) {
 		if (log.isInfoEnabled()) {
-			log.info("get List By Page request data = {},pageBean = {}", JSON.toJSONString(model),
-					JSON.toJSONString(pageBean));
+			log.info("get List By Page request data = {", JSON.toJSONString(model));
 		}
 		try {
-			PageHelper.startPage(pageBean.getPageNum(), pageBean.getPageSize());
+			PageHelper.startPage(model.getPageNum(), model.getPageSize());
 			E record = entityClass.newInstance();
 			BeanUtils.copyProperties(model, record);
 			List<E> list = mapper.select(record);

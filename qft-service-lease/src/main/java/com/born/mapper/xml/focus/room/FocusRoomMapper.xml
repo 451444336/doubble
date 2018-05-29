@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.born.mapper.FocusRoomMapper">
+
+	<!-- 添加或修改房间信息 -->
+	<insert id="insertOrUpdate">
+		
+	</insert>
+	
+	<!-- 删除房间信息 -->
+	<update id="deleteById">
+		UPDATE qft_focus_room r
+		SET r.is_delete = 1
+		WHERE
+			r.id = #{id}; 
+	</update>
+</mapper>
