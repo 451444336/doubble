@@ -11,12 +11,13 @@ import com.born.facade.dto.dic.UpdateDicItemSortDTO;
 import com.born.facade.vo.dic.DicItemSortVO;
 
 /**
+ * 字典服务
  * 
- * @ClassName: OrderMapper
- * @Description: 订单数据
- * @author lijie
- * @date 2018年5月15日 下午1:58:26
- *
+ * @ClassName: DicItemMapper
+ * @Description: 字典服务
+ * @author 张永胜
+ * @date 2018年5月28日 下午2:04:17
+ * @version 1.0
  */
 @Repository
 public interface DicItemMapper extends BaseMapper<DicItem> {
@@ -92,8 +93,8 @@ public interface DicItemMapper extends BaseMapper<DicItem> {
 	 * @return List<DicItemSortVO>
 	 * @date 2018年5月21日 下午5:58:24
 	 */
-	List<DicItemSortVO> selectItemAllById(@Param(value = "companyId") String companyId, @Param(value = "pId") String pId,
-			@Param(value = "rank") String rank);
+	List<DicItemSortVO> selectItemAllById(@Param(value = "companyId") String companyId,
+			@Param(value = "pId") String pId, @Param(value = "rank") String rank);
 
 	/**
 	 * 

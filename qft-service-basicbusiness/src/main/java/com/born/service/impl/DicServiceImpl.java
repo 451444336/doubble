@@ -107,7 +107,7 @@ public class DicServiceImpl implements IDicService {
 
 	@Override
 	@Transactional
-	public Result addDicItem(String pId, String dicItem) {
+	public Result addDicItem(String pId, String dicItem) throws Exception {
 		try {
 
 			if (StringUtils.isBlank(pId) || StringUtils.isBlank(dicItem)) {
@@ -138,6 +138,7 @@ public class DicServiceImpl implements IDicService {
 			}
 		} catch (Exception e) {
 			log.error("添加字典数据异常", e);
+			throw new Exception("添加字典数据异常");
 		}
 		return ResultUtil.getResult(RespCode.Code.FAIL);
 	}
@@ -165,7 +166,7 @@ public class DicServiceImpl implements IDicService {
 
 	@Override
 	@Transactional
-	public Result addDicSubItem(String pId, String dicSubItem) {
+	public Result addDicSubItem(String pId, String dicSubItem) throws Exception {
 		try {
 
 			if (StringUtils.isBlank(pId) || StringUtils.isBlank(dicSubItem)) {
@@ -196,6 +197,7 @@ public class DicServiceImpl implements IDicService {
 			}
 		} catch (Exception e) {
 			log.error("添加字典数据异常", e);
+			throw new Exception("添加字典数据异常");
 		}
 		return ResultUtil.getResult(RespCode.Code.FAIL);
 	}
