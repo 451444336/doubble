@@ -1,6 +1,6 @@
 package com.born.core.base;
 
-import com.born.core.page.PageBean;
+import java.io.Serializable;
 
 /**
  * 
@@ -9,7 +9,7 @@ import com.born.core.page.PageBean;
  * @author: lijie
  * @date: 2018年5月26日 下午4:27:25
  */
-public abstract class BaseModel extends PageBean {
+public abstract class BaseModel implements Serializable {
 
 	/**
 	 * @fieldName: serialVersionUID
