@@ -1,7 +1,5 @@
 package com.born.core.base;
 
-import java.io.Serializable;
-
 /**
  * 
  * @ClassName: BaseModel
@@ -9,7 +7,7 @@ import java.io.Serializable;
  * @author: lijie
  * @date: 2018年5月26日 下午4:27:25
  */
-public abstract class BaseModel implements Serializable {
+public abstract class BaseModel extends BaseValidate<BaseModel> {
 
 	/**
 	 * @fieldName: serialVersionUID
