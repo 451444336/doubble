@@ -5,17 +5,106 @@
 
 	<!-- 添加或修改房间信息 -->
 	<insert id="insertOrUpdate">
-		
+		INSERT INTO qft_focus_room (
+			creater_id
+			,create_time
+			,updater_id
+			,update_time
+			,company_id
+			,housing_id
+			,serial_number
+			,room_number
+			<if test="houseDoor != null and houseDoor !=''">
+				,house_door
+			</if>
+			<if test="insideSpace > 0">
+				,inside_space
+			</if>
+			<if test="orientation != null and orientation !=''">
+				,orientation
+			</if>
+			<if test="roomConfig != null and roomConfig !=''">
+				,room_config
+			</if>
+			) VALUES (
+			#{createrId}
+			,#{createTime}
+			,#{updaterId}
+			,#{updateTime}
+			,#{companyId}
+			,#{housingId}
+			,#{serialNumber}
+			,#{roomNumber}
+			<if test="houseDoor != null and houseDoor !=''">
+				,#{houseDoor}
+			</if>
+			<if test="insideSpace > 0">
+				,#{insideSpace}
+			</if>
+			<if test="orientation != null and orientation !=''">
+				,#{orientation}
+			</if>
+			<if test="roomConfig != null and roomConfig !=''">
+				,#{roomConfig}
+			</if>
+			) ON DUPLICATE KEY UPDATE 
+			room_number = #{roomNumber}
+			<if test="houseDoor != null and houseDoor !=''">
+				,house_door = #{houseDoor}
+			</if>
+			<if test="insideSpace > 0">
+				,inside_space = #{insideSpace}
+			</if>
+			<if test="orientation != null and orientation !=''">
+				,orientation = #{orientation}
+			</if>
+			<if test="roomConfig != null and roomConfig !=''">
+				,room_config = #{roomConfig}
+			</if>
 	</insert>
-	
-	<!-- 删除房间信息 -->
+	<!-- 删除房间 -->
 	<update id="deleteById">
 		UPDATE qft_focus_room r
 		SET r.is_delete = 1
 		WHERE
-			r.id = #{id}; 
+			r.id = #{id}
 	</update>
-	
+	<!-- 查询房间列表 -->
+	<select id="selectRoomList"  resultType="com.born.facade.vo.focus.room.FocusRoomVO">
+		 SELECT
+			h.house_area houseArea,
+			h.property_adrr propertyAdrr,
+			h.building,
+			r.room_number roomNumber,
+			r.inside_space insideSpace,
+			r.house_door houseDoor,
+			r.orientation,
+			t.tenant_name tenantName,
+			t.lease_price leasePrice,
+			t.deposit_money depositMoney,
+			t.lease_starttime leaseStarttime,
+			t.lease_endtime leaseEndtime,
+			t.limit_year limitYear,
+			t.limit_month limitMonth,
+			t.limit_day limitDay,
+			t.payment_method paymentMethod,
+			t.tenants_contract_nature tenantsContractNature,
+			t.salesman_name salesmanName,
+			r.lowprice,
+			r.pricing_money pricingMoney
+		FROM
+			qft_focus_housing h
+		LEFT JOIN qft_focus_room r ON h.id = r.housing_id
+		LEFT JOIN qft_focus_tenants_info t ON r.tenant_id = t.id
+		WHERE
+			r.is_delete = 0
+			AND h.company_id = #{companyId}
+		<if test="housingId > 0">
+			AND r.housing_id = #{housingId}
+		</if>
+		
+	</select>
+		
 	<!-- 根据ID获取房间创建时间 -->
 	<select id="getRoomCreateTimeById"  resultType="java.util.Date">
 		select create_time from qft_focus_room where id = #{roomId} and company_id = #{companyId}

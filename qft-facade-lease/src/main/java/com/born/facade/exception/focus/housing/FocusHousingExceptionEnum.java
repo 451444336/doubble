@@ -16,10 +16,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum FocusHousingExceptionEnum implements RespCode {
 	
-	ADD_HOUSING_ERROR("20021", "添加房源异常"),
-	UPDATE_HOUSING_ERROR("20022", "修改房源异常"),
-	DELETE_HOUSING_ERROR("20023", "房东退房异常"),
-	ADD_ROOM_ERROR("20024", "房间分配异常");
+	ADD_UPDATE_HOUSING_ERROR("20021", "添加或修改房源异常"),
+	DELETE_HOUSING_ERROR("20022", "房东退房异常"),
+	ADD_UPDATE_ROOM_ERROR("20023", "添加或修改房间异常"),
+	DELETE_ROOM_ERROR("20024","删除房间异常"),
+	ADD_UPDATE_CONFIG_ERROR("20025", "添加或修改房间配置异常"),
+	DELETE_CONFIG_ERROR("20026", "删除房间配置异常");
 	private String code;
     private String msg;
 

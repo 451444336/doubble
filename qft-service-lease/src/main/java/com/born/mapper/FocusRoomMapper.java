@@ -9,39 +9,47 @@ import org.springframework.stereotype.Repository;
 import com.born.core.base.BaseMapper;
 import com.born.entity.focus.room.FocusRoom;
 import com.born.facade.dto.focus.room.FocusRoomDTO;
-import com.born.facade.vo.focus.housing.FocusHousingVO;
+import com.born.facade.vo.focus.room.FocusRoomVO;
 
 /**
  * 
- * @description 集中整租房间Mapper
+ * @description 集中整租房间信息Mapper
  * @author 黄伟
- * @date 2018年5月28日 下午3:25:04
+ * @date 2018年5月29日 下午5:30:59
  */
 @Repository
 public interface FocusRoomMapper extends BaseMapper<FocusRoom> {
 
+	
 	/**
-	 * 添加或修改房间
 	 * 
-	 * @param dto
+	 * @Title
+	 * @param
+	 * @Description 添加或修改房间信息
+	 * @author 黄伟
 	 * @return
+	 * @date 2018年5月29日 下午6:33:40
 	 */
 	int insertOrUpdate(FocusRoomDTO dto);
-
+	
 	/**
-	 * 根据ID删除集中在整租房间信息
 	 * 
-	 * @param id
+	 * @Title
+	 * @param
+	 * @Description 删除房间
+	 * @author 黄伟
+	 * @return
+	 * @date 2018年5月29日 下午6:34:34
 	 */
 	int deleteById(Long id);
-
+	
 	/**
 	 * 获取集中整租房间列表
 	 * 
 	 * @param dto
 	 * @return
 	 */
-	List<FocusHousingVO> selectHousingList(FocusRoomDTO dto);
+	List<FocusRoomVO> selectRoomList(FocusRoomDTO dto);
 
 	/**
 	 * 

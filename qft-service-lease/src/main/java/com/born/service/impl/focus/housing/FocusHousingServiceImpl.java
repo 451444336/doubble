@@ -77,16 +77,20 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 				return result;
 			}
 			//添加或修改集中整租房源托管不规则递增信息
-			AddIrregularDTO addIrregularDTO = new AddIrregularDTO();
-			addIrregularDTO.setTrustId(trustDTO.getId());
-			BeanUtils.copyProperties(dto, addIrregularDTO);
+			List<AddIrregularDTO> list = dto.getList();
+			int returnFlag = 0;
 			log.info("执行添加或修改集中整租房源托管不规则递增信息...");
-			int returnAddIrregular = addIrregularMapper.insertOrUpdate(addIrregularDTO);
-			ResultUtil.success(result, returnHousing*returnTrust*returnAddIrregular);
+			for(AddIrregularDTO addIrregularDTO : list){
+				addIrregularDTO.setTrustId(trustDTO.getId());
+				returnFlag *= addIrregularMapper.insertOrUpdate(addIrregularDTO);
+			}
 			log.info("添加集中或修改整租房源托管不规则递增信息成功...");
+			
+			ResultUtil.success(result, returnHousing*returnTrust*returnFlag);
+			
 		} catch (Exception e) {
 			log.error("添加或修改集中整租房源失败（FocusHousingServiceImpl.addOrUpdate）-----------------------------"+e);
-			throw new FocusHousingException(FocusHousingExceptionEnum.ADD_HOUSING_ERROR);
+			throw new FocusHousingException(FocusHousingExceptionEnum.ADD_UPDATE_HOUSING_ERROR);
 		}
 		return result;
 	}
@@ -141,7 +145,7 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 			PageInfo<FocusHousingVO> pageInfo = new PageInfo<>(list);
 	        result.setData(pageInfo.getList());
 			result.setCount(pageInfo.getTotal());
-			return ResultUtil.success(result, RespCode.Code.SUCCESS);
+			return ResultUtil.success(result, list);
 		} catch (Exception e) {
 			log.error("查询集中整租房源列表信息失败（FocusHousingServiceImpl.getHousingList）-----------------------------"+e);
 		}
