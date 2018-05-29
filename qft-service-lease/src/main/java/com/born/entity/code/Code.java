@@ -6,8 +6,10 @@ import javax.persistence.Table;
 import com.born.core.base.BaseEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=true)
 @Table(name="qft_code_set")
 public class Code extends BaseEntity<Code> {
 
