@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.config.shiro.token.TokenManager;
-import com.born.core.page.PageBean;
 import com.born.facade.dto.earnest.EarnestDTO;
 import com.born.facade.service.earnest.IEarnestService;
 import com.born.facade.vo.UserInfoVO;
@@ -55,10 +54,10 @@ public class EarnestController {
     })
 	@GetMapping("/getPageList")
 	@ResponseBody
-	public Result getPageList(EarnestDTO dto,PageBean pageBean){
+	public Result getPageList(EarnestDTO dto){
 		UserInfoVO user = TokenManager.getLoginUser();
 		dto.setCompanyId(user.getCompanyId());
-		return earnestService.getListByPage(dto, pageBean);
+		return earnestService.getListByPage(dto);
 	}
 	
 	/**
