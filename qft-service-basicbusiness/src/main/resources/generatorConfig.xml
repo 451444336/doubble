@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- 引入配置文件 -->
+	<!-- <properties resource="jdbc.properties" /> -->
+
+	<context id="Mysql" targetRuntime="MyBatis3"
+		defaultModelType="flat">
+		<property name="beginningDelimiter" value="`" />
+		<property name="endingDelimiter" value="`" />
+		<!-- 生成的文件编码 -->
+		<property name="javaFileEncoding" value="utf-8" />
+
+		<!-- 通过自定义插件类生成自定义注解和接口 -->
+		<plugin type="com.born.config.gen.GenPlugin">
+			<property name="hasLombok" value="true" />
+		</plugin>
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+		<commentGenerator type="com.born.config.gen.RemarksCommentGenerator">
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+			<!-- 格式化java代码 -->
+			<property name="javaFormatter"
+				value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+			<!-- 格式化XML代码 -->
+			<property name="xmlFormatter"
+				value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
+		</commentGenerator>
+
+	
+
+		<!-- 数据库连接属性 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.50.244:3306/qft_new"
+			userId="root" password="root" />
+		<!-- 生成实体类配置 -->
+		<javaModelGenerator
+			targetPackage="com.born.entity.configset"
+			targetProject="src/main/java" />
+		<!-- 生成映射文件配置 -->
+		<!-- <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources" 
+			/> -->
+		<!-- 生成映射接口配置 -->
+		<!-- <javaClientGenerator targetPackage="com.xe.demo.mapper" targetProject="src/main/java" 
+			type="XMLMAPPER" /> -->
+
+		<table tableName="qft_config_set" domainObjectName="ConfigSet">
+			<!--mysql 配置 -->
+			<generatedKey column="id" sqlStatement="Mysql"
+				identity="true" />
+		</table>
+	</context>
+</generatorConfiguration>

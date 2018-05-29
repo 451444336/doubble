@@ -456,6 +456,13 @@
 				<artifactId>poi-ooxml-schemas</artifactId>
 				<version>${apache.poi-ooxml-schemas.verison}</version>
 			</dependency>
+			
+			<dependency>
+		        <groupId>org.mybatis.generator</groupId>
+		     	<artifactId>mybatis-generator-core</artifactId>
+		        <version>1.3.5</version>
+		    </dependency>
+			
         </dependencies>
 
 
