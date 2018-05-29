@@ -30,10 +30,10 @@ public class FocusTrust extends BaseEntity<FocusTrust>{
 	 */
 	private static final long serialVersionUID = -531109986699734296L;
 	/**
-	 * 公司ID
+	 * 房源ID
 	 */
-	@Column(name = "company_id")
-	private Long companyId;
+	@Column(name = "housing_id")
+	private Long housingId;
 	/**
 	 * 托管开始时间
 	 */
@@ -44,11 +44,6 @@ public class FocusTrust extends BaseEntity<FocusTrust>{
 	 */
 	@Column(name = "hosting_end_time")
 	private Date hostingEndTime;
-	/**
-	 * 房源ID
-	 */
-	@Column(name = "housing_id")
-	private Long housingId;
 	/**
 	 * 合同期限年
 	 */
@@ -80,11 +75,6 @@ public class FocusTrust extends BaseEntity<FocusTrust>{
 	@Column(name = "add_money")
 	private BigDecimal addMoney;
 	/**
-	 * 不规则递增ID
-	 */
-	@Column(name = "add_irregular_id")
-	private Long addIrregularId;
-	/**
 	 * 托管价格
 	 */
 	@Column(name = "joe_price")
@@ -103,7 +93,7 @@ public class FocusTrust extends BaseEntity<FocusTrust>{
 	 * 免租期年
 	 */
 	@Column(name = "vacancy_year")
-	private int vacancy_year;
+	private int vacancyYear;
 	/**
 	 * 免租期月
 	 */
@@ -119,6 +109,11 @@ public class FocusTrust extends BaseEntity<FocusTrust>{
 	 */
 	@Column(name = "salesman_id")
 	private Long salesmanId;
+	/**
+	 * 业务员名称
+	 */
+	@Column(name = "salesman_name")
+	private String salesmanName;
 	/**
 	 * 提前几天
 	 */

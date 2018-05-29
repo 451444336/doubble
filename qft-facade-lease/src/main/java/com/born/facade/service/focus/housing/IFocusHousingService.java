@@ -27,6 +27,11 @@ public interface IFocusHousingService{
 	Result deleteById(Long id);
 	
 	/**
+	 * 根据房源ID查询房源信息
+	 * @return
+	 */
+	Result getHousingById(Long id);
+	/**
 	 * 查询房源信息列表
 	 * @param dto
 	 * @return

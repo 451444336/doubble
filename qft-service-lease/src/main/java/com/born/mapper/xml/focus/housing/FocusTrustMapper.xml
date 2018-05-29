@@ -2,10 +2,135 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.born.mapper.FocusTrustMapper">
-	<update id="deleteById">
-		UPDATE qft_focus_housing h
-		SET h.is_delete = 1
-		WHERE
-			h.id = #{id}; 
-	</update>
+	
+	<!-- 添加或修改托管信息 -->
+	<insert id="insertOrUpdate" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO qft_focus_trust (
+				housing_id
+				,hosting_create_time
+				,hosting_end_time
+			<if test="contractYear > 0">
+				,contract_year
+			</if>
+			<if test="contractMonth > 0">
+				,contract_month
+			</if>
+			<if test="contractDay > 0">
+				,contract_day
+			</if>
+			<if test="addAppoint == 0 or addAppoint == 1">
+				,add_appoint
+			</if>
+			<if test="addType == 0 or addType == 1 or addType == 2">
+				,add_type
+			</if>
+			<if test="addMoney > 0">
+				,add_money
+			</if>
+				,joe_price
+				,deposit_money
+				,payment_method
+			<if test="vacancyYear > 0">
+				,vacancy_year
+			</if>
+			<if test="vacancyMonth > 0">
+				,vacancy_month
+			</if>
+			<if test="vacamcyDay > 0">
+				,vacamcy_day
+			</if>
+				,salesman_id
+				,salesman_name
+			<if test="beforeTime > 0">
+				,before_time
+			</if>
+			<if test="postponeTime > 0">
+				,postpone_time
+			</if>
+		) VALUES (
+				#{housingId}
+				,#{hostingCreateTime}
+				,#{hostingEndTime}
+			<if test="contractYear > 0">
+				,#{contractYear}
+			</if>
+			<if test="contractMonth > 0">
+				,#{contractMonth}
+			</if>
+			<if test="contractDay > 0">
+				,#{contractDay}
+			</if>
+			<if test="addAppoint == 0 or addAppoint == 1">
+				,#{addAppoint}
+			</if>
+			<if test="addType == 0 or addType == 1 or addType == 2">
+				,#{addType}
+			</if>
+			<if test="addMoney > 0">
+				,#{addMoney}
+			</if>
+				,#{joePrice}
+				,#{depositMoney}
+				,#{paymentMethod}
+			<if test="vacancyYear > 0">
+				,#{vacancyYear}
+			</if>
+			<if test="vacancyMonth > 0">
+				,#{vacancyMonth}
+			</if>
+			<if test="vacamcyDay > 0">
+				,#{vacamcyDay}
+			</if>
+				,#{salesmanId}
+				,#{salesmanName}
+			<if test="beforeTime > 0">
+				,#{beforeTime}
+			</if>
+			<if test="postponeTime > 0">
+				,#{postponeTime}
+			</if>
+		) ON DUPLICATE KEY UPDATE 
+				housing_id = #{housingId}
+				,hosting_create_time = #{hostingCreateTime}
+				,hosting_end_time = #{hostingEndTime}
+			<if test="contractYear > 0">
+				,contract_year = #{contractYear}
+			</if>
+			<if test="contractMonth > 0">
+				,contract_month = #{contractMonth}
+			</if>
+			<if test="contractDay > 0">
+				,contract_day = #{contractDay}
+			</if>
+			<if test="addAppoint == 0 or addAppoint == 1">
+				,add_appoint = #{addAppoint}
+			</if>
+			<if test="addType == 0 or addType == 1 or addType == 2">
+				,add_type = #{addType}
+			</if>
+			<if test="addMoney > 0">
+				,add_money = #{addMoney}
+			</if>
+				,joe_price = #{joePrice}
+				,deposit_money = #{depositMoney}
+				,payment_method = #{paymentMethod}
+			<if test="vacancyYear > 0">
+				,vacancy_year = #{vacancyYear}
+			</if>
+			<if test="vacancyMonth > 0">
+				,vacancy_month = #{vacancyMonth}
+			</if>
+			<if test="vacamcyDay > 0">
+				,vacamcy_day = {vacamcyDay}
+			</if>
+				,salesman_id = #{salesmanId}
+				,salesman_name = #{salesmanName}
+			<if test="beforeTime > 0">
+				,before_time = #{beforeTime}
+			</if>
+			<if test="postponeTime > 0">
+				,postpone_time = #{postponeTime}
+			</if>
+	</insert>
+	
 </mapper>

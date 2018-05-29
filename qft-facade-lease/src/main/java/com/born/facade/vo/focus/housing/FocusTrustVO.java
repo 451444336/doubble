@@ -19,26 +19,6 @@ public class FocusTrustVO{
 	 */
 	private Long id;
 	/**
-	 * 创建人ID
-	 */
-	private Long createrId;
-	/**
-     * 创建时间
-     */
-    private String createTime;
-	/**
-     * 修改人ID
-     */
-    private Long updaterId;
-    /**
-	 * 修改时间
-	 */
-	private String updateTime;
-	/**
-	 * 公司ID
-	 */
-	private Long companyId;
-	/**
 	 * 房源ID
 	 */
 	private Long housingId;
@@ -75,10 +55,6 @@ public class FocusTrustVO{
 	 */
 	private BigDecimal addMoney;
 	/**
-	 * 不规则递增ID
-	 */
-	private Long addIrregularId;
-	/**
 	 * 托管价格
 	 */
 	private BigDecimal joePrice;
@@ -93,7 +69,7 @@ public class FocusTrustVO{
 	/**
 	 * 免租期年
 	 */
-	private int vacancy_year;
+	private int vacancyYear;
 	/**
 	 * 免租期月
 	 */
@@ -106,6 +82,10 @@ public class FocusTrustVO{
 	 * 业务员ID
 	 */
 	private Long salesmanId;
+	/**
+	 * 业务员名称
+	 */
+	private String salesmanName;
 	/**
 	 * 提前几天
 	 */

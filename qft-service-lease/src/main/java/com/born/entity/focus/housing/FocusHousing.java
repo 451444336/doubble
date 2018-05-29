@@ -24,6 +24,11 @@ public class FocusHousing extends BaseEntity<FocusHousing>{
 	private static final long serialVersionUID = -7866833387307006884L;
 	
 	/**
+	 * 创建人/录入人名称
+	 */
+	@Column(name = "creater_name")
+	private String createrName;
+	/**
 	 * 公司ID
 	 */
 	@Column(name = "company_id")
@@ -38,6 +43,11 @@ public class FocusHousing extends BaseEntity<FocusHousing>{
 	 */
 	@Column(name = "store_id")
 	private Long storeId;
+	/**
+	 * 店面名称
+	 */
+	@Column(name = "store_name")
+	private String storeName;
 	/**
 	 * 分组ID
 	 */
@@ -108,11 +118,6 @@ public class FocusHousing extends BaseEntity<FocusHousing>{
 	 */
 	@Column(name = "room_count")
 	private int roomCount;
-	/**
-	 * 是否为退房： 0正常 1退房
-	 */
-	@Column(name = "is_check_out")
-	private byte isCheckOut;
 	/**
 	 * 备注
 	 */

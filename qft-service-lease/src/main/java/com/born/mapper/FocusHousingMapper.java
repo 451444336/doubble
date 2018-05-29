@@ -32,6 +32,13 @@ public interface FocusHousingMapper extends BaseMapper<FocusHousing> {
 	int deleteById(Long id);
 	
 	/**
+	 * 根据房源ID查询房源信息
+	 * @param id
+	 * @return
+	 */
+	FocusHousingVO selectHousingById(Long id);
+	
+	/**
 	 * 获取集中整租房源列表
 	 * @param dto
 	 * @return

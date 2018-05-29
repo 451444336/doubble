@@ -42,7 +42,7 @@ public class AddIrregular extends BaseEntity<AddIrregular>{
 	 * 递增时间
 	 */
 	@Column(name = "add_time")
-	private Date add_time;
+	private Date addTime;
 	/**
 	 * 递增金额
 	 */

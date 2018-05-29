@@ -46,7 +46,7 @@ public class AddIrregularVO{
 	/**
 	 * 递增时间
 	 */
-	private String add_time;
+	private String addTime;
 	/**
 	 * 递增金额
 	 */

@@ -105,11 +105,30 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 			log.info("删除集中整租房源信息成功...");
 			return ResultUtil.success(result, RespCode.Code.SUCCESS);
 		} catch (Exception e) {
-			log.error("添加集中整租房源失败（FocusHousingServiceImpl.deleteById）-----------------------------"+e);
+			log.error("删除集中整租房源失败（FocusHousingServiceImpl.deleteById）-----------------------------"+e);
 			throw new FocusHousingException(FocusHousingExceptionEnum.DELETE_HOUSING_ERROR);
 		}
 	}
-
+	
+	@Override
+	public Result getHousingById(Long id) {
+		Result result = ResultUtil.fail();
+		//验证参数
+		if(id == null){
+			return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR);
+		}
+		try {
+			//根据ID查询房源信息
+			log.info("执行根据ID查询集中整租房源信息...");
+			ResultUtil.success(result, focusHousingMapper.selectHousingById(id));
+			log.info("根据ID集中整租房源信息成功...");
+		} catch (Exception e) {
+			log.error("集中整租根据ID房源信息失败（FocusHousingServiceImpl.getHousingOne）-----------------------------"+e);
+			throw new FocusHousingException(FocusHousingExceptionEnum.DELETE_HOUSING_ERROR);
+		}
+		return result;
+	}
+	
 	@Override
 	public Result getHousingList(FocusHousingDTO dto) {
 		Result result = ResultUtil.fail();
@@ -141,5 +160,5 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 		}
 		return result;
 	}
-	
+
 }

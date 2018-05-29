@@ -4,8 +4,152 @@
 <mapper namespace="com.born.mapper.FocusHousingMapper">
 
 	<!-- 添加或修改房源信息 -->
-	<insert id="insertOrUpdate">
-		
+	<insert id="insertOrUpdate" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO qft_focus_housing (
+				creater_id
+				,create_time
+				,creater_name
+				,updater_id
+				,update_time
+				,company_id
+				,focus_type
+				,store_id
+				,store_name
+			<if test="groupId > 0">
+				,group_id
+			</if>
+				,house_code
+				,house_area
+				,property_adrr
+			<if test="building !=null and building !=''">
+				,building
+			</if>
+			<if test="developers !=null and developers !=''">
+				,developers
+			</if>
+			<if test="developersCall !=null and developersCall !=''">
+				,developers_call
+			</if>
+			<if test="developersOtherCall !=null and developersOtherCall !=''">
+				,developers_other_call
+			</if>
+			<if test="transferAccounts !=null and transferAccounts !=''">
+				,transfer_accounts
+			</if>
+			<if test="accountNumber !=null and accountNumber !=''">
+				,account_number
+			</if>
+			<if test="transferBank !=null and transferBank !=''">
+				,transfer_bank
+			</if>
+			<if test="floor !=null and floor !=''">
+				,floor
+			</if>
+			<if test="is_lift == 0 or is_lift == 1">
+				,is_lift
+			</if>
+			<if test="roomCount >= 0">
+				,room_count
+			</if>
+			<if test="houseNote !=null and houseNote !=''">
+				,house_note
+			</if>
+		)
+		VALUES (
+				#{createrId}
+				,#{createTime}
+				,#{createrName}
+				,#{updaterId}
+				,#{updateTime}
+				,#{companyId}
+				,#{focusType}
+				,#{storeId}
+				,#{storeName}
+			<if test="groupId > 0">
+				,#{groupId}
+			</if>
+				,#{houseCode}
+				,#{houseArea}
+				,#{propertyAdrr}
+			<if test="building !=null and building !=''">
+				,#{building}
+			</if>
+			<if test="developers !=null and developers !=''">
+				,#{developers}
+			</if>
+			<if test="developersCall !=null and developersCall !=''">
+				,#{developersCall}
+			</if>
+			<if test="developersOtherCall !=null and developersOtherCall !=''">
+				,#{developersOtherCall}
+			</if>
+			<if test="transferAccounts !=null and transferAccounts !=''">
+				,#{transferAccounts}
+			</if>
+			<if test="accountNumber !=null and accountNumber !=''">
+				,#{accountNumber}
+			</if>
+			<if test="transferBank !=null and transferBank !=''">
+				,#{transferBank}
+			</if>
+			<if test="floor !=null and floor !=''">
+				,#{floor}
+			</if>
+			<if test="is_lift == 0 or is_lift == 1">
+				,#{isLift}
+			</if>
+			<if test="roomCount >= 0">
+				,#{roomCount}
+			</if>
+			<if test="houseNote !=null and houseNote !=''">
+				,#{houseNote}
+			</if>
+		) 
+		ON DUPLICATE KEY UPDATE
+				updater_id = #{updaterId}
+				,update_time = #{updateTime}
+				,focus_type = #{focusType}
+				,store_id = #{storeId}
+				,store_name = #{storeName}
+			<if test="groupId > 0">
+				,group_id = #{groupId}
+			</if>
+				,house_code = #{houseCode}
+				,house_area = #{houseArea}
+				,property_adrr = #{propertyAdrr}
+			<if test="building !=null and building !=''">
+				,building = #{building}
+			</if>
+			<if test="developers !=null and developers !=''">
+				,developers = #{developers}
+			</if>
+			<if test="developersCall !=null and developersCall !=''">
+			,developers_call = #{developersCall}
+			</if>
+			<if test="developersOtherCall !=null and developersOtherCall !=''">
+				,developers_other_call = #{developersOtherCall}
+			</if>
+			<if test="transferAccounts !=null and transferAccounts !=''">
+				,transfer_accounts = #{transferAccounts}
+			</if>
+			<if test="accountNumber !=null and accountNumber !=''">
+				,account_number = #{accountNumber}
+			</if>
+			<if test="transferBank !=null and transferBank !=''">
+				,transfer_bank = #{transferBank}
+			</if>
+			<if test="floor !=null and floor !=''">
+				,floor = #{floor}
+			</if>
+			<if test="is_lift == 0 or is_lift == 1">
+				,is_lift = #{isLift}
+			</if>
+			<if test="roomCount >= 0">
+				,room_count = #{roomCount}
+			</if>
+			<if test="houseNote !=null and houseNote !=''">
+				,house_note = #{houseNote}
+			</if>
 	</insert>
 	
 	<!-- 删除房源信息 -->
@@ -15,4 +159,99 @@
 		WHERE
 			h.id = #{id}; 
 	</update>
+	
+	<!-- 根据房源ID查询房源信息 -->
+	<select id="selectHousingById" resultType="com.born.facade.vo.focus.housing.FocusHousingVO">
+		SELECT 
+			h.creater_id createrId,
+			h.create_time createTime,
+			h.creater_name createrName,
+			h.updater_id updaterId,
+			h.update_time updateTime,
+			h.company_id companyId,
+			h.focus_type focusType,
+			h.store_id storeId,
+			h.store_name storeName
+			h.group_id groupId,
+			h.house_code houseCode,
+			h.house_area houseArea,
+			h.property_adrr propertyAdrr,
+			h.building,
+			h.developers,
+			h.developers_call developersCall,
+			h.developers_other_call developersOtherCall,
+			h.transfer_accounts transferAccounts,
+			h.account_number accountNumber,
+			h.transfer_bank transferBank,
+			h.floor,
+			h.is_lift isLift,
+			h.room_count roomCount,
+			h.house_note houseNote,
+			t.id trustId,
+			t.hosting_create_time hostingCreateTime,
+			t.hosting_end_time hostingEndTime,
+			t.contract_year contractYear,
+			t.contract_month contractMonth,
+			t.contract_day contractDay,
+			t.add_appoint addAppoint,
+			t.add_type addType,
+			t.add_money addMoney,
+			t.joe_price joePrice,
+			t.deposit_money depositMoney,
+			t.payment_method paymentMethod,
+			t.vacancy_year vacancyYear,
+			t.vacancy_month vacancyMonth,
+			t.vacamcy_day vacamcyDay,
+			t.salesman_id salesmanId,
+			t.before_time beforeTime,
+			t.postpone_time postponeTime
+		FROM qft_focus_housing h, qft_focus_trust t
+		WHERE h.is_delete = 0 AND h.id = t.housing_id
+		AND h.id = #{id}
+	</select>
+	
+	<!-- 获取集中整租房源列表 -->
+	<select id="selectHousingList" resultType="com.born.facade.vo.focus.housing.FocusHousingVO">
+		SELECT 
+			h.creater_id createrId,
+			h.create_time createTime,
+			h.creater_name createrName
+			h.updater_id updaterId,
+			h.update_time updateTime,
+			h.company_id companyId,
+			h.focus_type focusType,
+			h.store_id storeId,
+			h.store_name storeName,
+			h.group_id groupId,
+			h.house_code houseCode,
+			h.house_area houseArea,
+			h.property_adrr propertyAdrr,
+			h.building,
+			h.developers,
+			h.developers_call developersCall,
+			h.developers_other_call developersOtherCall,
+			h.transfer_accounts transferAccounts,
+			h.account_number accountNumber,
+			h.transfer_bank transferBank,
+			h.floor,
+			h.is_lift isLift,
+			h.room_count roomCount,
+			h.house_note houseNote,
+			t.hosting_create_time hostingCreateTime,
+			t.hosting_end_time hostingEndTime,
+			t.contract_year contractYear,
+			t.contract_month contractMonth,
+			t.contract_day contractDay,
+			t.joe_price joePrice,
+			t.payment_method paymentMethod,
+			t.vacancy_year vacancyYear,
+			t.vacancy_month vacancyMonth,
+			t.vacamcy_day vacamcyDay
+		FROM qft_focus_housing h, qft_focus_trust t
+		WHERE h.is_delete = 0 AND h.id = t.housing_id
+		<if test="companyId > 0">
+			AND h.company_id = #{companyId}
+		</if>
+		ORDER BY h.update_time DESC
+	</select>
 </mapper>

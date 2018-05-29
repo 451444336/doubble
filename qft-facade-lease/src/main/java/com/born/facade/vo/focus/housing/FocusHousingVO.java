@@ -18,13 +18,17 @@ public class FocusHousingVO{
 	 */
 	private Long id;
 	/**
-	 * 创建人ID
+	 * 创建人/录入人ID
 	 */
-	private String createrId;
+	private Long createrId;
 	/**
-     * 创建时间
+	 * 创建人/录入人名称
+	 */
+	private String createrName;
+	/**
+     * 创建/录入时间
      */
-    private String createTime;
+    private Date createTime;
 	/**
      * 修改人ID
      */
@@ -45,6 +49,10 @@ public class FocusHousingVO{
 	 * 店面ID
 	 */
 	private Long storeId;
+	/**
+	 * 店面名称
+	 */
+	private String storeName;
 	/**
 	 * 分组ID
 	 */
@@ -101,10 +109,6 @@ public class FocusHousingVO{
 	 * 房间数 为0表示未分配房间
 	 */
 	private int roomCount;
-	/**
-	 * 是否为退房： 0正常 1退房
-	 */
-	private byte isCheckOut;
 	/**
 	 * 备注
 	 */
@@ -173,6 +177,10 @@ public class FocusHousingVO{
 	 * 业务员ID
 	 */
 	private Long salesmanId;
+	/**
+	 * 业务员名称
+	 */
+	private String salesmanName;
 	/**
 	 * 提前几天
 	 */

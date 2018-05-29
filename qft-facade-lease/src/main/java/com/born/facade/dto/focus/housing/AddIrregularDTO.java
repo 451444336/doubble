@@ -53,7 +53,7 @@ public class AddIrregularDTO extends PageBean{
 	/**
 	 * 递增时间
 	 */
-	private Date add_time;
+	private Date addTime;
 	/**
 	 * 递增金额
 	 */
