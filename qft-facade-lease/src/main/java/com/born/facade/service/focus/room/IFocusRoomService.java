@@ -1,5 +1,7 @@
 package com.born.facade.service.focus.room;
 
+import java.util.List;
+
 import com.born.facade.dto.focus.room.FocusRoomDTO;
 import com.born.util.result.Result;
 
@@ -20,7 +22,7 @@ public interface IFocusRoomService{
 	 * @return
 	 * @date 2018年5月29日 下午5:27:28
 	 */
-	Result batchAddOrUpdate(FocusRoomDTO dto);
+	Result batchAddOrUpdate(List<FocusRoomDTO> listDTO);
 	
 	/**
 	 * 

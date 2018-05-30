@@ -118,6 +118,18 @@ public class FocusHousingDTO extends PageBean{
 	 */
 	private int roomCount;
 	/**
+	 * 房间余量
+	 */
+	private int restRoomCount;
+	/**
+	 * 房间数差量，默认为＋，加负号为-
+	 */
+	private int variableCount;
+	/**
+	 * 房间余量差量，默认为＋，加负号为-
+	 */
+	private int variableRestCount;
+	/**
 	 * 备注
 	 */
 	private String houseNote;

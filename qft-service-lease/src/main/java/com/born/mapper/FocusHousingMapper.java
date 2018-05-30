@@ -26,6 +26,17 @@ public interface FocusHousingMapper extends BaseMapper<FocusHousing> {
 	int insertOrUpdate(FocusHousingDTO dto);
 	
 	/**
+	 * 
+	 * @Title
+	 * @param
+	 * @Description 修改房间数量,默认为＋，加负号为-
+	 * @author 黄伟
+	 * @return
+	 * @date 2018年5月30日 上午9:42:57
+	 */
+	int updateRoomCount(FocusHousingDTO dto);
+	
+	/**
 	 * 根据ID删除集中在整租房源信息
 	 * @param id
 	 */

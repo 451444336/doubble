@@ -21,7 +21,8 @@ public enum FocusHousingExceptionEnum implements RespCode {
 	ADD_UPDATE_ROOM_ERROR("20023", "添加或修改房间异常"),
 	DELETE_ROOM_ERROR("20024","删除房间异常"),
 	ADD_UPDATE_CONFIG_ERROR("20025", "添加或修改房间配置异常"),
-	DELETE_CONFIG_ERROR("20026", "删除房间配置异常");
+	DELETE_CONFIG_ERROR("20026", "删除房间配置异常"),
+	UPDATE_ROOM_COUNT_ERROR("20027", "修改房间数量异常");
 	private String code;
     private String msg;
 

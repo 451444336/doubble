@@ -4,21 +4,24 @@
 package com.born.controller.focus.room;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.config.shiro.token.TokenManager;
 import com.born.facade.dto.focus.room.FocusRoomDTO;
-import com.born.facade.dto.focus.room.RoomConfigDTO;
 import com.born.facade.service.focus.room.IFocusRoomService;
 import com.born.facade.vo.UserInfoVO;
+import com.born.util.result.RespCode;
 import com.born.util.result.Result;
+import com.born.util.result.ResultUtil;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -53,16 +56,21 @@ public class FocusRoomController {
     })
 	@PostMapping(value = "/add")
 	@ResponseBody
-	public Result addHousing(FocusRoomDTO dto) {
+	public Result addHousing(@RequestBody List<FocusRoomDTO> listDTO) {
+		if(listDTO == null || listDTO.size() <= 0){
+			return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR);
+		}
 		// 获取当前登录用户
 		UserInfoVO su = TokenManager.getLoginUser();
-		// 设置默认值
-		dto.setCreateTime(new Date());
-		dto.setUpdateTime(new Date());
-		dto.setCreaterId(su.getId());
-		dto.setUpdaterId(su.getId());
-		dto.setCompanyId(1L);
-		return focusRoomService.batchAddOrUpdate(dto);
+		for(FocusRoomDTO dto : listDTO){
+			// 设置默认值
+			dto.setCreateTime(new Date());
+			dto.setUpdateTime(new Date());
+			dto.setCreaterId(su.getId());
+			dto.setUpdaterId(su.getId());
+			dto.setCompanyId(1L);
+		}
+		return focusRoomService.batchAddOrUpdate(listDTO);
 	}
 
 	/**
@@ -81,13 +89,18 @@ public class FocusRoomController {
     })
 	@PostMapping(value = "/update")
 	@ResponseBody
-	public Result updateRoom(FocusRoomDTO dto) {
-		// 获取当前用户信息
+	public Result updateRoom(@RequestBody List<FocusRoomDTO> listDTO) {
+		if(listDTO == null || listDTO.size() <= 0){
+			return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR);
+		}
+		// 获取当前登录用户
 		UserInfoVO su = TokenManager.getLoginUser();
-		// 设置默认值
-		dto.setUpdateTime(new Date());
-		dto.setUpdaterId(su.getId());
-		return focusRoomService.batchAddOrUpdate(dto);
+		for(FocusRoomDTO dto : listDTO){
+			// 设置默认值
+			dto.setUpdateTime(new Date());
+			dto.setUpdaterId(su.getId());
+		}
+		return focusRoomService.batchAddOrUpdate(listDTO);
 	}
 	
 	/**
