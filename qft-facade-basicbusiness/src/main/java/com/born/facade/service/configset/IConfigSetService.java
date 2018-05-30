@@ -29,7 +29,7 @@ public interface IConfigSetService {
 	 * @throws Exception
 	 * @date 2018年5月29日 下午5:55:02
 	 */
-	Result saveDefaultSet(UserData data, DefaultSetDTO defaultSet) throws Exception;
+	Result saveDefaultSet(UserData data, DefaultSetDTO defaultSet) ;
 
 	/**
 	 * 
@@ -44,5 +44,5 @@ public interface IConfigSetService {
 	 * @throws Exception 
 	 * @date 2018年5月30日 下午2:49:22
 	 */
-	Result saveRentFreePeriod(UserData data, RentFreePeriodDTO rentFreeDTO) throws Exception;
+	Result saveRentFreePeriod(UserData data, RentFreePeriodDTO rentFreeDTO) ;
 }

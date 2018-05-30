@@ -14,6 +14,7 @@ import com.born.entity.configset.ConfigSet;
 import com.born.facade.dto.configset.DefaultSetDTO;
 import com.born.facade.dto.configset.RentFreePeriodDTO;
 import com.born.facade.dto.configset.UserData;
+import com.born.facade.exception.ConfigSetException;
 import com.born.facade.service.configset.IConfigSetService;
 import com.born.mapper.ConfigSetMapper;
 import com.born.util.String.StringUtil;
@@ -59,7 +60,7 @@ public class ConfigSetServiceImpl implements IConfigSetService {
 	
 	@Override
 	@Transactional
-	public Result saveDefaultSet(UserData data, DefaultSetDTO params) throws Exception {
+	public Result saveDefaultSet(UserData data, DefaultSetDTO params) {
 		log.info("默认设置参数 {}", params);
 
 		if (StringUtils.isNoneBlank(data.getType(), String.valueOf(data.getCompanyId())) && params == null) {
@@ -461,13 +462,13 @@ public class ConfigSetServiceImpl implements IConfigSetService {
 
 		} catch (Exception e) {
 			log.error("保存默认设置异常", e);
-			throw new Exception("保存默认设置异常");
+			throw new ConfigSetException("保存默认设置异常");
 		}
 		return ResultUtil.getResult(RespCode.Code.SUCCESS);
 	}
 
 	@Override
-	public Result saveRentFreePeriod(UserData data, RentFreePeriodDTO params) throws Exception {
+	public Result saveRentFreePeriod(UserData data, RentFreePeriodDTO params)  {
 		log.info("免租期模式参数 {}", params);
 		
 		if (StringUtils.isNoneBlank(data.getType(), String.valueOf(data.getCompanyId())) && params == null) {
@@ -531,7 +532,7 @@ public class ConfigSetServiceImpl implements IConfigSetService {
 
 		} catch (Exception e) {
 			log.error("保存免租期模式设置异常", e);
-			throw new Exception("保存免租期模式设置异常");
+			throw new ConfigSetException("保存免租期模式设置异常");
 		}
 		return ResultUtil.getResult(RespCode.Code.SUCCESS);
 	}

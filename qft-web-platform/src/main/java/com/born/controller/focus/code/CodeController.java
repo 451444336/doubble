@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.config.shiro.token.TokenManager;
-import com.born.facade.dto.code.CodeDTO;
-import com.born.facade.service.code.ICodeService;
+import com.born.facade.dto.configset.CodeDTO;
+import com.born.facade.service.configset.ICodeService;
 import com.born.facade.vo.UserInfoVO;
 import com.born.util.result.Result;
 
@@ -28,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 * @date 2018年5月28日 下午2:59:30 
 * @version 1.0
  */
-@Slf4j
 @Controller
 @RequestMapping(value = "web/code")
 public class CodeController {

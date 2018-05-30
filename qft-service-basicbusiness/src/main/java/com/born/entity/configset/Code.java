@@ -1,4 +1,4 @@
-package com.born.entity.code;
+package com.born.entity.configset;
 
 import javax.persistence.Column;
 import javax.persistence.Table;

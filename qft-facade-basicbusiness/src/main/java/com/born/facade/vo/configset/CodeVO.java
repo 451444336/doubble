@@ -1,18 +1,14 @@
-package com.born.facade.dto.code;
+package com.born.facade.vo.configset;
 
 import java.util.Date;
 
-import com.born.core.base.BaseModel;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=true)
-@ApiModel(value="编号设置请求参数")
-public class CodeDTO extends BaseModel {
-	private static final long serialVersionUID = 1L;
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class CodeVO {
 	/**
 	 * 主键id
 	 */
@@ -40,7 +36,7 @@ public class CodeDTO extends BaseModel {
 	/**
 	 * 公司唯一ID
 	 */
-	private Long companyId;
+	private String companyId;
 
 	/**
 	 * 店面ID
@@ -71,4 +67,6 @@ public class CodeDTO extends BaseModel {
 	 * 业务类型
 	 */
 	private String type;
+	
+	private String storeName;
 }

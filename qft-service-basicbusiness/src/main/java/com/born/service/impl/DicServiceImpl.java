@@ -15,6 +15,7 @@ import com.born.entity.dic.DicItem;
 import com.born.facade.dto.dic.DicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemSortDTO;
+import com.born.facade.exception.DicException;
 import com.born.facade.service.dic.IDicService;
 import com.born.facade.vo.dic.DicItemSortVO;
 import com.born.facade.vo.dic.DicItemVO;
@@ -107,7 +108,7 @@ public class DicServiceImpl implements IDicService {
 
 	@Override
 	@Transactional
-	public Result addDicItem(String pId, String dicItem) throws Exception {
+	public Result addDicItem(String pId, String dicItem)  {
 		try {
 
 			if (StringUtils.isBlank(pId) || StringUtils.isBlank(dicItem)) {
@@ -138,7 +139,7 @@ public class DicServiceImpl implements IDicService {
 			}
 		} catch (Exception e) {
 			log.error("添加字典数据异常", e);
-			throw new Exception("添加字典数据异常");
+			throw new DicException("添加字典数据异常");
 		}
 		return ResultUtil.getResult(RespCode.Code.FAIL);
 	}
@@ -166,7 +167,7 @@ public class DicServiceImpl implements IDicService {
 
 	@Override
 	@Transactional
-	public Result addDicSubItem(String pId, String dicSubItem) throws Exception {
+	public Result addDicSubItem(String pId, String dicSubItem) {
 		try {
 
 			if (StringUtils.isBlank(pId) || StringUtils.isBlank(dicSubItem)) {
@@ -197,7 +198,7 @@ public class DicServiceImpl implements IDicService {
 			}
 		} catch (Exception e) {
 			log.error("添加字典数据异常", e);
-			throw new Exception("添加字典数据异常");
+			throw new DicException("添加字典数据异常");
 		}
 		return ResultUtil.getResult(RespCode.Code.FAIL);
 	}
