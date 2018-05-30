@@ -49,7 +49,7 @@ public class EarnestDTO extends BaseModel {
 	/**
 	 * 公司唯一ID
 	 */
-	private String companyId;
+	private Long companyId;
 
 	/**
 	 * 合同开始时间

@@ -49,7 +49,7 @@ public class ExpendDTO extends BaseModel {
 	/**
 	 * 公司唯一ID
 	 */
-	private String companyId;
+	private Long companyId;
 
 	/**
 	 * 房源编号

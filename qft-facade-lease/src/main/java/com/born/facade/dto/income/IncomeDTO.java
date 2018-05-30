@@ -3,8 +3,6 @@ package com.born.facade.dto.income;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Column;
-
 import com.born.core.base.BaseModel;
 
 import io.swagger.annotations.ApiModel;
@@ -47,7 +45,7 @@ public class IncomeDTO extends BaseModel {
 	/**
 	 * 公司唯一ID
 	 */
-	private String companyId;
+	private Long companyId;
 
 	/**
 	 * 房源编号

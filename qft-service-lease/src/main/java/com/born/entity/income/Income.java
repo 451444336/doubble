@@ -32,7 +32,7 @@ public class Income extends BaseEntity<Income> {
 	 * 公司唯一ID
 	 */
 	@Column(name="company_id")
-	private String companyId;
+	private Long companyId;
 
 	/**
 	 * 房源编号

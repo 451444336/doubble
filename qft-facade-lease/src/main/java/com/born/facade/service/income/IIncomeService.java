@@ -41,7 +41,7 @@ public interface IIncomeService extends IBaseService<BaseModel>{
 	* @date 2018年5月30日 下午1:52:49 
 	* @throws
 	 */
-	Result batchAddIncome(List<IncomeDTO> list ,String companyId,Long createrId);
+	Result batchAddIncome(List<IncomeDTO> list ,Long companyId,Long createrId);
 	
 	/**
 	 * 
@@ -55,5 +55,5 @@ public interface IIncomeService extends IBaseService<BaseModel>{
 	* @date 2018年5月30日 下午1:52:49 
 	* @throws
 	 */
-	Result batchUpdateIncome(List<IncomeDTO> list ,String companyId,Long createrId);
+	Result batchUpdateIncome(List<IncomeDTO> list ,Long companyId,Long createrId);
 }

@@ -99,7 +99,7 @@ public class IncomeServiceImpl extends BaseService<BaseModel, Income> implements
 	}
 	@Override
 	@Transactional
-	public Result batchAddIncome(List<IncomeDTO> list, String companyId,Long createrId) {
+	public Result batchAddIncome(List<IncomeDTO> list, Long companyId,Long createrId) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		if(list==null) {
 			result.setMessage("应收房租数据不能为空");
@@ -125,7 +125,7 @@ public class IncomeServiceImpl extends BaseService<BaseModel, Income> implements
 
 	@Override
 	@Transactional
-	public Result batchUpdateIncome(List<IncomeDTO> list, String companyId,Long createrId) {
+	public Result batchUpdateIncome(List<IncomeDTO> list, Long companyId,Long createrId) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		if(list==null) {
 			result.setMessage("应收房租数据不能为空");

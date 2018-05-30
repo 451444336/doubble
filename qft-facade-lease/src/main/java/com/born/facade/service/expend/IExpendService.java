@@ -29,7 +29,7 @@ public interface IExpendService extends IBaseService<BaseModel>{
 	* @date 2018年5月30日 下午1:52:49 
 	* @throws
 	 */
-	Result batchAddExpend(List<ExpendDTO> list ,String companyId,Long createrId);
+	Result batchAddExpend(List<ExpendDTO> list ,Long companyId,Long createrId);
 	
 	/**
 	 * 
@@ -43,7 +43,7 @@ public interface IExpendService extends IBaseService<BaseModel>{
 	* @date 2018年5月30日 下午1:52:49 
 	* @throws
 	 */
-	Result batchUpdateExpend(List<ExpendDTO> list ,String companyId,Long createrId);
+	Result batchUpdateExpend(List<ExpendDTO> list ,Long companyId,Long createrId);
 	
 	
 }
