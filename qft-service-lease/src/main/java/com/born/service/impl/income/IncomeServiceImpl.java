@@ -1,8 +1,11 @@
 package com.born.service.impl.income;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +14,7 @@ import com.born.core.base.BaseModel;
 import com.born.core.base.BaseService;
 import com.born.core.base.DataBaseParameters;
 import com.born.entity.income.Income;
+import com.born.facade.dto.income.IncomeDTO;
 import com.born.facade.service.income.IIncomeService;
 import com.born.mapper.IncomeMapper;
 import com.born.util.result.RespCode;
@@ -93,5 +97,57 @@ public class IncomeServiceImpl extends BaseService<BaseModel, Income> implements
 		}
 		return result;
 	}
+	@Override
+	@Transactional
+	public Result batchAddIncome(List<IncomeDTO> list, String companyId,Long createrId) {
+		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		if(list==null) {
+			result.setMessage("应收房租数据不能为空");
+			return result;
+		}
+		try {
+			List<Income> inserts = new ArrayList<>(list.size());
+			Income insert = new Income();
+			for (IncomeDTO record : list) {
+				BeanUtils.copyProperties(record, insert);
+				insert.setCompanyId(companyId);
+				insert.setCreaterId(createrId);
+				insert.setCreateTime(new Date());
+				inserts.add(insert);
+			}
+			incomeMapper.insertList(inserts);
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS);
+		} catch (Exception e) {
+			log.error("应收房租添加失败（IncomeServiceImpl.batchAddIncome）.......................", e);
+		}
+		return result;
+	}
 
+	@Override
+	@Transactional
+	public Result batchUpdateIncome(List<IncomeDTO> list, String companyId,Long createrId) {
+		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
+		if(list==null) {
+			result.setMessage("应收房租数据不能为空");
+			return result;
+		}
+		try {
+			Income insert = new Income();
+			for (IncomeDTO record : list) {
+				BeanUtils.copyProperties(record, insert);
+				if(insert.getId()==null) {
+					result.setMessage("应收房租数据主键不能为空");
+					return result;
+				}
+				insert.setCompanyId(companyId);
+				insert.setUpdaterId(createrId);
+				insert.setUpdateTime(new Date());
+				incomeMapper.updateByPrimaryKeySelective(insert);
+			}
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS);
+		} catch (Exception e) {
+			log.error("应收房租添加失败（IncomeServiceImpl.batchUpdateIncome）.......................", e);
+		}
+		return result;
+	}
 }

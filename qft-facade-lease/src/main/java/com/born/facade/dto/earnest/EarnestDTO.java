@@ -9,9 +9,17 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * 
+ * @ClassName: EarnestDTO
+ * @Description: 应收房租请求参数
+ * @author 明成
+ * @date 2018年5月30日 上午11:12:45
+ * @version 1.0
+ */
 @Data
-@EqualsAndHashCode(callSuper=true)
-@ApiModel(value="编号设置请求参数")
+@EqualsAndHashCode(callSuper = true)
+@ApiModel(value = "应收房租请求参数")
 public class EarnestDTO extends BaseModel {
 	private static final long serialVersionUID = 1L;
 	/**
@@ -47,57 +55,57 @@ public class EarnestDTO extends BaseModel {
 	 * 合同开始时间
 	 */
 	private Date starTime;
-	
+
 	/**
 	 * 合同结束时间
 	 */
 	private Date endTime;
-	
+
 	/**
 	 * 租赁期限年
 	 */
 	private Integer limitYear;
-	
+
 	/**
 	 * 租赁期限月
 	 */
 	private Integer limitMonth;
-	
+
 	/**
 	 * 租赁期限天
 	 */
 	private Integer limitDay;
-	
+
 	/**
 	 * 定金金额
 	 */
 	private BigDecimal earnestMoney;
-	
+
 	/**
 	 * 定金有效期
 	 */
 	private String validTime;
-	
+
 	/**
 	 * 交定时间
 	 */
 	private Date earnestTime;
-	
+
 	/**
 	 * 押金
 	 */
 	private BigDecimal depositMoney;
-	
+
 	/**
 	 * 约定房租
 	 */
 	private BigDecimal rentMoney;
-	
+
 	/**
 	 * 缴费方式
 	 */
 	private String pay_method;
-	
+
 	/**
 	 * 定金状态 0 未签约 1 已签约 2手动取消 3 自动取消
 	 */
@@ -126,7 +134,7 @@ public class EarnestDTO extends BaseModel {
 	 * 联系电话
 	 */
 	private String phone;
-	
+
 	/**
 	 * 房间ID
 	 */

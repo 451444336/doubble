@@ -1,7 +1,10 @@
 package com.born.facade.service.income;
 
+import java.util.List;
+
 import com.born.core.base.BaseModel;
 import com.born.core.base.IBaseService;
+import com.born.facade.dto.income.IncomeDTO;
 import com.born.util.result.Result;
 
 /**
@@ -26,5 +29,31 @@ public interface IIncomeService extends IBaseService<BaseModel>{
 	* @throws
 	 */
 	Result mergeIncome(Long id, Long oneId);
-
+	/**
+	 * 
+	* @Title: BatchAddIncome 
+	* @Description: 批量添加应收房租
+	* @param @param list
+	* @param @param companyId createrId
+	* @param @return
+	* @author 明成
+	* @return Result
+	* @date 2018年5月30日 下午1:52:49 
+	* @throws
+	 */
+	Result batchAddIncome(List<IncomeDTO> list ,String companyId,Long createrId);
+	
+	/**
+	 * 
+	* @Title: BatchUpdateIncome 
+	* @Description: 批量修改应收房租
+	* @param @param list
+	* @param @param companyId createrId
+	* @param @return
+	* @author 明成
+	* @return Result
+	* @date 2018年5月30日 下午1:52:49 
+	* @throws
+	 */
+	Result batchUpdateIncome(List<IncomeDTO> list ,String companyId,Long createrId);
 }

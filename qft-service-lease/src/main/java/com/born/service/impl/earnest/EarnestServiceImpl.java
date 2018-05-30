@@ -12,8 +12,6 @@ import com.born.facade.service.earnest.IEarnestService;
 import com.born.mapper.EarnestMapper;
 import com.born.util.result.Result;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * 
 * @ClassName: EarnestServiceImpl 
@@ -22,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 * @date 2018年5月28日 上午11:27:28 
 * @version 1.0
  */
-@Slf4j
 @Service(version = "1.0.0")
 public class EarnestServiceImpl extends BaseService<BaseModel, Earnest> implements IEarnestService {
 

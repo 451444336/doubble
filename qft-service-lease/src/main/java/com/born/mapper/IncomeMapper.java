@@ -33,6 +33,4 @@ public interface IncomeMapper extends BaseMapper<Income> {
 	* @throws
 	 */
 	List<IncomeVO> selectIncomeList(IncomeDTO dto);
-	
-	
 }
