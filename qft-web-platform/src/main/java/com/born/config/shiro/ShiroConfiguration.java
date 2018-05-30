@@ -264,7 +264,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/doLogin", "anon");
 
-//		filterChainDefinitionMap.put("/**", "authc");
+		filterChainDefinitionMap.put("/**", "authc");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		shiroFilterFactoryBean.setLoginUrl("/login");
 		// 登录成功后要跳转的连接

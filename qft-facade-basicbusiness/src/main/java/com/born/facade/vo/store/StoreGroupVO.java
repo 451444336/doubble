@@ -27,7 +27,7 @@ public class StoreGroupVO {
 	/**
 	 * 公司ID
 	 */
-	private String companyId;
+	private Long companyId;
 	 /**
      * 创建时间
      */

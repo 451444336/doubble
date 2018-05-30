@@ -66,7 +66,7 @@ public class CompanyRoleController {
 		// 获取当前登录用户
 		UserInfoVO su = TokenManager.getLoginUser();
 		role.setCreaterId(su.getId());
-		role.setCompanyId(su.getCompanyId().toString());
+		role.setCompanyId(su.getCompanyId());
 		return companyRoleService.add(role);
 	}
 
