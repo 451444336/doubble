@@ -68,7 +68,7 @@ public class FocusRoomController {
 			dto.setUpdateTime(new Date());
 			dto.setCreaterId(su.getId());
 			dto.setUpdaterId(su.getId());
-			dto.setCompanyId(1L);
+			dto.setCompanyId(su.getCompanyId());
 		}
 		return focusRoomService.batchAddOrUpdate(listDTO);
 	}
@@ -141,7 +141,7 @@ public class FocusRoomController {
 	public Result getRoomList(FocusRoomDTO dto) {
 		// 获取当前用户信息
 		UserInfoVO su = TokenManager.getLoginUser();
-		dto.setCompanyId(1L);
+		dto.setCompanyId(su.getCompanyId());
 		return focusRoomService.getRoomList(dto);
 	}
 	

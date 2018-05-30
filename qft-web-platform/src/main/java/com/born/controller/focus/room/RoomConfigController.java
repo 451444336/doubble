@@ -78,7 +78,7 @@ public class RoomConfigController {
 			dto.setUpdateTime(new Date());
 			dto.setCreaterId(su.getId());
 			dto.setUpdaterId(su.getId());
-			dto.setCompanyId(1L);
+			dto.setCompanyId(su.getCompanyId());
 			list.add(dto);
 		}
 		return roomConfigService.batchAddOrUpdate(list);
@@ -183,7 +183,7 @@ public class RoomConfigController {
 	public Result getConfigAll(RoomConfigDTO dto) {
 		// 获取当前用户信息
 		UserInfoVO su = TokenManager.getLoginUser();
-		dto.setCompanyId(1L);
+		dto.setCompanyId(su.getCompanyId());
 		return roomConfigService.getConfigAll(dto);
 	}
 	

@@ -56,9 +56,9 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 		try {
 			//添加或修改集中整租房源信息
 			log.info("执行添加或修改集中整租房源信息...");
-			int returnHousing = focusHousingMapper.insertOrUpdate(dto);
+			Integer returnFlag = focusHousingMapper.insertOrUpdate(dto);
 			log.info("添加或修改集中整租房源信息成功...");
-			ResultUtil.success(result, returnHousing);
+			ResultUtil.success(result, returnFlag);
 			//如果是自持，则返回；如果是租赁，则添加托管信息
 			if(dto.getFocusType() == 0){
 				return result;
@@ -69,16 +69,15 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 			BeanUtils.copyProperties(dto, trustDTO);
 			//添加房源托管信息
 			log.info("执行添加或修改集中整租房源托管信息...");
-			int returnTrust = focusTrustMapper.insertOrUpdate(trustDTO);
+			returnFlag *= focusTrustMapper.insertOrUpdate(trustDTO);
 			log.info("添加或修改集中整租房源托管信息成功...");
-			ResultUtil.success(result, returnHousing*returnTrust);
+			ResultUtil.success(result, returnFlag);
 			//无递增或有递增但不为不规则递增，则返回
 			if(dto.getAddAppoint() == 0 || (dto.getAddAppoint() == 1 && dto.getAddType() != 2)){
 				return result;
 			}
 			//添加或修改集中整租房源托管不规则递增信息
 			List<AddIrregularDTO> list = dto.getList();
-			int returnFlag = 0;
 			log.info("执行添加或修改集中整租房源托管不规则递增信息...");
 			for(AddIrregularDTO addIrregularDTO : list){
 				addIrregularDTO.setTrustId(trustDTO.getId());
@@ -86,7 +85,7 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 			}
 			log.info("添加集中或修改整租房源托管不规则递增信息成功...");
 			
-			ResultUtil.success(result, returnHousing*returnTrust*returnFlag);
+			ResultUtil.success(result, returnFlag);
 			
 		} catch (Exception e) {
 			log.error("添加或修改集中整租房源失败（FocusHousingServiceImpl.addOrUpdate）-----------------------------"+e);
@@ -98,8 +97,12 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 	@Override
 	public Result updateRoomCount(FocusHousingDTO dto) {
 		Result result = ResultUtil.fail();
+		if(dto.getId() == 0 || (dto.getVariableCount() == 0 && dto.getVariableRestCount() == 0)){
+			return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR);
+		}
 		try {
-			return ResultUtil.success(result,focusHousingMapper.updateRoomCount(dto));
+			Integer returnFlag = focusHousingMapper.updateRoomCount(dto);
+			return ResultUtil.success(result,returnFlag);
 		} catch (Exception e) {
 			log.error("添加或修改集中整租房源失败（FocusHousingServiceImpl.addOrUpdate）-----------------------------"+e);
 			throw new FocusHousingException(FocusHousingExceptionEnum.UPDATE_ROOM_COUNT_ERROR);
@@ -116,9 +119,9 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 		try {
 			//根据ID删除房源信息
 			log.info("执行删除集中整租房源信息...");
-			focusHousingMapper.deleteById(id);
+			Integer returnFlag = focusHousingMapper.deleteById(id);
 			log.info("删除集中整租房源信息成功...");
-			return ResultUtil.success(result, RespCode.Code.SUCCESS);
+			return ResultUtil.success(result, returnFlag);
 		} catch (Exception e) {
 			log.error("删除集中整租房源失败（FocusHousingServiceImpl.deleteById）-----------------------------"+e);
 			throw new FocusHousingException(FocusHousingExceptionEnum.DELETE_HOUSING_ERROR);

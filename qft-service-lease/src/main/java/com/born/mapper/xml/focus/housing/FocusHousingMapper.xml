@@ -155,13 +155,14 @@
 	<!-- 修改房间数量 -->
 	<update id="updateRoomCount">
 		UPDATE qft_focus_housing h
-		SET 1=1 
+		<set>
 		 <if test="variableCount != null and variableCount != 0">
-		 	,h.room_count = h.room_count + #{variableCount}
+		 	h.room_count = h.room_count + #{variableCount},
 		 </if>
-		  <if test="variableRestCount != null and variableRestCount != 0">
-		 	,h.rest_room_count = h.rest_room_count + #{variableRestCount}
+		 <if test="variableRestCount != null and variableRestCount != 0">
+		 	h.rest_room_count = h.rest_room_count + #{variableRestCount},
 		 </if>
+		</set>
 		WHERE
 			h.id = #{id}
 	</update>

@@ -63,7 +63,7 @@ public class FocusHousingController {
 		dto.setUpdateTime(new Date());
 		dto.setCreaterId(su.getId());
 		dto.setUpdaterId(su.getId());
-		dto.setCompanyId(1L);
+		dto.setCompanyId(su.getCompanyId());
 		return focusHousingService.addOrUpdate(dto);
 	}
 
@@ -87,10 +87,6 @@ public class FocusHousingController {
 		Result result = focusHousingService.getHousingById(id);
 		FocusHousingVO vo = new FocusHousingVO();
 		BeanUtils.copyProperties(result.getData(), vo);
-		// 获取当前登录用户
-		UserInfoVO su = TokenManager.getLoginUser();
-		
-		
 		model.addAttribute("housing", vo);
 		return "housing/qft_update";
 	}
@@ -120,6 +116,15 @@ public class FocusHousingController {
 		return focusHousingService.addOrUpdate(dto);
 	}
 
+	@GetMapping(value = "/update")
+	@ResponseBody
+	public Result update() {
+		FocusHousingDTO dto = new FocusHousingDTO();
+		dto.setId(1L);
+		dto.setVariableRestCount(-1);
+		return focusHousingService.updateRoomCount(dto);
+	}
+	
 	/**
 	 * 
 	 * @Title
@@ -173,7 +178,7 @@ public class FocusHousingController {
 	public Result getHousingList(FocusHousingDTO dto) {
 		// 获取当前用户信息
 		UserInfoVO su = TokenManager.getLoginUser();
-		dto.setCompanyId(1L);
+		dto.setCompanyId(su.getCompanyId());
 		return focusHousingService.getHousingList(dto);
 	}
 	

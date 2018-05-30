@@ -2,7 +2,6 @@ package com.born.service.impl.focus.room;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.config.annotation.Service;
@@ -32,7 +31,7 @@ public class RoomConfigServiceImpl implements IRoomConfigService {
 			return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR);
 		}
 		try {
-			int returnFlag = 0;
+			Integer returnFlag = 0;
 			for(RoomConfigDTO dto : list){
 				//添加或修改房间配置信息
 				log.info("执行添加或修改房间配置信息...");
@@ -56,7 +55,7 @@ public class RoomConfigServiceImpl implements IRoomConfigService {
 		try {
 			//根据房间配置ID删除房间配置信息
 			log.info("执行根据房间配置ID删除房间配置信息...");
-			int returnFlag = roomConfigMapper.deleteById(id);
+			Integer returnFlag = roomConfigMapper.deleteById(id);
 			log.info("根据房间配置ID删除房间配置信息成功...");
 			return ResultUtil.success(result, returnFlag);
 		} catch (Exception e) {

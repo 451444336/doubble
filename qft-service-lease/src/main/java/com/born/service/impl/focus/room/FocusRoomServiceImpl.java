@@ -2,11 +2,9 @@ package com.born.service.impl.focus.room;
 
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.born.entity.focus.room.FocusRoom;
 import com.born.facade.dto.focus.housing.FocusHousingDTO;
 import com.born.facade.dto.focus.room.FocusRoomDTO;
 import com.born.facade.exception.focus.housing.FocusHousingException;
@@ -40,7 +38,7 @@ public class FocusRoomServiceImpl implements IFocusRoomService {
 		try {
 			//分配房间
 			log.info("执行添加或修改房间信息...");
-			int returnFlag = 0;
+			Integer returnFlag = 0;
 			for(FocusRoomDTO dto : listDTO){
 				returnFlag *= focusRoomMapper.insertOrUpdate(dto);
 			}
@@ -51,9 +49,9 @@ public class FocusRoomServiceImpl implements IFocusRoomService {
 			housingDto.setVariableCount(listDTO.size());
 			housingDto.setId(listDTO.get(0).getHousingId());
 			log.info("执行修改房源信息中的房间数量...");
-			int returnResult = focusHousingMapper.updateRoomCount(housingDto);
+			returnFlag *= focusHousingMapper.updateRoomCount(housingDto);
 			log.info("修改房源信息中的房间数量成功...");
-			return ResultUtil.success(result, returnFlag*returnResult);
+			return ResultUtil.success(result, returnFlag);
 		} catch (Exception e) {
 			log.error("添加或修改房间信息失败（FocusRoomServiceImpl.add）-----------------"+e);
 			throw new FocusHousingException(FocusHousingExceptionEnum.ADD_UPDATE_ROOM_ERROR);
@@ -65,7 +63,7 @@ public class FocusRoomServiceImpl implements IFocusRoomService {
 		Result result = ResultUtil.fail();
 		try {
 			log.info("执行删除房间...");
-			int returnFlag = focusRoomMapper.deleteById(id);
+			Integer returnFlag = focusRoomMapper.deleteById(id);
 			log.info("删除房间成功...");
 			return ResultUtil.success(result, returnFlag);
 		} catch (Exception e) {
