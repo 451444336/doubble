@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.born.mapper.ConfigSetMapper">
+
+	<!-- 根据ID批量更新通用配置 -->
+	<update id="batchUpdateByIds"  parameterType="java.util.List">
+	    <!-- 接收list参数，循环着组装sql语句，注意for循环的写法  
+	         separator=";" 代表着每次循环完，在sql后面放一个分号  
+	         item="item" 循环List的每条的结果集  
+	         collection="list" list 即为 map传过来的参数key -->  
+	      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	        	update qft_config_set 
+	        	 <set>
+	                <if test="item.setValue !=null">
+	                    set_value=${item.setValue}
+	                </if>
+	                <if test="item.updaterId !=null">
+	                    updater_id=${item.updaterId}
+	                </if>
+	                <if test="item.updateTime !=null">
+	                    update_time=${item.updateTime}
+	                </if>
+            	</set>
+				where id = ${item.id}
+	    </foreach>  
+	</update>  
+	</update>
+
+</mapper>

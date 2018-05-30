@@ -1,5 +1,7 @@
 package com.born.util.String;
 
+import java.util.regex.Pattern;
+
 /**
  * 
  * @ClassName: StringRedisKeyUtil
@@ -28,5 +30,21 @@ public class StringUtil {
 		}
 		str.deleteCharAt(str.length() - 1);
 		return str.toString();
+	}
+
+	/**
+	 * 判断是否是数字
+	 * 
+	 * @Title: isInteger
+	 * @Description: 判断是否是正整数字
+	 * @param str
+	 * @return
+	 * @author 张永胜
+	 * @return boolean
+	 * @date 2018年5月30日 上午11:02:08
+	 */
+	public static boolean isInteger(String str) {
+		Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+		return pattern.matcher(str).matches();
 	}
 }
