@@ -78,7 +78,7 @@ public class Result implements Serializable	{
 			}
 		} else if (this.getData() instanceof List) {
 			List<?> list = (List<?>) this.getData();
-			if (list.get(0) instanceof Map) {
+			if (!list.isEmpty() && list.get(0) instanceof Map) {
 				try {
 					return (T) BeanMapUtils.mapsToObjects((List<Map<String, Object>>) this.getData(), tClass);
 				} catch (Exception e) {
