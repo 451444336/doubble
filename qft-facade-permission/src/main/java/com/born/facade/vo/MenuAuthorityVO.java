@@ -35,10 +35,6 @@ public class MenuAuthorityVO implements Serializable {
 	 */
 	private String menuName;
 	/**
-	 * 公司ID
-	 */
-	private String companyId;
-	/**
 	 * 权限名称
 	 */
 	private String authorityName;

@@ -119,6 +119,11 @@ public class FocusHousing extends BaseEntity<FocusHousing>{
 	@Column(name = "room_count")
 	private int roomCount;
 	/**
+	 * 房间余量
+	 */
+	@Column(name = "rest_room_count")
+	private int restRoomCount;
+	/**
 	 * 备注
 	 */
 	@Column(name = "house_note")

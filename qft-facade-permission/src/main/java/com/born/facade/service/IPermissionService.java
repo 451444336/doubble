@@ -2,8 +2,9 @@ package com.born.facade.service;
 
 import java.util.List;
 
-import com.born.core.page.PageBean;
-import com.born.facade.dto.permission.AddPermissionDTO;
+import com.born.core.base.BaseModel;
+import com.born.core.base.IBaseService;
+import com.born.facade.dto.permission.ChangeAuthDTO;
 import com.born.facade.dto.permission.PermissionQueryDTO;
 import com.born.util.result.Result;
 
@@ -15,7 +16,7 @@ import com.born.util.result.Result;
 * @date 2018年4月25日  
 *
  */
-public interface IPermissionService {
+public interface IPermissionService extends IBaseService<BaseModel> {
 	/**
 	 * 
 	* @Title: addPermission 
@@ -26,7 +27,7 @@ public interface IPermissionService {
 	* @author lijie
 	* @throws
 	 */
-	Result addPermission(AddPermissionDTO dto);
+	Result addAuthority(ChangeAuthDTO dto);
 	/**
 	 * 
 	* @Title: getCompanyInfo 
@@ -70,7 +71,7 @@ public interface IPermissionService {
 	* @author lijie
 	* @throws
 	 */
-	Result getPermissions(String companyId);
+	Result getPermissions(Long companyId);
 	/**
 	 * 
 	* @Title: addPersonalPermissions 

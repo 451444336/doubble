@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component("positionmMenuAuth")
-public class PositionmMenuAuth extends MenuPermissionGen {
+public class PositionMenuAuth extends MenuPermissionGen {
 
 	@Override
 	public List<MenuPermissionVO> genMenuAuth(PermissionQueryDTO dto) throws CloneNotSupportedException {

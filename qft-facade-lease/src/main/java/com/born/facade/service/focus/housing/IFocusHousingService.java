@@ -20,6 +20,17 @@ public interface IFocusHousingService{
 	Result addOrUpdate(FocusHousingDTO dto);
 	
 	/**
+	 * 
+	 * @Title
+	 * @param
+	 * @Description 修改房间数量,默认为＋，加负号为-
+	 * @author 黄伟
+	 * @return
+	 * @date 2018年5月30日 上午9:44:35
+	 */
+	Result updateRoomCount(FocusHousingDTO dto);
+	
+	/**
 	 * 删除房源
 	 * @param id
 	 * @return

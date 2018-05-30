@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
@@ -68,7 +69,7 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 			companyRoleMapper.insertUseGeneratedKeys(role);
 			// 保存角色关系数据
 			RoleRelation record = new RoleRelation();
-			record.setCompanyId(dto.getCompanyId());
+			record.setCompanyId(Long.valueOf(dto.getCompanyId()));
 			record.setCreaterId(dto.getCreaterId());
 			record.setCreateTime(new Date());
 			record.setRoleId(role.getId());
@@ -126,7 +127,7 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Result addRoleMenus(Long[] menuIds, Long roleId, Long createrId, Date createTime) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		// 验证参数
@@ -136,7 +137,7 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 		try {
 			// 清空原有菜单
 			companyRoleMapper.deleteRoleMenuByRoleId(roleId);
-			if(menuIds[0] == null){
+			if (menuIds[0] == null) {
 				return ResultUtil.getResult(RespCode.Code.SUCCESS);
 			}
 			// 绑定新菜单
@@ -146,9 +147,9 @@ public class CompanyRoleServiceImpl implements ICompanyRoleService {
 			map.put("createTime", createTime);
 			map.put("createrId", createrId);
 			companyRoleMapper.insertRoleMenuBatch(map);
-			ResultUtil.setResult(result,RespCode.Code.SUCCESS);
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 		} catch (Exception e) {
-			log.error("角色绑定菜单失败（CompanyRoleServiceImpl.bindRoleMenu）..................."+e);
+			log.error("角色绑定菜单失败（CompanyRoleServiceImpl.bindRoleMenu）..................." + e);
 			throw new PermissionException(PermissionExceptionEnum.BIND_ROLE_MENU_ERROE);
 		}
 		return result;

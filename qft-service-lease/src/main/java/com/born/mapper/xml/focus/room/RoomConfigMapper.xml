@@ -13,7 +13,7 @@
 				,company_id
 				,config_name
 				,config_type
-			<if test="parentId > 0">
+			<if test="parentId != null">
 				,parent_id
 			</if>
 		) VALUES (
@@ -24,7 +24,7 @@
 				,#{companyId}
 				,#{configName}
 				,#{configType}
-			<if test="parentId > 0">
+			<if test="parentId != null">
 				,#{parentId}
 			</if>
 		) ON DUPLICATE KEY UPDATE 

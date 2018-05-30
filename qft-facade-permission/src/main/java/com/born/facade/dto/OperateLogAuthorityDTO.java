@@ -5,6 +5,7 @@ import java.util.Date;
 import com.born.core.page.PageBean;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Description: 操作日志记录dto
@@ -12,6 +13,7 @@ import lombok.Data;
  * @date 2018年5月14日 下午4:21:19
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class OperateLogAuthorityDTO extends PageBean {
 
 

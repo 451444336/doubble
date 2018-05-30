@@ -110,6 +110,10 @@ public class FocusHousingVO{
 	 */
 	private int roomCount;
 	/**
+	 * 房间余量
+	 */
+	private int restRoomCount;
+	/**
 	 * 备注
 	 */
 	private String houseNote;

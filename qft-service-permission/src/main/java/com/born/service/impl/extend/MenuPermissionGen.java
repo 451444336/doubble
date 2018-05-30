@@ -138,7 +138,7 @@ public abstract class MenuPermissionGen implements MenuPermissionContent {
 	* @throws
 	 */
 	protected List<MenuPermissionVO> genMenuPermission(List<PermissionVO> menuAuths, final Long userId,
-			final String companyId) {
+			final Long companyId) {
 		final List<MenuPermissionVO> result = new LinkedList<MenuPermissionVO>();
 		if (CollectionUtils.isNotEmpty(menuAuths)) {
 			// 封装返回分组对象

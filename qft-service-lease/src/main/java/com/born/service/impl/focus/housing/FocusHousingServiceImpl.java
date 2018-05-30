@@ -96,6 +96,17 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 	}
 
 	@Override
+	public Result updateRoomCount(FocusHousingDTO dto) {
+		Result result = ResultUtil.fail();
+		try {
+			return ResultUtil.success(result,focusHousingMapper.updateRoomCount(dto));
+		} catch (Exception e) {
+			log.error("添加或修改集中整租房源失败（FocusHousingServiceImpl.addOrUpdate）-----------------------------"+e);
+			throw new FocusHousingException(FocusHousingExceptionEnum.UPDATE_ROOM_COUNT_ERROR);
+		}
+	}
+	
+	@Override
 	public Result deleteById(Long id) {
 		Result result = ResultUtil.fail();
 		//验证参数

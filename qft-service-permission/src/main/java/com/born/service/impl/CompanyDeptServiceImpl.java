@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.born.core.constant.DataBaseEnum;
 import com.born.entity.CompanyDept;
 import com.born.facade.dto.dept.CompanyDeptDTO;
 import com.born.facade.exception.PermissionException;
@@ -52,49 +53,47 @@ public class CompanyDeptServiceImpl implements ICompanyDeptService {
 	* @throws
 	 */
 	@Override
-	public Result findOrgList(String companyId) {
-		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
-		//校验参数
-		if(!StringUtils.isNotBlank(companyId)) {
-				result.setMessage("公司ID不能为空");
-				return result;
+	public Result findOrgList(Long companyId) {
+		// 校验参数
+		if (null == companyId) {
+			return ResultUtil.requestDataError("公司ID不能为空");
 		}
 		try {
-			//自己看sql 根据公司id 获取它下面的组织架构树
-			 List<CompanyDeptVO> voList  = deptMapper.selectOrgList(companyId);
-			 //点击组织架构 跳转地址
-			 for(CompanyDeptVO vo :voList) {
-				 String id = vo.getId();
-				 if(StringUtils.isNotBlank(id)) {
-					 String[] urlArray = id.split("-");
-					 //如果这个树层是公司
-					 if(urlArray[0].equals("company")) {
-						 //链接为根据公司id获取所有部门
-						 vo.setUrl("/web/dept/index/"+urlArray[1]);
-						 vo.setIcon("/static/js/ztree/img/user_group.png");
-					 }
-					 //如果这个树层是部门
-					 if(urlArray[0].equals("dept")) {
-						 //链接为根据部门id获取所有职位
-						 vo.setUrl("/web/pos/index/"+urlArray[1]);
-						 vo.setIcon("/static/js/ztree/img/user_group.png");
-					 }
-					 //如果这个树层是职位
-					 if(urlArray[0].equals("position")) {
-						 //链接为根据职位id获取所有员工
-						 vo.setUrl("/web/staff/index/"+urlArray[1]);
-						 //先写死
-						 vo.setIcon("/static/js/ztree/img/user_worker.png");
-						 String count = vo.getCountId()==null?"0":vo.getCountId();
-						 vo.setName(vo.getName()+"（"+count+"人）");
-					 }
-				 }
-			 }
-			ResultUtil.setResult(result, RespCode.Code.SUCCESS,voList);
+			// 自己看sql 根据公司id 获取它下面的组织架构树
+			List<CompanyDeptVO> voList = deptMapper.selectOrgList(companyId);
+			// 点击组织架构 跳转地址
+			for (CompanyDeptVO vo : voList) {
+				String id = vo.getId();
+				if (StringUtils.isNotBlank(id)) {
+					String[] urlArray = id.split("-");
+					// 如果这个树层是公司
+					if (urlArray[0].equals("company")) {
+						// 链接为根据公司id获取所有部门
+						vo.setUrl("/web/dept/index/" + urlArray[1]);
+						vo.setIcon("/static/js/ztree/img/user_group.png");
+					}
+					// 如果这个树层是部门
+					if (urlArray[0].equals("dept")) {
+						// 链接为根据部门id获取所有职位
+						vo.setUrl("/web/pos/index/" + urlArray[1]);
+						vo.setIcon("/static/js/ztree/img/user_group.png");
+					}
+					// 如果这个树层是职位
+					if (urlArray[0].equals("position")) {
+						// 链接为根据职位id获取所有员工
+						vo.setUrl("/web/staff/index/" + urlArray[1]);
+						// 先写死
+						vo.setIcon("/static/js/ztree/img/user_worker.png");
+						String count = vo.getCountId() == null ? "0" : vo.getCountId();
+						vo.setName(vo.getName() + "（" + count + "人）");
+					}
+				}
+			}
+			return ResultUtil.success(voList);
 		} catch (Exception e) {
-			log.error("查询组织架构失败（DeptServiceImpl.selectOrgList）.......................",e);
+			log.error("查询组织架构失败（DeptServiceImpl.selectOrgList）.......................", e);
+			return ResultUtil.fail();
 		}
-		return result;
 	}
 	
 	/**
@@ -205,6 +204,7 @@ public class CompanyDeptServiceImpl implements ICompanyDeptService {
 			dept.setCreateTime(new Date());
 			dept.setCreaterId(dto.getUserId());
 			dept.setId(null);
+			dept.setIsDelete(DataBaseEnum.NOT_DELETE.getStatus());
 			Integer insert = deptMapper.insertSelective(dept);
 			return ResultUtil.setResult(result,RespCode.Code.SUCCESS,insert);
 		} catch (Exception e) {

@@ -41,10 +41,14 @@ public enum PermissionExceptionEnum implements RespCode {
 	PERMISSION_NOT_EXISTS("10033","权限数据不存在拟"),
 	ADD_PERSONAL_PERMISSION("10034","新增个人权限数据异常"),
 	USER_NON_EXISTENT("10035","账号不存在"),
-	ADD_ROLE_ERROE("10036","添加角色异常"),
-	UPDATE_ROLE_ERROE("10036","修改角色异常"),
-	DELETE_ROLE_ERROE("10036","删除角色异常"),
-	BIND_ROLE_MENU_ERROE("10036","给角色绑定菜单异常");
+	ADD_ROLE_ERROE("10037","添加角色异常"),
+	UPDATE_ROLE_ERROE("10038","修改角色异常"),
+	DELETE_ROLE_ERROE("10039","删除角色异常"),
+	BIND_ROLE_MENU_ERROE("10040","给角色绑定菜单异常"),
+	PARENT_MENU_NOTEXISTS("10041","上级菜单不存在"),
+	CODE_EXISTS("10042","菜单/权限编码已存在"),
+	MENUS_NOT_EXISTS("10043","菜单不存在");
+	
 	private String code;
     private String msg;
 

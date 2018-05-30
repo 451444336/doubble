@@ -6,15 +6,17 @@ import javax.persistence.Table;
 import com.born.core.base.BaseEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: AuthorityChange 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: 权限变更实体 
 * @author lijie 
 * @date 2018年5月4日 下午3:49:54 
 *
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Table(name="qft_authority_change")
 public class AuthorityChange extends BaseEntity<AuthorityChange> {
 	
@@ -26,25 +28,20 @@ public class AuthorityChange extends BaseEntity<AuthorityChange> {
 	 * 权限ID
 	 */
 	@Column(name = "authority_id")
-	private String authorityId;
+	private Long authorityId;
 	/**
 	 * 模板ID
 	 */
 	@Column(name = "template_id")
-	private String templateId;
+	private Long templateId;
 	/**
 	 * 公司ID
 	 */
 	@Column(name = "company_id")
-	private String companyId;
+	private Long companyId;
 	/**
 	 * 操作类型
 	 */
 	@Column(name = "oper_type")
 	private Byte operType;
-	/**
-	 * 老数据表的用户ID
-	 */
-	@Column(name = "old_user_id")
-	private String oldUserId;
 }

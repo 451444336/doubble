@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.entity.CompanyRole;
+import com.born.entity.CompanyStaff;
 import com.born.facade.service.ICompanyRoleAuthService;
 import com.born.facade.vo.appauth.UserRoleAuthVO;
 import com.born.facade.vo.appauth.UserRoleMenuVo;
 import com.born.mapper.CompanyMenuMapper;
 import com.born.mapper.CompanyRoleMapper;
+import com.born.mapper.CompanyStaffMapper;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
@@ -43,6 +45,9 @@ public class CompanyRoleAuthServiceImpl implements ICompanyRoleAuthService {
 	@Autowired
 	private CompanyMenuMapper companyMenuMapper;
 
+	@Autowired
+	private CompanyStaffMapper companyStaffMapper;
+	
 	@Override
 	public Result findRoleAuthList(String userId) {
 		log.info("get role auth info for userId = {}", userId);
@@ -50,15 +55,14 @@ public class CompanyRoleAuthServiceImpl implements ICompanyRoleAuthService {
 		if (userId == null) {
 			return ResultUtil.getResult(RespCode.Code.FAIL, "参数不能为空");
 		}
-
 		try {
-
+			
 			List<CompanyRole> rolelist = companyRoleMapper.selectRoleByUserId(userId);
 
 			if (rolelist.size() == 0) {
 				return ResultUtil.getResult(RespCode.Code.FAIL, "没有查询到角色");
 			}
-
+			CompanyStaff cs = companyStaffMapper.selectStaffByUserId(userId);
 			/**
 			 * 这里封装的是返回给APP的权限信息
 			 */
@@ -69,12 +73,12 @@ public class CompanyRoleAuthServiceImpl implements ICompanyRoleAuthService {
 				 * 级联获取角色菜单以及菜单权限表
 				 */
 				String roleId = String.valueOf(role.getId());
-				Set<UserRoleMenuVo> roleMenuList = companyMenuMapper.selectMenuByRoleId(roleId);
+				Set<UserRoleMenuVo> roleMenuList = companyMenuMapper.selectMenuByRoleId(roleId,cs.getCompanyId());
 
 				UserRoleAuthVO userRoleAuth = new UserRoleAuthVO();
 				userRoleAuth.setId(roleId);
 				userRoleAuth.setRoleName(role.getRoleName());
-				userRoleAuth.setIsAuthEdit(role.getIsAuthEdit());
+				// userRoleAuth.setIsAuthEdit(role.getIsAuthEdit());
 				userRoleAuth.setMenulist(roleMenuList);
 
 				roleAuth.add(userRoleAuth);

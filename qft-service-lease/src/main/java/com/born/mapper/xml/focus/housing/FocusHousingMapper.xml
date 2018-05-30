@@ -152,6 +152,19 @@
 			</if>
 	</insert>
 	
+	<!-- 修改房间数量 -->
+	<update id="updateRoomCount">
+		UPDATE qft_focus_housing h
+		SET 1=1 
+		 <if test="variableCount != null and variableCount != 0">
+		 	,h.room_count = h.room_count + #{variableCount}
+		 </if>
+		  <if test="variableRestCount != null and variableRestCount != 0">
+		 	,h.rest_room_count = h.rest_room_count + #{variableRestCount}
+		 </if>
+		WHERE
+			h.id = #{id}
+	</update>
 	<!-- 删除房源信息 -->
 	<update id="deleteById">
 		UPDATE qft_focus_housing h
@@ -213,30 +226,15 @@
 	<!-- 获取集中整租房源列表 -->
 	<select id="selectHousingList" resultType="com.born.facade.vo.focus.housing.FocusHousingVO">
 		SELECT 
-			h.creater_id createrId,
-			h.create_time createTime,
-			h.creater_name createrName
-			h.updater_id updaterId,
-			h.update_time updateTime,
-			h.company_id companyId,
+			h.id,
 			h.focus_type focusType,
-			h.store_id storeId,
 			h.store_name storeName,
-			h.group_id groupId,
 			h.house_code houseCode,
 			h.house_area houseArea,
 			h.property_adrr propertyAdrr,
 			h.building,
-			h.developers,
-			h.developers_call developersCall,
-			h.developers_other_call developersOtherCall,
-			h.transfer_accounts transferAccounts,
-			h.account_number accountNumber,
-			h.transfer_bank transferBank,
 			h.floor,
 			h.is_lift isLift,
-			h.room_count roomCount,
-			h.house_note houseNote,
 			t.hosting_create_time hostingCreateTime,
 			t.hosting_end_time hostingEndTime,
 			t.contract_year contractYear,
@@ -246,7 +244,9 @@
 			t.payment_method paymentMethod,
 			t.vacancy_year vacancyYear,
 			t.vacancy_month vacancyMonth,
-			t.vacamcy_day vacamcyDay
+			t.vacamcy_day vacamcyDay,
+			h.room_count roomCount,
+			h.rest_room_count restRoomCount
 		FROM qft_focus_housing h, qft_focus_trust t
 		WHERE h.is_delete = 0 AND h.id = t.housing_id
 		<if test="companyId > 0">

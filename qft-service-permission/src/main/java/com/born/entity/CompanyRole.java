@@ -1,8 +1,6 @@
 package com.born.entity;
 
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Table;
 
@@ -32,35 +30,10 @@ public class CompanyRole extends BaseEntity<CompanyRole> {
 	@Column(name = "role_name")
 	private String roleName;
 	/**
-	 * 是否能权限编辑
-	 */
-	@Column(name = "is_auth_edit")
-	private Byte isAuthEdit;
-	/**
 	 * 是否有效
 	 */
 	@Column(name = "is_valid")
 	private Byte isValid;
-	/**
-     * 创建时间
-     */
-	@Column(name = "create_time")
-    private Date createTime;
-    /**
-     * 修改时间
-     */
-	@Column(name = "update_time")
-    private Date updateTime;
-    /**
-     * 创建人ID
-     */
-	@Column(name = "creater_id")
-    private Long createrId;
-    /**
-     * 修改人ID
-     */
-	@Column(name = "updater_id")
-    private Long updaterId;
     /**
      * 删除状态
      */
@@ -76,9 +49,4 @@ public class CompanyRole extends BaseEntity<CompanyRole> {
 	 */
 	@Column(name="is_super_manager")
 	private Byte isSuperManager;
-	/**
-	 * 公司ID
-	 */
-	@Column(name="company_id")
-	private String companyId;
 }

@@ -42,12 +42,12 @@
 	<select id="selectOrgList" resultType="com.born.facade.vo.companyDept.CompanyDeptVO">
 		select 
 			concat('company-',c.id) as id,
-			c.companyname as name,
+			c.company_name as name,
 			"" as pId,
 			"0" AS countId
-		from tb_company c
+		from qft_company c
 		where 1=1 
-		<if test="companyId != null and companyId != ''">
+		<if test="companyId != null">
 			and	c.id = #{companyId}
 		</if>
 		union all
@@ -58,7 +58,7 @@
 			"0" AS countId
 		from qft_company_dept t
 		where t.is_delete = 0
-		<if test="companyId != null and companyId != ''">
+		<if test="companyId != null">
 			and	t.company_id = #{companyId}
 		</if>
 		union all
@@ -79,13 +79,13 @@
 			LEFT JOIN qft_user_info info ON info.user_id = pu.user_id
 		    LEFT JOIN qft_user r ON r.id = pu.user_id
 			where r.is_delete = 0
-			<if test="companyId != null and companyId != ''">
+			<if test="companyId != null">
 				and	info.company_id = #{companyId}
 			</if>
 			GROUP BY pu.position_id
 		) ct ON ct.position_id = p.id
  		where p.is_delete = 0
- 		<if test="companyId != null and companyId != ''">
+ 		<if test="companyId != null">
 			and	d.company_id = #{companyId}
 		</if>
 	</select>

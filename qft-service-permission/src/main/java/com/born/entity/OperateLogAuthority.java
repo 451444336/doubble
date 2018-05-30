@@ -39,7 +39,7 @@ public class OperateLogAuthority extends BaseEntity<OperateLogAuthority> {
 	 * 公司ID
 	 */
 	@Column(name = "company_id")
-	private String companyId;
+	private Long companyId;
 	/**
      * 权限类型：0 用户，1 角色，2 职位，3 菜单
      */

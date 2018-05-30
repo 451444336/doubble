@@ -3,6 +3,7 @@ package com.born.facade.vo.permission;
 import com.born.core.entity.EntityClone;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: PersonalPermissionVO 
@@ -12,6 +13,7 @@ import lombok.Data;
 *
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class PermissionVO extends EntityClone<PermissionVO> {
 
 	/**

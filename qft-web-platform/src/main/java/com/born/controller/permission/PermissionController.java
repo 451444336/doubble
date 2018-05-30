@@ -174,7 +174,9 @@ public class PermissionController {
 		Result result = permissionService.getAuthorizeData(dto);
 		log.info("查询权限返回数据={}",JSON.toJSONString(result));
 		if(RespCode.Code.SUCCESS.getCode().equals(result.getCode())){
-			return result.getData(List.class);
+			if(result.getData() instanceof List){
+				return (List<MenuPermissionVO>)result.getData();
+			}
 		}
 		return new ArrayList<>();
 	}

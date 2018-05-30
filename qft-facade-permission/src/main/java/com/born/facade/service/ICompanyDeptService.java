@@ -24,7 +24,7 @@ public interface ICompanyDeptService {
 	* @date 2018年5月8日 下午5:18:42 
 	* @throws
 	 */
-	Result findOrgList(String companyId);
+	Result findOrgList(Long companyId);
 	
 	/**
 	 * 根据ID获取部门

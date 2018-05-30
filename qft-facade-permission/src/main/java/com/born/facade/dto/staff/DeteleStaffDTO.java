@@ -7,6 +7,7 @@ import com.born.core.base.BaseValidate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 删除员工请求参数DTO
  * @author 明成
@@ -14,7 +15,8 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value="删除员工管理请求实体")
-public class DeteleStaffDTO extends BaseValidate {
+@EqualsAndHashCode(callSuper = true)
+public class DeteleStaffDTO extends BaseValidate<DeteleStaffDTO> {
 
 	/**
 	 * 

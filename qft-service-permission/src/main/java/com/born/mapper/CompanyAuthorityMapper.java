@@ -74,7 +74,7 @@ public interface CompanyAuthorityMapper extends BaseMapper<CompanyAuthority> {
 	* @author lijie
 	* @throws
 	 */
-	List<PermissionVO> selectPermissions(@Param("companyId") String companyId);
+	List<PermissionVO> selectPermissions(@Param("companyId") Long companyId);
 	/**
 	 * 
 	* @Title: updateMenuAuthorityByAuthIds 

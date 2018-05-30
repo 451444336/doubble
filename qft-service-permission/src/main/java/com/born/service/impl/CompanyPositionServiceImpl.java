@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.born.core.constant.DataBaseEnum;
 import com.born.entity.CompanyPosition;
 import com.born.facade.dto.CompanyPositionDTO;
 import com.born.facade.dto.position.PositionAuthDTO;
@@ -85,10 +86,10 @@ public class CompanyPositionServiceImpl implements ICompanyPositionService {
 			BeanUtils.copyProperties(dto, position);
 		}
 		try {
-			List<CompanyPosition> list =  mapper.select(position);
+			List<CompanyPosition> list = mapper.select(position);
 			List<PositionVO> positionVO = new ArrayList<>();
 			BeanUtils.copyProperties(list, positionVO);
-			ResultUtil.setResult(result, RespCode.Code.SUCCESS,positionVO);
+			ResultUtil.setResult(result, RespCode.Code.SUCCESS, positionVO);
 		} catch (Exception e) {
 			log.error("查询职位失败（PositionServiceImpl.findPositionList）.......................", e);
 		}
@@ -159,6 +160,7 @@ public class CompanyPositionServiceImpl implements ICompanyPositionService {
 			position.setCreateTime(new Date());
 			// 设置创建人
 			position.setId(null);
+			position.setIsDelete(DataBaseEnum.NOT_DELETE.getStatus());
 			Integer insert = mapper.insertSelective(position);
 			return ResultUtil.setResult(result, RespCode.Code.SUCCESS,insert);
 		} catch (Exception e) {
@@ -257,7 +259,7 @@ public class CompanyPositionServiceImpl implements ICompanyPositionService {
 
 			return ResultUtil.getResult(RespCode.Code.SUCCESS);
 		} catch (Exception e) {
-			return ResultUtil.getResult(RespCode.Code.FAIL);
+			throw new PermissionException(RespCode.Code.INTERNAL_SERVER_ERROR);
 		}
 	}
 

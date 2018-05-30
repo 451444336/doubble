@@ -8,6 +8,7 @@ import javax.persistence.Table;
 import com.born.core.base.BaseEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: CompanyStaffOper 
@@ -17,6 +18,7 @@ import lombok.Data;
 *
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Table(name="qft_user_oper")
 public class CompanyStaffOper extends BaseEntity<CompanyStaffOper> {
 	

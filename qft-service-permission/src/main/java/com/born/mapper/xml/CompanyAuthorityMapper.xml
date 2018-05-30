@@ -32,10 +32,10 @@
 	<select id="selectCompanyInfo" resultType="com.born.facade.vo.company.CompanyInfoVO">
 		select 
 			id companyId,
-			companyname companyName,
+			company_name companyName,
 			cor_url corUrl
-		from 
-			tb_company 
+		from
+			qft_company 
 		where 
 			cor_url = #{corUrl}
 	</select>
@@ -49,7 +49,7 @@
 			b.type operType
 		FROM
 			qft_user_authority a
-		LEFT JOIN qft_company_authority b ON a.authority_id = b.id
+		LEFT JOIN qft_authority b ON a.authority_id = b.id
 		where
 			a.user_id = #{userId}
 		and b.is_delete = 0
@@ -63,7 +63,7 @@
 			b.type operType
 		FROM
 			qft_position_authority a
-		LEFT JOIN qft_company_authority b ON a.authority_id = b.id
+		LEFT JOIN qft_authority b ON a.authority_id = b.id
 		where
 			a.position_id = #{positionId}
 		and b.is_delete = 0
@@ -71,12 +71,12 @@
 	<!-- 查询公司权限数据 -->
 	<select id="selectPermissions" resultType="com.born.facade.vo.permission.PermissionVO">
 		SELECT
-			a.id authorityId,
-			a.authority_name authorityName,
-			a.authority_url authorityUrl,
-			a.type operType
+			b.id authorityId,
+			b.authority_name authorityName,
+			b.authority_url authorityUrl,
+			b.type operType
 		FROM
-			qft_company_authority a
+			qft_company_authority a left join qft_authority b on a.authority_id = b.id
 		where
 			a.company_id = #{companyId}
 		and a.is_delete = 0
