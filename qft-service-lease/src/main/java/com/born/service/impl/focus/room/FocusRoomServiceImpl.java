@@ -27,7 +27,7 @@ public class FocusRoomServiceImpl implements IFocusRoomService {
 	FocusRoomMapper focusRoomMapper;
 
 	@Override
-	public Result addOrUpdate(FocusRoomDTO dto) {
+	public Result batchAddOrUpdate(FocusRoomDTO dto) {
 		Result result = ResultUtil.fail();
 		try {
 			log.info("执行添加或修改房间信息...");

@@ -62,7 +62,7 @@ public class FocusRoomController {
 		dto.setCreaterId(su.getId());
 		dto.setUpdaterId(su.getId());
 		dto.setCompanyId(1L);
-		return focusRoomService.BatchAddOrUpdate(dto);
+		return focusRoomService.batchAddOrUpdate(dto);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class FocusRoomController {
 		// 设置默认值
 		dto.setUpdateTime(new Date());
 		dto.setUpdaterId(su.getId());
-		return focusRoomService.BatchAddOrUpdate(dto);
+		return focusRoomService.batchAddOrUpdate(dto);
 	}
 	
 	/**

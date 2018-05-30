@@ -20,7 +20,7 @@ public interface IFocusRoomService{
 	 * @return
 	 * @date 2018年5月29日 下午5:27:28
 	 */
-	Result addOrUpdate(FocusRoomDTO dto);
+	Result batchAddOrUpdate(FocusRoomDTO dto);
 	
 	/**
 	 * 
