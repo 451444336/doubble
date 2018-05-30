@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
-import com.born.entity.code.Code;
-import com.born.facade.vo.code.CodeVO;
+import com.born.entity.configset.Code;
+import com.born.facade.vo.configset.CodeVO;
 
 /**
  * 
