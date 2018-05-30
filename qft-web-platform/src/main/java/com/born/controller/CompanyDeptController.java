@@ -18,7 +18,6 @@ import com.born.util.result.Result;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -28,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 * @date 2018年4月27日 下午4:17:49 
 *
  */
-@Slf4j
 @Controller
 @RequestMapping(value = "web/dept")
 public class CompanyDeptController {

@@ -18,7 +18,7 @@ public interface ICodeService extends IBaseService<BaseModel>{
 	/**
 	 * 
 	* @Title: getCodeList 
-	* @Description: 根据公司获取店面编号设置 
+	* @Description: 根据公司获取编号设置 
 	* @param @param companyId
 	* @param @return
 	* @author 明成

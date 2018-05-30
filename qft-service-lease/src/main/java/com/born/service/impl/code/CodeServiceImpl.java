@@ -3,6 +3,7 @@ package com.born.service.impl.code;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.core.base.BaseModel;
@@ -58,6 +59,7 @@ public class CodeServiceImpl extends BaseService<BaseModel, Code> implements ICo
 	}
 
 	@Override
+	@Transactional
 	public Result updateCode(CodeDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		String errorStr = dto.validateForm();
@@ -76,6 +78,7 @@ public class CodeServiceImpl extends BaseService<BaseModel, Code> implements ICo
 	}
 
 	@Override
+	@Transactional
 	public Result addCode(CodeDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		String errorStr = dto.validateForm();
