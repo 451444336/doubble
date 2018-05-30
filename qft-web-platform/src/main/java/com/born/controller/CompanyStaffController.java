@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +27,6 @@ import com.born.util.result.Result;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -38,7 +36,6 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2018年4月27日 下午4:17:49
  *
  */
-@Slf4j
 @Controller
 @RequestMapping(value = "web/staff")
 public class CompanyStaffController {

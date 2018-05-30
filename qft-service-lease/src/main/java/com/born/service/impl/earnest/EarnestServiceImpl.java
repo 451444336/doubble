@@ -7,7 +7,7 @@ import com.born.core.base.BaseModel;
 import com.born.core.base.BaseService;
 import com.born.core.base.DataBaseParameters;
 import com.born.entity.earnest.Earnest;
-import com.born.facade.dto.income.EarnestDTO;
+import com.born.facade.dto.income.IncomeDTO;
 import com.born.facade.service.earnest.IEarnestService;
 import com.born.mapper.EarnestMapper;
 import com.born.util.result.Result;
@@ -38,17 +38,17 @@ public class EarnestServiceImpl extends BaseService<BaseModel, Earnest> implemen
 	}
 
 	@Override
-	public Result getPageList(EarnestDTO dto) {
+	public Result getPageList(IncomeDTO dto) {
 		return null;
 	}
 
 	@Override
-	public Result updateEarnest(EarnestDTO dto) {
+	public Result updateEarnest(IncomeDTO dto) {
 		return null;
 	}
 
 	@Override
-	public Result addEarnest(EarnestDTO dto) {
+	public Result addEarnest(IncomeDTO dto) {
 		return null;
 	}
 

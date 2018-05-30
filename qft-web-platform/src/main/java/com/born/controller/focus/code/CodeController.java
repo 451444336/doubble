@@ -1,4 +1,4 @@
-package com.born.controller.code;
+package com.born.controller.focus.code;
 
 import java.util.Date;
 
@@ -39,14 +39,14 @@ public class CodeController {
 	/**
 	 * 
 	* @Title: getCodeList 
-	* @Description: 获取店面编号设置列表
+	* @Description: 获取编号设置列表
 	* @param @return
 	* @author 明成
 	* @return Result
 	* @date 2018年5月28日 下午3:12:01 
 	* @throws
 	 */
-	@ApiOperation(value = "获取店面编号设置列表",notes = "确保填写参数是否正确")
+	@ApiOperation(value = "获取编号设置列表",notes = "确保填写参数是否正确")
     @ApiResponses(value = {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
@@ -60,7 +60,7 @@ public class CodeController {
 	}
 	/**
 	 * 
-	* @Title: editCode 
+	* @Title: updateCode 
 	* @Description: 编辑编号
 	* @param @param dto
 	* @param @return
@@ -75,11 +75,11 @@ public class CodeController {
             @ApiResponse(code = 200,message = "操作成功")
     })
 	@ResponseBody
-	@RequestMapping(value = "editCode",method = RequestMethod.POST)
-	public Result editCode(CodeDTO dto){
+	@RequestMapping(value = "updateCode",method = RequestMethod.POST)
+	public Result updateCode(CodeDTO dto){
 		UserInfoVO user = TokenManager.getLoginUser();
-		dto.setCreaterId(user.getId());
-		dto.setCreateTime(new Date());
+		dto.setUpdaterId(user.getId());
+		dto.setUpdateTime(new Date());
 		dto.setCompanyId(user.getCompanyId());
 		return codeService.updateByModel(dto);
 	}
@@ -99,6 +99,8 @@ public class CodeController {
 	public Result addCode(CodeDTO dto){
 		UserInfoVO user = TokenManager.getLoginUser();
 		dto.setCreaterId(user.getId());
+		dto.setCreateTime(new Date());
+		dto.setCompanyId(user.getCompanyId());
 		return codeService.addByModel(dto);
 	}
 }

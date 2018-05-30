@@ -1,4 +1,4 @@
-package com.born.controller.earnest;
+package com.born.controller.focus.earnest;
 
 import java.util.Date;
 
@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.config.shiro.token.TokenManager;
-import com.born.facade.dto.income.EarnestDTO;
+import com.born.core.page.PageBean;
+import com.born.facade.dto.income.IncomeDTO;
 import com.born.facade.service.earnest.IEarnestService;
 import com.born.facade.vo.UserInfoVO;
 import com.born.util.result.Result;
@@ -19,7 +20,6 @@ import com.born.util.result.Result;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -29,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 * @date 2018年5月29日 上午9:17:03 
 * @version 1.0
  */
-@Slf4j
 @Controller
 @RequestMapping(value = "web/ear")
 public class EarnestController {
@@ -54,10 +53,10 @@ public class EarnestController {
     })
 	@GetMapping("/getPageList")
 	@ResponseBody
-	public Result getPageList(EarnestDTO dto){
+	public Result getPageList(IncomeDTO dto,PageBean pageBean){
 		UserInfoVO user = TokenManager.getLoginUser();
 		dto.setCompanyId(user.getCompanyId());
-		return earnestService.getListByPage(dto);
+		return earnestService.getListByPage(dto,pageBean);
 	}
 	
 	/**
@@ -120,7 +119,7 @@ public class EarnestController {
     })
 	@ResponseBody
 	@RequestMapping(value = "updateEarnest",method = RequestMethod.POST)
-	public Result updateEarnest(EarnestDTO dto){
+	public Result updateEarnest(IncomeDTO dto){
 		UserInfoVO user = TokenManager.getLoginUser();
 		dto.setUpdaterId(user.getId());
 		dto.setUpdateTime(new Date());
@@ -139,7 +138,7 @@ public class EarnestController {
     })
 	@ResponseBody
 	@RequestMapping(value = "addEarnest",method = RequestMethod.POST)
-	public Result addEarnest(EarnestDTO dto){
+	public Result addEarnest(IncomeDTO dto){
 		UserInfoVO user = TokenManager.getLoginUser();
 		dto.setCreaterId(user.getId());
 		dto.setCreateTime(new Date());

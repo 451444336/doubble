@@ -2,7 +2,7 @@ package com.born.facade.service.earnest;
 
 import com.born.core.base.BaseModel;
 import com.born.core.base.IBaseService;
-import com.born.facade.dto.income.EarnestDTO;
+import com.born.facade.dto.income.IncomeDTO;
 import com.born.util.result.Result;
 
 /**
@@ -28,7 +28,7 @@ public interface IEarnestService extends IBaseService<BaseModel>{
 	* @date 2018年5月28日 下午4:34:34 
 	* @throws
 	 */
-	Result getPageList(EarnestDTO dto);
+	Result getPageList(IncomeDTO dto);
 	
 	/**
 	 * 
@@ -41,7 +41,7 @@ public interface IEarnestService extends IBaseService<BaseModel>{
 	* @date 2018年5月28日 下午3:28:39 
 	* @throws
 	 */
-	Result updateEarnest(EarnestDTO dto);
+	Result updateEarnest(IncomeDTO dto);
 	
 	/**
 	 * 
@@ -54,5 +54,5 @@ public interface IEarnestService extends IBaseService<BaseModel>{
 	* @date 2018年5月28日 下午3:29:32 
 	* @throws
 	 */
-	Result addEarnest(EarnestDTO dto);
+	Result addEarnest(IncomeDTO dto);
 }
