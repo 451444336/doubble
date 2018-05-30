@@ -15,7 +15,7 @@
 		t.new_value as newValue,
 		t.type as type
 	</sql>
-	<select id="selectCodeSet" resultType="com.born.facade.vo.code.CodeVO">
+	<select id="selectCodeSet" resultType="com.born.facade.vo.configset.CodeVO">
 		select
 			<include refid="baseSql"></include>,
 			s.id as storeId,

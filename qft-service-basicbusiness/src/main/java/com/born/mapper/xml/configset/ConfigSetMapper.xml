@@ -25,6 +25,5 @@
 				where id = ${item.id}
 	    </foreach>  
 	</update>  
-	</update>
 
 </mapper>
