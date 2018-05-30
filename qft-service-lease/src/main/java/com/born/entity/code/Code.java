@@ -22,7 +22,7 @@ public class Code extends BaseEntity<Code> {
 	 * 公司唯一ID
 	 */
 	@Column(name="company_id")
-	private String companyId;
+	private Long companyId;
 
 	/**
 	 * 店面ID

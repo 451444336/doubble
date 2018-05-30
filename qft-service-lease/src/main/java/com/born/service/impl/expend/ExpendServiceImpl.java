@@ -47,7 +47,7 @@ public class ExpendServiceImpl extends BaseService<BaseModel, Expend> implements
 
 	@Override
 	@Transactional
-	public Result batchAddExpend(List<ExpendDTO> list, String companyId,Long createrId) {
+	public Result batchAddExpend(List<ExpendDTO> list, Long companyId,Long createrId) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		if(list==null) {
 			result.setMessage("应支房租数据不能为空");
@@ -73,7 +73,7 @@ public class ExpendServiceImpl extends BaseService<BaseModel, Expend> implements
 
 	@Override
 	@Transactional
-	public Result batchUpdateExpend(List<ExpendDTO> list, String companyId,Long createrId) {
+	public Result batchUpdateExpend(List<ExpendDTO> list, Long companyId,Long createrId) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		if(list==null) {
 			result.setMessage("应支房租数据不能为空");

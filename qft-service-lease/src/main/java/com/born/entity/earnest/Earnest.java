@@ -25,7 +25,7 @@ public class Earnest extends BaseEntity<Earnest> {
 	 * 公司唯一ID
 	 */
 	@Column(name="company_id")
-	private String companyId;
+	private Long companyId;
 
 	/**
 	 * 合同开始时间

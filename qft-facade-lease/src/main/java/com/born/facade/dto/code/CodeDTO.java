@@ -40,7 +40,7 @@ public class CodeDTO extends BaseModel {
 	/**
 	 * 公司唯一ID
 	 */
-	private String companyId;
+	private Long companyId;
 
 	/**
 	 * 店面ID
