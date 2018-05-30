@@ -35,7 +35,7 @@ public class StoreGroupDTO extends PageBean {
 	/**
 	 * 公司ID
 	 */
-	private String companyId;
+	private Long companyId;
 	 /**
      * 创建时间
      */

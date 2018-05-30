@@ -58,5 +58,5 @@ public class CompanyRoleDTO extends PageBean {
 	/**
 	 * 公司ID
 	 */
-	private String companyId;
+	private Long companyId;
 }
