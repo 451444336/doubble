@@ -1,6 +1,7 @@
 package com.born.core.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 
@@ -11,6 +12,7 @@ import lombok.Data;
 *
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class BizException extends RuntimeException {
 
 	/**

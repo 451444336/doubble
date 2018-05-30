@@ -2,7 +2,6 @@ package com.born.facade.dto;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Min;
 
 import com.born.core.page.PageBean;
@@ -10,6 +9,7 @@ import com.born.core.page.PageBean;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 员工DTO
  * @author 明成
@@ -17,6 +17,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value="员工管理请求实体")
+@EqualsAndHashCode(callSuper = true)
 public class CompanyStaffDTO extends PageBean {
 
 	/**
@@ -43,7 +44,7 @@ public class CompanyStaffDTO extends PageBean {
 	private String idcard;
 	
 	@ApiModelProperty(value="公司ID",name="companyId")
-	private String companyId;
+	private Long companyId;
 	
 	@ApiModelProperty(value="工作店面",name="workstore")
 	private String workstore;

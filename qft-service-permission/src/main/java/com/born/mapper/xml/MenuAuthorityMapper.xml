@@ -5,7 +5,6 @@
 	
 	<sql id="base_menu_authority">
 		a.authority_id authorityId,
-		b.company_id companyId,
 		b.is_usable isUsable,
 		b.authority_name authorityName,
 		b.authority_url authorityUrl,
@@ -21,12 +20,13 @@
 			a.menu_id
 		FROM
 			qft_menu_authority a
-		LEFT JOIN qft_company_authority b ON a.authority_id = b.id
-		<if test="companyId != null and companyId != ''">
+		LEFT JOIN qft_authority b ON a.authority_id = b.id
+		LEFT JOIN qft_company_authority c ON a.authority_id = b.id
+		<if test="companyId != null">
 			WHERE
-				b.company_id = #{companyId}
+				c.company_id = #{companyId}
 		</if>
-		<if test="companyId == null or companyId == ''">
+		<if test="companyId == null">
 			group by c.authority_id
 		</if>
 	</select>
@@ -49,14 +49,13 @@
 		SELECT
 			a.menu_name
 		FROM
-			qft_company_menu a
+			qft_menu a
 		where a.id = #{menu_id}
 	</select>
 	<!-- 根据菜单ID 查询菜单权限数据 -->
 	<select id="selectAuthorityListByMenuIds" resultMap="authority_menu">
 		SELECT
 			a.authority_id,
-			b.company_id,
 			b.is_usable,
 			b.authority_name,
 			b.authority_url,
@@ -68,7 +67,7 @@
 			a.menu_id
 		FROM
 			qft_menu_authority a
-		LEFT JOIN qft_company_authority b ON a.authority_id = b.id
+		LEFT JOIN qft_authority b ON a.authority_id = b.id
 		where
 			a.menu_id in
 		<foreach item="item" index="index" collection="menuIds" open="(" separator="," close=")">
@@ -82,7 +81,7 @@
 			<include refid="base_menu_authority"/>
 		from 
 			qft_user_authority a 
-		LEFT JOIN qft_company_authority b ON a.authority_id = b.id
+		LEFT JOIN qft_authority b ON a.authority_id = b.id
 		where a.user_id = #{userId}
 	</select>
 </mapper>

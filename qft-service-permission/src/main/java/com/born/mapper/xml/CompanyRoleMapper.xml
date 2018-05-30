@@ -9,7 +9,6 @@
 			b.id,
 			b.role_name roleName,
 			b.create_time createTime,
-			b.is_auth_edit isAuthEdit,
 			b.is_valid isValid,
 			b.role_code roleCode,
 			b.is_super_manager isSuperManager

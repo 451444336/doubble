@@ -27,14 +27,12 @@ import com.born.util.result.ResultUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Description: 角色管理控制类
  * @author wangxy
  * @date 2018年5月2日 上午10:06:42
  */
-@Slf4j
 @Controller
 @RequestMapping(value = "/web/role")
 public class CompanyRoleController {
@@ -68,7 +66,7 @@ public class CompanyRoleController {
 		// 获取当前登录用户
 		UserInfoVO su = TokenManager.getLoginUser();
 		role.setCreaterId(su.getId());
-		role.setCompanyId(su.getCompanyId());
+		role.setCompanyId(su.getCompanyId().toString());
 		return companyRoleService.add(role);
 	}
 
@@ -124,7 +122,7 @@ public class CompanyRoleController {
 		OperateLogAuthorityDTO dto = new OperateLogAuthorityDTO();
 		dto.setCreaterId(su.getId());
 		dto.setCreateTime(new Date());
-		dto.setCompanyId(su.getCompanyId());
+		dto.setCompanyId(su.getCompanyId().toString());
 		dto.setTypeId(id);
 		dto.setType((byte)1);
 		dto.setOperate("删除角色");

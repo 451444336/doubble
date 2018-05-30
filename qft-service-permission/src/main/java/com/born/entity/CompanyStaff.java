@@ -46,7 +46,7 @@ public class CompanyStaff extends BaseEntity<CompanyStaff> {
 
 	// 公司ID
 	@Column(name = "company_id")
-	private String companyId;
+	private Long companyId;
 
 	// 工作店面
 	@Column(name = "workstore")

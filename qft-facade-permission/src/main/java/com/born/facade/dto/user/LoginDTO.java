@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.born.core.base.BaseValidate;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: LoginDTO 
@@ -14,6 +15,7 @@ import lombok.Data;
 *
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class LoginDTO extends BaseValidate<LoginDTO> {
 
 	/**

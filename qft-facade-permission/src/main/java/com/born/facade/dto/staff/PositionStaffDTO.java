@@ -8,6 +8,7 @@ import com.born.core.base.BaseValidate;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 员工DTO
  * @author 明成
@@ -15,7 +16,8 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value="职位员工管理请求实体")
-public class PositionStaffDTO extends BaseValidate {
+@EqualsAndHashCode(callSuper = true)
+public class PositionStaffDTO extends BaseValidate<PositionStaffDTO> {
 
 	/**
 	 * 

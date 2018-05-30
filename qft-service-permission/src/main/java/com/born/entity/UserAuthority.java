@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import com.born.core.entity.EntityClone;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: StaffAuthority 
@@ -18,12 +19,15 @@ import lombok.Data;
 *
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Table(name="qft_user_authority")
 public class UserAuthority extends EntityClone<UserAuthority> {
 
 	/**
-	 * 主键id
+	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	private Long id;
 	/**

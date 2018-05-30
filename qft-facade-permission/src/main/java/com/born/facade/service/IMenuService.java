@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.born.core.base.BaseModel;
 import com.born.core.base.IBaseService;
-import com.born.facade.dto.menu.AddMenuDTO;
+import com.born.core.page.PageBean;
+import com.born.facade.dto.menu.DistributionMenuAuthDTO;
+import com.born.facade.dto.menu.MenuChangeDTO;
 import com.born.facade.dto.menu.MenuQueryDTO;
 import com.born.util.result.Result;
 
@@ -40,18 +42,7 @@ public interface IMenuService extends IBaseService<BaseModel>{
    * @author lijie
    * @throws
     */
-	Result getMenuTreeByCompanyId(String companyId, Byte ascription);
-   /**
-    * 
-   * @Title: getMenuList 
-   * @Description: 获取所有/公司 菜单(备注：如果公司ID 为空则查询所有菜单，如果不为空则查询公司下面的菜单)
-   * @param @param companyId
-   * @param @return    设定文件 
-   * @return Result    返回类型 
-   * @author lijie
-   * @throws
-    */
-    Result getMenuList(String companyId);
+	Result getMenuTreeByCompanyId(Long companyId, Byte ascription);
     /**
      * 
     * @Title: getMenuByRoleIds 
@@ -62,18 +53,29 @@ public interface IMenuService extends IBaseService<BaseModel>{
     * @author lijie
     * @throws
      */
-    Result getMenuByRoleIds(List<Long> roleIds);
+	Result getMenuByRoleIds(List<Long> roleIds, Long companyId);
     /**
      * 
     * @Title: addMenu 
-    * @Description: 添加菜单
-    * @param @param list
+    * @Description: 添加菜单数据
+    * @param @param dto
     * @param @return    设定文件 
     * @return Result    返回类型 
     * @author lijie
     * @throws
      */
-    Result addMenu(List<AddMenuDTO> list);
+    Result addMenu(MenuChangeDTO dto);
+    /**
+     * 
+    * @Title: addCompanyMenuAuth 
+    * @Description: 添加公司菜单权限数据 
+    * @param @param dto
+    * @param @return    设定文件 
+    * @return Result    返回类型 
+    * @author lijie
+    * @throws
+     */
+    Result addCompanyMenuAuth(DistributionMenuAuthDTO dto);
 	/**
 	 * 
 	* @Title: getSubmenuMenu 
@@ -96,5 +98,29 @@ public interface IMenuService extends IBaseService<BaseModel>{
     * @author lijie
     * @throws
      */
-	Result getMenuListByUserId(String companyId, Long userId);
+	Result getMenuListByUserId(Long companyId, Long userId);
+	/**
+	 * 
+	* @Title: getMenuList 
+	* @Description: 查询公司所有菜单
+	* @param @param companyId
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	Result getMenuList(Long companyId);
+	/**
+	 * 
+	* @Title: getMenuListByPage 
+	* @Description: 分页查询菜单数据
+	* @param @param pangeBean
+	* @param @param type
+	* @param @param companyId
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	Result getMenuListByPage(PageBean pangeBean, Byte type, Long companyId);
 }

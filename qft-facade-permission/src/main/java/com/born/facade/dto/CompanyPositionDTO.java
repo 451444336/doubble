@@ -2,19 +2,19 @@ package com.born.facade.dto;
 
 import java.util.Date;
 
-import javax.validation.constraints.Min;
-
 import com.born.core.page.PageBean;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 公司职位表
  * @author 明成
  *
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value="职位管理请求实体")
 public class CompanyPositionDTO extends PageBean{
 
@@ -22,7 +22,7 @@ public class CompanyPositionDTO extends PageBean{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Min(value=0)
+	
 	@ApiModelProperty(value="主键",name="id",required=true)
 	private Long id;
 	
@@ -49,5 +49,5 @@ public class CompanyPositionDTO extends PageBean{
 	//权限ID
 	private String[] permissionIds;
 	
-	private String companyId;
+	private Long companyId;
 }

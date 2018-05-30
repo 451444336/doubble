@@ -50,7 +50,7 @@ public interface CompanyDeptMapper extends BaseMapper<CompanyDept> {
 	* @date 2018年5月8日 下午5:41:20 
 	* @throws
 	 */
-	List<CompanyDeptVO> selectOrgList(@Param("companyId")String companyId);
+	List<CompanyDeptVO> selectOrgList(@Param("companyId")Long companyId);
 	
 	/**
 	 * 

@@ -9,31 +9,29 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 /**
  * 
-* @ClassName: CompanyRoleMenu 
-* @Description: 角色菜单 
+* @ClassName: UserRole 
+* @Description: 用户角色 
 * @author lijie 
-* @date 2018年5月9日 下午4:48:16 
+* @date 2018年5月30日 下午2:19:45 
 *
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "qft_company_role_menu")
-public class CompanyRoleMenu extends BaseCoreEntity<CompanyRoleMenu> {
-
-	/**
+@Table(name="qft_user_role")
+public class UserRole extends BaseCoreEntity<UserRole> {/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4358229381631467860L;
-	/**
-	 * 菜单ID
-	 */
-	@Column(name = "menu_id")
-	private Long menuId;
+	private static final long serialVersionUID = -6935511530426215583L;
 	/**
 	 * 角色ID
 	 */
 	@Column(name = "role_id")
 	private Long roleId;
+	/**
+	 * 用户ID
+	 */
+	@Column(name = "user_id")
+	private Long userId;
 	/**
 	 * 公司ID
 	 */

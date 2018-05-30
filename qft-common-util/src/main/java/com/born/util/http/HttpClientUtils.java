@@ -1,7 +1,7 @@
 /**  
  * @Title:  HttpClient.java   
  * @Package com.ph.shopping.common.util.http   
- * @Description:    TODO(用一句话描述该文件做什么)   
+ * @Description:    http请求工具   
  * @author: 李杰    
  * @date:   2017年5月12日 上午9:55:43   
  * @version V1.0 

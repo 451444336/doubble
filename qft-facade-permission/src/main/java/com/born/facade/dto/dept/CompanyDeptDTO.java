@@ -2,24 +2,23 @@ package com.born.facade.dto.dept;
 
 import java.util.Date;
 
-import javax.validation.constraints.Min;
-
-import com.born.core.base.BaseValidate;
 import com.born.core.page.PageBean;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @ApiModel(value="部门管理请求实体")
+@EqualsAndHashCode(callSuper = true)
 public class CompanyDeptDTO extends PageBean {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Min(value=0)
+	
 	@ApiModelProperty(value="主键",name="id",required=true)
 	private Long id;
 	
@@ -27,7 +26,7 @@ public class CompanyDeptDTO extends PageBean {
 	private String deptName;//部门名称
 	
 	@ApiModelProperty(value="公司ID",name="companyId")
-	private String companyId;//公司ID
+	private Long companyId;//公司ID
 	
 	@ApiModelProperty(value="上级部门ID",name="parentId")
 	private Long parentId;//上级部门ID
@@ -43,9 +42,6 @@ public class CompanyDeptDTO extends PageBean {
 	
 	@ApiModelProperty(value="修改人",name="updaterId")
 	private Long updaterId;
-	
-	@ApiModelProperty(value="删除状态",name="IsDelete")
-	private Integer IsDelete;
 	
 	private String ids;
 	

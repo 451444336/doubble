@@ -1,10 +1,8 @@
 package com.born.controller.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,10 +10,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.born.config.shiro.token.TokenManager;
+import com.born.core.page.PageBean;
 import com.born.facade.constant.MenuAuthEnum;
+import com.born.facade.dto.menu.MenuChangeDTO;
 import com.born.facade.dto.menu.MenuQueryDTO;
-import com.born.facade.dto.menu.QueryMenuDTO;
+import com.born.facade.dto.permission.ChangeAuthDTO;
 import com.born.facade.service.IMenuService;
+import com.born.facade.service.IPermissionService;
 import com.born.facade.vo.UserInfoVO;
 import com.born.util.result.Result;
 
@@ -36,6 +37,8 @@ public class MenuController {
 	@Reference(version = "1.0.0")
     private IMenuService menuService;
 
+	@Reference(version = "1.0.0")
+	private IPermissionService permissionService;
 
     /**
      * 
@@ -73,16 +76,64 @@ public class MenuController {
 		UserInfoVO su = TokenManager.getLoginUser();
 		return menuService.getMenuList(su.getCompanyId());
 	}
-	
-	@GetMapping(value = "/test")
+	/**
+	 * 
+	* @Title: addMenu 
+	* @Description: 添加菜单 
+	* @param @param dto
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
 	@ResponseBody
-	public Result test() {
-		QueryMenuDTO dto = new QueryMenuDTO();
-		dto.setId(1L);
-		List<Long> list = new ArrayList<>();
-		list.add(1L);
-		list.add(2L);
-		list.add(3L);
-		return menuService.getByIdsList(list);
+	@PostMapping
+	public Result addMenu(MenuChangeDTO dto) {
+		log.info("添加菜单数据入参={}", JSON.toJSONString(dto));
+		//UserInfoVO su = TokenManager.getLoginUser();
+		dto.setOperId(1L);
+		dto.setCompanyId(1L);
+		Result result = menuService.addMenu(dto);
+		log.info("添加菜单数据返回={}", JSON.toJSONString(result));
+		return result;
+	}
+	/**
+	 * 
+	* @Title: addMenuAuth 
+	* @Description: 添加菜单权限数据 
+	* @param @param dto
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	@ResponseBody
+	@PostMapping("auth")
+	public Result addMenuAuth(ChangeAuthDTO dto) {
+		log.info("添加菜单权限数据入参={}", JSON.toJSONString(dto));
+		//UserInfoVO su = TokenManager.getLoginUser();
+		dto.setOperId(1L);
+		dto.setCompanyId(1L);
+		Result result = permissionService.addAuthority(dto);
+		log.info("添加菜单权限数据返回={}", JSON.toJSONString(result));
+		return result;
+	}
+	/**
+	 * 
+	* @Title: getMenuListByPage 
+	* @Description: 根据类型分页查询菜单列表数据
+	* @param @param pangeBean
+	* @param @param type
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	@GetMapping("getMenuListByPage")
+	@ResponseBody
+	public Result getMenuListByPage(PageBean pangeBean, Byte type) {
+		Result result = menuService.getMenuListByPage(pangeBean, type, TokenManager.getLoginUser().getCompanyId());
+		log.info("根据类型分页查询菜单列表返回数据={}", JSON.toJSONString(result));
+		return result;
 	}
 }

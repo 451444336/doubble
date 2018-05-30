@@ -37,7 +37,7 @@ public class UserInfoVO implements Serializable {
     /**
      * 公司ID
      */
-    private String companyId;
+    private Long companyId;
     /**
      * 公司名称
      */

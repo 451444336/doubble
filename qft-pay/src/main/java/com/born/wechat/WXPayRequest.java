@@ -111,7 +111,8 @@ public class WXPayRequest {
 
         StringEntity postEntity = new StringEntity(data, "UTF-8");
         httpPost.addHeader("Content-Type", "text/xml");
-        httpPost.addHeader("User-Agent", "wxpay sdk java v1.0 " + config.getMchID());  // TODO: 很重要，用来检测 sdk 的使用情况，要不要加上商户信息？
+        // 很重要，用来检测 sdk 的使用情况，要不要加上商户信息？
+        httpPost.addHeader("User-Agent", "wxpay sdk java v1.0 " + config.getMchID());
         httpPost.setEntity(postEntity);
 
         HttpResponse httpResponse = httpClient.execute(httpPost);

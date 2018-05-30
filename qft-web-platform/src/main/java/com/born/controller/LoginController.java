@@ -252,7 +252,7 @@ public class LoginController {
 			uInfo.setCompanyId(cif.getCompanyId());
 			uInfo.setCompanyName(cif.getCompanyName());
 			subject.hasRole(uInfo.getRoles().get(0).getRoleCode());
-			return ResultUtil.getResult(RespCode.Code.SUCCESS);
+			return ResultUtil.success();
 		} else {
 			token.clear();
 			return result;

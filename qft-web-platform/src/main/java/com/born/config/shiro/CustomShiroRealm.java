@@ -28,6 +28,7 @@ import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.born.config.shiro.token.ShiroToken;
+import com.born.facade.constant.RoleEnum;
 import com.born.facade.dto.user.LoginDTO;
 import com.born.facade.exception.PermissionExceptionEnum;
 import com.born.facade.service.IMenuAuthorityService;
@@ -108,14 +109,14 @@ public class CustomShiroRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.setRoles(roleToStrs(userInfo.getRoles()));
 		
-		List<MenuVO> menus = getMenus(userInfo.getRoles());
+		List<MenuVO> menus = getMenus(userInfo.getRoles(), userInfo.getCompanyId());
 		if (CollectionUtils.isNotEmpty(menus)) {
 			info.addStringPermissions(menuToStrs(menus));
 			// 按钮权限
 			// Session按钮集合
 			Collection<String> permissions = new HashSet<>();
 			// 根据菜单ID 获取菜单操作权限数据
-			List<String> auths = getUserAuths(userInfo.getId(), menus);
+			List<String> auths = getUserAuths(userInfo.getId(), menus, userInfo.getRoles().get(0).getId());
 			if (CollectionUtils.isNotEmpty(auths)) {
 				info.addStringPermissions(auths);
 				permissions.addAll(auths);
@@ -182,7 +183,7 @@ public class CustomShiroRealm extends AuthorizingRealm {
     * @throws
      */
 	@SuppressWarnings("unchecked")
-	private List<String> getUserAuths(final Long userId, final List<MenuVO> menus) {
+	private List<String> getUserAuths(final Long userId, final List<MenuVO> menus, final Long roleId) {
 		final List<String> result = new LinkedList<>();
 		// 查询用户操作权限
 		final Set<Long> authSet = new HashSet<>();
@@ -206,8 +207,12 @@ public class CustomShiroRealm extends AuthorizingRealm {
 			List<MenuAuthorityVO> malist = (List<MenuAuthorityVO>) maResult.getData();
 			if (CollectionUtils.isNotEmpty(malist)) {
 				for (MenuAuthorityVO ma : malist) {
-					if (authSet.contains(ma.getAuthorityId())) {
+					if (RoleEnum.ADMIN.getId().equals(roleId)) {
 						result.add(ma.getAuthCode());
+					} else {
+						if (authSet.contains(ma.getAuthorityId())) {
+							result.add(ma.getAuthCode());
+						}
 					}
 				}
 			}
@@ -226,13 +231,13 @@ public class CustomShiroRealm extends AuthorizingRealm {
     * @throws
      */
 	@SuppressWarnings("unchecked")
-	private List<MenuVO> getMenus(final List<UserRoleVO> roles) {
+	private List<MenuVO> getMenus(final List<UserRoleVO> roles, final Long companyId) {
 		// 菜单权限id
 		final List<Long> roleList = new ArrayList<>();
 		for (UserRoleVO role : roles) {
 			roleList.add(role.getId());
 		}
-		Result menuResult = menuService.getMenuByRoleIds(roleList);
+		Result menuResult = menuService.getMenuByRoleIds(roleList, companyId);
 		if (log.isInfoEnabled()) {
 			log.info("根据角色ID查询菜单返回数据={}", JSON.toJSONString(menuResult));
 		}

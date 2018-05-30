@@ -16,9 +16,9 @@
 			b.type
 		FROM
 			qft_company_role_menu a
-		LEFT JOIN qft_company_menu b ON a.menu_id = b.id
+		LEFT JOIN qft_menu b ON a.menu_id = b.id
 		WHERE
-			b.company_id = #{dto.companyId}
+			a.company_id = #{dto.companyId}
 		AND b.ascription = #{dto.ascription}
 		AND a.role_id in
         <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
@@ -47,35 +47,33 @@
 		FROM
 			qft_user_role a
 		LEFT JOIN qft_company_role_menu b ON a.role_id = b.role_id
-		LEFT JOIN qft_company_menu c ON b.menu_id = c.id
+		LEFT JOIN qft_menu c ON b.menu_id = c.id
 		WHERE
 			c.is_delete = 0
 		and a.user_id = #{userId}
-		and c.company_id = #{companyId}
+		and b.company_id = #{companyId}
 	</select>
 	<!-- 查询所有菜单/公司所有 -->
 	<select id="selectAllMenu" resultType="com.born.facade.vo.MenuVO">
 		SELECT
-			a.id,
 			a.company_id companyId,
-			a.parent_id parentId,
-			a.menu_level menuLevel,
-			a.menu_name menuName,
-			a.menu_url menuUrl,
-			a.ascription,
-			a.icon,
-			a.type
+			b.id,
+			b.parent_id parentId,
+			b.menu_level menuLevel,
+			b.menu_name menuName,
+			b.menu_url menuUrl,
+			b.ascription,
+			b.icon,
+			b.type,
+			b.create_time createTime
 		FROM
-			qft_company_menu a
+			qft_company_menu a LEFT JOIN qft_menu b on a.menu_id = b.id
 		where 1= 1
-		<if test="null != companyId and companyId != ''">
+		<if test="null != companyId">
 			and a.company_id = #{companyId}
 		</if>
 		<if test ="null != ascription">
-			and a.ascription = #{ascription}
-		</if>
-		<if test ="null == companyId or companyId == ''">
-			group by a.base_menu_id
+			and b.ascription = #{ascription}
 		</if>
 	</select>
 	
@@ -92,9 +90,10 @@
 			b.type
 		FROM
 			qft_company_role_menu a
-		LEFT JOIN qft_company_menu b ON a.menu_id = b.id
+		LEFT JOIN qft_menu b ON a.menu_id = b.id
 		WHERE
-			a.role_id in
+			a.company_id = #{companyId}
+		and	a.role_id in
         <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -141,9 +140,10 @@
 			b.icon
 		FROM
 			qft_company_role_menu a
-		JOIN qft_company_menu b ON a.menu_id = b.id
+		JOIN qft_menu b ON a.menu_id = b.id
 		WHERE
-			a.role_id = #{roleId}
+			a.company_id = #{companyId}
+			and a.role_id = #{roleId}
 			and b.parent_id = 0
 	</select>
 	<select id="selectSubMenu" resultMap="UserRoleMenuResult">
@@ -154,7 +154,7 @@
 			b.menu_url as menu_url,
 			b.icon
 		FROM
-			qft_company_menu b
+			qft_menu b
         WHERE b.parent_id = #{id}
     </select>
     <select id="selectMenuAuth" resultType="com.born.facade.vo.appauth.UserMenuAuthVo">
@@ -166,7 +166,7 @@
 			b.icon
 		FROM
 			qft_menu_authority a
-		JOIN qft_company_authority b ON a.menu_id = b.id
+		JOIN qft_authority b ON a.authority_id = b.id
 		WHERE
 			a.menu_id = #{id}
     </select>
@@ -189,7 +189,7 @@
 			a.menu_name,
 			a.menu_url
 		FROM
-			qft_company_menu a
+			qft_menu a
 		WHERE
 			a.parent_id = #{id}
     </select>
@@ -202,7 +202,7 @@
 			a.menu_name,
 			a.menu_url
 		FROM
-			qft_company_menu a
+			qft_menu a
 		WHERE
 			a.id = #{menuId}
 	</select>

@@ -32,5 +32,5 @@ public interface CodeMapper extends BaseMapper<Code> {
 	* @date 2018年5月28日 下午2:31:56 
 	* @throws
 	 */
-	List<CodeVO> selectCodeSet(@Param("companyId")String companyId);
+	List<CodeVO> selectCodeSet(@Param("companyId")Long companyId);
 }

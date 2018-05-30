@@ -2,11 +2,10 @@ package com.born.facade.dto.menu;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import com.born.core.base.BaseValidate;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: MenuQueryDTO 
@@ -16,7 +15,8 @@ import lombok.Data;
 *
  */
 @Data
-public class MenuQueryDTO extends BaseValidate {
+@EqualsAndHashCode(callSuper = true)
+public class MenuQueryDTO extends BaseValidate<MenuQueryDTO> {
 	/**
 	 * 
 	 */
@@ -29,8 +29,8 @@ public class MenuQueryDTO extends BaseValidate {
 	/**
 	 * 公司ID
 	 */
-	@NotBlank(message = "公司ID不能为空")
-	private String companyId;
+	@NotNull(message = "公司ID不能为空")
+	private Long companyId;
 	/**
 	 * 菜单所属类型：1、pc 2、手机
 	 */

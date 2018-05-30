@@ -24,7 +24,7 @@ public class MenuPermissionFactory implements MenuPermissionContent {
 
 	private MenuPermissionContent getMenuPermissionContent(final Byte type) {
 		if (MenuAuthEnum.POSITION_AUTH.getStatus().equals(type)) {
-			menuPermission = SpringUtils.getBeanByName("positionmMenuAuth", PositionmMenuAuth.class);
+			menuPermission = SpringUtils.getBeanByName("positionmMenuAuth", PositionMenuAuth.class);
 		} else if (MenuAuthEnum.PERSION_AUTH.getStatus().equals(type)) {
 			menuPermission = SpringUtils.getBeanByName("persionMenuAuth", PersionMenuAuth.class);
 		}

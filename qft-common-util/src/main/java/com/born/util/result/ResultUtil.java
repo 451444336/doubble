@@ -203,6 +203,19 @@ public final class ResultUtil {
     /**
      * 
     * @Title: success 
+    * @Description: 成功返回 
+    * @param @return    设定文件 
+    * @return Result    返回类型 
+    * @author lijie
+    * @throws
+     */
+	public static Result success() {
+
+		return getResult(RespCode.Code.SUCCESS);
+	}
+    /**
+     * 
+    * @Title: success 
     * @Description: 成功返回数据以及条数
     * @param @param data
     * @param @param count
@@ -271,5 +284,19 @@ public final class ResultUtil {
 	public static Result fail(RespCode code, String message) {
 
 		return ResultUtil.getResult(code, message);
+	}
+	/**
+	 * 
+	* @Title: requestDataError 
+	* @Description: 请求参数异常 
+	* @param @param message
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	public static Result requestDataError(String message) {
+
+		return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR, message);
 	}
 }

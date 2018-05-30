@@ -7,6 +7,7 @@ import com.born.core.page.PageBean;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 员工DTO
  * @author 明成
@@ -14,6 +15,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value="员工管理请求实体")
+@EqualsAndHashCode(callSuper = true)
 public class FindStaffListDTO extends PageBean {
 
 	/**
@@ -36,7 +38,7 @@ public class FindStaffListDTO extends PageBean {
 	@ApiModelProperty(value="职务ID",name="positionId")
 	private Long positionId;
 	//公司ID
-	private String companyId;
+	private Long companyId;
 	//权限IDs
 	private List<Long> permissionIds;
 	

@@ -43,7 +43,7 @@ public interface CompanyMenuMapper extends BaseMapper<CompanyMenu> {
 	* @author lijie
 	* @throws
 	 */
-	List<MenuVO> selectMenuByUserId(@Param("userId") Long userId, @Param("companyId") String companyId);
+	List<MenuVO> selectMenuByUserId(@Param("userId") Long userId, @Param("companyId") Long companyId);
 	/**
 	 * 
 	* @Title: selectAllMenu 
@@ -53,7 +53,7 @@ public interface CompanyMenuMapper extends BaseMapper<CompanyMenu> {
 	* @author lijie
 	* @throws
 	 */
-	List<MenuVO> selectAllMenu(@Param("companyId") String companyId,@Param("ascription") Byte ascription );
+	List<MenuVO> selectAllMenu(@Param("companyId") Long companyId,@Param("ascription") Byte ascription );
 	/**
 	 * 
 	* @Title: selectMenuByRoleIds 
@@ -64,7 +64,7 @@ public interface CompanyMenuMapper extends BaseMapper<CompanyMenu> {
 	* @author lijie
 	* @throws
 	 */
-	List<MenuVO> selectMenuByRoleIds(@Param("roleIds") List<Long> roleIds);
+	List<MenuVO> selectMenuByRoleIds(@Param("roleIds") List<Long> roleIds, @Param("companyId") Long companyId);
 	
 
 	
@@ -78,7 +78,7 @@ public interface CompanyMenuMapper extends BaseMapper<CompanyMenu> {
 	* @return Set<UserRoleMenuVo>
 	* @date 2018年5月4日 下午6:17:40
 	 */
-	Set<UserRoleMenuVo> selectMenuByRoleId(@Param("roleId") String roleId);	
+	Set<UserRoleMenuVo> selectMenuByRoleId(@Param("roleId") String roleId, @Param("companyId") Long companyId);
 
 	/**
 	 * 

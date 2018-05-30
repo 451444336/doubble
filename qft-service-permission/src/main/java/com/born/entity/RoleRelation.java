@@ -1,14 +1,12 @@
 package com.born.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.born.core.entity.EntityClone;
+import com.born.core.base.BaseCoreEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: RoleRelation 
@@ -18,36 +16,22 @@ import lombok.Data;
 *
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Table(name="qft_role_relation")
-public class RoleRelation extends EntityClone<RoleRelation> {
+public class RoleRelation extends BaseCoreEntity<RoleRelation> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * 主键ID
-	 */
-	@Id
-	private Long id;
-	/**
 	 * 公司ID
 	 */
 	@Column(name="company_id")
-	private String companyId;
+	private Long companyId;
 	/**
 	 * 角色ID
 	 */
 	@Column(name="role_id")
 	private Long roleId;
-	/**
-	 * 创建时间
-	 */
-	@Column(name="create_time")
-	private Date createTime;
-	/**
-	 * 创建人ID
-	 */
-	@Column(name="creater_id")
-	private Long createrId;
 }

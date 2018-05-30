@@ -1,14 +1,12 @@
 package com.born.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.born.core.entity.EntityClone;
+import com.born.core.base.BaseCoreEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: MenuAuthority 
@@ -18,8 +16,9 @@ import lombok.Data;
 *
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Table(name="qft_menu_authority")
-public class MenuAuthority extends EntityClone<MenuAuthority> {
+public class MenuAuthority extends BaseCoreEntity<MenuAuthority> {
 	
 	/**
 	 * @fieldName: serialVersionUID
@@ -27,11 +26,6 @@ public class MenuAuthority extends EntityClone<MenuAuthority> {
 	 * @Description: TODO
 	 */
 	private static final long serialVersionUID = -1522985762545608062L;
-	/**
-	 * 主键ID
-	 */
-	@Id
-	private Long id;
 	/**
 	 * 权限ID
 	 */
@@ -42,19 +36,4 @@ public class MenuAuthority extends EntityClone<MenuAuthority> {
 	 */
 	@Column(name = "menu_id")
 	private Long menuId;
-	/**
-	 * 创建时间
-	 */
-	@Column(name = "create_time")
-	private Date createTime;
-	/**
-	 * 创建人ID
-	 */
-	@Column(name = "creater_id")
-	private Long createrId;
-	/**
-	 * 公司ID
-	 */
-	@Column(name = "company_id")
-	private String companyId;
 }
