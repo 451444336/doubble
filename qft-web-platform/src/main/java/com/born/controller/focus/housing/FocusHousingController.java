@@ -150,7 +150,7 @@ public class FocusHousingController {
 	 * @date 2018年5月29日 下午2:02:04
 	 */
 	@GetMapping(value = "/housingList")
-    public String storeList() {
+    public String housingList() {
         return "housing/qft_housingList";
     }
 
@@ -191,7 +191,7 @@ public class FocusHousingController {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
     })
-	@PostMapping(value = "/getAddIrregularAll")
+	@GetMapping(value = "/getAddIrregularAll")
 	@ResponseBody
 	public Result getAddIrregularAll(Long trustId){
 		

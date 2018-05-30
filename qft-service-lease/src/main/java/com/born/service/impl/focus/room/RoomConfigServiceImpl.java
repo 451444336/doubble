@@ -26,16 +26,20 @@ public class RoomConfigServiceImpl implements IRoomConfigService {
 	RoomConfigMapper roomConfigMapper;
 	
 	@Override
-	public Result addOrUpdate(RoomConfigDTO dto) {
+	public Result batchAddOrUpdate(List<RoomConfigDTO> list) {
 		Result result = ResultUtil.fail();
-		if(StringUtils.isBlank(dto.getConfigName())){
+		if(list ==null || list.size() <= 0){
 			return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR);
 		}
 		try {
-			//添加或修改房间配置信息
-			log.info("执行添加或修改房间配置信息...");
-			int returnFlag = roomConfigMapper.insertOrUpdate(dto);
-			log.info("添加或修改房间配置信息成功...");
+			int returnFlag = 0;
+			for(RoomConfigDTO dto : list){
+				//添加或修改房间配置信息
+				log.info("执行添加或修改房间配置信息...");
+				returnFlag *= roomConfigMapper.insertOrUpdate(dto);
+				log.info("添加或修改房间配置信息成功...");
+			}
+			
 			return ResultUtil.success(result, returnFlag);
 		} catch (Exception e) {
 			log.error("添加或修改房间配置信息失败（RoomConfigServiceImpl.addOrUpdate）-----------"+e);

@@ -56,7 +56,7 @@ public class FocusRoomController {
     })
 	@PostMapping(value = "/add")
 	@ResponseBody
-	public Result addHousing(@RequestBody List<FocusRoomDTO> listDTO) {
+	public Result addRoom(@RequestBody List<FocusRoomDTO> listDTO) {
 		if(listDTO == null || listDTO.size() <= 0){
 			return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR);
 		}
@@ -117,9 +117,9 @@ public class FocusRoomController {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
     })
-	@PostMapping(value = "/deleteConfig/{id}")
+	@PostMapping(value = "/deleteRoom/{id}")
 	@ResponseBody
-	public Result deleteConfig(@PathVariable Long id) {
+	public Result deleteRoom(@PathVariable Long id) {
 		return focusRoomService.deleteById(id);
 	}
 	/**
@@ -136,9 +136,9 @@ public class FocusRoomController {
             @ApiResponse(code = 10100,message = "请求参数有误"),
             @ApiResponse(code = 200,message = "操作成功")
     })
-	@GetMapping(value = "/getConfigAll")
+	@GetMapping(value = "/getRoomList")
 	@ResponseBody
-	public Result getConfigAll(FocusRoomDTO dto) {
+	public Result getRoomList(FocusRoomDTO dto) {
 		// 获取当前用户信息
 		UserInfoVO su = TokenManager.getLoginUser();
 		dto.setCompanyId(1L);

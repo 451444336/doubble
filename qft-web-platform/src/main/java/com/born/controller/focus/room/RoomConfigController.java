@@ -3,8 +3,11 @@
  */
 package com.born.controller.focus.room;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +20,9 @@ import com.born.config.shiro.token.TokenManager;
 import com.born.facade.dto.focus.room.RoomConfigDTO;
 import com.born.facade.service.focus.room.IRoomConfigService;
 import com.born.facade.vo.UserInfoVO;
+import com.born.util.result.RespCode;
 import com.born.util.result.Result;
+import com.born.util.result.ResultUtil;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -52,16 +57,31 @@ public class RoomConfigController {
     })
 	@PostMapping(value = "/add")
 	@ResponseBody
-	public Result addHousing(RoomConfigDTO dto) {
+	public Result addHousing(byte configType,String configNames, Long parentId) {
+		if(StringUtils.isBlank(configNames)){
+			return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR);
+		}
+		List<RoomConfigDTO> list = new ArrayList<RoomConfigDTO>();
 		// 获取当前登录用户
 		UserInfoVO su = TokenManager.getLoginUser();
 		// 设置默认值
-		dto.setCreateTime(new Date());
-		dto.setUpdateTime(new Date());
-		dto.setCreaterId(su.getId());
-		dto.setUpdaterId(su.getId());
-		dto.setCompanyId(1L);
-		return roomConfigService.addOrUpdate(dto);
+		String[] names = configNames.split(",");
+		for(String configName : names){
+			RoomConfigDTO dto = new RoomConfigDTO();
+			dto.setConfigType(configType);
+			dto.setConfigName(configName);
+			if(parentId != null){
+				dto.setParentId(parentId);
+			}
+			// 设置默认值
+			dto.setCreateTime(new Date());
+			dto.setUpdateTime(new Date());
+			dto.setCreaterId(su.getId());
+			dto.setUpdaterId(su.getId());
+			dto.setCompanyId(1L);
+			list.add(dto);
+		}
+		return roomConfigService.batchAddOrUpdate(list);
 	}
 
 	/**
@@ -100,13 +120,28 @@ public class RoomConfigController {
     })
 	@PostMapping(value = "/update")
 	@ResponseBody
-	public Result updateConfig(RoomConfigDTO dto) {
-		// 获取当前用户信息
+	public Result updateConfig(byte configType,String configNames, Long parentId) {
+		if(StringUtils.isBlank(configNames)){
+			return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR);
+		}
+		List<RoomConfigDTO> list = new ArrayList<RoomConfigDTO>();
+		// 获取当前登录用户
 		UserInfoVO su = TokenManager.getLoginUser();
 		// 设置默认值
-		dto.setUpdateTime(new Date());
-		dto.setUpdaterId(su.getId());
-		return roomConfigService.addOrUpdate(dto);
+		String[] names = configNames.split(",");
+		for(String configName : names){
+			RoomConfigDTO dto = new RoomConfigDTO();
+			dto.setConfigType(configType);
+			dto.setConfigName(configName);
+			if(parentId != null){
+				dto.setParentId(parentId);
+			}
+			// 设置默认值
+			dto.setCreateTime(new Date());
+			dto.setUpdateTime(new Date());
+			list.add(dto);
+		}
+		return roomConfigService.batchAddOrUpdate(list);
 	}
 
 	/**

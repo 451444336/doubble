@@ -23,7 +23,7 @@
 	</insert>
 	
 	<!-- 根据托管信息ID查询不规则递增信息 -->
-	<select id="getAddIrregularAll">
+	<select id="getAddIrregularAll" resultType="com.born.facade.vo.focus.housing.AddIrregularVO">
 		SELECT 
 			trust_id trustId,
 			add_number addNumber,
