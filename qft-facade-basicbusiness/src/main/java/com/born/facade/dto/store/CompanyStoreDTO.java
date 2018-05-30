@@ -46,7 +46,7 @@ public class CompanyStoreDTO extends PageBean {
 	/**
 	 * 公司ID
 	 */
-	private String companyId;
+	private Long companyId;
 	/**
 	 * 城市
 	 */
