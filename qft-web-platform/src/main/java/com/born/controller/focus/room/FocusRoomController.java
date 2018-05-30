@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiResponses;
  * @date 2018年5月29日 下午4:11:05
  */
 @Controller
-@RequestMapping(value = "/web/config")
+@RequestMapping(value = "/web/room")
 public class FocusRoomController {
 
 	@Reference(version = "1.0.0")
@@ -62,7 +62,7 @@ public class FocusRoomController {
 		dto.setCreaterId(su.getId());
 		dto.setUpdaterId(su.getId());
 		dto.setCompanyId(1L);
-		return focusRoomService.addOrUpdate(dto);
+		return focusRoomService.BatchAddOrUpdate(dto);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class FocusRoomController {
 		// 设置默认值
 		dto.setUpdateTime(new Date());
 		dto.setUpdaterId(su.getId());
-		return focusRoomService.addOrUpdate(dto);
+		return focusRoomService.BatchAddOrUpdate(dto);
 	}
 	
 	/**
