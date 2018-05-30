@@ -25,7 +25,6 @@
 		SELECT
 			qcr.id,
 			qcr.role_name AS roleName,
-			qcr.is_auth_edit AS isAuthEdit,
 			qcr.is_valid AS isValid,
 			qcr.company_id AS companyId
 		FROM
@@ -41,7 +40,6 @@
 			r.id,
 			r.role_name roleName,
 			r.create_time createTime,
-			r.is_auth_edit isAuthEdit,
 			r.is_valid isValid
 		FROM
 			qft_company_role r
