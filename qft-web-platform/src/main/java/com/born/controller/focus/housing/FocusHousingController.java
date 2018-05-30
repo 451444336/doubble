@@ -115,15 +115,6 @@ public class FocusHousingController {
 		dto.setUpdaterId(su.getId());
 		return focusHousingService.addOrUpdate(dto);
 	}
-
-	@GetMapping(value = "/update")
-	@ResponseBody
-	public Result update() {
-		FocusHousingDTO dto = new FocusHousingDTO();
-		dto.setId(1L);
-		dto.setVariableRestCount(-1);
-		return focusHousingService.updateRoomCount(dto);
-	}
 	
 	/**
 	 * 
