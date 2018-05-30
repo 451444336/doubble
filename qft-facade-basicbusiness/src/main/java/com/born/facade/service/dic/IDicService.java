@@ -70,7 +70,7 @@ public interface IDicService {
 	 * @throws Exception 
 	 * @date 2018年5月21日 上午11:51:24
 	 */
-	Result addDicItem(String pId, String dicItem) throws Exception;
+	Result addDicItem(String pId, String dicItem);
 
 	/**
 	 * 
@@ -86,7 +86,7 @@ public interface IDicService {
 	 * @throws Exception 
 	 * @date 2018年5月21日 上午11:50:48
 	 */
-	Result addDicSubItem(String pId, String dicSubItem) throws Exception;
+	Result addDicSubItem(String pId, String dicSubItem);
 
 	/**
 	 * 根据ID删除
