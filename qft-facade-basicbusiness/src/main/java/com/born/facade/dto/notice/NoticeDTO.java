@@ -47,7 +47,7 @@ public class NoticeDTO extends PageBean {
 	/**
 	 * 公司ID
 	 */
-	private String companyId;
+	private Long companyId;
 	/**
 	 * 标题
 	 */

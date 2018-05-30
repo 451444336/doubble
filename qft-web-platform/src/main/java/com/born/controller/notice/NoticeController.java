@@ -27,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2018年5月24日 下午1:49:12
  * @version 1.0
  */
-@Slf4j
 @Controller
 @RequestMapping(value = "web/not")
 public class NoticeController {
