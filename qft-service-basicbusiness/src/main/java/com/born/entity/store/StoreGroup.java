@@ -37,7 +37,7 @@ public class StoreGroup extends BaseEntity<StoreGroup> {
 	 * 公司ID
 	 */
 	@Column(name = "company_id")
-	private String companyId;
+	private Long companyId;
 	/**
      * 删除状态
      */
