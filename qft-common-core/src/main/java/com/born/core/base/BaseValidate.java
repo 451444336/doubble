@@ -50,13 +50,13 @@ public class BaseValidate<T> extends EntityClone<T> {
 	public String validateForm(Class<?>... clazz) {
 		final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 		@SuppressWarnings("rawtypes")
-		Set<ConstraintViolation<BaseValidate>> constraintViolation;
+		Set<ConstraintViolation<BaseValidate>> violation;
 		if (clazz == null) {
-			constraintViolation = validator.validate(this);
+			violation = validator.validate(this);
 		} else {
-			constraintViolation = validator.validate(this, clazz);
+			violation = validator.validate(this, clazz);
 		}
-		return constraintViolation.stream().findFirst().map(ConstraintViolation::getMessage).orElse(null);
+		return violation.stream().findFirst().map(ConstraintViolation::getMessage).orElse(null);
 	}
 
 }
