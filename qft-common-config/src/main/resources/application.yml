@@ -1,6 +1,6 @@
 spring:
    profiles:
-     active: dev
+     active: test
 #mybatis扫描包
 mybatis:
     type-aliases-package: com.born.entity
