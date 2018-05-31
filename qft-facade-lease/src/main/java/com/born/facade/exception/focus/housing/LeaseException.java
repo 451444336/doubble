@@ -10,22 +10,22 @@ import com.born.util.result.RespCode;
 * @date 2018年5月25日 下午6:14:53 
 *
  */
-public class FocusHousingException extends BizException {
+public class LeaseException extends BizException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public FocusHousingException(RespCode exceptionEnum) {
+	public LeaseException(RespCode exceptionEnum) {
 		super(exceptionEnum.getMsg(), exceptionEnum.getCode());
 	}
 
-	public FocusHousingException() {
+	public LeaseException() {
 		super();
 	}
 
-	public FocusHousingException(String message) {
+	public LeaseException(String message) {
 		super(message);
 	}
 }

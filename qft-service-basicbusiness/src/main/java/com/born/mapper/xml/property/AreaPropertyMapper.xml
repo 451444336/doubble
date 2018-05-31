@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.born.mapper.AreaPropertyMapper">
+
+	<!-- 根据楼盘地址ID删除楼盘地址 -->
+	<update id="deleteById">
+		UPDATE qft_area_property p
+		SET p.is_delete = 1
+		WHERE
+			p.id = #{id}
+	</update>
+	
+	<!-- 根据区域名称查询下级区域 -->
+	<select id="seleteProCityArea" resultType="com.born.facade.vo.property.ProvCityAreaVO">
+		SELECT
+			c.id,
+			c.area_name areaName
+		FROM
+			qft_prov_city_area a,
+			qft_prov_city_area c
+		WHERE
+			a.id = c.parent_id
+		AND a.area_name = #{areaName}
+		
+	</select>
+	
+	<!-- 根据区域名称查询楼盘地址 -->
+	<select id="seleteAreaProperty" parameterType="com.born.facade.dto.property.AreaPropertyDTO" resultType="com.born.facade.vo.property.AreaPropertyVO">
+		SELECT
+			p.id,
+			p.property_adrr propertyAdrr
+		FROM
+			qft_area_property p
+		LEFT JOIN qft_prov_city_area a ON p.area_id = a.id
+		WHERE
+			p.is_delete = 0
+		AND a.area_name = #{areaName}
+		<if test="companyId != null and companyId != '' ">
+			AND p.company_id = #{companyId}
+		</if>
+		order by p.update_time desc
+	</select>
+</mapper>

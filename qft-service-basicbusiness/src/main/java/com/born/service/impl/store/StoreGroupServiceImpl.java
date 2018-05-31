@@ -12,7 +12,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.born.entity.store.CompanyStore;
 import com.born.entity.store.StoreGroup;
 import com.born.facade.dto.store.StoreGroupDTO;
-import com.born.facade.exception.StoreException;
+import com.born.facade.exception.BasicBusinessException;
 import com.born.facade.exception.StoreExceptionEnum;
 import com.born.facade.service.store.IStoreGroupService;
 import com.born.facade.vo.store.StoreGroupVO;
@@ -77,7 +77,7 @@ public class StoreGroupServiceImpl implements IStoreGroupService {
 			log.info("保存操作成功...");
 		} catch (Exception e) {
 			log.error("批量添加店面分组失败（StoreGroupServiceImpl.insertBatch）.......................",e);
-			throw new StoreException(StoreExceptionEnum.ADD_GROUP_ERROR);
+			throw new BasicBusinessException(StoreExceptionEnum.ADD_GROUP_ERROR);
 		}
 		return result;
 	}
@@ -104,7 +104,7 @@ public class StoreGroupServiceImpl implements IStoreGroupService {
 			log.info("修改操作成功...");
 		} catch (Exception e) {
 			log.error("修改店面分组失败（StoreGroupServiceImpl.update）......................."+e);
-			throw new StoreException(StoreExceptionEnum.UPDATE_GROUP_ERROR);
+			throw new BasicBusinessException(StoreExceptionEnum.UPDATE_GROUP_ERROR);
 		}
 		
 		return result;
@@ -126,7 +126,7 @@ public class StoreGroupServiceImpl implements IStoreGroupService {
 			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 		} catch (Exception e) {
 			log.error("删除店面分组失败（StoreGroupServiceImpl.deleteById）......................."+e);
-			throw new StoreException(StoreExceptionEnum.DELETE_GROUP_ERROR);
+			throw new BasicBusinessException(StoreExceptionEnum.DELETE_GROUP_ERROR);
 		}
 	}
 	

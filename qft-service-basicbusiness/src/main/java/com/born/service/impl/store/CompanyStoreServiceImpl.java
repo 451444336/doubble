@@ -14,7 +14,7 @@ import com.born.entity.store.StoreGroup;
 import com.born.facade.dto.store.AddCompanyStoreDTO;
 import com.born.facade.dto.store.CompanyStoreDTO;
 import com.born.facade.dto.store.StoreGroupDTO;
-import com.born.facade.exception.StoreException;
+import com.born.facade.exception.BasicBusinessException;
 import com.born.facade.exception.StoreExceptionEnum;
 import com.born.facade.service.store.ICompanyStoreService;
 import com.born.facade.vo.store.CompanyStoreVO;
@@ -79,7 +79,7 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 			log.info("保存操作成功...");
 		} catch (Exception e) {
 			log.error("添加店面失败（CompanyStoreServiceImpl.insert）..................."+e);
-			throw new StoreException(StoreExceptionEnum.ADD_STORE_ERROR);
+			throw new BasicBusinessException(StoreExceptionEnum.ADD_STORE_ERROR);
 		}
 		return result;
 	}
@@ -106,7 +106,7 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 			log.info("修改操作成功...");
 		} catch (Exception e) {
 			log.error("修改店面失败（CompanyStoreServiceImpl.update）..................."+e);
-			throw new StoreException(StoreExceptionEnum.UPDATE_STORE_ERROR);
+			throw new BasicBusinessException(StoreExceptionEnum.UPDATE_STORE_ERROR);
 		}
 		
 		return result;
@@ -128,7 +128,7 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 			return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 		} catch (Exception e) {
 			log.error("删除店面失败（CompanyStoreServiceImpl.deleteById）..................."+e);
-			throw new StoreException(StoreExceptionEnum.DELETE_STORE_ERROR);
+			throw new BasicBusinessException(StoreExceptionEnum.DELETE_STORE_ERROR);
 		}
 	}
 	

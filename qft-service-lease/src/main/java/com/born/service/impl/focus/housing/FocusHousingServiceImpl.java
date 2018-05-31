@@ -13,7 +13,7 @@ import com.born.facade.dto.focus.housing.AddOrUpdHousingDTO;
 import com.born.facade.dto.focus.housing.FocusHousingDTO;
 import com.born.facade.dto.focus.housing.FocusTrustDTO;
 import com.born.facade.dto.focus.housing.UpdRoomCountHousingDTO;
-import com.born.facade.exception.focus.housing.FocusHousingException;
+import com.born.facade.exception.focus.housing.LeaseException;
 import com.born.facade.exception.focus.housing.FocusHousingExceptionEnum;
 import com.born.facade.service.focus.housing.IFocusHousingService;
 import com.born.facade.vo.focus.housing.AddIrregularVO;
@@ -92,7 +92,7 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 			
 		} catch (Exception e) {
 			log.error("添加或修改集中整租房源失败（FocusHousingServiceImpl.addOrUpdate）-----------------------------"+e);
-			throw new FocusHousingException(FocusHousingExceptionEnum.ADD_UPDATE_HOUSING_ERROR);
+			throw new LeaseException(FocusHousingExceptionEnum.ADD_UPDATE_HOUSING_ERROR);
 		}
 		return result;
 	}
@@ -109,7 +109,7 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 			return ResultUtil.success(result,returnFlag);
 		} catch (Exception e) {
 			log.error("添加或修改集中整租房源失败（FocusHousingServiceImpl.addOrUpdate）-----------------------------"+e);
-			throw new FocusHousingException(FocusHousingExceptionEnum.UPDATE_ROOM_COUNT_ERROR);
+			throw new LeaseException(FocusHousingExceptionEnum.UPDATE_ROOM_COUNT_ERROR);
 		}
 	}
 	
@@ -128,7 +128,7 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 			return ResultUtil.success(result, returnFlag);
 		} catch (Exception e) {
 			log.error("删除集中整租房源失败（FocusHousingServiceImpl.deleteById）-----------------------------"+e);
-			throw new FocusHousingException(FocusHousingExceptionEnum.DELETE_HOUSING_ERROR);
+			throw new LeaseException(FocusHousingExceptionEnum.DELETE_HOUSING_ERROR);
 		}
 	}
 	
@@ -146,7 +146,7 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 			log.info("根据ID集中整租房源信息成功...");
 		} catch (Exception e) {
 			log.error("集中整租根据ID房源信息失败（FocusHousingServiceImpl.getHousingOne）-----------------------------"+e);
-			throw new FocusHousingException(FocusHousingExceptionEnum.DELETE_HOUSING_ERROR);
+			throw new LeaseException(FocusHousingExceptionEnum.DELETE_HOUSING_ERROR);
 		}
 		return result;
 	}

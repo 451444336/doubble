@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.facade.dto.focus.room.RoomConfigDTO;
-import com.born.facade.exception.focus.housing.FocusHousingException;
+import com.born.facade.exception.focus.housing.LeaseException;
 import com.born.facade.exception.focus.housing.FocusHousingExceptionEnum;
 import com.born.facade.service.focus.room.IRoomConfigService;
 import com.born.facade.vo.focus.room.RoomConfigVO;
@@ -42,7 +42,7 @@ public class RoomConfigServiceImpl implements IRoomConfigService {
 			return ResultUtil.success(result, returnFlag);
 		} catch (Exception e) {
 			log.error("添加或修改房间配置信息失败（RoomConfigServiceImpl.addOrUpdate）-----------"+e);
-			throw new FocusHousingException(FocusHousingExceptionEnum.ADD_UPDATE_CONFIG_ERROR);
+			throw new LeaseException(FocusHousingExceptionEnum.ADD_UPDATE_CONFIG_ERROR);
 		}
 	}
 
@@ -60,7 +60,7 @@ public class RoomConfigServiceImpl implements IRoomConfigService {
 			return ResultUtil.success(result, returnFlag);
 		} catch (Exception e) {
 			log.error("根据房间配置ID删除房间配置信息失败（RoomConfigServiceImpl.deleteById）-----------"+e);
-			throw new FocusHousingException(FocusHousingExceptionEnum.DELETE_CONFIG_ERROR);
+			throw new LeaseException(FocusHousingExceptionEnum.DELETE_CONFIG_ERROR);
 		}
 	}
 
@@ -93,7 +93,7 @@ public class RoomConfigServiceImpl implements IRoomConfigService {
 			return ResultUtil.success(result, list);
 		} catch (Exception e) {
 			log.error("查询房间配置信息失败（RoomConfigServiceImpl.getConfigAll）-----------"+e);
-			throw new FocusHousingException(FocusHousingExceptionEnum.DELETE_CONFIG_ERROR);
+			throw new LeaseException(FocusHousingExceptionEnum.DELETE_CONFIG_ERROR);
 		}
 	}
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.facade.dto.focus.housing.UpdRoomCountHousingDTO;
 import com.born.facade.dto.focus.room.FocusRoomDTO;
-import com.born.facade.exception.focus.housing.FocusHousingException;
+import com.born.facade.exception.focus.housing.LeaseException;
 import com.born.facade.exception.focus.housing.FocusHousingExceptionEnum;
 import com.born.facade.service.focus.room.IFocusRoomService;
 import com.born.facade.vo.focus.room.FocusRoomVO;
@@ -54,7 +54,7 @@ public class FocusRoomServiceImpl implements IFocusRoomService {
 			return ResultUtil.success(result, returnFlag);
 		} catch (Exception e) {
 			log.error("添加或修改房间信息失败（FocusRoomServiceImpl.add）-----------------"+e);
-			throw new FocusHousingException(FocusHousingExceptionEnum.ADD_UPDATE_ROOM_ERROR);
+			throw new LeaseException(FocusHousingExceptionEnum.ADD_UPDATE_ROOM_ERROR);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class FocusRoomServiceImpl implements IFocusRoomService {
 			return ResultUtil.success(result, returnFlag);
 		} catch (Exception e) {
 			log.error("删除房间失败（FocusRoomServiceImpl.deleteById）-----------------"+e);
-			throw new FocusHousingException(FocusHousingExceptionEnum.DELETE_ROOM_ERROR);
+			throw new LeaseException(FocusHousingExceptionEnum.DELETE_ROOM_ERROR);
 		}
 	}
 
