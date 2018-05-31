@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.born.facade.dto.focus.housing.FocusHousingDTO;
+import com.born.facade.dto.focus.housing.UpdRoomCountHousingDTO;
 import com.born.facade.dto.focus.room.FocusRoomDTO;
 import com.born.facade.exception.focus.housing.FocusHousingException;
 import com.born.facade.exception.focus.housing.FocusHousingExceptionEnum;
@@ -45,7 +45,7 @@ public class FocusRoomServiceImpl implements IFocusRoomService {
 			log.info("添加或修改房间信息成功...");
 			
 			//记录分配房间数量
-			FocusHousingDTO housingDto = new FocusHousingDTO();
+			UpdRoomCountHousingDTO housingDto = new UpdRoomCountHousingDTO();
 			housingDto.setVariableCount(listDTO.size());
 			housingDto.setId(listDTO.get(0).getHousingId());
 			log.info("执行修改房源信息中的房间数量...");

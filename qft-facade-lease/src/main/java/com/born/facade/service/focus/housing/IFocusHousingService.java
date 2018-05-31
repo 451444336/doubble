@@ -1,6 +1,8 @@
 package com.born.facade.service.focus.housing;
 
+import com.born.facade.dto.focus.housing.AddOrUpdHousingDTO;
 import com.born.facade.dto.focus.housing.FocusHousingDTO;
+import com.born.facade.dto.focus.housing.UpdRoomCountHousingDTO;
 import com.born.util.result.Result;
 
 /**
@@ -17,7 +19,7 @@ public interface IFocusHousingService{
 	 * @param dto
 	 * @return
 	 */
-	Result addOrUpdate(FocusHousingDTO dto);
+	Result addOrUpdate(AddOrUpdHousingDTO dto);
 	
 	/**
 	 * 
@@ -28,7 +30,7 @@ public interface IFocusHousingService{
 	 * @return
 	 * @date 2018年5月30日 上午9:44:35
 	 */
-	Result updateRoomCount(FocusHousingDTO dto);
+	Result updateRoomCount(UpdRoomCountHousingDTO dto);
 	
 	/**
 	 * 删除房源

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.config.shiro.token.TokenManager;
+import com.born.facade.dto.focus.housing.AddOrUpdHousingDTO;
 import com.born.facade.dto.focus.housing.FocusHousingDTO;
 import com.born.facade.service.focus.housing.IFocusHousingService;
 import com.born.facade.vo.UserInfoVO;
@@ -55,7 +56,7 @@ public class FocusHousingController {
     })
 	@PostMapping(value = "/add")
 	@ResponseBody
-	public Result addHousing(FocusHousingDTO dto) {
+	public Result addHousing(AddOrUpdHousingDTO dto) {
 		// 获取当前登录用户
 		UserInfoVO su = TokenManager.getLoginUser();
 		// 设置默认值
@@ -107,7 +108,7 @@ public class FocusHousingController {
     })
 	@PostMapping(value = "/update")
 	@ResponseBody
-	public Result updateHousing(FocusHousingDTO dto) {
+	public Result updateHousing(AddOrUpdHousingDTO dto) {
 		// 获取当前用户信息
 		UserInfoVO su = TokenManager.getLoginUser();
 		// 设置默认值

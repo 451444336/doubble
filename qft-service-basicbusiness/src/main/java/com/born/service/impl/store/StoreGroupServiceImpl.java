@@ -88,7 +88,8 @@ public class StoreGroupServiceImpl implements IStoreGroupService {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		// 验证参数
 		if (dto.getId() == null) {
-			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR, dto);
+			result.setMessage("主键不能为空");
+			return result;
 		}
 		try {
 			// 查询店面分组信息
@@ -134,7 +135,8 @@ public class StoreGroupServiceImpl implements IStoreGroupService {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		// 验证参数
 		if (dto.getStoreId() == null) {
-			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR, dto);
+			result.setMessage("店面ID不能为空");
+			return result;
 		}
 		try {
 		 	PageHelper.startPage(dto.getPageNum(), dto.getPageSize());

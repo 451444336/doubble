@@ -1,5 +1,6 @@
 package com.born.facade.service.store;
 
+import com.born.facade.dto.store.AddCompanyStoreDTO;
 import com.born.facade.dto.store.CompanyStoreDTO;
 import com.born.util.result.Result;
 
@@ -18,7 +19,7 @@ public interface ICompanyStoreService {
 	 * @param store
 	 * @return
 	 */
-	Result add(CompanyStoreDTO dto);
+	Result add(AddCompanyStoreDTO dto);
 
 	/**
 	 * 删除店面

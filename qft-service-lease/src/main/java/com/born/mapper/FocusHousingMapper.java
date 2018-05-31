@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
 import com.born.entity.focus.housing.FocusHousing;
+import com.born.facade.dto.focus.housing.AddOrUpdHousingDTO;
 import com.born.facade.dto.focus.housing.FocusHousingDTO;
+import com.born.facade.dto.focus.housing.UpdRoomCountHousingDTO;
 import com.born.facade.vo.focus.housing.FocusHousingVO;
 
 /**
@@ -23,7 +25,7 @@ public interface FocusHousingMapper extends BaseMapper<FocusHousing> {
 	 * @param dto
 	 * @return
 	 */
-	int insertOrUpdate(FocusHousingDTO dto);
+	int insertOrUpdate(AddOrUpdHousingDTO dto);
 	
 	/**
 	 * 
@@ -34,7 +36,7 @@ public interface FocusHousingMapper extends BaseMapper<FocusHousing> {
 	 * @return
 	 * @date 2018年5月30日 上午9:42:57
 	 */
-	int updateRoomCount(FocusHousingDTO dto);
+	int updateRoomCount(UpdRoomCountHousingDTO dto);
 	
 	/**
 	 * 根据ID删除集中在整租房源信息

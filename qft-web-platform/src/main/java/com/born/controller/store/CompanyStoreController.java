@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.config.shiro.token.TokenManager;
+import com.born.facade.dto.store.AddCompanyStoreDTO;
 import com.born.facade.dto.store.CompanyStoreDTO;
 import com.born.facade.service.store.ICompanyStoreService;
 import com.born.facade.vo.UserInfoVO;
@@ -73,7 +74,7 @@ public class CompanyStoreController {
     })
 	@PostMapping(value = "/add")
 	@ResponseBody
-	public Result addStore(CompanyStoreDTO dto) {
+	public Result addStore(AddCompanyStoreDTO dto) {
 		// 获取当前登录用户
 		UserInfoVO su = TokenManager.getLoginUser();
 		// 设置默认值

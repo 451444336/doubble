@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.facade.dto.focus.housing.AddIrregularDTO;
+import com.born.facade.dto.focus.housing.AddOrUpdHousingDTO;
 import com.born.facade.dto.focus.housing.FocusHousingDTO;
 import com.born.facade.dto.focus.housing.FocusTrustDTO;
+import com.born.facade.dto.focus.housing.UpdRoomCountHousingDTO;
 import com.born.facade.exception.focus.housing.FocusHousingException;
 import com.born.facade.exception.focus.housing.FocusHousingExceptionEnum;
 import com.born.facade.service.focus.housing.IFocusHousingService;
@@ -46,12 +48,13 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 	
 	@Override
 	@Transactional
-	public Result addOrUpdate(FocusHousingDTO dto) {
+	public Result addOrUpdate(AddOrUpdHousingDTO dto) {
 		Result result = ResultUtil.fail();
 		//验证参数
-		if(dto.getStoreId() == null || StringUtils.isBlank(dto.getHouseCode()) ||
-				StringUtils.isBlank(dto.getHouseArea()) || StringUtils.isBlank(dto.getPropertyAdrr())){
-			return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR);
+		String errorStr = dto.validateForm();
+		if (StringUtils.isNotBlank(errorStr)) {
+			result.setMessage(errorStr);
+			return result;
 		}
 		try {
 			//添加或修改集中整租房源信息
@@ -95,9 +98,10 @@ public class FocusHousingServiceImpl implements IFocusHousingService {
 	}
 
 	@Override
-	public Result updateRoomCount(FocusHousingDTO dto) {
+	public Result updateRoomCount(UpdRoomCountHousingDTO dto) {
 		Result result = ResultUtil.fail();
-		if(dto.getId() == 0 || (dto.getVariableCount() == 0 && dto.getVariableRestCount() == 0)){
+		if(dto.getId() == null ||dto.getId() == 0 
+				|| (dto.getVariableCount() == 0 && dto.getVariableRestCount() == 0)){
 			return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR);
 		}
 		try {

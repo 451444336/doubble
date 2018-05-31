@@ -4,7 +4,7 @@
 <mapper namespace="com.born.mapper.CompanyStoreMapper">
 
 	<!-- 添加店面信息 -->
-	<insert id="insertCompanyStore" parameterType="com.born.facade.dto.store.CompanyStoreDTO" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertCompanyStore" parameterType="com.born.facade.dto.store.AddCompanyStoreDTO" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO qft_store(
 			city,
 			name,

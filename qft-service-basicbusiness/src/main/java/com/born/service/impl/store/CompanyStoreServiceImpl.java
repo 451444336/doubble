@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.entity.store.CompanyStore;
 import com.born.entity.store.StoreGroup;
+import com.born.facade.dto.store.AddCompanyStoreDTO;
 import com.born.facade.dto.store.CompanyStoreDTO;
 import com.born.facade.dto.store.StoreGroupDTO;
 import com.born.facade.exception.StoreException;
@@ -44,12 +45,13 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 	
 	@Override
 	@Transactional
-	public Result add(CompanyStoreDTO dto) {
+	public Result add(AddCompanyStoreDTO dto) {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		// 验证参数
-		if (StringUtils.isBlank(dto.getCity()) || StringUtils.isBlank(dto.getName())) {
-			
-			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR);
+		String errorStr = dto.validateForm();
+		if(StringUtils.isNotBlank(errorStr)){
+			result.setMessage(errorStr);
+			return result;
 		}
 		try {
 			//添加店面
@@ -88,7 +90,8 @@ public class CompanyStoreServiceImpl implements ICompanyStoreService {
 		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		// 验证参数
 		if (dto.getId() == null) {
-			return ResultUtil.getResult(RespCode.Code.REQUEST_DATA_ERROR, dto);
+			result.setMessage("主键不能为空");
+			return result;
 		}
 		try {
 			// 查询店面信息

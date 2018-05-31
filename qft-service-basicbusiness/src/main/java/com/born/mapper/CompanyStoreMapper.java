@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.born.core.base.BaseMapper;
 import com.born.entity.store.CompanyStore;
+import com.born.facade.dto.store.AddCompanyStoreDTO;
 import com.born.facade.dto.store.CompanyStoreDTO;
 import com.born.facade.vo.store.CompanyStoreVO;
 
@@ -23,7 +24,7 @@ public interface CompanyStoreMapper extends BaseMapper<CompanyStore> {
 	 * @param dto
 	 * @return
 	 */
-	Long insertCompanyStore(CompanyStoreDTO dto);
+	Long insertCompanyStore(AddCompanyStoreDTO dto);
 	/**
 	 * 根据店面ID删除店面
 	 * @param roleId
