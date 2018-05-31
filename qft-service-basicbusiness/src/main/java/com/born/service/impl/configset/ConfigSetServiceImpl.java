@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.core.constant.ConfigSetConstants;
+import com.born.core.entity.UserData;
 import com.born.core.rediscache.ICacheService;
 import com.born.entity.configset.ConfigSet;
 import com.born.facade.dto.configset.DefaultSetDTO;
 import com.born.facade.dto.configset.RentFreePeriodDTO;
-import com.born.facade.dto.configset.UserData;
 import com.born.facade.exception.ConfigSetException;
 import com.born.facade.service.configset.IConfigSetService;
 import com.born.mapper.ConfigSetMapper;

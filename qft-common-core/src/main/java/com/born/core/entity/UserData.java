@@ -1,4 +1,4 @@
-package com.born.facade.dto;
+package com.born.core.entity;
 
 import java.io.Serializable;
 

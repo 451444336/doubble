@@ -2,7 +2,7 @@ package com.born.facade.service.focus.tenants;
 
 import com.born.core.base.BaseModel;
 import com.born.core.base.IBaseService;
-import com.born.facade.dto.UserData;
+import com.born.core.entity.UserData;
 import com.born.facade.dto.focus.tenants.add.TenantsRegDTO;
 import com.born.facade.dto.focus.tenants.outroom.TenantsOutRoomDTO;
 import com.born.util.result.Result;

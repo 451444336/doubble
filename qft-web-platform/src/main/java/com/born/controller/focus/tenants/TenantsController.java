@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.born.facade.dto.UserData;
+import com.born.core.entity.UserData;
 import com.born.facade.dto.focus.tenants.add.TenantsRegDTO;
 import com.born.facade.service.focus.tenants.IFocusTenantsService;
 import com.born.util.result.Result;

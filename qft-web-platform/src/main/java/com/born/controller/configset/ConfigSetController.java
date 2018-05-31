@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.core.constant.ConfigSetConstants;
+import com.born.core.entity.UserData;
 import com.born.facade.dto.configset.DefaultSetDTO;
 import com.born.facade.dto.configset.RentFreePeriodDTO;
-import com.born.facade.dto.configset.UserData;
 import com.born.facade.service.configset.IConfigSetService;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;

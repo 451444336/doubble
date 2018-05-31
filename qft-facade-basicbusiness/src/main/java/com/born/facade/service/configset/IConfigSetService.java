@@ -1,8 +1,8 @@
 package com.born.facade.service.configset;
 
+import com.born.core.entity.UserData;
 import com.born.facade.dto.configset.DefaultSetDTO;
 import com.born.facade.dto.configset.RentFreePeriodDTO;
-import com.born.facade.dto.configset.UserData;
 import com.born.util.result.Result;
 
 /**
