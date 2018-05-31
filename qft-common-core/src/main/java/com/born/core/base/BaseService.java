@@ -83,9 +83,9 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			log.info("update by model request data = {}", JSON.toJSONString(record));
 		}
 		try {
-			String errorStr = ClassUtils.checkRequest(record);
+			String errorStr = record.validateForm();
 			if (StringUtils.isNotBlank(errorStr)) {
-				return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
+				return ResultUtil.requestDataError(errorStr);
 			}
 			E update = entityClass.newInstance();
 			BeanUtils.copyProperties(record, update);
@@ -214,7 +214,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 			log.info("add by model request data = {}", JSON.toJSONString(record));
 		}
 		try {
-			String errorStr = ClassUtils.checkRequest(record);
+			String errorStr = record.validateForm();
 			if (StringUtils.isNotBlank(errorStr)) {
 				return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
 			}
@@ -241,7 +241,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		try {
 			String errorStr = ClassUtils.checkRequest(records);
 			if (StringUtils.isNotBlank(errorStr)) {
-				return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
+				return ResultUtil.requestDataError(errorStr);
 			}
 			final List<E> inserts = new ArrayList<>(records.size());
 			E insert;
@@ -345,6 +345,10 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 					JSON.toJSONString(pageBean));
 		}
 		try {
+			String errorStr = model.validateForm();
+			if (StringUtils.isNotBlank(errorStr)) {
+				return ResultUtil.requestDataError(errorStr);
+			}
 			PageHelper.startPage(pageBean.getPageNum(), pageBean.getPageSize());
 			E record = entityClass.newInstance();
 			BeanUtils.copyProperties(model, record);
