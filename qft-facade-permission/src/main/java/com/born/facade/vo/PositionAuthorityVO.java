@@ -5,6 +5,7 @@ import java.util.List;
 import com.born.core.base.BaseVO;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 
@@ -15,7 +16,8 @@ import lombok.Data;
 * @version 1.0
  */
 @Data
-public class PositionAuthorityVO extends BaseVO{
+@EqualsAndHashCode(callSuper = true)
+public class PositionAuthorityVO extends BaseVO {
 	
 	/**
 	 * 

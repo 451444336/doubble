@@ -1,5 +1,7 @@
 package com.born.facade.dto;
 
+import java.io.Serializable;
+
 import lombok.Data;
 /**
  * 
@@ -10,8 +12,12 @@ import lombok.Data;
 *
  */
 @Data
-public class ValidateDTO {
+public class ValidateDTO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 用户ID
 	 */

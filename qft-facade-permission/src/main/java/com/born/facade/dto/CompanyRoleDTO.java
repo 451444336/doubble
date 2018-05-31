@@ -5,6 +5,7 @@ import java.util.Date;
 import com.born.core.page.PageBean;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Description: 角色dto
@@ -12,6 +13,7 @@ import lombok.Data;
  * @date 2018年4月27日 下午2:15:21
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class CompanyRoleDTO extends PageBean {
 
 	/**
