@@ -71,6 +71,7 @@
 		<include refid="selectItem"></include>
 			item.parent_id = #{pId}
 			AND item.company_id = #{companyId}
+			and item.is_delete = 0
 			ORDER BY item.order_num ASC
 	</select>
 	<resultMap id="findDicSubItemResultMap"   type="com.born.facade.vo.dic.DicItemVO">
@@ -82,7 +83,10 @@
 	<select id="selectSubItem"  resultMap="findDicSubItemResultMap" >
         <include refid="selectItem"></include>
         	<!-- 这里就不指定级数了 -->
-		item.parent_id = #{id} ORDER BY item.order_num ASC
+		item.parent_id = #{id} 
+		and 
+			item.is_delete = 0 
+		ORDER BY item.order_num ASC
     </select>
     
 </mapper>

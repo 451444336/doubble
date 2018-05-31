@@ -62,11 +62,10 @@
     	from 
     		qft_dicitem  
     	where 
-    		company_id = #{companyId}  
-    	and 
-    		dic_rank = #{rank} 
-    	and 
-    		parent_id = #{pId} 
+    		is_delete = 0
+    	and	company_id = #{companyId}
+    	and dic_rank = #{rank} 
+    	and parent_id = #{pId} 
     	order by order_num asc
     </select>
     

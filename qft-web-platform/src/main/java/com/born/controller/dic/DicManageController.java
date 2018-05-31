@@ -30,7 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping(value = "web/dic/manage")
 public class DicManageController {
-
 	/**
 	 * 字典类型接口
 	 */
