@@ -2,6 +2,9 @@ package com.born.facade.service.dic;
 
 import java.util.List;
 
+import com.born.core.base.BaseModel;
+import com.born.core.base.IBaseService;
+import com.born.facade.dto.dic.AddDicItemDTO;
 import com.born.facade.dto.dic.DicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemSortDTO;
@@ -16,7 +19,7 @@ import com.born.util.result.Result;
  * @date 2018年5月17日 下午4:58:51
  * @version 1.0
  */
-public interface IDicService {
+public interface IDicService extends IBaseService<BaseModel> {
 
 	/**
 	 * 获取字典数据
@@ -70,24 +73,7 @@ public interface IDicService {
 	 * @throws Exception 
 	 * @date 2018年5月21日 上午11:51:24
 	 */
-	Result addDicItem(String pId, String dicItem);
-
-	/**
-	 * 
-	 * @Title: addDicSubItem
-	 * @Description: 添加二级字典
-	 * @param pId
-	 *            父级ID
-	 * @param dicSubItem
-	 *            二级名称数据,多个参数以逗号隔开
-	 * @return
-	 * @author 张永胜
-	 * @return Result
-	 * @throws Exception 
-	 * @date 2018年5月21日 上午11:50:48
-	 */
-	Result addDicSubItem(String pId, String dicSubItem);
-
+	Result addDicItem(AddDicItemDTO dto);
 	/**
 	 * 根据ID删除
 	 * 
@@ -100,20 +86,7 @@ public interface IDicService {
 	 * @return Result
 	 * @date 2018年5月18日 下午6:14:34
 	 */
-	Result deleteDicItemByIds(String ids);
-
-	/**
-	 * 
-	 * @Title: deleteDicItemById
-	 * @Description: 根据单个ID删除二级字典数据
-	 * @param id
-	 *            二级字典ID
-	 * @return
-	 * @author 张永胜
-	 * @return Result
-	 * @date 2018年5月21日 下午4:59:44
-	 */
-	Result deleteDicItemById(String id);
+	Result deleteDicItemByIds(String ids, Long companyId, Long updaterId);
 
 	/**
 	 * 
@@ -128,7 +101,7 @@ public interface IDicService {
 	 * @return Result
 	 * @date 2018年5月21日 下午6:00:50
 	 */
-	Result findDicItemAllById(String pId, String rank);
+	Result findDicItemAllById(Long pId, Integer rank,Long companyId);
 
 	/**
 	 * 

@@ -33,8 +33,8 @@ public interface DicItemMapper extends BaseMapper<DicItem> {
 	 * @return int
 	 * @date 2018年5月18日 下午3:24:22
 	 */
-	int updateDicItemById(@Param(value = "id") String id, @Param(value = "name") String name,
-			@Param(value = "companyId") String companyId);
+	int updateDicItemById(@Param(value = "id") Long id, @Param(value = "name") String name,
+			@Param(value = "companyId") Long companyId);
 
 	/**
 	 * 
@@ -62,7 +62,7 @@ public interface DicItemMapper extends BaseMapper<DicItem> {
 	 * @return int
 	 * @date 2018年5月21日 上午11:32:24
 	 */
-	int batchDeleteItemByIds(@Param(value = "companyId") String companyId, @Param(value = "ids") String[] ids);
+	int batchDeleteItemByIds(@Param(value = "companyId") Long companyId, @Param(value = "ids") List<Long> ids, @Param(value = "updaterId") Long updaterId);
 
 	/**
 	 * 
@@ -77,7 +77,7 @@ public interface DicItemMapper extends BaseMapper<DicItem> {
 	 * @return int
 	 * @date 2018年5月21日 上午11:32:04
 	 */
-	int batchDeleteSubItemByIds(@Param(value = "companyId") String companyId, @Param(value = "ids") String[] ids);
+	int batchDeleteSubItemByIds(@Param(value = "companyId") Long companyId, @Param(value = "ids") List<Long> ids, @Param(value = "updaterId") Long updaterId);
 
 	/**
 	 * 默认升序排序查询
@@ -93,8 +93,8 @@ public interface DicItemMapper extends BaseMapper<DicItem> {
 	 * @return List<DicItemSortVO>
 	 * @date 2018年5月21日 下午5:58:24
 	 */
-	List<DicItemSortVO> selectItemAllById(@Param(value = "companyId") String companyId,
-			@Param(value = "pId") String pId, @Param(value = "rank") String rank);
+	List<DicItemSortVO> selectItemAllById(@Param(value = "companyId") Long companyId,
+			@Param(value = "pId") Long pId, @Param(value = "rank") Integer rank);
 
 	/**
 	 * 

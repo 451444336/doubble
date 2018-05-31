@@ -45,7 +45,7 @@ public class DicType extends BaseEntity<DicType>{/**
 	/**
 	 * 拥有几级字典
 	 */
-	@Column(name = "dicRank")
+	@Column(name = "dic_rank")
 	private Integer dicRank;
 	/**
 	 * 是否删除

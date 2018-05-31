@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.born.mapper.DicMapper">
+<mapper namespace="com.born.mapper.MenuDicMapper">
 	
 	
 	<!-- 字典数据结果集 -->
@@ -19,7 +19,7 @@
 			m.parent_id,
 			m.menu_name
 		FROM
-			qft_company_menu m
+			qft_menu_dic a left join qft_menu m on a.menu_id = m.id
 		WHERE
 	</sql>
 	<!-- 获取字典数据 -->
@@ -36,17 +36,17 @@
         	<id property="id" column="id"/>
         	<result property="name" column="dtname"/>
         	<result property="pId" column="menu_id"/>
-        	<result property="rank" column="dicRank"/>
+        	<result property="rank" column="dic_rank"/>
     </resultMap>
 	<select id="selectSubDicType"  resultMap="findDicZtreeTypeResultMap" >
         SELECT
 			dt.id,
 			dic.menu_id,
 			dt.dtname,
-			dt.dicRank
+			dt.dic_rank
 		FROM
 			qft_menu_dic dic
-		JOIN qft_dictype dt ON dic.type_id = dt.id
+		JOIN qft_dictype dt ON dic.id = dt.menu_dic_id
 		WHERE
 			dt.is_pubdic = 2
 		AND dic.menu_id = #{id}
@@ -69,9 +69,9 @@
     <!-- 必须要有跟模板公司查询 -->
     <select id="selectDicItemList" parameterType="java.util.HashMap" resultMap="findDicItemResultMap">
 		<include refid="selectItem"></include>
-			item.parentid = #{pId}
-			AND item.companyid = #{companyId}
-			ORDER BY item.ordernum ASC
+			item.parent_id = #{pId}
+			AND item.company_id = #{companyId}
+			ORDER BY item.order_num ASC
 	</select>
 	<resultMap id="findDicSubItemResultMap"   type="com.born.facade.vo.dic.DicItemVO">
         	<id property="id" column="id"/>
@@ -82,7 +82,7 @@
 	<select id="selectSubItem"  resultMap="findDicSubItemResultMap" >
         <include refid="selectItem"></include>
         	<!-- 这里就不指定级数了 -->
-		item.parentid = #{id} ORDER BY item.ordernum ASC
+		item.parent_id = #{id} ORDER BY item.order_num ASC
     </select>
     
 </mapper>

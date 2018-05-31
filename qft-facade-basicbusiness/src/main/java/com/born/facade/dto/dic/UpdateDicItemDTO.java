@@ -1,8 +1,13 @@
 package com.born.facade.dto.dic;
 
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.born.core.base.BaseValidate;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 之后可能会扩展
@@ -14,7 +19,8 @@ import lombok.Data;
  * @version 1.0
  */
 @Data
-public class UpdateDicItemDTO implements Serializable {
+@EqualsAndHashCode(callSuper=false)
+public class UpdateDicItemDTO extends BaseValidate<UpdateDicItemDTO> {
 	/**
 	* 
 	*/
@@ -23,10 +29,16 @@ public class UpdateDicItemDTO implements Serializable {
 	/**
 	 * 字典ID
 	 */
-	private String id;
-
+	@NotNull(message = "字典ID不能为空")
+	private Long id;
 	/**
 	 * 字典名称
 	 */
+	@NotBlank(message = "字典名称不能为空")
 	private String name;
+	/**
+	 * 公司ID
+	 */
+	@NotNull(message = "公司ID不能为空")
+	private Long companyId;
 }

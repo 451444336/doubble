@@ -15,7 +15,7 @@ public class UpdateDicItemSortDTO implements Serializable{
 	/**
 	 * ID
 	 */
-	private String id;
+	private Long id;
 	
 	/**
 	 * 排序值

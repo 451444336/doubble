@@ -7,7 +7,7 @@
 	<!-- 更新字典 -->
 	<update id="updateDicItemById" parameterType="java.util.HashMap">
 		UPDATE qft_dicitem item SET item.diname = #{name} WHERE item.id =
-		#{id} and item.companyid=#{companyId}
+		#{id} and item.company_id=#{companyId}
 	</update>
 	
 	<!-- 根据ID删除二级字典信息 -->
@@ -17,15 +17,32 @@
     </delete>
 	<!-- 批量删除字典信息 -->
     <delete id="batchDeleteItemByIds" parameterType="java.util.HashMap">
-        delete from qft_dicitem where companyid=#{companyId} 
-        and dicRank = 1 and id in
+    	update 
+    		qft_dicitem 
+    	set 
+    		is_delete = 1,
+    		update_time = now(),
+    		updater_id = #{updaterId}
+    	where 
+    		company_id = #{companyId} 
+        and 
+        	dic_rank = 1 and id in
         <foreach item="items" collection="ids" open="(" separator="," close=")">
             #{items}
         </foreach>
     </delete>
     <!-- 按父级ID批量删除二级字典信息 -->
     <delete id="batchDeleteSubItemByIds" parameterType="java.util.HashMap">
-    	delete from qft_dicitem where companyid=#{companyId}  and dicRank = 2 and parentid in
+    	update 
+    		qft_dicitem 
+    	set 
+    		is_delete = 1,
+    		update_time = now(),
+    		updater_id = #{updaterId}
+    	where 
+    		company_id =#{companyId} 
+    	and 
+    		dic_rank = 2 and parent_id in
     	<foreach item="items" collection="ids" open="(" separator="," close=")">
             #{items}
         </foreach>
@@ -34,12 +51,23 @@
      <resultMap id="dicItemSortResultMap"   type="com.born.facade.vo.dic.DicItemSortVO">
         	<id property="id" column="id"/>
         	<result property="name" column="diname"/>
-        	<result property="sort" column="ordernum"/>
+        	<result property="sort" column="order_num"/>
     </resultMap>
     <!-- 根据父ID查询字典 -->
     <select id="selectItemAllById" parameterType="java.util.HashMap" resultMap="dicItemSortResultMap">
-    	select id,diname,ordernum from qft_dicitem  where companyid=#{companyId}  
-    	and dicRank = #{rank} and parentid=#{pId} order by ordernum asc
+    	select 
+    		id,
+    		diname,
+    		order_num 
+    	from 
+    		qft_dicitem  
+    	where 
+    		company_id = #{companyId}  
+    	and 
+    		dic_rank = #{rank} 
+    	and 
+    		parent_id = #{pId} 
+    	order by order_num asc
     </select>
     
     <!-- 批量更新排序字典 -->
@@ -52,11 +80,11 @@
 	        	update qft_dicitem 
 	        	 <set>
 	                <if test="item.sort !=null">
-	                    ordernum=${item.sort}
+	                    order_num = ${item.sort}
 	                </if>
             	</set>
-				where id = '${item.id}'
-	    </foreach>  
+				where id = #{item.id}
+	      </foreach>  
 	</update>  
 
 </mapper>

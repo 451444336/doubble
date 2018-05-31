@@ -1,5 +1,7 @@
 package com.born.facade.dto.dic;
 
+import javax.validation.constraints.NotNull;
+
 import com.born.core.page.PageBean;
 
 import lombok.Data;
@@ -18,5 +20,10 @@ public class DicItemDTO extends PageBean {
 	 * 父级ID
 	 */
 	private String pId;
+	/**
+	 * 公司ID
+	 */
+	@NotNull(message = "公司ID不能为空")
+	private Long companyId;
 
 }

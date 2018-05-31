@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.born.config.shiro.token.TokenManager;
+import com.born.facade.dto.dic.AddDicItemDTO;
 import com.born.facade.dto.dic.DicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemSortDTO;
 import com.born.facade.service.dic.IDicService;
+import com.born.facade.vo.UserInfoVO;
 import com.born.util.json.JsonResult;
 import com.born.util.json.ResultCode;
 import com.born.util.json.ResultEntity;
@@ -110,7 +113,8 @@ public class DicController {
 	@ResponseBody
 	@GetMapping(value = "/find/sort/data")
 	public Result sort(@Param(value = "pId") String pId, @Param(value = "rank") String rank) {
-		return iDicService.findDicItemAllById(pId, rank);
+		return iDicService.findDicItemAllById(Long.valueOf(pId), Integer.valueOf(rank),
+				TokenManager.getLoginUser().getCompanyId());
 	}
 
 	/**
@@ -151,6 +155,7 @@ public class DicController {
 	@ResponseBody
 	@GetMapping(value = "/find/item/data")
 	public Result findDicItemData(DicItemDTO params) {
+		params.setCompanyId(TokenManager.getLoginUser().getCompanyId());
 		return iDicService.findDicItemList(params);
 	}
 
@@ -184,6 +189,7 @@ public class DicController {
 	@ResponseBody
 	@PutMapping(value = "/update/item/data")
 	public ResultEntity<Object> updateDicItemData(@RequestBody UpdateDicItemDTO updateDicItemDTO) {
+		updateDicItemDTO.setCompanyId(TokenManager.getLoginUser().getCompanyId());
 		Result result = iDicService.updateDicItemById(updateDicItemDTO);
 		if (RespCode.Code.SUCCESS.getCode().equals(result.getCode())) {
 			return JsonResult.info(ResultCode.SUCCESS);
@@ -224,8 +230,16 @@ public class DicController {
 	 */
 	@ResponseBody
 	@PostMapping(value = "/add/item/data")
-	public ResultEntity<Object> addDicItemData(@Param(value = "pId") String pId, @Param(value = "names") String names) throws Exception {
-		Result result = iDicService.addDicItem(pId, names);
+	public ResultEntity<Object> addDicItemData(@Param(value = "pId") String pId, @Param(value = "names") String names)
+			throws Exception {
+		UserInfoVO info = TokenManager.getLoginUser();
+		AddDicItemDTO dto = new AddDicItemDTO();
+		dto.setCompanyId(info.getCompanyId());
+		dto.setCtraterId(info.getId());
+		dto.setDicItem(names);
+		dto.setPId(pId);
+		dto.setDicRank(1);
+		Result result = iDicService.addDicItem(dto);
 		if (RespCode.Code.SUCCESS.getCode().equals(result.getCode())) {
 			return JsonResult.info(ResultCode.SUCCESS);
 		}
@@ -250,7 +264,14 @@ public class DicController {
 	@PostMapping(value = "/add/sub/item/data")
 	public ResultEntity<Object> addDicSubItemData(@Param(value = "pId") String pId,
 			@Param(value = "names") String names) throws Exception {
-		Result result = iDicService.addDicSubItem(pId, names);
+		UserInfoVO info = TokenManager.getLoginUser();
+		AddDicItemDTO dto = new AddDicItemDTO();
+		dto.setCompanyId(info.getCompanyId());
+		dto.setCtraterId(info.getId());
+		dto.setDicItem(names);
+		dto.setPId(pId);
+		dto.setDicRank(2);
+		Result result = iDicService.addDicItem(dto);
 		if (RespCode.Code.SUCCESS.getCode().equals(result.getCode())) {
 			return JsonResult.info(ResultCode.SUCCESS);
 		}
@@ -270,7 +291,8 @@ public class DicController {
 	@ResponseBody
 	@DeleteMapping(value = "/delete/item/data/{itemIds}")
 	public ResultEntity<Object> deleteDicItemData(@PathVariable(name = "itemIds") String itemIds) {
-		Result result = iDicService.deleteDicItemByIds(itemIds);
+		UserInfoVO info = TokenManager.getLoginUser();
+		Result result = iDicService.deleteDicItemByIds(itemIds, info.getCompanyId(), info.getId());
 		if (RespCode.Code.SUCCESS.getCode().equals(result.getCode())) {
 			return JsonResult.info(ResultCode.SUCCESS);
 		}
@@ -291,7 +313,7 @@ public class DicController {
 	@ResponseBody
 	@DeleteMapping(value = "/delete/sub/item/data/{id}")
 	public ResultEntity<Object> deleteDicSubItemData(@PathVariable(name = "id") String id) {
-		Result result = iDicService.deleteDicItemById(id);
+		Result result = iDicService.delById(Long.valueOf(id), TokenManager.getLoginUser().getId());
 		if (RespCode.Code.SUCCESS.getCode().equals(result.getCode())) {
 			return JsonResult.info(ResultCode.SUCCESS);
 		}

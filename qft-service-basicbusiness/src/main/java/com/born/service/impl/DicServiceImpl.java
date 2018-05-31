@@ -3,7 +3,6 @@ package com.born.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -11,7 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
+import com.born.core.base.BaseModel;
+import com.born.core.base.BaseService;
+import com.born.core.base.DataBaseParameters;
+import com.born.core.constant.DataBaseEnum;
 import com.born.entity.dic.DicItem;
+import com.born.facade.dto.dic.AddDicItemDTO;
 import com.born.facade.dto.dic.DicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemSortDTO;
@@ -21,7 +26,7 @@ import com.born.facade.vo.dic.DicItemSortVO;
 import com.born.facade.vo.dic.DicItemVO;
 import com.born.facade.vo.dic.DicMenuVO;
 import com.born.mapper.DicItemMapper;
-import com.born.mapper.DicMapper;
+import com.born.mapper.MenuDicMapper;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
@@ -41,16 +46,14 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service(version = "1.0.0")
-public class DicServiceImpl implements IDicService {
+public class DicServiceImpl extends BaseService<BaseModel, DicItem> implements IDicService {
 
 	@Autowired
-	private DicMapper dicMapper;
+	private MenuDicMapper dicMapper;
 
 	@Autowired
 	private DicItemMapper dicItemMapper;
-
-	private String companyId = "Company_20170319112315J3Awn";
-
+	
 	@Override
 	public Result findDicZtree() {
 		try {
@@ -68,10 +71,13 @@ public class DicServiceImpl implements IDicService {
 	@Override
 	public Result findDicItemList(DicItemDTO params) {
 		try {
-			if (params != null) {
+			String errorStr = params.validateForm();
+			if (StringUtils.isNotBlank(errorStr)) {
+				return ResultUtil.requestDataError(errorStr);
+			} else {
 				Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 				PageHelper.startPage(params.getPageNum(), params.getPageSize());
-				List<DicItemVO> list = dicMapper.selectDicItemList(params.getPId(), companyId);
+				List<DicItemVO> list = dicMapper.selectDicItemList(params.getPId(), params.getCompanyId());
 				PageInfo<DicItemVO> pageInfo = new PageInfo<>(list);
 				result.setData(pageInfo.getList());
 				result.setCount(pageInfo.getTotal());
@@ -80,7 +86,6 @@ public class DicServiceImpl implements IDicService {
 				}
 				return ResultUtil.setResult(result, RespCode.Code.SUCCESS);
 			}
-			return ResultUtil.getResult(RespCode.Code.FAIL);
 		} catch (Exception e) {
 			log.error("获取字典数据异常", e);
 			return ResultUtil.getResult(RespCode.Code.FAIL);
@@ -90,15 +95,17 @@ public class DicServiceImpl implements IDicService {
 	@Override
 	@Transactional
 	public Result updateDicItemById(UpdateDicItemDTO updateDicItemDTO) {
-		log.info("更新字典参数 {}", updateDicItemDTO.getId(), updateDicItemDTO.getName());
-		if (StringUtils.isBlank(updateDicItemDTO.getId()) || StringUtils.isBlank(updateDicItemDTO.getName())) {
-			return ResultUtil.getResult(RespCode.Code.FAIL);
-		}
+		log.info("更新字典参数 = {}", JSON.toJSONString(updateDicItemDTO));
 		try {
-			int i = dicItemMapper.updateDicItemById(updateDicItemDTO.getId(),
-					StringEscapeUtils.escapeHtml4(updateDicItemDTO.getName()), companyId);
-			if (i > 0) {
-				return ResultUtil.getResult(RespCode.Code.SUCCESS);
+			String errorStr = updateDicItemDTO.validateForm();
+			if (StringUtils.isNotBlank(errorStr)) {
+				return ResultUtil.requestDataError(errorStr);
+			} else {
+				int i = dicItemMapper.updateDicItemById(updateDicItemDTO.getId(), StringEscapeUtils.escapeHtml4(updateDicItemDTO.getName()), 
+						updateDicItemDTO.getCompanyId());
+				if (i > 0) {
+					return ResultUtil.getResult(RespCode.Code.SUCCESS);
+				}
 			}
 		} catch (Exception e) {
 			log.error("更新字典数据异常", e);
@@ -108,32 +115,31 @@ public class DicServiceImpl implements IDicService {
 
 	@Override
 	@Transactional
-	public Result addDicItem(String pId, String dicItem)  {
+	public Result addDicItem(AddDicItemDTO dto) {
+		log.info("添加子级菜单数据入参={}", JSON.toJSONString(dto));
 		try {
-
-			if (StringUtils.isBlank(pId) || StringUtils.isBlank(dicItem)) {
-				return ResultUtil.getResult(RespCode.Code.FAIL);
+			String errorStr = dto.validateForm();
+			if (StringUtils.isNotBlank(errorStr)) {
+				return ResultUtil.requestDataError(errorStr);
 			}
-
-			String[] data = dicItem.split(",");
-
+			String[] data = dto.getDicItem().split(",");
 			List<DicItem> datalist = new ArrayList<DicItem>(data.length);
-
+			DicItem item;
 			for (int i = 0; i < data.length; i++) {
-				DicItem item = new DicItem();
-				item.setId(String.valueOf(UUID.randomUUID()));
-				item.setCompanyid(companyId);
-				item.setCreatetime(String.valueOf(new Date().getTime()));
-				item.setDicRank("1");
+				item = new DicItem();
+				item.setCompanyId(dto.getCompanyId());
+				item.setCreateTime(new Date());
+				item.setCreaterId(dto.getCtraterId());
+				item.setDicRank(dto.getDicRank());
 				item.setDiname(StringEscapeUtils.escapeHtml4(data[i]));
-				item.setIsdefault("1");
-				item.setIspubDic("2");
-				item.setOrdernum("0");
-				item.setParentid(pId);
+				item.setIsDefault((byte) 1);
+				item.setIspubDic(2);
+				item.setOrderNum(0);
+				item.setParentId(Long.valueOf(dto.getPId()));
+				item.setIsDelete(DataBaseEnum.NOT_DELETE.getStatus());
 				datalist.add(item);
 			}
 			int i = dicItemMapper.insertList(datalist);
-
 			if (i > 0) {
 				return ResultUtil.getResult(RespCode.Code.SUCCESS);
 			}
@@ -146,83 +152,32 @@ public class DicServiceImpl implements IDicService {
 
 	@Override
 	@Transactional
-	public Result deleteDicItemByIds(String ids) {
+	public Result deleteDicItemByIds(String ids, Long companyId, Long updaterId) {
 		try {
 			log.error("批量删除参数ID {}", ids);
 			if (StringUtils.isBlank(ids)) {
 				return ResultUtil.getResult(RespCode.Code.FAIL);
 			}
 			String[] data = ids.split(",");
-			int a = dicItemMapper.batchDeleteItemByIds(companyId, data);
-			int b = dicItemMapper.batchDeleteSubItemByIds(companyId, data);
+			List<Long> delIds = new ArrayList<>(data.length);
+			for (String str : data) {
+				delIds.add(Long.valueOf(str));
+			}
+			int a = dicItemMapper.batchDeleteItemByIds(companyId, delIds, updaterId);
+			int b = dicItemMapper.batchDeleteSubItemByIds(companyId, delIds, updaterId);
 			if (a > 0) {
 				log.error("批量删除二级字典返回结果 {} ", b > 0 ? true : false);
 				return ResultUtil.getResult(RespCode.Code.SUCCESS);
 			}
 		} catch (Exception e) {
 			log.error("批量删除字典数据异常", e);
+			throw new DicException("批量删除字典数据异常");
 		}
 		return ResultUtil.getResult(RespCode.Code.FAIL);
 	}
 
 	@Override
-	@Transactional
-	public Result addDicSubItem(String pId, String dicSubItem) {
-		try {
-
-			if (StringUtils.isBlank(pId) || StringUtils.isBlank(dicSubItem)) {
-				return ResultUtil.getResult(RespCode.Code.FAIL);
-			}
-
-			String[] data = dicSubItem.split(",");
-
-			List<DicItem> datalist = new ArrayList<DicItem>(data.length);
-
-			for (int i = 0; i < data.length; i++) {
-				DicItem item = new DicItem();
-				item.setId(String.valueOf(UUID.randomUUID()));
-				item.setCompanyid(companyId);
-				item.setCreatetime(String.valueOf(new Date().getTime()));
-				item.setDicRank("2");
-				item.setDiname(StringEscapeUtils.escapeHtml4(data[i]));
-				item.setIsdefault("1");
-				item.setIspubDic("2");
-				item.setOrdernum("0");
-				item.setParentid(pId);
-				datalist.add(item);
-			}
-			int i = dicItemMapper.insertList(datalist);
-
-			if (i > 0) {
-				return ResultUtil.getResult(RespCode.Code.SUCCESS);
-			}
-		} catch (Exception e) {
-			log.error("添加字典数据异常", e);
-			throw new DicException("添加字典数据异常");
-		}
-		return ResultUtil.getResult(RespCode.Code.FAIL);
-	}
-
-	@Override
-	public Result deleteDicItemById(String id) {
-		try {
-			log.error("删除参数ID {}", id);
-			if (StringUtils.isBlank(id)) {
-				return ResultUtil.getResult(RespCode.Code.FAIL);
-			}
-			int a = dicItemMapper.deleteItemById(companyId, id);
-			if (a > 0) {
-				log.error("删除二级字典返回结果 [成功]");
-				return ResultUtil.getResult(RespCode.Code.SUCCESS);
-			}
-		} catch (Exception e) {
-			log.error("删除字典数据异常", e);
-		}
-		return ResultUtil.getResult(RespCode.Code.FAIL);
-	}
-
-	@Override
-	public Result findDicItemAllById(String pId, String rank) {
+	public Result findDicItemAllById(Long pId, Integer rank, Long companyId) {
 		try {
 			List<DicItemSortVO> list = dicItemMapper.selectItemAllById(companyId, pId, rank);
 			if (list.size() == 0) {
@@ -251,6 +206,14 @@ public class DicServiceImpl implements IDicService {
 			log.error("更新字典排序数据异常", e);
 			return ResultUtil.getResult(RespCode.Code.FAIL);
 		}
+	}
+
+	@Override
+	protected DataBaseParameters<DicItem> getDataBaseParameters() {
+		DataBaseParameters<DicItem> result = new DataBaseParameters<>();
+		result.setEntityClass(DicItem.class);
+		result.setMapper(dicItemMapper);
+		return result;
 	}
 
 }
