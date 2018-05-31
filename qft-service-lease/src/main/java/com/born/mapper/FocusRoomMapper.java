@@ -85,9 +85,9 @@ public interface FocusRoomMapper extends BaseMapper<FocusRoom> {
 	 * 
 	* @Title: updateRoomLastTime 
 	* @Description: 更新房间的最后一次租出时间为租客上次租出时间
-	* @param roomId
-	* @param companyId
-	* @param lastTime
+	* @param roomId 房间ID
+	* @param companyId 公司ID
+	* @param lastTime 时间
 	* @return 
 	* @author 张永胜
 	* @return int
@@ -95,4 +95,17 @@ public interface FocusRoomMapper extends BaseMapper<FocusRoom> {
 	 */
 	int updateRoomLastTime(@Param(value = "roomId") long roomId, @Param(value = "companyId") long companyId,
 			@Param(value = "lastTime") Date lastTime);
+	
+	/**
+	 * 
+	* @Title: updateRoomFixPriceById 
+	* @Description: 更新房间定价信息为空
+	* @param roomId 房间ID
+	* @param companyId 公司ID
+	* @return 
+	* @author 张永胜
+	* @return int
+	* @date 2018年5月31日 下午3:56:19
+	 */
+	int updateRoomFixPriceById(@Param(value = "roomId") long roomId, @Param(value = "companyId") long companyId);
 }

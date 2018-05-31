@@ -1,6 +1,7 @@
 package com.born.service.impl.focus.tenants;
 
 import java.util.Date;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.born.core.base.BaseModel;
 import com.born.core.base.BaseService;
 import com.born.core.base.DataBaseParameters;
+import com.born.core.constant.ConfigSetConstants;
+import com.born.core.rediscache.ICacheService;
 import com.born.entity.focus.tenants.Tenants;
 import com.born.entity.focus.tenants.TenantsCheckOut;
 import com.born.entity.focus.tenants.TenantsInfo;
@@ -23,6 +26,8 @@ import com.born.mapper.FocusRoomMapper;
 import com.born.mapper.FocusTenantsCheckOutMapper;
 import com.born.mapper.FocusTenantsInfoMapper;
 import com.born.mapper.FocusTenantsMapper;
+import com.born.util.String.StringUtil;
+import com.born.util.constants.WebRedisKeyConstants;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
@@ -64,6 +69,12 @@ public class FocusTenantsServiceImpl extends BaseService<BaseModel, Tenants> imp
 	 */
 	@Autowired
 	private FocusRoomMapper focusRoomMapper;
+	
+	/**
+	 * 缓存服务
+	 */
+	@Autowired
+	private ICacheService<String, Object> redis;
 
 	@Override
 	protected DataBaseParameters<Tenants> getDataBaseParameters() {
@@ -163,8 +174,33 @@ public class FocusTenantsServiceImpl extends BaseService<BaseModel, Tenants> imp
 			/**
 			 * 查询通用设置中定价设置项
 			 */
+			@SuppressWarnings("unchecked")
+			Map<String, Object> maplist = (Map<String, Object>) redis.get(StringUtil.appendRedisKey(WebRedisKeyConstants.DEFAULT_SET, ConfigSetConstants.focus));
+			//读取出来必须为true或者false
+			boolean flag =  Boolean.parseBoolean(String.valueOf(maplist.get(ConfigSetConstants.FixPriceMode.OUT_ROOM_IS_SAVE_FIX_PRICE.getKey())));
+			if(flag != true) {
+				/**
+				 * 清除定价编号、定金额
+				 */
+				focusRoomMapper.updateRoomFixPriceById(outRoom.getRoomId(), user.getCompanyId());
+			}
 			
+			/**
+			 * 租客退房后收入表状态修改
+			 */
 			
+			/**
+			 * 修改智能锁密码，每个厂商对应清空密码不同，有些需要重设看门密码
+			 */
+			
+			/**
+			 * 保存应收计划历史
+			 * 同时删除应收计划
+			 */
+			
+			/**
+			 * 有共享这里需要设置状态
+			 */
 			
 			
 		} catch (Exception e) {
@@ -172,7 +208,7 @@ public class FocusTenantsServiceImpl extends BaseService<BaseModel, Tenants> imp
 			throw new FocusTenantsException(FocusTenantsExceptionEnum.SAVE_TENANTS_OUT_ROOM_ERROR);
 		}
 
-		return null;
+		return ResultUtil.getResult(RespCode.Code.SUCCESS);
 	}
 
 }
