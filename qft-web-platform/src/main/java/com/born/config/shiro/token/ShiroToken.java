@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: ShiroToken 
@@ -14,6 +15,7 @@ import lombok.Data;
 *
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class ShiroToken extends UsernamePasswordToken implements Serializable {
 
 	/**
