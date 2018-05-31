@@ -85,5 +85,68 @@
 				where id = #{item.id}
 	      </foreach>  
 	</update>  
-
+	
+	<!-- 字典菜单返回数据 -->
+	<resultMap id="dicMenuTree"  type="com.born.facade.vo.dic.DicMenuBizVO">
+       	<id property="id" column="id"/>
+       	<result property="parent_id" column="parentId"/>
+       	<result property="menu_name" column="menuName"/>
+       	<result property="menuId" column="menuId"/>
+       	<collection property="types" column="id" select="selectDicTypelist"></collection>
+    </resultMap>
+    <!-- 字典类型 -->
+    <resultMap id="dicType"  type="com.born.facade.vo.dic.DicTypeBizVO">
+       	<id property="id" column="id"/>
+       	<result property="menu_dic_id" column="menuDicId"/>
+       	<result property="dtname" column="name"/>
+       	<result property="dtcode" column="code"/>
+       	<collection property="items" column="id" select="selectDicItemlist"></collection>
+    </resultMap>
+    <!-- 字典数据项 -->
+    <resultMap id="dicItem"  type="com.born.facade.vo.dic.DicItemBizVO">
+       	<id property="id" column="id"/>
+       	<result property="menu_dic_id" column="itemName"/>
+       	<result property="parent_id" column="parentId"/>
+       	<collection property="nexts" column="id" select="selectDicItemlist"></collection>
+    </resultMap>
+	<!-- 根据公司ID查询字典菜单树数据 -->
+	<select id = "selectDicMenuTreeList" resultMap = "dicMenuTree">
+		SELECT
+			qmd.id id,
+			qm.id menuId,
+			qm.parent_id,
+			qm.menu_name
+		FROM
+			qft_menu_dic qmd
+		LEFT JOIN qft_menu qm ON qmd.menu_id = qm.id
+		where 
+			qmd.company_id = #{companyId}
+		and qmd.is_delete = 0
+		and qm.is_delete = 0
+	</select>
+	<!-- 根据字典菜单ID查询字典类型 -->
+	<select id = "selectDicTypelist" resultMap = "dicType">
+		SELECT
+			id,
+			menu_dic_id,
+			dtname,
+			dtcode
+		FROM
+			qft_dictype
+		WHERE
+			menu_dic_id = #{id}
+		AND is_delete = 0
+	</select>
+	<!-- 查询字典数据项数据 -->
+	<select id="selectDicItemlist" resultMap = "dicItem">
+		SELECT
+			id,
+			diname,
+			parent_id
+		FROM
+			qft_dicitem
+		WHERE
+			parent_id = #{id}
+		AND is_delete = 0
+	</select>
 </mapper>

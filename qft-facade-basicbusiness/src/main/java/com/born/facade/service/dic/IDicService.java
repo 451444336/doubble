@@ -136,5 +136,5 @@ public interface IDicService extends IBaseService<BaseModel> {
 	* @author lijie
 	* @throws
 	 */
-	Result getDicMenus(Long companyId);
+	Result getDicMenuTrees(Long companyId);
 }

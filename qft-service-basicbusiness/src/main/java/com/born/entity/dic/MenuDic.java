@@ -34,4 +34,9 @@ public class MenuDic extends BaseEntity<MenuDic> {
 	 */
 	@Column(name = "is_delete")
 	private Byte isDelete;
+	/**
+	 * 公司ID
+	 */
+	@Column(name = "company_id")
+	private Long companyId;
 }

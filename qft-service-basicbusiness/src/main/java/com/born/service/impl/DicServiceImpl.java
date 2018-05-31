@@ -25,6 +25,7 @@ import com.born.facade.exception.DicException;
 import com.born.facade.service.dic.IDicService;
 import com.born.facade.vo.dic.DicItemSortVO;
 import com.born.facade.vo.dic.DicItemVO;
+import com.born.facade.vo.dic.DicMenuBizVO;
 import com.born.facade.vo.dic.DicMenuVO;
 import com.born.mapper.DicItemMapper;
 import com.born.mapper.MenuDicMapper;
@@ -248,14 +249,17 @@ public class DicServiceImpl extends BaseService<BaseModel, DicItem> implements I
 	}
 
 	@Override
-	public Result getDicMenus(Long companyId) {
-		log.info("根据公司ID获取字典菜单数据入参={}", companyId);
+	public Result getDicMenuTrees(Long companyId) {
+		log.info("根据公司ID获取字典菜单树数据入参={}", companyId);
 		try {
-
-			return null;
+			if (null == companyId) {
+				return ResultUtil.requestDataError("公司ID不能为空");
+			}
+			List<DicMenuBizVO> list = dicItemMapper.selectDicMenuTreeList(companyId);
+			return ResultUtil.success(list);
 		} catch (Exception e) {
 			log.error("根据公司ID获取字典菜单数据异常", e);
-			return ResultUtil.fail(RespCode.Code.INTERNAL_SERVER_ERROR);
+			return ResultUtil.serverError();
 		}
 	}
 

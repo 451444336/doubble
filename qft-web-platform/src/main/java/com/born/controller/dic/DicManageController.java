@@ -115,7 +115,7 @@ public class DicManageController {
 	@GetMapping("getDicMenus")
 	public @ResponseBody Result getDicMenus() {
 		
-		return dicService.getDicMenus(TokenManager.getLoginUser().getCompanyId());
+		return dicService.getDicMenuTrees(TokenManager.getLoginUser().getCompanyId());
 	}
 	/**
 	 * 
@@ -189,7 +189,8 @@ public class DicManageController {
 	 */
 	@PostMapping("del")
 	public @ResponseBody Result delDic(Long id) {
-		Result result = dicService.delByIdAndIsPossible(id, TokenManager.getLoginUser().getId());
+		Result result = dicService.delById(id, TokenManager.getLoginUser().getId());
+		// Result result = dicService.delByIdAndIsPossible(id, TokenManager.getLoginUser().getId());
 		log.info("删除字典返回数据={}", JSON.toJSONString(result));
 		return result;
 	}

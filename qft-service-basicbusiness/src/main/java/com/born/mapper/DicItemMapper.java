@@ -9,6 +9,7 @@ import com.born.core.base.BaseMapper;
 import com.born.entity.dic.DicItem;
 import com.born.facade.dto.dic.UpdateDicItemSortDTO;
 import com.born.facade.vo.dic.DicItemSortVO;
+import com.born.facade.vo.dic.DicMenuBizVO;
 
 /**
  * 字典服务
@@ -107,5 +108,16 @@ public interface DicItemMapper extends BaseMapper<DicItem> {
 	 * @date 2018年5月22日 上午11:29:21
 	 */
 	int batchUpdateDicItemSortById(@Param(value = "list") List<UpdateDicItemSortDTO> list);
+	/**
+	 * 
+	* @Title: selectDicMenuTreeList 
+	* @Description: 根据公司ID 查询字典菜单数据
+	* @param @param companyId
+	* @param @return    设定文件 
+	* @return List<DicMenuBizVO>    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	List<DicMenuBizVO> selectDicMenuTreeList(@Param("companyId") Long companyId);
 
 }
