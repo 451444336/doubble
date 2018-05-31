@@ -90,7 +90,7 @@ public class AreaPropertyServiceImpl implements IAreaPropertyService {
 	}
 
 	@Override
-	public Result getProCityArea(String areaName) {
+	public Result getProCityAreaAll(String areaName) {
 		Result result = ResultUtil.fail();
 		try {
 			//根据区域地址获取下级区域
@@ -105,13 +105,23 @@ public class AreaPropertyServiceImpl implements IAreaPropertyService {
 	}
 
 	@Override
-	public Result getAreaProperty(AreaPropertyDTO dto) {
+	public Result getAreaPropertyAll(AreaPropertyDTO dto) {
 		Result result = ResultUtil.fail();
 		try {
 			//根据区域地址获取下级区域
 			log.info("执行根据区域名称查询下级区域...");
-			List<AreaPropertyVO> list = areaPropertyMapper.seleteAreaProperty(dto);
+			List<ProvCityAreaVO> list = areaPropertyMapper.seleteProCityArea(dto.getAreaName());
 			log.info("根据区域名称查询下级区域成功...");
+			//根据区县查询楼盘地址
+			for(ProvCityAreaVO area : list){
+				AreaPropertyDTO propertyDTO = new AreaPropertyDTO();
+				propertyDTO.setCompanyId(dto.getCompanyId());
+				propertyDTO.setAreaName(area.getAreaName());
+				log.info("执行根据区县查询楼盘地址...");
+				List<AreaPropertyVO> propertyList = areaPropertyMapper.seleteAreaProperty(propertyDTO);
+				log.info("根据区县查询楼盘地址成功...");
+				area.setList(propertyList);
+			}
 			return ResultUtil.success(result, list);
 		} catch (Exception e) {
 			Log.error("根据区域名称查询楼盘地址失败（AreaPropertyServiceImpl.add）--------------"+e);

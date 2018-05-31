@@ -1,5 +1,8 @@
 package com.born.facade.vo.property;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -15,5 +18,6 @@ public class ProvCityAreaVO {
 	private Long id;
 	/** 区域名称 */
     private String areaName;
-	
+    /** 楼盘地址集合 */
+	List<AreaPropertyVO> list = new ArrayList<>();
 }

@@ -36,8 +36,8 @@ public interface AreaPropertyMapper extends BaseMapper<AreaProperty> {
 	/**
 	 * 
 	 * @Title
-	 * @param 区域名称
-	 * @Description 根据区域名称查询楼盘地址
+	 * @param 区县名称
+	 * @Description 根据区县查询楼盘地址
 	 * @author 黄伟
 	 * @return
 	 * @date 2018年5月31日 下午4:02:08

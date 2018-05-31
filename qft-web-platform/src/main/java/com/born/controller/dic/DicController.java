@@ -1,5 +1,6 @@
 package com.born.controller.dic;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.repository.query.Param;
@@ -20,7 +21,11 @@ import com.born.facade.dto.dic.AddDicItemDTO;
 import com.born.facade.dto.dic.DicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemSortDTO;
+import com.born.facade.dto.property.AreaPropertyDTO;
+import com.born.facade.dto.property.ChangeAreaPropertyDTO;
+import com.born.facade.dto.property.ProvCityAreaDTO;
 import com.born.facade.service.dic.IDicService;
+import com.born.facade.service.property.IAreaPropertyService;
 import com.born.facade.vo.UserInfoVO;
 import com.born.util.json.JsonResult;
 import com.born.util.json.ResultCode;
@@ -46,6 +51,12 @@ public class DicController {
 	@Reference(version = "1.0.0")
 	private IDicService iDicService;
 
+	/**
+	 * 区域+楼盘接口
+	 */
+	@Reference(version = "1.0.0")
+	IAreaPropertyService service;
+	
 	/**
 	 * 字典列表页面
 	 * 
@@ -319,5 +330,98 @@ public class DicController {
 		}
 		return JsonResult.info(ResultCode.FAIL);
 	}
+	
+	/**
+	 * 
+	 * @Title
+	 * @param
+	 * @Description 添加楼盘地址
+	 * @author 黄伟
+	 * @return
+	 * @date 2018年5月31日 下午5:58:06
+	 */
+	@ResponseBody
+	@PostMapping(value = "/add")
+	public Result add(ChangeAreaPropertyDTO dto){
+		//获取登录人信息
+		UserInfoVO su = TokenManager.getLoginUser();
+		//设置默认值
+		dto.setCreaterId(su.getId());
+		dto.setCreateTime(new Date());
+		dto.setUpdaterId(su.getId());
+		dto.setUpdateTime(new Date());
+		dto.setCompanyId(su.getCompanyId());
+		return service.add(dto);
+	}
+	
+	/**
+	 * 
+	 * @Title
+	 * @param
+	 * @Description 更新楼盘地址
+	 * @author 黄伟
+	 * @return
+	 * @date 2018年5月31日 下午5:58:29
+	 */
+	@ResponseBody
+	@PostMapping(value = "/updateProperty")
+	public Result updateProperty(ChangeAreaPropertyDTO dto){
+		//获取登录人信息
+		UserInfoVO su = TokenManager.getLoginUser();
+		//设置默认值
+		dto.setUpdaterId(su.getId());
+		dto.setUpdateTime(new Date());
+		return service.update(dto);
+	}
+	
+	/**
+	 * 
+	 * @Title
+	 * @param
+	 * @Description 删除楼盘地址
+	 * @author 黄伟
+	 * @return
+	 * @date 2018年5月31日 下午5:58:42
+	 */
+	@ResponseBody
+	@PostMapping(value = "/deleteProperty")
+	private Result deleteProperty(Long id) {
 
+		return service.delete(id);
+	}
+	
+	/**
+	 * 
+	 * @Title
+	 * @param
+	 * @Description 根据市获取其下的区县
+	 * @author 黄伟
+	 * @return
+	 * @date 2018年5月31日 下午5:58:53
+	 */
+	@ResponseBody
+	@PostMapping(value = "/getArea")
+	public Result getProvCityAreaAll(String areaName){
+		
+		return service.getProCityAreaAll(areaName);
+	}
+	
+	/**
+	 * 
+	 * @Title
+	 * @param
+	 * @Description 根据市获取其下的区县及楼盘地址
+	 * @author 黄伟
+	 * @return
+	 * @date 2018年5月31日 下午5:59:15
+	 */
+	@ResponseBody
+	@PostMapping(value = "/getProperty")
+	public Result getAreaPropertyAll(AreaPropertyDTO dto){
+		//获取登录人信息
+		UserInfoVO su = TokenManager.getLoginUser();
+		//设置默认值
+		dto.setCompanyId(su.getCompanyId());
+		return service.getAreaPropertyAll(dto);
+	}
 }

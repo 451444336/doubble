@@ -54,17 +54,17 @@ public interface IAreaPropertyService {
 	 * @return
 	 * @date 2018年5月31日 下午2:52:21
 	 */
-	Result getProCityArea(String areaName);
+	Result getProCityAreaAll(String areaName);
 	
 	/**
 	 * 
 	 * @Title
-	 * @param 区域名称
-	 * @Description 根据区域名称获取楼盘地址
+	 * @param 市名称
+	 * @Description 根据市名称查询其下区县及楼盘地址
 	 * @author 黄伟
 	 * @return
 	 * @date 2018年5月31日 下午2:53:06
 	 */
-	Result getAreaProperty(AreaPropertyDTO dto);
+	Result getAreaPropertyAll(AreaPropertyDTO dto);
 	
 }
