@@ -20,6 +20,7 @@ import com.born.facade.dto.dic.AddDicItemDTO;
 import com.born.facade.dto.dic.DicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemSortDTO;
+import com.born.facade.exception.DicExcepionEnum;
 import com.born.facade.exception.DicException;
 import com.born.facade.service.dic.IDicService;
 import com.born.facade.vo.dic.DicItemSortVO;
@@ -132,7 +133,7 @@ public class DicServiceImpl extends BaseService<BaseModel, DicItem> implements I
 				item.setCreaterId(dto.getCtraterId());
 				item.setDicRank(dto.getDicRank());
 				item.setDiname(StringEscapeUtils.escapeHtml4(data[i]));
-				item.setIsDefault((byte) 1);
+				item.setIsPossibleDel((byte) 1);
 				item.setIspubDic(2);
 				item.setOrderNum(0);
 				item.setParentId(Long.valueOf(dto.getPId()));
@@ -204,7 +205,7 @@ public class DicServiceImpl extends BaseService<BaseModel, DicItem> implements I
 			return ResultUtil.getResult(RespCode.Code.FAIL);
 		} catch (Exception e) {
 			log.error("更新字典排序数据异常", e);
-			return ResultUtil.getResult(RespCode.Code.FAIL);
+			throw new DicException("更新字典排序数据异常");
 		}
 	}
 
@@ -214,6 +215,36 @@ public class DicServiceImpl extends BaseService<BaseModel, DicItem> implements I
 		result.setEntityClass(DicItem.class);
 		result.setMapper(dicItemMapper);
 		return result;
+	}
+
+	@Override
+	@Transactional
+	public Result delByIdAndIsPossible(Long id, Long userId) {
+		log.info("根据ID删除字典入参 = {},{}", id, userId);
+		try {
+			if (null == id) {
+				return ResultUtil.requestDataError("字典ID不能为空");
+			}
+			if (null == userId) {
+				return ResultUtil.requestDataError("操作人ID不能为空");
+			}
+			DicItem record = new DicItem();
+			record.setId(id);
+			record.setIsPossibleDel((byte) 2);
+			record = dicItemMapper.selectOne(record);
+			if (null == record) {
+				return ResultUtil.fail(DicExcepionEnum.UNABLE_DEL);
+			}
+			DicItem del = new DicItem();
+			del.setId(id);
+			del.setUpdaterId(userId);
+			del.setUpdateTime(new Date());
+			del.setIsDelete(DataBaseEnum.DELETE.getStatus());
+			return ResultUtil.success(dicItemMapper.updateByPrimaryKeySelective(del));
+		} catch (Exception e) {
+			log.error("根据ID删除字典数据异常", e);
+			throw new DicException(DicExcepionEnum.DEL_DIC_ITEM_ERROR);
+		}
 	}
 
 }

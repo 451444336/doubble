@@ -216,7 +216,7 @@ public abstract class BaseService<T extends BaseModel, E> implements IBaseServic
 		try {
 			String errorStr = record.validateForm();
 			if (StringUtils.isNotBlank(errorStr)) {
-				return ResultUtil.fail(RespCode.Code.REQUEST_DATA_ERROR, errorStr);
+				return ResultUtil.requestDataError(errorStr);
 			}
 			E insert = entityClass.newInstance();
 			BeanUtils.copyProperties(record, insert);

@@ -38,10 +38,10 @@ public class DicItem extends BaseEntity<DicItem> {
 	@Column(name="divalue")
 	private String divalue;
 	/**
-	 * 是否默认
+	 * 是否可以删除：1、表示可删除，2、表示不可删除
 	 */
-	@Column(name = "is_default")
-	private Byte isDefault;
+	@Column(name = "is_possible_del")
+	private Byte isPossibleDel;
 	/**
 	 * 排序值
 	 */

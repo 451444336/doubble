@@ -114,4 +114,16 @@ public interface IDicService extends IBaseService<BaseModel> {
 	 * @date 2018年5月22日 上午11:01:27
 	 */
 	Result updateDicItemSort(List<UpdateDicItemSortDTO> list);
+	/**
+	 * 
+	* @Title: delByIdAndIsPossible 
+	* @Description: 删除字典 
+	* @param @param id
+	* @param @param userId
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	Result delByIdAndIsPossible(Long id, Long userId);
 }

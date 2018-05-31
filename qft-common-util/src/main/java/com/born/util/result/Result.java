@@ -72,6 +72,9 @@ public class Result implements Serializable	{
 	public <T> T getData(Class<T> tClass) {
 		if (this.getData() instanceof Map) {
 			try {
+				if(tClass == Map.class){
+					return (T) this.getData();
+				}
 				return BeanMapUtils.mapToBean(((Map<String, Object>) this.getData()), tClass);
 			} catch (Exception e) {
 				return null;

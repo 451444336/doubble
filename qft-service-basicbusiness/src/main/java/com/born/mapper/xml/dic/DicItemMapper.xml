@@ -24,9 +24,9 @@
     		update_time = now(),
     		updater_id = #{updaterId}
     	where 
-    		company_id = #{companyId} 
-        and 
-        	dic_rank = 1 and id in
+    		company_id = #{companyId}
+    	and is_possible_del = 1
+        and dic_rank = 1 and id in
         <foreach item="items" collection="ids" open="(" separator="," close=")">
             #{items}
         </foreach>
@@ -41,8 +41,8 @@
     		updater_id = #{updaterId}
     	where 
     		company_id =#{companyId} 
-    	and 
-    		dic_rank = 2 and parent_id in
+    	and is_possible_del = 1
+    	and dic_rank = 2 and parent_id in
     	<foreach item="items" collection="ids" open="(" separator="," close=")">
             #{items}
         </foreach>

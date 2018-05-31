@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AddDicTypeDTO extends UpdateDicTypeDTO {
+public class AddDicTypeDTO extends ChangeDicTypeDTO {
 
 	/**
 	 * 
