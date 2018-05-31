@@ -247,4 +247,16 @@ public class DicServiceImpl extends BaseService<BaseModel, DicItem> implements I
 		}
 	}
 
+	@Override
+	public Result getDicMenus(Long companyId) {
+		log.info("根据公司ID获取字典菜单数据入参={}", companyId);
+		try {
+
+			return null;
+		} catch (Exception e) {
+			log.error("根据公司ID获取字典菜单数据异常", e);
+			return ResultUtil.fail(RespCode.Code.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 }

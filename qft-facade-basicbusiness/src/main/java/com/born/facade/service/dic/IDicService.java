@@ -126,4 +126,15 @@ public interface IDicService extends IBaseService<BaseModel> {
 	* @throws
 	 */
 	Result delByIdAndIsPossible(Long id, Long userId);
+	/**
+	 * 
+	* @Title: getDicMenus 
+	* @Description: 根据公司ID获取菜单字典数据
+	* @param @param companyId
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	Result getDicMenus(Long companyId);
 }

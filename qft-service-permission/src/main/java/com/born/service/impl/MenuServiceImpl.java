@@ -84,7 +84,7 @@ public class MenuServiceImpl extends BaseService<BaseModel, Menu> implements IMe
 			return ResultUtil.success(getMenuTree(companyMenuMapper.selectMenuByCondition(roles, dto)));
 		} catch (Exception e) {
 			log.error("根据用户id查询菜单列表树型结构异常", e);
-			return ResultUtil.fail();
+			return ResultUtil.serverError();
 		}
 	}
 	/**
@@ -143,7 +143,7 @@ public class MenuServiceImpl extends BaseService<BaseModel, Menu> implements IMe
 			return ResultUtil.success(companyMenuMapper.selectMenuByRoleIds(roleIds, companyId));
 		} catch (Exception e) {
 			log.error("根据角色ID查询菜单数据异常", e);
-			return ResultUtil.fail();
+			return ResultUtil.serverError();
 		}
 	}
 	/**
@@ -177,7 +177,6 @@ public class MenuServiceImpl extends BaseService<BaseModel, Menu> implements IMe
 	@Override
 	public Result getMenuTreeByCompanyId(Long companyId, Byte ascription) {
 		log.info("根据公司id查询菜单列表树型结构入参, companyId={},ascription={}", companyId, ascription);
-		Result result = ResultUtil.getResult(RespCode.Code.FAIL);
 		if (null == companyId) {
 			return ResultUtil.requestDataError("公司ID不能为空");
 		}
@@ -189,10 +188,11 @@ public class MenuServiceImpl extends BaseService<BaseModel, Menu> implements IMe
 			if (CollectionUtils.isNotEmpty(list)) {
 				return ResultUtil.success(list);
 			}
+			return ResultUtil.fail(RespCode.Code.NOT_QUERY_DATA);
 		} catch (Exception e) {
 			log.error("根据公司id查询菜单列表树型结构异常", e);
+			return ResultUtil.serverError();
 		}
-		return result;
 	}
 	
 	@Override
@@ -205,7 +205,7 @@ public class MenuServiceImpl extends BaseService<BaseModel, Menu> implements IMe
 			return ResultUtil.success(companyMenuMapper.selectMenuSubmenuById(menuId));
 		} catch (Exception e) {
 			log.error("查询子菜单数据异常", e);
-			return ResultUtil.fail();
+			return ResultUtil.serverError();
 		}
 	}
 	
@@ -218,7 +218,7 @@ public class MenuServiceImpl extends BaseService<BaseModel, Menu> implements IMe
 			return ResultUtil.success(companyMenuMapper.selectMenuByUserId(userId, companyId));
 		} catch (Exception e) {
 			log.error("根据用户id菜单数据异常", e);
-			return ResultUtil.fail();
+			return ResultUtil.serverError();
 		}
 	}
 	
@@ -488,7 +488,7 @@ public class MenuServiceImpl extends BaseService<BaseModel, Menu> implements IMe
 			return ResultUtil.success(companyMenuMapper.selectAllMenu(companyId, (Byte) null));
 		} catch (Exception e) {
 			log.error("根据公司ID 查询菜单数据异常", e);
-			return ResultUtil.fail();
+			return ResultUtil.serverError();
 		}
 	}
 	
@@ -502,7 +502,7 @@ public class MenuServiceImpl extends BaseService<BaseModel, Menu> implements IMe
 			return ResultUtil.success(pageInfo.getList(), pageInfo.getTotal());
 		} catch (Exception e) {
 			log.error("根据类型分页查询菜单列表数据异常", e);
-			return ResultUtil.fail();
+			return ResultUtil.serverError();
 		}
 	}
 }

@@ -114,8 +114,8 @@ public class DicManageController {
 	 */
 	@GetMapping("getDicMenus")
 	public @ResponseBody Result getDicMenus() {
-
-		return null;
+		
+		return dicService.getDicMenus(TokenManager.getLoginUser().getCompanyId());
 	}
 	/**
 	 * 
@@ -128,7 +128,7 @@ public class DicManageController {
 	* @throws
 	 */
 	@GetMapping("getDicListByPage")
-	public Result getDicListByPage(PageBean pageBean) {
+	public @ResponseBody Result getDicListByPage(PageBean pageBean, Byte type) {
 		QueryDicDTO dto = new QueryDicDTO();
 		dto.setCompanyId(TokenManager.getLoginUser().getCompanyId());
 		dto.setIsDelete(DataBaseEnum.NOT_DELETE.getStatus());
@@ -148,7 +148,7 @@ public class DicManageController {
 	 */
 	@RepeatToken(key = "menuDicId")
 	@PostMapping("add")
-	public Result addDicItem(AddModelDicItemDTO dto) {
+	public @ResponseBody Result addDicItem(AddModelDicItemDTO dto) {
 		UserInfoVO info = TokenManager.getLoginUser();
 		dto.setCompanyId(info.getCompanyId());
 		dto.setCreaterId(info.getId());
@@ -170,7 +170,7 @@ public class DicManageController {
 	* @throws
 	 */
 	@PostMapping("update")
-	public Result updateDicItem(UpdateModelDicItemDTO dto) {
+	public @ResponseBody Result updateDicItem(UpdateModelDicItemDTO dto) {
 		dto.setUpdaterId(TokenManager.getLoginUser().getId());
 		dto.setUpdateTime(new Date());
 		Result result = dicService.addByModel(dto);

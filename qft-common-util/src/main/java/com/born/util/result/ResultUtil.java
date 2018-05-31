@@ -272,6 +272,33 @@ public final class ResultUtil {
 	}
 	/**
 	 * 
+	* @Title: serverError 
+	* @Description: 服务异常
+	* @param @param code
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	public static Result serverError(RespCode code){
+		
+		return ResultUtil.getResult(code);
+	}
+	/**
+	 * 
+	* @Title: serverError 
+	* @Description: 服务异常 
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	public static Result serverError(){
+		
+		return ResultUtil.getResult(RespCode.Code.INTERNAL_SERVER_ERROR);
+	}
+	/**
+	 * 
 	* @Title: fail 
 	* @Description: 失败返回 
 	* @param @param code

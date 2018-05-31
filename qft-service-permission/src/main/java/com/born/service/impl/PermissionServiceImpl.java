@@ -89,10 +89,11 @@ public class PermissionServiceImpl extends BaseService<BaseModel, Authority> imp
 			if (null != info) {
 				return ResultUtil.success(info);
 			}
+			return ResultUtil.fail(RespCode.Code.NOT_QUERY_DATA);
 		} catch (Exception e) {
 			log.error("根据公司url获取公司信息", e);
+			return ResultUtil.serverError();
 		}
-		return ResultUtil.fail();
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class PermissionServiceImpl extends BaseService<BaseModel, Authority> imp
 			return ResultUtil.success(companyAuthorityMapper.selectPersonalPermissions(userId));
 		} catch (Exception e) {
 			log.error("查询个人权限数据异常", e);
-			return ResultUtil.fail();
+			return ResultUtil.serverError();
 		}
 	}
 
@@ -119,7 +120,7 @@ public class PermissionServiceImpl extends BaseService<BaseModel, Authority> imp
 			return ResultUtil.success(companyAuthorityMapper.selectPositionPermissions(positionId));
 		} catch (Exception e) {
 			log.error("查询职位权限数据异常", e);
-			return ResultUtil.fail();
+			return ResultUtil.serverError();
 		}
 	}
 
@@ -133,7 +134,7 @@ public class PermissionServiceImpl extends BaseService<BaseModel, Authority> imp
 			return ResultUtil.success(companyAuthorityMapper.selectPermissions(companyId));
 		} catch (Exception e) {
 			log.error("根据公司查询权限数据异常", e);
-			return ResultUtil.fail();
+			return ResultUtil.serverError();
 		}
 	}
 
@@ -186,7 +187,7 @@ public class PermissionServiceImpl extends BaseService<BaseModel, Authority> imp
 			return ResultUtil.success(menuPermissionFactory.genMenuAuth(dto));
 		} catch (Exception e) {
 			log.error("查询授权数据异常", e);
-			return ResultUtil.fail();
+			return ResultUtil.serverError();
 		}
 	}
 	/**
