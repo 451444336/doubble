@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.born.core.base.BaseValidate;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: StaffOperDTO 
@@ -16,6 +17,7 @@ import lombok.Data;
 *
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class StaffOperDTO extends BaseValidate<StaffOperDTO> {
 
 	/**

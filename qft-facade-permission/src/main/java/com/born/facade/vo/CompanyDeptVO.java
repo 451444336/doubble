@@ -3,6 +3,7 @@ package com.born.facade.vo;
 import com.born.core.base.BaseVO;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Description: 部门vo
@@ -10,7 +11,8 @@ import lombok.Data;
  * @date 2018年4月27日 下午2:15:21
  */
 @Data
-public class CompanyDeptVO extends BaseVO{
+@EqualsAndHashCode(callSuper = true)
+public class CompanyDeptVO extends BaseVO {
 	
 	/**
 	 * 

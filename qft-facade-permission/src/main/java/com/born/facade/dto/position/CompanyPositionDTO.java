@@ -9,6 +9,7 @@ import com.born.core.page.PageBean;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 公司职位表
  * @author 明成
@@ -16,7 +17,8 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value="职位管理请求实体")
-public class CompanyPositionDTO extends PageBean{
+@EqualsAndHashCode(callSuper = true)
+public class CompanyPositionDTO extends PageBean {
 
 	/**
 	 * 

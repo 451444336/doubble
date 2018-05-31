@@ -8,6 +8,7 @@ import com.born.core.base.BaseValidate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 /**
  * 
 * @ClassName: AddPositionMapDTO 
@@ -18,7 +19,8 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value="职位管理请求实体")
-public class AddPositionMapDTO extends BaseValidate {
+@EqualsAndHashCode(callSuper = true)
+public class AddPositionMapDTO extends BaseValidate<AddPositionMapDTO> {
 
 	/**
 	 * 

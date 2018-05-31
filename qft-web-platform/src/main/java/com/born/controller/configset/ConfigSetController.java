@@ -9,12 +9,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.core.constant.ConfigSetConstants;
 import com.born.facade.dto.configset.DefaultSetDTO;
+import com.born.facade.dto.configset.RentFreePeriodDTO;
 import com.born.facade.dto.configset.UserData;
 import com.born.facade.service.configset.IConfigSetService;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
 
+/**
+ * 通用设置
+ * 
+ * @ClassName: ConfigSetController
+ * @Description: 通用设置访问层
+ * @author 张永胜
+ * @date 2018年5月31日 上午10:01:27
+ * @version 1.0
+ */
 @Controller
 @RequestMapping(value = "web/config")
 public class ConfigSetController {
@@ -29,7 +39,7 @@ public class ConfigSetController {
 	 * 默认设置
 	 * 
 	 * @Title: saveDefaultSet
-	 * @Description: 通用设置保存默认设置
+	 * @Description: 通用设置-保存默认设置
 	 * @param defaultSet
 	 * @return
 	 * @throws Exception
@@ -39,14 +49,42 @@ public class ConfigSetController {
 	 */
 	@ResponseBody
 	@PostMapping(value = "/save/default/set")
-	public Result saveDefaultSet(@RequestBody DefaultSetDTO defaultSet) throws Exception {
-		switch (defaultSet.getFlag()) {
+	public Result saveDefaultSet(@RequestBody DefaultSetDTO model) throws Exception {
+		switch (model.getFlag()) {
 		case 1:
-			return iConfigSetService.saveDefaultSet(new UserData(ConfigSetConstants.focus, 2L, 3L), defaultSet);
+			return iConfigSetService.saveDefaultSet(new UserData(ConfigSetConstants.focus, 2L, 3L), model);
 		case 2:
-			return iConfigSetService.saveDefaultSet(new UserData(ConfigSetConstants.housing, 2L, 3L), defaultSet);
+			return iConfigSetService.saveDefaultSet(new UserData(ConfigSetConstants.housing, 2L, 3L), model);
 		case 3:
-			return iConfigSetService.saveDefaultSet(new UserData(ConfigSetConstants.cotenant, 2L, 3L), defaultSet);
+			return iConfigSetService.saveDefaultSet(new UserData(ConfigSetConstants.cotenant, 2L, 3L), model);
+		default:
+			break;
+		}
+		return ResultUtil.getResult(RespCode.Code.ILLEGALARGUMENT);
+	}
+
+	/**
+	 * 免租期模式
+	 * 
+	 * @Title: saveRentFreePeriod
+	 * @Description: 通用设置-保存免租期设置
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 * @author 张永胜
+	 * @return Result
+	 * @date 2018年5月31日 上午10:00:54
+	 */
+	@ResponseBody
+	@PostMapping(value = "/save/rent/free/period")
+	public Result saveRentFreePeriod(@RequestBody RentFreePeriodDTO model) throws Exception {
+		switch (model.getFlag()) {
+		case 1:
+			return iConfigSetService.saveRentFreePeriod(new UserData(ConfigSetConstants.focus, 2L, 3L), model);
+		case 2:
+			return iConfigSetService.saveRentFreePeriod(new UserData(ConfigSetConstants.housing, 2L, 3L), model);
+		case 3:
+			return iConfigSetService.saveRentFreePeriod(new UserData(ConfigSetConstants.cotenant, 2L, 3L), model);
 		default:
 			break;
 		}
