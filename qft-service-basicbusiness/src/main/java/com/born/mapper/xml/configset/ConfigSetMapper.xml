@@ -24,6 +24,21 @@
             	</set>
 				where id = ${item.id}
 	    </foreach>  
-	</update>  
+	</update>
+	
+	<resultMap id="configSetResult"   type="java.util.HashMap">  
+	    <result column="set_name" property="setName"/>  
+	    <result column="set_value" property="setValue" />
+	</resultMap>
+	<!-- 根据类型查询默认设置 -->
+	<select id="getConfigSetAllByType" parameterType="java.util.Map"  resultMap="configSetResult">
+		SELECT
+			set_name,
+			set_value
+		FROM
+			qft_config_set
+		WHERE company_id = #{companyId}
+		AND set_type = #{type}
+	</select>
 
 </mapper>

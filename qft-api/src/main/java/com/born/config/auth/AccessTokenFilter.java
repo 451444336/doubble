@@ -18,7 +18,7 @@ import com.born.config.auth.token.Token;
 import com.born.config.auth.token.TokenManager;
 import com.born.core.constant.CommonConstants;
 import com.born.core.constant.PropertiesConstants;
-import com.born.util.constants.AppConstants;
+import com.born.util.constants.AppRedisKeyConstants;
 import com.born.util.encrypt.security.SecurityUtil;
 import com.born.util.json.JsonResult;
 import com.born.util.json.ResultCode;
@@ -73,7 +73,7 @@ public class AccessTokenFilter extends AccessControlFilter {
 		/**
 		 * 用户和token拼接字符串 这里采用拼接是混淆加密方式
 		 */
-		String token = req.getHeader(AppConstants.AUTHORIZATION);
+		String token = req.getHeader(AppRedisKeyConstants.AUTHORIZATION);
 		String timestamp = req.getHeader("timestamp");// 时间戳
 		String nonc = req.getHeader("nonc");// 随机数
 		String sign = req.getHeader("sign");// 签名

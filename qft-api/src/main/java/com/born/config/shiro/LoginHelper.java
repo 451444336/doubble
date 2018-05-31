@@ -18,7 +18,7 @@ import com.born.dto.LoginInfo;
 import com.born.dto.ResultInfo;
 import com.born.util.AppUtil;
 import com.born.util.String.StringUtil;
-import com.born.util.constants.AppConstants;
+import com.born.util.constants.AppRedisKeyConstants;
 import com.born.util.encrypt.security.SecurityUtil;
 import com.born.util.json.JsonResult;
 import com.born.util.json.ResultCode;
@@ -113,9 +113,9 @@ public class LoginHelper {
 			ICacheService<String, Object> iCacheService) {
 		try {
 			String userId = SecurityUtil.decryptDes(token.getUserId());
-			iCacheService.remove(StringUtil.appendRedisKey(AppConstants.TOKEN_KEY, userId));
-			iCacheService.remove(StringUtil.appendRedisKey(AppConstants.USER_INFO, userId));
-			AppUtil.removeCurrentUser(iCacheService, StringUtil.appendRedisKey(AppConstants.CURRENT_USER, userId));
+			iCacheService.remove(StringUtil.appendRedisKey(AppRedisKeyConstants.TOKEN_KEY, userId));
+			iCacheService.remove(StringUtil.appendRedisKey(AppRedisKeyConstants.USER_INFO, userId));
+			AppUtil.removeCurrentUser(iCacheService, StringUtil.appendRedisKey(AppRedisKeyConstants.CURRENT_USER, userId));
 			return JsonResult.info(ResultCode.SUCCESS);
 		} catch (Exception e) {
 			log.error("登出异常", e);

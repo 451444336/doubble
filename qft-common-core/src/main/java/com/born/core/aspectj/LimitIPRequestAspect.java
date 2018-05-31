@@ -19,7 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.born.core.annotation.LimitIPRequest;
 import com.born.core.exception.LimitIPRequestException;
 import com.born.core.rediscache.ICacheService;
-import com.born.util.constants.AppConstants;
+import com.born.util.constants.AppRedisKeyConstants;
 import com.born.util.http.IPUtils;
 import com.born.util.json.JsonResult;
 import com.born.util.json.ResultCode;
@@ -82,7 +82,7 @@ public class LimitIPRequestAspect {
 
 			String ip = IPUtils.getIpAddress(request);
 			String uri = request.getRequestURI().toString();
-			String redisKey = AppConstants.LIMIT_IP_REQUEST + ":" + uri + ":" + ip;
+			String redisKey = AppRedisKeyConstants.LIMIT_IP_REQUEST + ":" + uri + ":" + ip;
 
 			/**
 			 * 设置在redis中的缓存，累加1

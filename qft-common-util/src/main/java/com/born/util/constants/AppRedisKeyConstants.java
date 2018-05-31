@@ -1,23 +1,26 @@
 package com.born.util.constants;
 
 /**
- * App 常量表
  * 
- * @author zys
- *
+* @ClassName: AppRedisKeyConstants 
+* @Description: APP 常量表
+* @author 张永胜 
+* @date 2018年5月31日 下午2:11:41 
+* @version 1.0
  */
-public interface AppConstants {
+public interface AppRedisKeyConstants {
 
+	static final String APP = "APP";
 	/** 当前用户 */
 	static final String CURRENT_USER = "CURRENT_USER";
 	/** 客户端IP */
 	static final String USER_IP = "USER_IP";
 	/** 普通型-缓存命名空间 */
-	static final String CACHE_NAMESPACE = "QFT:";
+	static final String CACHE_NAMESPACE = "QFT:"+APP;
 	/** 保存型-缓存命名空间 */
-	static final String SYSTEM_CACHE_NAMESPACE = "S:QFT:";
+	static final String SYSTEM_CACHE_NAMESPACE = "S:QFT:"+APP;
 	/** 锁型-缓存命名空间 */
-	static final String CACHE_NAMESPACE_LOCK = "L:QFT:";
+	static final String CACHE_NAMESPACE_LOCK = "L:QFT:"+APP;
 	/** TOKEN授权Key */
 	static final String AUTHORIZATION = "auth";
 	/** TOKEN延长期限(单位：天) */

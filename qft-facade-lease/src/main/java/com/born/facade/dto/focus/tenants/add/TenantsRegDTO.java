@@ -1,11 +1,11 @@
-package com.born.facade.dto.focus.tenants;
+package com.born.facade.dto.focus.tenants.add;
 
 import java.io.Serializable;
 
 import lombok.Data;
 
 @Data
-public class FocusRegDTO implements Serializable {
+public class TenantsRegDTO implements Serializable {
 
 	/**
 	 * 
@@ -18,22 +18,17 @@ public class FocusRegDTO implements Serializable {
 	private long roomId;
 
 	/**
-	 * 公司ID
-	 */
-	private long companyId;
-
-	/**
 	 * 租客基本信息
 	 */
-	private TenantsDTO tenants;
+	private Tenants tenants;
 
 	/**
 	 * 租客必要信息
 	 */
-	private TenantsInfoDTO tenantsInfo;
+	private TenantsInfo tenantsInfo;
 
 	/**
 	 * 租客付费信息 这里是固定几项付费，如果扩展只写其中一项
 	 */
-	private OtherExpensesDTO otherExpenses;
+	private OtherExpenses otherExpenses;
 }

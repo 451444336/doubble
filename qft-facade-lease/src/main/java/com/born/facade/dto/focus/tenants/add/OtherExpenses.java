@@ -1,4 +1,4 @@
-package com.born.facade.dto.focus.tenants;
+package com.born.facade.dto.focus.tenants.add;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
-public class OtherExpensesDTO implements Serializable {
+public class OtherExpenses implements Serializable {
 
 	/**
 	 * 

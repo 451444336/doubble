@@ -20,7 +20,6 @@ import com.born.facade.vo.focus.room.FocusRoomVO;
 @Repository
 public interface FocusRoomMapper extends BaseMapper<FocusRoom> {
 
-	
 	/**
 	 * 
 	 * @Title
@@ -31,7 +30,7 @@ public interface FocusRoomMapper extends BaseMapper<FocusRoom> {
 	 * @date 2018年5月29日 下午6:33:40
 	 */
 	int insertOrUpdate(FocusRoomDTO dto);
-	
+
 	/**
 	 * 
 	 * @Title
@@ -42,7 +41,7 @@ public interface FocusRoomMapper extends BaseMapper<FocusRoom> {
 	 * @date 2018年5月29日 下午6:34:34
 	 */
 	int deleteById(Long id);
-	
+
 	/**
 	 * 获取集中整租房间列表
 	 * 
@@ -81,4 +80,19 @@ public interface FocusRoomMapper extends BaseMapper<FocusRoom> {
 	 * @date 2018年5月29日 上午11:05:08
 	 */
 	int updateRoomStatusById(@Param(value = "roomId") long roomId, @Param(value = "companyId") long companyId);
+
+	/**
+	 * 
+	* @Title: updateRoomLastTime 
+	* @Description: 更新房间的最后一次租出时间为租客上次租出时间
+	* @param roomId
+	* @param companyId
+	* @param lastTime
+	* @return 
+	* @author 张永胜
+	* @return int
+	* @date 2018年5月31日 上午11:43:34
+	 */
+	int updateRoomLastTime(@Param(value = "roomId") long roomId, @Param(value = "companyId") long companyId,
+			@Param(value = "lastTime") Date lastTime);
 }

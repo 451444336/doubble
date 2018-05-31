@@ -33,7 +33,7 @@ import com.born.facade.vo.appauth.UserRoleAuthVO;
 import com.born.facade.vo.staff.StaffVO;
 import com.born.util.AppUtil;
 import com.born.util.String.StringUtil;
-import com.born.util.constants.AppConstants;
+import com.born.util.constants.AppRedisKeyConstants;
 import com.born.util.encrypt.security.SecurityUtil;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
@@ -151,7 +151,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 			 */
 			eCount++;
 			log.warn("User [{}] Password Is Error Count: {}", account, eCount);
-			iCacheService.set(StringUtil.appendRedisKey(AppConstants.LOGIN_ERROR_COUNT, user.getId()), eCount, 1L, TimeUnit.DAYS);
+			iCacheService.set(StringUtil.appendRedisKey(AppRedisKeyConstants.LOGIN_ERROR_COUNT, user.getId()), eCount, 1L, TimeUnit.DAYS);
 			throw new AppLoginPassErrorException();
 		} else {
 
@@ -170,7 +170,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
 		/** 获取缓存中登录错误次数 */
 		Integer eCount = 0;
-		Object obj = iCacheService.get(StringUtil.appendRedisKey(AppConstants.LOGIN_ERROR_COUNT, user.getId()));
+		Object obj = iCacheService.get(StringUtil.appendRedisKey(AppRedisKeyConstants.LOGIN_ERROR_COUNT, user.getId()));
 
 		if (obj != null) {
 
@@ -259,7 +259,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 					/**
 					 * 缓存用户基本信息
 					 */
-					iCacheService.set(StringUtil.appendRedisKey(AppConstants.USER_INFO, u.getId()), resultStaff.getData());
+					iCacheService.set(StringUtil.appendRedisKey(AppRedisKeyConstants.USER_INFO, u.getId()), resultStaff.getData());
 				}
 			}
 
@@ -273,13 +273,13 @@ public class MyShiroRealm extends AuthorizingRealm {
 					/**
 					 * 缓存用户权限信息
 					 */
-					iCacheService.set(StringUtil.appendRedisKey(AppConstants.USER_PERMISSION_INFO, u.getId()), roleAuthList);
+					iCacheService.set(StringUtil.appendRedisKey(AppRedisKeyConstants.USER_PERMISSION_INFO, u.getId()), roleAuthList);
 				}
 			}
 			/**
 			 * 登录成功，移除错误次数
 			 */
-			iCacheService.remove(StringUtil.appendRedisKey(AppConstants.LOGIN_ERROR_COUNT, u.getId()));
+			iCacheService.remove(StringUtil.appendRedisKey(AppRedisKeyConstants.LOGIN_ERROR_COUNT, u.getId()));
 
 			return info;
 		} catch (Exception e) {

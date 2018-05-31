@@ -3,6 +3,7 @@ package com.born.service.impl.configset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.born.core.constant.ConfigSetConstants;
+import com.born.core.rediscache.ICacheService;
 import com.born.entity.configset.ConfigSet;
 import com.born.facade.dto.configset.DefaultSetDTO;
 import com.born.facade.dto.configset.RentFreePeriodDTO;
@@ -18,6 +20,7 @@ import com.born.facade.exception.ConfigSetException;
 import com.born.facade.service.configset.IConfigSetService;
 import com.born.mapper.ConfigSetMapper;
 import com.born.util.String.StringUtil;
+import com.born.util.constants.WebRedisKeyConstants;
 import com.born.util.result.RespCode;
 import com.born.util.result.Result;
 import com.born.util.result.ResultUtil;
@@ -38,6 +41,12 @@ public class ConfigSetServiceImpl implements IConfigSetService {
 
 	@Autowired
 	private ConfigSetMapper configSetMapper;
+	
+	/**
+	 * 缓存服务
+	 */
+	@Autowired
+	private ICacheService<String, Object> redis;
 
 	/**
 	 * 
@@ -56,6 +65,26 @@ public class ConfigSetServiceImpl implements IConfigSetService {
 		model.setCreateTime(new Date());// 创建时间
 		model.setSetType(data.getType());// 设置类型
 		return model;
+	}
+	
+	/**
+	 * 
+	* @Title: saveRedisConfigSet 
+	* @Description: 通用查询设置并保存进缓存
+	* @param key
+	* @param data 
+	* @author 张永胜
+	* @return void
+	* @date 2018年5月31日 下午3:06:26
+	 */
+	private void saveRedisConfigSet(String key, UserData data) {
+		/**
+		 * 这里必须查询数据中最新的设置数据
+		 * 保存缓存中,并更新缓存
+		 * 返回Map 是为了在Redis中获取出来后便于按常量表中好取值
+		 */
+		Map<String, Object> dslist = configSetMapper.getConfigSetAllByType(data.getType(), data.getCompanyId());
+		redis.set(StringUtil.appendRedisKey(key, data.getType()), dslist);
 	}
 	
 	@Override
@@ -459,7 +488,12 @@ public class ConfigSetServiceImpl implements IConfigSetService {
 			if (updateRecordList.size() != 0) {
 				configSetMapper.batchUpdateByIds(updateRecordList);
 			}
-
+			
+			/**
+			 * 保存缓存
+			 */
+			saveRedisConfigSet(WebRedisKeyConstants.DEFAULT_SET, data);
+			
 		} catch (Exception e) {
 			log.error("保存默认设置异常", e);
 			throw new ConfigSetException("保存默认设置异常");
@@ -529,6 +563,11 @@ public class ConfigSetServiceImpl implements IConfigSetService {
 			if (updateRecordList.size() != 0) {
 				configSetMapper.batchUpdateByIds(updateRecordList);
 			}
+			
+			/**
+			 * 保存缓存
+			 */
+			saveRedisConfigSet(WebRedisKeyConstants.RENT_FREE_PERIOD, data);
 
 		} catch (Exception e) {
 			log.error("保存免租期模式设置异常", e);

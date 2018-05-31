@@ -3,7 +3,7 @@ package com.born.util;
 import com.born.core.rediscache.ICacheService;
 import com.born.facade.vo.UserApiVO;
 import com.born.util.String.StringUtil;
-import com.born.util.constants.AppConstants;
+import com.born.util.constants.AppRedisKeyConstants;
 
 /**
  * 
@@ -25,7 +25,7 @@ public class AppUtil {
 	 */
 	public static final void saveCurrentUser(ICacheService<String, Object> iCacheService, Object v) {
 		UserApiVO user = (UserApiVO) v;
-		iCacheService.set(StringUtil.appendRedisKey(AppConstants.CURRENT_USER, user.getId()), user);
+		iCacheService.set(StringUtil.appendRedisKey(AppRedisKeyConstants.CURRENT_USER, user.getId()), user);
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class AppUtil {
 	 * @return
 	 */
 	public static final Object getCurrentUser(ICacheService<String, UserApiVO> iCacheService, String key) {
-		Object obj = iCacheService.get(StringUtil.appendRedisKey(AppConstants.CURRENT_USER, key));
+		Object obj = iCacheService.get(StringUtil.appendRedisKey(AppRedisKeyConstants.CURRENT_USER, key));
 		if (obj != null) {
 			UserApiVO user = (UserApiVO) obj;
 			return user;

@@ -3,6 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.born.mapper.FocusTenantsInfoMapper">
 
-
+	<!-- 根据ID获取最后次租房时间 -->
+	<select id="getTenantsLastTimeById"
+		parameterType="java.util.Map" resultType="java.util.Date">
+		SELECT
+		tenantlast_time
+		FROM
+		qft_focus_tenants_info
+		WHERE
+		id = #{roomId}
+		and company_id = #{companyId}
+	</select>
 
 </mapper>

@@ -16,7 +16,7 @@ import com.born.core.rediscache.ICacheService;
 import com.born.facade.service.ICompanyRoleAuthService;
 import com.born.facade.service.IPermissionService;
 import com.born.facade.vo.appauth.UserRoleAuthVO;
-import com.born.util.constants.AppConstants;
+import com.born.util.constants.AppRedisKeyConstants;
 import com.born.util.json.JsonResult;
 import com.born.util.json.ResultCode;
 import com.born.util.json.ResultEntity;
@@ -77,7 +77,7 @@ public class PermissionApi {
 		/**
 		 * 先从缓存中获取权限
 		 */
-		Object permission = iCacheService.get(AppConstants.USER_PERMISSION_INFO + ":" + userId);
+		Object permission = iCacheService.get(AppRedisKeyConstants.USER_PERMISSION_INFO + ":" + userId);
 		if (permission != null) {
 			List<UserRoleAuthVO> roleAuthList = (List<UserRoleAuthVO>) permission;
 			return JsonResult.info(ResultCode.SUCCESS, roleAuthList);
