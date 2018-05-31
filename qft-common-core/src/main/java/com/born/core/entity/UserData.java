@@ -31,7 +31,18 @@ public class UserData implements Serializable {
 		this.companyId = companyId;
 	}
 
+	/**
+	 * 标识集中、整租、合租
+	 */
 	private String type;
+
+	/**
+	 * 当前登录用户ID
+	 */
 	private Long userId;
+
+	/**
+	 * 公司ID
+	 */
 	private Long companyId;
 }

@@ -15,6 +15,7 @@ import com.born.core.entity.UserData;
 import com.born.core.rediscache.ICacheService;
 import com.born.entity.configset.ConfigSet;
 import com.born.facade.dto.configset.DefaultSetDTO;
+import com.born.facade.dto.configset.FixPriceSetDTO;
 import com.born.facade.dto.configset.RentFreePeriodDTO;
 import com.born.facade.exception.ConfigSetException;
 import com.born.facade.service.configset.IConfigSetService;
@@ -572,6 +573,107 @@ public class ConfigSetServiceImpl implements IConfigSetService {
 		} catch (Exception e) {
 			log.error("保存免租期模式设置异常", e);
 			throw new ConfigSetException("保存免租期模式设置异常");
+		}
+		return ResultUtil.getResult(RespCode.Code.SUCCESS);
+	}
+
+	@Override
+	public Result saveFixPriceSet(UserData data, FixPriceSetDTO params) {
+		log.info("定价设置参数 {}", params);
+		
+		if (StringUtils.isNoneBlank(data.getType(), String.valueOf(data.getCompanyId())) && params == null) {
+			return ResultUtil.getResult(RespCode.Code.ILLEGALARGUMENT);
+		}
+		
+		List<ConfigSet> saveRecordList = new ArrayList<ConfigSet>();
+		List<ConfigSet> updateRecordList = new ArrayList<ConfigSet>();
+		ConfigSet model = null;// 设置实体类
+		
+		
+		/**
+		 * 低于定价出租，不能录入信息
+		 */
+		if(params.getLowFixPriceNoInValue() != null) {
+			model = new ConfigSet();
+			model.setSetValue(String.valueOf(params.getLowFixPriceNoInValue()));
+			if (params.getLowFixPriceNoInId() != null) {
+				model.setId(params.getLowFixPriceNoInId());
+				model.setUpdaterId(data.getUserId());
+				model.setUpdateTime(new Date());
+				updateRecordList.add(model);
+			} else {
+				model = configSet(data, model);
+				model.setSetName(ConfigSetConstants.FixPriceMode.LOW_FIX_PRICE_NO_IN.getKey());
+				/**
+				 * 这里就不要设置每个对应的描述了
+				 */
+				model.setSetRemark(ConfigSetConstants.FixPriceMode.LOW_FIX_PRICE_NO_IN.getDescribe());
+				saveRecordList.add(model);
+			}
+		}
+		
+		/**
+		 * 低于规定押金出租，不能录入信息
+		 */
+		if(params.getLowDepositNoInValue() != null) {
+			model = new ConfigSet();
+			model.setSetValue(String.valueOf(params.getLowDepositNoInValue()));
+			if (params.getLowDepositNoInId() != null) {
+				model.setId(params.getLowDepositNoInId());
+				model.setUpdaterId(data.getUserId());
+				model.setUpdateTime(new Date());
+				updateRecordList.add(model);
+			} else {
+				model = configSet(data, model);
+				model.setSetName(ConfigSetConstants.FixPriceMode.LOW_DEPOSIT_NO_IN.getKey());
+				/**
+				 * 这里就不要设置每个对应的描述了
+				 */
+				model.setSetRemark(ConfigSetConstants.FixPriceMode.LOW_DEPOSIT_NO_IN.getDescribe());
+				saveRecordList.add(model);
+			}
+		}
+		
+		/**
+		 * 启用退房后仍保留之前定价
+		 */
+		if(params.getOutRoomIsSaveFixPriceValue() != null) {
+			model = new ConfigSet();
+			model.setSetValue(String.valueOf(params.getOutRoomIsSaveFixPriceValue()));
+			if (params.getOutRoomIsSaveFixPriceId() != null) {
+				model.setId(params.getOutRoomIsSaveFixPriceId());
+				model.setUpdaterId(data.getUserId());
+				model.setUpdateTime(new Date());
+				updateRecordList.add(model);
+			} else {
+				model = configSet(data, model);
+				model.setSetName(ConfigSetConstants.FixPriceMode.OUT_ROOM_IS_SAVE_FIX_PRICE.getKey());
+				/**
+				 * 这里就不要设置每个对应的描述了
+				 */
+				model.setSetRemark(ConfigSetConstants.FixPriceMode.OUT_ROOM_IS_SAVE_FIX_PRICE.getDescribe());
+				saveRecordList.add(model);
+			}
+		}
+		
+		try {
+
+			if (saveRecordList.size() != 0) {
+				configSetMapper.insertList(saveRecordList);
+			}
+
+			if (updateRecordList.size() != 0) {
+				configSetMapper.batchUpdateByIds(updateRecordList);
+			}
+			
+			/**
+			 * 保存缓存
+			 */
+			saveRedisConfigSet(WebRedisKeyConstants.FIX_PRICE, data);
+
+		} catch (Exception e) {
+			log.error("保存定价设置异常", e);
+			throw new ConfigSetException("保存定价设置异常");
 		}
 		return ResultUtil.getResult(RespCode.Code.SUCCESS);
 	}

@@ -2,6 +2,7 @@ package com.born.facade.service.configset;
 
 import com.born.core.entity.UserData;
 import com.born.facade.dto.configset.DefaultSetDTO;
+import com.born.facade.dto.configset.FixPriceSetDTO;
 import com.born.facade.dto.configset.RentFreePeriodDTO;
 import com.born.util.result.Result;
 
@@ -16,33 +17,42 @@ import com.born.util.result.Result;
 public interface IConfigSetService {
 
 	/**
-	 * 通用保存默认设置
+	 * 默认设置
 	 * 
 	 * @Title: saveDefaultSet
 	 * @Description: 保存默认设置
-	 * @param type标识集中、整租、合租
-	 * @param companyId公司ID
-	 * @param defaultSet页面设置的值
+	 * @param data 用户数据
+	 * @param defaultSet 提交的参数
 	 * @return
 	 * @author 张永胜
 	 * @return Result
-	 * @throws Exception
-	 * @date 2018年5月29日 下午5:55:02
+	 * @date 2018年5月31日 下午4:37:19
 	 */
-	Result saveDefaultSet(UserData data, DefaultSetDTO defaultSet) ;
+	Result saveDefaultSet(UserData data, DefaultSetDTO defaultSet);
 
-	/**
-	 * 
+	/***
+	 * 免租期模式
 	 * @Title: saveRentFreePeriod
 	 * @Description: 免租期模式
-	 * @param type标识集中、整租、合租
-	 * @param companyId公司ID
-	 * @param rentFreeDTO页面设置的值
+	 * @param data 用户数据
+	 * @param rentFreeDTO 提交的参数
 	 * @return
 	 * @author 张永胜
 	 * @return Result
-	 * @throws Exception 
-	 * @date 2018年5月30日 下午2:49:22
+	 * @date 2018年5月31日 下午4:37:35
 	 */
-	Result saveRentFreePeriod(UserData data, RentFreePeriodDTO rentFreeDTO) ;
+	Result saveRentFreePeriod(UserData data, RentFreePeriodDTO rentFreeDTO);
+
+	/**
+	 * 定价设置
+	 * @Title: saveFixPriceSet
+	 * @Description: 定价设置
+	 * @param data 用户数据
+	 * @param param 提交的参数
+	 * @return
+	 * @author 张永胜
+	 * @return Result
+	 * @date 2018年5月31日 下午4:36:23
+	 */
+	Result saveFixPriceSet(UserData data, FixPriceSetDTO param);
 }
