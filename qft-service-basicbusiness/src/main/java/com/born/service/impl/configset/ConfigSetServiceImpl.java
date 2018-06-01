@@ -15,6 +15,7 @@ import com.born.core.entity.UserData;
 import com.born.core.rediscache.ICacheService;
 import com.born.entity.configset.ConfigSet;
 import com.born.facade.dto.configset.DefaultSetDTO;
+import com.born.facade.dto.configset.DepositSetDTO;
 import com.born.facade.dto.configset.FixPriceSetDTO;
 import com.born.facade.dto.configset.RentFreePeriodDTO;
 import com.born.facade.exception.ConfigSetException;
@@ -674,6 +675,60 @@ public class ConfigSetServiceImpl implements IConfigSetService {
 		} catch (Exception e) {
 			log.error("保存定价设置异常", e);
 			throw new ConfigSetException("保存定价设置异常");
+		}
+		return ResultUtil.getResult(RespCode.Code.SUCCESS);
+	}
+
+	@Override
+	public Result saveDepositSet(UserData data, DepositSetDTO params) {
+		log.info("定金设置参数 {}", params);
+		
+		if (StringUtils.isNoneBlank(data.getType(), String.valueOf(data.getCompanyId())) && params == null) {
+			return ResultUtil.getResult(RespCode.Code.ILLEGALARGUMENT);
+		}
+		
+		List<ConfigSet> saveRecordList = new ArrayList<ConfigSet>();
+		List<ConfigSet> updateRecordList = new ArrayList<ConfigSet>();
+		ConfigSet model = null;// 设置实体类
+		
+		
+		/**
+		 * 超过有效期自动取消定金
+		 */
+		if(params.getTvpCancelDepositValue() != null) {
+			model = new ConfigSet();
+			model.setSetValue(String.valueOf(params.getTvpCancelDepositValue()));
+			if (params.getTvpCancelDepositId() != null) {
+				model.setId(params.getTvpCancelDepositId());
+				model.setUpdaterId(data.getUserId());
+				model.setUpdateTime(new Date());
+				updateRecordList.add(model);
+			} else {
+				model = configSet(data, model);
+				model.setSetName(ConfigSetConstants.DepositSet.MORE_TVP_CANCEL_DEPOSIT.getKey());
+				model.setSetRemark(ConfigSetConstants.DepositSet.MORE_TVP_CANCEL_DEPOSIT.getDescribe());
+				saveRecordList.add(model);
+			}
+		}
+		
+		try {
+
+			if (saveRecordList.size() != 0) {
+				configSetMapper.insertList(saveRecordList);
+			}
+
+			if (updateRecordList.size() != 0) {
+				configSetMapper.batchUpdateByIds(updateRecordList);
+			}
+			
+			/**
+			 * 保存缓存
+			 */
+			saveRedisConfigSet(WebRedisKeyConstants.DEPOSIT_SET, data);
+
+		} catch (Exception e) {
+			log.error("保存定金设置异常", e);
+			throw new ConfigSetException("保存定金设置异常");
 		}
 		return ResultUtil.getResult(RespCode.Code.SUCCESS);
 	}

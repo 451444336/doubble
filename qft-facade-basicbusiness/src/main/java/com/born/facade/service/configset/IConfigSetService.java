@@ -2,6 +2,7 @@ package com.born.facade.service.configset;
 
 import com.born.core.entity.UserData;
 import com.born.facade.dto.configset.DefaultSetDTO;
+import com.born.facade.dto.configset.DepositSetDTO;
 import com.born.facade.dto.configset.FixPriceSetDTO;
 import com.born.facade.dto.configset.RentFreePeriodDTO;
 import com.born.util.result.Result;
@@ -21,38 +22,62 @@ public interface IConfigSetService {
 	 * 
 	 * @Title: saveDefaultSet
 	 * @Description: 保存默认设置
-	 * @param data 用户数据
-	 * @param defaultSet 提交的参数
+	 * @param data
+	 *            用户数据
+	 * @param defaultSet
+	 *            提交的参数
 	 * @return
 	 * @author 张永胜
 	 * @return Result
 	 * @date 2018年5月31日 下午4:37:19
 	 */
-	Result saveDefaultSet(UserData data, DefaultSetDTO defaultSet);
+	Result saveDefaultSet(UserData data, DefaultSetDTO params);
 
 	/***
 	 * 免租期模式
+	 * 
 	 * @Title: saveRentFreePeriod
 	 * @Description: 免租期模式
-	 * @param data 用户数据
-	 * @param rentFreeDTO 提交的参数
+	 * @param data
+	 *            用户数据
+	 * @param rentFreeDTO
+	 *            提交的参数
 	 * @return
 	 * @author 张永胜
 	 * @return Result
 	 * @date 2018年5月31日 下午4:37:35
 	 */
-	Result saveRentFreePeriod(UserData data, RentFreePeriodDTO rentFreeDTO);
+	Result saveRentFreePeriod(UserData data, RentFreePeriodDTO params);
 
 	/**
 	 * 定价设置
+	 * 
 	 * @Title: saveFixPriceSet
 	 * @Description: 定价设置
-	 * @param data 用户数据
-	 * @param param 提交的参数
+	 * @param data
+	 *            用户数据
+	 * @param param
+	 *            提交的参数
 	 * @return
 	 * @author 张永胜
 	 * @return Result
 	 * @date 2018年5月31日 下午4:36:23
 	 */
-	Result saveFixPriceSet(UserData data, FixPriceSetDTO param);
+	Result saveFixPriceSet(UserData data, FixPriceSetDTO params);
+
+	/**
+	 * 定金设置
+	 * 
+	 * @Title: saveDepositSet
+	 * @Description: 定金设置
+	 * @param data
+	 *            用户数据
+	 * @param param
+	 *            提交的参数
+	 * @return
+	 * @author 张永胜
+	 * @return Result
+	 * @date 2018年6月1日 下午4:04:10
+	 */
+	Result saveDepositSet(UserData data, DepositSetDTO params);
 }

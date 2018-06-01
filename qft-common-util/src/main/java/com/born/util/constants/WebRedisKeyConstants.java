@@ -25,4 +25,6 @@ public interface WebRedisKeyConstants {
 	static final String RENT_FREE_PERIOD = SYSTEM_CACHE_NAMESPACE + "RENT_FREE_PERIOD";
 	/** 定价设置 */
 	static final String FIX_PRICE = SYSTEM_CACHE_NAMESPACE + "FIX_PRICE";
+	/** 定金设置 */
+	static final String DEPOSIT_SET = SYSTEM_CACHE_NAMESPACE + "DEPOSIT_SET";
 }

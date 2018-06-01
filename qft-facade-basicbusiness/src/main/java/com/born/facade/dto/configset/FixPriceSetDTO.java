@@ -21,6 +21,16 @@ public class FixPriceSetDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * 标识处理那块的业务 如：1集中、2整租、3合租
+	 */
+	private int flag;
+	
+	/**
+	 * 是否同步
+	 */
+	private Boolean isSynch = false;
+	
+	/**
 	 * 低于定价出租，不能录入信息
 	 */
 	private Long lowFixPriceNoInId;

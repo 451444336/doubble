@@ -140,4 +140,37 @@ public interface ConfigSetConstants {
 		}
 
 	}
+	
+	/**
+	 * 
+	* @ClassName: DepositSet 
+	* @Description: 定金设置
+	* @author 张永胜 
+	* @date 2018年6月1日 下午3:58:46 
+	* @version 1.0
+	 */
+	enum DepositSet  implements ConfigSetConstants {
+		MORE_TVP_CANCEL_DEPOSIT("more_tvp_cancel_deposit", "超过有效期自动取消定金");
+
+		/** 标识 */
+		private final String key;
+		/** 描述 */
+		private final String describe;
+
+		DepositSet(String key, String describe) {
+			this.key = key;
+			this.describe = describe;
+		}
+
+		@Override
+		public String getKey() {
+			return this.key;
+		}
+
+		@Override
+		public String getDescribe() {
+			return this.describe;
+		}
+
+	}
 }
