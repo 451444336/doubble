@@ -36,6 +36,7 @@
 <!--layer弹出层-->
 <script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <script>
+	var tb;
     $(function(){
         //编辑字典
         $('.wareList').on('click','.JS_edit',function(){
@@ -61,20 +62,17 @@
             });
         });
         //datatable
-        $('#example').DataTable({
+        tb = $('#example').DataTable({
             "bServerSide": true,
             "sPaginationType": "full_numbers",
-            //"bJQueryUI": true,
             "sDom": '<"">t<"F"ip>',
             "autoWidth": false,  //自适应宽度
-            //"sAjaxSource": "${ctx}/api/user/list", //ajax调用接口
-            //<div class="btn-group" style="text-align:left;"><button type="button" class="btn btn-info dropdown-toggle"data-toggle="dropdown">操作 <span class="caret"></span></button>
-            "sAjaxSource": "../../../static/data/userlist.txt", //ajax调用接口
+            "sAjaxSource": "/web/dic/manage/getDicList", //ajax调用接口
             "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
             "aoColumns": [
-                {"sTitle": "字典名称", "mData": "id"},
-                {"sTitle": "字典名称", "mData": "id1"},
-                {"sTitle": "创建时间", "mData": "id11"},
+                {"sTitle": "字典名称", "mData": "dtname"},
+                {"sTitle": "字典名称", "mData": "dtcode"},
+                {"sTitle": "创建时间", "mData": "createTime"},
                 {"sWidth":"110px", "sTitle" : "基本操作","mData" : "id","sClass":"tab_operate", "mRender" : function ( data, type, full ) {
                         var text = '<a class="operateBtn deleteCol JS_delete" href="javascript:void(0);">删除</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
                         text += '<a class="operateBtn JS_edit" href="javascript:void(0);">修改</a>';
@@ -96,8 +94,8 @@
                     "sNext": "下一页",
                     "sLast": "末页"
                 }
-            }
-            /*"fnServerData" : function ( sSource, aoData, fnCallback, oSettings ) {
+            },
+            "fnServerData" : function ( sSource, aoData, fnCallback, oSettings ) {
                oSettings.jqXHR = $.ajax( {
                    "dataType" 	: 'json',
                    "type" 		: "GET",
@@ -105,13 +103,11 @@
                    "url" 		: sSource,
                    "data" 		: {
                        'pageNum': (aoData[3].value/aoData[4].value)+1,
-                       'pageSize' :  aoData[4].value,
-                       'telphone'  :  $("#telphone").val(),
-                       'isable' : $('#isable').val()
+                       'pageSize' :  aoData[4].value
                    },
                    "success"	: fnCallback
                } );
-           }*/
+           }
         });
     })
 </script>

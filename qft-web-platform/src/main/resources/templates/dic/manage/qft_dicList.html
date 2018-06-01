@@ -57,7 +57,6 @@
  			url : '/web/dic/manage/getDicMenus',
  			success:function(result){
  				zNodes = result.data;
- 				console.log(zNodes);
  				$.fn.zTree.init($("#treeDeptRole"), setting, zNodes);
  			}
  		});

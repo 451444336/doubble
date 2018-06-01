@@ -309,6 +309,7 @@ public class DicServiceImpl extends BaseService<BaseModel, DicItem> implements I
 				dt.setPId("menu_" + parent.getId());
 				dt.setType((byte) 0);
 				dt.setIcon("/static/js/ztree/img/user_group.png");
+				dt.setUrl("/web/dic/manage/type/addPage/" + dmb.getId());
 				result.add(dt);
 				handleMenu(result, list, dmb);
 			}
@@ -333,7 +334,7 @@ public class DicServiceImpl extends BaseService<BaseModel, DicItem> implements I
 			dmt.setPId("menu_" + dtb.getMenuDicId());
 			dmt.setType((byte) 1);
 			dmt.setTypeCode(dtb.getCode());
-			dmt.setUrl("/web/dic/typeInfo/" + dtb.getId());
+			dmt.setUrl("/web/dic/manage/type/info/" + dtb.getId());
 			dmt.setIcon("/static/js/ztree/img/user_group.png");
 			result.add(dmt);
 			if (CollectionUtils.isNotEmpty(dtb.getItems())) {
@@ -384,7 +385,7 @@ public class DicServiceImpl extends BaseService<BaseModel, DicItem> implements I
 		result.setName(dib.getItemName());
 		result.setPId(parentId);
 		result.setType((byte) 2);
-		result.setUrl("/web/dic/itemInfo/" + dib.getId());
+		result.setUrl("/web/dic/manage/item/info/" + dib.getId());
 		result.setIcon("/static/js/ztree/img/user_worker.png");
 		return result;
 	}

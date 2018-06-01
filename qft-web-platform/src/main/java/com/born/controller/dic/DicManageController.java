@@ -6,7 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -79,6 +81,79 @@ public class DicManageController {
 	public String todicInfoPage(){
 		
 		return "dic/manage/qft_dicInfo";
+	}
+	/**
+	 * 
+	* @Title: addDicTypePage 
+	* @Description: 添加菜单字典类型 
+	* @param @param menuId
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	@GetMapping("type/addPage/{menuId}")
+	public String addDicTypePage(@PathVariable Long menuId, Model model) {
+		model.addAttribute("menuId", menuId);
+		return "dic/manage/qft_adddic";
+	}
+	/**
+	 * 
+	* @Title: typeInfo 
+	* @Description: 字典类型详情信息页面 
+	* @param @param typeId
+	* @param @param model
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	@GetMapping("type/info/{typeId}")
+	public String typeInfo(@PathVariable Long typeId, Model model) {
+		model.addAttribute("typeId", typeId);
+		model.addAttribute("typeInfo", dicTypeService.getById(typeId).getData());
+		return "dic/manage/qft_editdic_one";
+	}
+	/**
+	 * 
+	* @Title: itemInfo 
+	* @Description: 字典详情信息 
+	* @param @param itemId
+	* @param @param model
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	@GetMapping("item/info/{itemId}")
+	public String itemInfo(@PathVariable Long itemId, Model model) {
+		model.addAttribute("itemId", itemId);
+		return "dic/manage/qft_editdic_two";
+	}
+	/**
+	 * 
+	* @Title: addItemPage 
+	* @Description: 添加字典项值
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	@SuppressWarnings("unchecked")
+	@GetMapping("item/addDicItemPage/{parentId}/{type}")
+	public String addItemPage(@PathVariable Long parentId, @PathVariable Byte type, Model model) {
+		Map<String, Object> map;
+		Object name;
+		if (type == 1) {
+			map = (Map<String, Object>) dicTypeService.getById(parentId).getData();
+			name = map.get("dtname");
+		} else {
+			map = (Map<String, Object>) dicService.getById(parentId).getData();
+			name = map.get("diname");
+		}
+		model.addAttribute("id", map.get("id"));
+		model.addAttribute("name", name);
+		return "dic/manage/qft_add_dicitem";
 	}
 	/**
 	 * 
@@ -176,8 +251,8 @@ public class DicManageController {
 	* @author lijie
 	* @throws
 	 */
-	@GetMapping("getDicListByPage")
-	public @ResponseBody Result getDicListByPage(PageBean pageBean, Byte type) {
+	@GetMapping("getDicList")
+	public @ResponseBody Result getDicListByPage(PageBean pageBean) {
 		QueryDicDTO dto = new QueryDicDTO();
 		dto.setCompanyId(TokenManager.getLoginUser().getCompanyId());
 		dto.setIsDelete(DataBaseEnum.NOT_DELETE.getStatus());

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>添加字典</title>
     <!--主样式表-->
-    <link rel="stylesheet" href="../../../static/css/models.css">
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
     <!--[if lt IE 9]>
     <script src="../../../static/js/support/html5shiv.min.js"></script>
     <script src="../../../static/js/support/respond.min.js"></script>
@@ -27,37 +27,38 @@
     <div class="subConBox">
         <!--添加下级菜单-->
         <div class="editMenuBox">
-            <form id="roleForm" action="" method="">
+            <form id="dicTypeForm" action="">
                 <table class="popupList">
                     <tr>
                         <th class="fieldName_three"><span class="require">*</span>字典名称：</th>
-                        <td><input class="validate[required]" name="bumen1" type="text" value="" placeholder="请输入字典名称"></td>
+                        <td><input class="validate[required]" name="dtname" type="text" value="" placeholder="请输入字典名称"></td>
                         <td width="100" class="gray-col">*字典显示名称</td>
                     </tr>
                     <tr>
                         <th class="fieldName_three"><span class="require">*</span>公司共用字典：</th>
                         <td>
-                            <label class="propRadio radioMarlef"><input class="checkOdd" name="radio" type="radio" checked>是</label>
-                            <label class="propRadio radioMarlef"><input class="checkOdd" name="radio" type="radio">否</label>
+                            <label class="propRadio radioMarlef"><input class="checkOdd" name="isPubdic" type="radio" checked value="1">是</label>
+                            <label class="propRadio radioMarlef"><input class="checkOdd" name="isPubdic" type="radio" value="0">否</label>
                         </td>
                         <td width="100" class="gray-col"></td>
                     </tr>
                     <tr>
                         <th class="fieldName_three"><span class="require">*</span>字典code：</th>
-                        <td><input class="validate[required]" name="bumen1" type="text" value="" placeholder="请输入字典code"></td>
+                        <td><input class="validate[required]" name="dtcode" type="text" value="" placeholder="请输入字典code"></td>
                         <td width="100" class="gray-col">*不能重复</td>
                     </tr>
                     <tr>
                         <th class="fieldName_three"><span class="require">*</span>字典级数：</th>
-                        <td><input class="validate[required]" name="bumen1" type="text" value="" placeholder="请输入字典名称"></td>
+                        <td><input class="validate[required]" name="dicRank" type="text" value="" placeholder="请输入字典名称"></td>
                         <td width="100" class="gray-col">*拥有几级字典</td>
                     </tr>
                 </table>
                 <!--共用按钮-->
                 <div class="PopupBtn">
-                    <input id="keep" name="" type="button" value="添加字典">
+                    <input id="add_dic_type" name="" type="button" value="添加字典">
                 </div>
                 <!--end 共用按钮-->
+			    <input type="hidden" name = "menuDicId" th:value="${menuId}"/>
             </form>
         </div>
         <!--end 添加下级菜单-->
@@ -65,11 +66,12 @@
     <!--end 子页主体内容-->
 </div>
 
-<script type="text/javascript" src="../../../static/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="../../../static/js/index.js"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
 <!--表单验证-->
-<script type="text/javascript" src="../../../static/js/validate/jquery.validationEngine-zh_CN.js"></script>
-<script type="text/javascript" src="../../../static/js/validate/jquery.validationEngine.js"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine-zh_CN.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/validate/jquery.validationEngine.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
 <script>
     $(function(){
         //表单验证
@@ -78,6 +80,30 @@
             showArrow: false,
             promptPosition: 'bottomLeft:5 0'
         });
+        $("#add_dic_type").click(function(){
+	        if (!$("#dicTypeForm").validationEngine("validate")) {
+	            return false;
+	        }
+	        $.ajax({
+                "dataType": 'json',
+                "type": "POST",
+                "url": "/web/dic/manage/type/add",
+                "data":$('#dicTypeForm').serialize(),
+                "success": function(result){
+                	if(result.code == "200"){
+	                	 layer.alert(result.message, {  
+	                         title: "保存字典",  
+	                         btn: ['确定']  
+	                     },  
+	                     function (index, item) { 
+	                 		parent.location.reload(); 
+	                     });
+                	} else {
+                		layer.alert(result.message);
+                	}
+                } 
+            });
+        })
     })
 </script>
 </body>

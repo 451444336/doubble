@@ -1,11 +1,13 @@
 package com.born.util.bean;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.cglib.beans.BeanMap;
 import org.springframework.util.CollectionUtils;
 
+import com.born.util.date.SyncDateUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 /**
@@ -31,7 +33,11 @@ public class BeanMapUtils {
 		if (null != bean) {
 			BeanMap beanMap = BeanMap.create(bean);
 			for (Object key : beanMap.keySet()) {
-				map.put(key.toString(), beanMap.get(key));
+				if (beanMap.get(key) instanceof Date) {
+					map.put(key.toString(), SyncDateUtils.dateToString("yyyy-MM-dd HH:mm:ss", (Date) beanMap.get(key)));
+				} else {
+					map.put(key.toString(), beanMap.get(key));
+				}
 			}
 		}
 		return map;
