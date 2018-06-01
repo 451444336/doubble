@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.born.core.page.PageBean;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 
@@ -16,6 +17,7 @@ import lombok.Data;
  * @date 2018年5月31日 下午2:58:19
  */
 @Data
+@EqualsAndHashCode(callSuper=true)
 public class AreaPropertyDTO extends PageBean {
 
 	/**

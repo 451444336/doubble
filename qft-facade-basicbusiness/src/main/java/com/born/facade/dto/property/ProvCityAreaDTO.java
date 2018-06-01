@@ -4,8 +4,10 @@ package com.born.facade.dto.property;
 import com.born.core.page.PageBean;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=true)
 public class ProvCityAreaDTO extends PageBean {
 	/**
 	 * 

@@ -5,6 +5,7 @@ import java.util.Date;
 import com.born.core.page.PageBean;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 
@@ -15,6 +16,7 @@ import lombok.Data;
 * @version 1.0
  */
 @Data
+@EqualsAndHashCode(callSuper=true)
 public class NoticeDTO extends PageBean {
 
 

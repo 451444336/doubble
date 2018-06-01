@@ -1,13 +1,11 @@
 package com.born.util.encrypt;
 
+import java.util.Arrays;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 
 /**
@@ -104,19 +102,6 @@ public class AESCodec {
 		SecretKey secretKey = kg.generateKey();
 		byte[] key = secretKey.getEncoded();
 		return key;
-	}
-
-	private static byte[] encryptMD5(String data) {
-		byte[] bytes = null;
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			bytes = md.digest(data.getBytes("UTF-8"));
-		} catch (NoSuchAlgorithmException gse) {
-			//ignore, must not be here
-		} catch (UnsupportedEncodingException uee) {
-			//ignore, must not be here
-		}
-		return bytes;
 	}
 
 }

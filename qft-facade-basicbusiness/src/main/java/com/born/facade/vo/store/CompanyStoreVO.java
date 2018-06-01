@@ -1,7 +1,5 @@
 package com.born.facade.vo.store;
 
-import java.util.Date;
-
 import lombok.Data;
 
 /**

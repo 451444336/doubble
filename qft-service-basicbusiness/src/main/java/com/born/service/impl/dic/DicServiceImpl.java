@@ -1,4 +1,4 @@
-package com.born.service.impl;
+package com.born.service.impl.dic;
 
 import java.util.ArrayList;
 import java.util.Date;

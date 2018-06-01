@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.born.core.page.PageBean;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Description: 店面dto
@@ -14,6 +15,7 @@ import lombok.Data;
  * @date 2018年5月14日 下午6:25:15
  */
 @Data
+@EqualsAndHashCode(callSuper=true)
 public class AddCompanyStoreDTO extends PageBean {
 
 

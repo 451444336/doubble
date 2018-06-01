@@ -14,6 +14,7 @@ import sun.misc.BASE64Encoder;
  * @author xionglei
  *
  */
+@SuppressWarnings("restriction")
 public class Md5Coder {
 
 	private static MessageDigest md5;
