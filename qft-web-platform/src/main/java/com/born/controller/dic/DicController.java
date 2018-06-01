@@ -23,7 +23,6 @@ import com.born.facade.dto.dic.UpdateDicItemDTO;
 import com.born.facade.dto.dic.UpdateDicItemSortDTO;
 import com.born.facade.dto.property.AreaPropertyDTO;
 import com.born.facade.dto.property.ChangeAreaPropertyDTO;
-import com.born.facade.dto.property.ProvCityAreaDTO;
 import com.born.facade.service.dic.IDicService;
 import com.born.facade.service.property.IAreaPropertyService;
 import com.born.facade.vo.UserInfoVO;

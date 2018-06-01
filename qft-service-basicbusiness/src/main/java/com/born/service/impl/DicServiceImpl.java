@@ -2,6 +2,7 @@ package com.born.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.born.core.base.BaseModel;
@@ -23,10 +25,13 @@ import com.born.facade.dto.dic.UpdateDicItemSortDTO;
 import com.born.facade.exception.DicExcepionEnum;
 import com.born.facade.exception.DicException;
 import com.born.facade.service.dic.IDicService;
+import com.born.facade.vo.dic.DicItemBizVO;
 import com.born.facade.vo.dic.DicItemSortVO;
 import com.born.facade.vo.dic.DicItemVO;
 import com.born.facade.vo.dic.DicMenuBizVO;
+import com.born.facade.vo.dic.DicMenuTreeVO;
 import com.born.facade.vo.dic.DicMenuVO;
+import com.born.facade.vo.dic.DicTypeBizVO;
 import com.born.mapper.DicItemMapper;
 import com.born.mapper.MenuDicMapper;
 import com.born.util.result.RespCode;
@@ -255,12 +260,128 @@ public class DicServiceImpl extends BaseService<BaseModel, DicItem> implements I
 			if (null == companyId) {
 				return ResultUtil.requestDataError("公司ID不能为空");
 			}
+			// 返回数据
+			final List<DicMenuTreeVO> result = new LinkedList<DicMenuTreeVO>();
 			List<DicMenuBizVO> list = dicItemMapper.selectDicMenuTreeList(companyId);
-			return ResultUtil.success(list);
+			if (CollectionUtils.isNotEmpty(list)) {
+				DicMenuTreeVO dt;
+				for (DicMenuBizVO dmb : list) {
+					if (null == dmb.getParentId() || "0".equals(dmb.getParentId().toString())) {
+						dt = new DicMenuTreeVO();
+						dt.setId("menu_" + dmb.getId());
+						dt.setName(dmb.getMenuName());
+						dt.setPId("menu_0");
+						dt.setType((byte) 0);
+						result.add(dt);
+						handleMenu(result, list, dmb);
+					}
+					if (CollectionUtils.isNotEmpty(dmb.getTypes())) {
+						handleDicType(dmb.getTypes(), result);
+					}
+				}
+			}
+			return ResultUtil.success(result);
 		} catch (Exception e) {
 			log.error("根据公司ID获取字典菜单数据异常", e);
 			return ResultUtil.serverError();
 		}
 	}
-
+	/**
+	 * 
+	* @Title: handleMenu 
+	* @Description: 处理菜单数据 
+	* @param @param result
+	* @param @param list
+	* @param @param parent    设定文件 
+	* @return void    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	private static void handleMenu(final List<DicMenuTreeVO> result, final List<DicMenuBizVO> list,
+			final DicMenuBizVO parent) {
+		DicMenuTreeVO dt;
+		for (DicMenuBizVO dmb : list) {
+			if (parent.getMenuId().equals(dmb.getParentId())) {
+				dt = new DicMenuTreeVO();
+				dt.setId("menu_" + dmb.getId());
+				dt.setName(dmb.getMenuName());
+				dt.setPId("menu_" + parent.getId());
+				dt.setType((byte) 0);
+				result.add(dt);
+				handleMenu(result, list, dmb);
+			}
+		}
+	}
+	/***
+	 * 
+	* @Title: handleDicType 
+	* @Description: 处理菜单字典类型数据
+	* @param @param types
+	* @param @param result    设定文件 
+	* @return void    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	private static void handleDicType(final List<DicTypeBizVO> types, final List<DicMenuTreeVO> result) {
+		DicMenuTreeVO dmt;
+		for (DicTypeBizVO dtb : types) {
+			dmt = new DicMenuTreeVO();
+			dmt.setId("dic_type_" + dtb.getId());
+			dmt.setName(dtb.getName());
+			dmt.setPId("menu_" + dtb.getMenuDicId());
+			dmt.setType((byte) 1);
+			dmt.setTypeCode(dtb.getCode());
+			dmt.setUrl("/web/dic/typeInfo/" + dtb.getId());
+			result.add(dmt);
+			if (CollectionUtils.isNotEmpty(dtb.getItems())) {
+				for (DicItemBizVO dib : dtb.getItems()) {
+					result.add(getDicMenuTreeByItem(dib, "dic_type_" + dib.getParentId()));
+					handleDicItem(dib.getNexts(), result, dib);
+				}
+			}
+		}
+	}
+	/**
+	 * 
+	* @Title: handleDicItem 
+	* @Description: 处理字典数据项数据 
+	* @param @param items
+	* @param @param result
+	* @param @param parent    设定文件 
+	* @return void    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	private static void handleDicItem(final List<DicItemBizVO> items, final List<DicMenuTreeVO> result,
+			final DicItemBizVO parent) {
+		if (CollectionUtils.isEmpty(items)) {
+			return;
+		}
+		for (DicItemBizVO dib : items) {
+			if (StringUtils.isBlank(dib.getTypeCode()) && parent.getId().equals(dib.getParentId())) {
+				result.add(getDicMenuTreeByItem(dib, "dic_item_" + parent.getId()));
+				handleDicItem(dib.getNexts(), result, dib);
+			}
+		}
+	}
+	/**
+	 * 
+	* @Title: getDicMenuTreeByItem 
+	* @Description:得到实体 
+	* @param @param dib
+	* @param @param parentId
+	* @param @return    设定文件 
+	* @return DicMenuTreeVO    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	private static DicMenuTreeVO getDicMenuTreeByItem(DicItemBizVO dib, String parentId) {
+		DicMenuTreeVO result = new DicMenuTreeVO();
+		result.setId("dic_item_" + dib.getId());
+		result.setName(dib.getItemName());
+		result.setPId(parentId);
+		result.setType((byte) 2);
+		result.setUrl("/web/dic/itemInfo/" + dib.getId());
+		return result;
+	}
 }

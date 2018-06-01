@@ -30,6 +30,10 @@ public class DicItemBizVO implements Serializable {/**
 	 */
 	private Long parentId;
 	/**
+	 * 类型编码
+	 */
+	private String typeCode;
+	/**
 	 * 下一级
 	 */
 	private List<DicItemBizVO> nexts;

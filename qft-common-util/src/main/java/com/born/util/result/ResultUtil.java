@@ -259,6 +259,20 @@ public final class ResultUtil {
 	/**
 	 * 
 	* @Title: fail 
+	* @Description: 失败自定提示信息 
+	* @param @param message
+	* @param @return    设定文件 
+	* @return Result    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	public static Result fail(String message) {
+
+		return ResultUtil.getResult(RespCode.Code.FAIL, message);
+	}
+	/**
+	 * 
+	* @Title: fail 
 	* @Description: 失败返回 
 	* @param @param code
 	* @param @return    设定文件 

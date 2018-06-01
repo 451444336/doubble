@@ -89,26 +89,47 @@
 	<!-- 字典菜单返回数据 -->
 	<resultMap id="DIC_MENU_TREE"  type="com.born.facade.vo.dic.DicMenuBizVO">
        	<id property="id" column="id"/>
-       	<result property="parent_id" column="parentId"/>
-       	<result property="menu_name" column="menuName"/>
+       	<result property="parentId" column="parent_id"/>
+       	<result property="menuName" column="menu_name"/>
        	<result property="menuId" column="menuId"/>
        	<collection property="types" column="id" select="selectDicTypelist"></collection>
     </resultMap>
     <!-- 字典类型 -->
     <resultMap id="DIC_TYPE"  type="com.born.facade.vo.dic.DicTypeBizVO">
        	<id property="id" column="id"/>
-       	<result property="menu_dic_id" column="menuDicId"/>
-       	<result property="dtname" column="name"/>
-       	<result property="dtcode" column="code"/>
-       	<collection property="items" column="id" select="selectDicItemlist"></collection>
+       	<result property="menuDicId" column="menu_dic_id"/>
+       	<result property="name" column="dtname"/>
+       	<result property="code" column="dtcode"/>
+       	<collection property="items" column="dtcode" select="selectDicTypeItemlist"></collection>
     </resultMap>
     <!-- 字典数据项 -->
     <resultMap id="DIC_ITEM"  type="com.born.facade.vo.dic.DicItemBizVO">
        	<id property="id" column="id"/>
-       	<result property="diname" column="itemName"/>
-       	<result property="parent_id" column="parentId"/>
+       	<result property="itemName" column="diname"/>
+       	<result property="parentId" column="parent_id"/>
+       	<result property="typeCode" column="dictype_code"/>
        	<collection property="nexts" column="id" select="selectDicItemlist"></collection>
     </resultMap>
+    <!-- 字典类型数据项 -->
+    <resultMap id="DIC_TYPE_ITEM"  type="com.born.facade.vo.dic.DicItemBizVO">
+       	<id property="id" column="id"/>
+       	<result property="itemName" column="diname"/>
+       	<result property="parentId" column="parent_id"/>
+       	<result property="typeCode" column="dictype_code"/>
+       	<collection property="nexts" column="id" select="selectDicItemlist"></collection>
+    </resultMap>
+    <select id = "selectDicTypeItemlist" resultMap = "DIC_TYPE_ITEM">
+    	SELECT
+			id,
+			diname,
+			parent_id,
+			dictype_code
+		FROM
+			qft_dicitem
+		WHERE
+			dictype_code = #{dtcode}
+		AND is_delete = 0
+    </select>
 	<!-- 根据公司ID查询字典菜单树数据 -->
 	<select id = "selectDicMenuTreeList" resultMap = "DIC_MENU_TREE">
 		SELECT
@@ -142,7 +163,8 @@
 		SELECT
 			id,
 			diname,
-			parent_id
+			parent_id,
+			dictype_code
 		FROM
 			qft_dicitem
 		WHERE

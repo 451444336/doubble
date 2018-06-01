@@ -19,11 +19,11 @@ public class DicMenuTreeVO implements Serializable {/**
 	/**
 	 * 字典ID
 	 */
-	private Long id;
+	private String id;
 	/**
 	 * 上级字典ID
 	 */
-	private Long pId;
+	private String pId;
 	/**
 	 * 菜单名称
 	 */

@@ -1,6 +1,7 @@
 package com.born.controller.dic;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,12 +20,14 @@ import com.born.core.page.PageBean;
 import com.born.facade.dto.dic.AddDicTypeDTO;
 import com.born.facade.dto.dic.AddModelDicItemDTO;
 import com.born.facade.dto.dic.QueryDicDTO;
+import com.born.facade.dto.dic.QueryDicTypeDTO;
 import com.born.facade.dto.dic.UpdateDicTypeDTO;
 import com.born.facade.dto.dic.UpdateModelDicItemDTO;
 import com.born.facade.service.dic.IDicService;
 import com.born.facade.service.dic.IDicTypeService;
 import com.born.facade.vo.UserInfoVO;
 import com.born.util.result.Result;
+import com.born.util.result.ResultUtil;
 
 import lombok.extern.slf4j.Slf4j;
 /**
@@ -62,12 +65,26 @@ public class DicManageController {
 	@RepeatToken(key = "menuDicId")
 	@PostMapping("type/add")
 	public @ResponseBody Result addDicType(HttpServletRequest request, AddDicTypeDTO dto) {
+		if(null != getDicTypeIdByCode(dto.getDtcode())){
+			return ResultUtil.fail("字典类型编码已存在");
+		}
 		dto.setCreaterId(TokenManager.getLoginUser().getId());
 		dto.setCreateTime(new Date());
 		dto.setIsDelete(DataBaseEnum.NOT_DELETE.getStatus());
 		Result result = dicTypeService.addByModel(dto);
 		log.info("添加字典类型返回数据={}", JSON.toJSONString(result));
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Long getDicTypeIdByCode(String code) {
+		QueryDicTypeDTO type = new QueryDicTypeDTO();
+		type.setDtcode(code);
+		Map<String, Object> map = (Map<String, Object>) dicTypeService.getByModelOne(type).getData();
+		if (null != map) {
+			return (Long) map.get("id");
+		}
+		return null;
 	}
 	/**
 	 * 
@@ -81,6 +98,10 @@ public class DicManageController {
 	 */
 	@PostMapping("type/update")
 	public @ResponseBody Result updateDicType(UpdateDicTypeDTO dto) {
+		Long id = getDicTypeIdByCode(dto.getDtcode());
+		if (!dto.getId().equals(id)) {
+			return ResultUtil.fail("字典类型编码已存在");
+		}
 		dto.setUpdaterId(TokenManager.getLoginUser().getId());
 		dto.setUpdateTime(new Date());
 		Result result = dicTypeService.updateByModel(dto);
@@ -190,7 +211,6 @@ public class DicManageController {
 	@PostMapping("del")
 	public @ResponseBody Result delDic(Long id) {
 		Result result = dicService.delById(id, TokenManager.getLoginUser().getId());
-		// Result result = dicService.delByIdAndIsPossible(id, TokenManager.getLoginUser().getId());
 		log.info("删除字典返回数据={}", JSON.toJSONString(result));
 		return result;
 	}

@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 /**
@@ -26,7 +24,6 @@ public class AddModelDicItemDTO extends ChangeModelDicItemDTO {
 	/**
 	 * 字典类型code
 	 */
-	@NotBlank(message = "字典类型code不能为空")
 	private String dictypeCode;
 	/**
 	 * 父级ID
