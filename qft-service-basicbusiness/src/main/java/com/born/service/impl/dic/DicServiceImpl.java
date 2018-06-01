@@ -309,7 +309,7 @@ public class DicServiceImpl extends BaseService<BaseModel, DicItem> implements I
 				dt.setPId("menu_" + parent.getId());
 				dt.setType((byte) 0);
 				dt.setIcon("/static/js/ztree/img/user_group.png");
-				dt.setUrl("/web/dic/manage/type/addPage/" + dmb.getId());
+				dt.setUrl("/web/dic/manage/type/addDicPage/" + dmb.getId());
 				result.add(dt);
 				handleMenu(result, list, dmb);
 			}

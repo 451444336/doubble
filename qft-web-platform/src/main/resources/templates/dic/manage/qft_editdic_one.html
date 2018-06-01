@@ -30,7 +30,7 @@
     <div class="subConBox">
         <!--修改字典-->
         <div class="editMenuBox">
-            <form id="roleForm" action="">
+            <form id="editDic" action="">
                 <table class="popupList">
                     <tr>
                         <th class="fieldName_three"><span class="require">*</span>字典名称：</th>
@@ -84,7 +84,7 @@
 <script>
     $(function(){
         //表单验证
-        $("#roleForm,#roleForm_one").validationEngine({
+        $("#editDic").validationEngine({
             addPromptClass: 'formError-text',
             showArrow: false,
             promptPosition: 'bottomLeft:5 0'

@@ -92,7 +92,7 @@ public class DicManageController {
 	* @author lijie
 	* @throws
 	 */
-	@GetMapping("type/addPage/{menuId}")
+	@GetMapping("type/addDicPage/{menuId}")
 	public String addDicTypePage(@PathVariable Long menuId, Model model) {
 		model.addAttribute("menuId", menuId);
 		return "dic/manage/qft_adddic";
@@ -147,6 +147,7 @@ public class DicManageController {
 		if (type == 1) {
 			map = (Map<String, Object>) dicTypeService.getById(parentId).getData();
 			name = map.get("dtname");
+			model.addAttribute("typeCode", map.get("dtcode"));
 		} else {
 			map = (Map<String, Object>) dicService.getById(parentId).getData();
 			name = map.get("diname");
@@ -270,14 +271,16 @@ public class DicManageController {
 	* @author lijie
 	* @throws
 	 */
-	@RepeatToken(key = "menuDicId")
-	@PostMapping("add")
+	@RepeatToken(key = "parentId")
+	@PostMapping("item/add")
 	public @ResponseBody Result addDicItem(AddModelDicItemDTO dto) {
 		UserInfoVO info = TokenManager.getLoginUser();
 		dto.setCompanyId(info.getCompanyId());
 		dto.setCreaterId(info.getId());
 		dto.setCreateTime(new Date());
 		dto.setIsDelete(DataBaseEnum.NOT_DELETE.getStatus());
+		// TODO:
+		dto.setIspubDic(2);
 		Result result = dicService.addByModel(dto);
 		log.info("添加模板公司字典项返回 = {}", JSON.toJSONString(result));
 		return result;
@@ -293,7 +296,7 @@ public class DicManageController {
 	* @author lijie
 	* @throws
 	 */
-	@PostMapping("update")
+	@PostMapping("item/update")
 	public @ResponseBody Result updateDicItem(UpdateModelDicItemDTO dto) {
 		dto.setUpdaterId(TokenManager.getLoginUser().getId());
 		dto.setUpdateTime(new Date());
@@ -311,7 +314,7 @@ public class DicManageController {
 	* @author lijie
 	* @throws
 	 */
-	@PostMapping("del")
+	@PostMapping("item/del")
 	public @ResponseBody Result delDic(Long id) {
 		Result result = dicService.delById(id, TokenManager.getLoginUser().getId());
 		log.info("删除字典返回数据={}", JSON.toJSONString(result));

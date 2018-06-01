@@ -27,6 +27,10 @@ public class ChangeModelDicItemDTO extends BaseModel {/**
 	 */
 	private String dtcode;
 	/**
+	 * 字典值
+	 */
+	private String divalue;
+	/**
 	 * 字典名称
 	 */
 	@NotBlank(message = "字典名称不能为空")
