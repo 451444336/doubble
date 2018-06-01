@@ -87,7 +87,7 @@
 	</update>  
 	
 	<!-- 字典菜单返回数据 -->
-	<resultMap id="dicMenuTree"  type="com.born.facade.vo.dic.DicMenuBizVO">
+	<resultMap id="DIC_MENU_TREE"  type="com.born.facade.vo.dic.DicMenuBizVO">
        	<id property="id" column="id"/>
        	<result property="parent_id" column="parentId"/>
        	<result property="menu_name" column="menuName"/>
@@ -95,7 +95,7 @@
        	<collection property="types" column="id" select="selectDicTypelist"></collection>
     </resultMap>
     <!-- 字典类型 -->
-    <resultMap id="dicType"  type="com.born.facade.vo.dic.DicTypeBizVO">
+    <resultMap id="DIC_TYPE"  type="com.born.facade.vo.dic.DicTypeBizVO">
        	<id property="id" column="id"/>
        	<result property="menu_dic_id" column="menuDicId"/>
        	<result property="dtname" column="name"/>
@@ -103,14 +103,14 @@
        	<collection property="items" column="id" select="selectDicItemlist"></collection>
     </resultMap>
     <!-- 字典数据项 -->
-    <resultMap id="dicItem"  type="com.born.facade.vo.dic.DicItemBizVO">
+    <resultMap id="DIC_ITEM"  type="com.born.facade.vo.dic.DicItemBizVO">
        	<id property="id" column="id"/>
-       	<result property="menu_dic_id" column="itemName"/>
+       	<result property="diname" column="itemName"/>
        	<result property="parent_id" column="parentId"/>
        	<collection property="nexts" column="id" select="selectDicItemlist"></collection>
     </resultMap>
 	<!-- 根据公司ID查询字典菜单树数据 -->
-	<select id = "selectDicMenuTreeList" resultMap = "dicMenuTree">
+	<select id = "selectDicMenuTreeList" resultMap = "DIC_MENU_TREE">
 		SELECT
 			qmd.id id,
 			qm.id menuId,
@@ -125,7 +125,7 @@
 		and qm.is_delete = 0
 	</select>
 	<!-- 根据字典菜单ID查询字典类型 -->
-	<select id = "selectDicTypelist" resultMap = "dicType">
+	<select id = "selectDicTypelist" resultMap = "DIC_TYPE">
 		SELECT
 			id,
 			menu_dic_id,
@@ -138,7 +138,7 @@
 		AND is_delete = 0
 	</select>
 	<!-- 查询字典数据项数据 -->
-	<select id="selectDicItemlist" resultMap = "dicItem">
+	<select id="selectDicItemlist" resultMap = "DIC_ITEM">
 		SELECT
 			id,
 			diname,
