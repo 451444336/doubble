@@ -10,6 +10,8 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.born.core.constant.ConfigSetConstants;
 import com.born.core.entity.UserData;
 import com.born.facade.dto.configset.DefaultSetDTO;
+import com.born.facade.dto.configset.DepositSetDTO;
+import com.born.facade.dto.configset.FixPriceSetDTO;
 import com.born.facade.dto.configset.RentFreePeriodDTO;
 import com.born.facade.service.configset.IConfigSetService;
 import com.born.util.result.RespCode;
@@ -85,6 +87,60 @@ public class ConfigSetController {
 			return iConfigSetService.saveRentFreePeriod(new UserData(ConfigSetConstants.housing, 2L, 3L), model);
 		case 3:
 			return iConfigSetService.saveRentFreePeriod(new UserData(ConfigSetConstants.cotenant, 2L, 3L), model);
+		default:
+			break;
+		}
+		return ResultUtil.getResult(RespCode.Code.ILLEGALARGUMENT);
+	}
+
+	/**
+	 * 
+	 * @Title: saveFixPriceSet
+	 * @Description: 定价设置
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 * @author 张永胜
+	 * @return Result
+	 * @date 2018年6月1日 下午4:20:32
+	 */
+	@ResponseBody
+	@PostMapping(value = "/save/fix/price/set")
+	public Result saveFixPriceSet(@RequestBody FixPriceSetDTO model) throws Exception {
+		switch (model.getFlag()) {
+		case 1:
+			return iConfigSetService.saveFixPriceSet(new UserData(ConfigSetConstants.focus, 2L, 3L), model);
+		case 2:
+			return iConfigSetService.saveFixPriceSet(new UserData(ConfigSetConstants.housing, 2L, 3L), model);
+		case 3:
+			return iConfigSetService.saveFixPriceSet(new UserData(ConfigSetConstants.cotenant, 2L, 3L), model);
+		default:
+			break;
+		}
+		return ResultUtil.getResult(RespCode.Code.ILLEGALARGUMENT);
+	}
+
+	/**
+	 * 
+	 * @Title: saveDepositSet
+	 * @Description: 定金设置
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 * @author 张永胜
+	 * @return Result
+	 * @date 2018年6月1日 下午4:21:30
+	 */
+	@ResponseBody
+	@PostMapping(value = "/save/deposit/set")
+	public Result saveDepositSet(@RequestBody DepositSetDTO model) throws Exception {
+		switch (model.getFlag()) {
+		case 1:
+			return iConfigSetService.saveDepositSet(new UserData(ConfigSetConstants.focus, 2L, 3L), model);
+		case 2:
+			return iConfigSetService.saveDepositSet(new UserData(ConfigSetConstants.housing, 2L, 3L), model);
+		case 3:
+			return iConfigSetService.saveDepositSet(new UserData(ConfigSetConstants.cotenant, 2L, 3L), model);
 		default:
 			break;
 		}
