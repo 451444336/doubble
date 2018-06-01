@@ -46,7 +46,7 @@ select.selectpicker {
   width: auto !important;
 }
 .bootstrap-select {
-  width: 90%;
+  width: 95%;
 }
 .bootstrap-select .dropdown-toggle:focus {
   outline: thin dotted #333333 !important;

@@ -1,0 +1,170 @@
+@import "base";
+@import "variables";
+
+//table列表
+.wareList{
+  .size(100%; auto);
+  table-layout: fixed;
+  margin: 0 auto;
+  tr th,
+  tr td {
+    font-size: @font-size-small;
+    vertical-align: middle;
+    height: 40px;
+    .align(center);
+    .border(1px; @tabel-border);
+    color: @gray-con;
+    .text-overflow;
+    &.tableShow{
+      overflow: inherit;
+    }
+    //user状态select
+    .tab_select{
+      font-size: @font-size-small;
+      width: 80%;
+      &.errorCol{
+        color: @err-color;
+      }
+    }
+    //表格左对齐
+    &.wareAlign{
+      .align(left);
+      text-indent: 24px;
+    }
+  }
+  tr td{
+    //表格取消超出隐藏
+    &.overflowCon{
+      overflow: inherit;
+      text-overflow: inherit;
+      white-space: normal;
+    }
+    .wareListClick{
+      display: block;
+      .size(100%; 40px);
+      line-height: 40px;
+      color: @blue-btn;
+    }
+    .accountName{
+      width: 90%;
+      &.disabled{
+        &:extend(.disabled all);
+      }
+    }
+  }
+  tr th {
+    background: @tabel-header;
+    color: @gray-dark;
+    &.operationTh{
+      .size(90px; 40px);
+    }
+  }
+  tr.even,
+  tr.trBack{
+    background: @tabel-even;
+  }
+  tr:hover{
+    background: @table-hover;
+  }
+  //字典设置
+  &.workBookList{
+    tr td{
+      min-height: 40px;
+      height: auto;
+      overflow-y:auto;
+      text-overflow: inherit;
+      white-space: inherit;
+      .operateBtn{
+        margin: @margin-05 0;
+      }
+    }
+  }
+  //取消隔行变色
+  &.wareTrNoBg{
+    tr,
+    tr.trBack{
+      background: none;
+    }
+  }
+}
+//弹出层table列表
+.popupList{
+  .size(100%; auto);
+  table-layout: fixed;
+  tr th,
+  tr td{
+    .relative;
+    vertical-align: middle;
+    height: 45px;
+    font-size: @font-size-soso;
+  }
+  tr td{
+    input[type="text"],
+    input[type="password"]{
+      .size(95%; 30px);
+    }
+  }
+  //th宽度
+  .fieldName,
+  .fieldName_one,
+  .fieldName_three{
+    .size(80px; 30px);
+    line-height: 30px;
+    font-size: @font-size-soso;
+    .align(right);
+  }
+  .fieldName_one{
+    .size(110px; 30px);
+  }
+  .fieldName_three{
+    .size(120px; 30px);
+  }
+  .fieldName_two{
+    .size(170px; 30px);
+    line-height: 30px;
+  }
+  input[type="button"].addCity{
+    .size(66px; 30px);
+    min-width: 66px;
+    vertical-align: middle;
+  }
+  //td内容样式
+  .infoTxt{
+    .size(100%; 30px);
+    line-height: 30px;
+  }
+  //select宽度
+  .tab_selectWidth{
+    width: 176px;
+    vertical-align: middle;
+  }
+  //添加房源 - 联系方式select
+  .phoneTel{
+    .left !important;
+    vertical-align: top;
+  }
+}
+//弹出层详情table列表
+.detailList{
+  .size(100%; auto);
+  table-layout: fixed;
+  tr th,
+  tr td{
+    .relative;
+    vertical-align: middle;
+    .border(1px; @tabel-border);
+    height: 32px;
+    line-height: 32px;
+    font-size: @font-size-small;
+    .align(center);
+  }
+  .fieldName_one{
+    .size(110px; 30px);
+  }
+  .detailArea{
+    .size(90%; 50px);
+    line-height: 24px;
+    vertical-align: middle;
+    margin: @margin-10 0;
+  }
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>系统字典</title>
+    <!--ztree样式表-->
+    <link rel="stylesheet" th:href="@{/static/js/ztree/ztree.css}">
+    <!--图片放大样式-->
+    <link rel="stylesheet" th:href="@{/static/js/mediabox/mediabox.css}">
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+    <!--[if lt IE 9]>
+    <script src="../../../static/js/support/html5shiv.min.js"></script>
+    <script src="../../../static/js/support/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="subMainContent">
+    <!--左边内容-->
+    <div class="userLeftContent">
+        <div class="userFramework" id="userSetUp">
+            <!--标题-->
+            <div class="frameworkTit">
+                <h2>系统字典</h2>
+            </div>
+            <!--end 标题-->
+            <!--架构图-->
+            <ul id="treeDeptRole" class="ztree"></ul>
+            <!--end 架构图-->
+        </div>
+    </div>
+    <!--end 左边内容-->
+    <!--右边内容-->
+    <div class="userRightContent">
+        <iframe id="roleRight" class="iframeBox" name="roleRight" frameborder="0" th:src="@{/web/dic/manage/dicInfoListPage}"></iframe>
+    </div>
+    <!--end 右边内容-->
+</div>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--ztree树形-->
+<script type="text/javascript" th:src="@{/static/js/ztree/ztree.min.js}"></script>
+<script type="text/javascript">
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+    };
+    var zNodes =[];
+    $(function(){
+    	$.ajax({
+ 			type: 'get',
+            dataType: 'json',
+ 			url : '/web/dic/manage/getDicMenus',
+ 			success:function(result){
+ 				zNodes = result.data;
+ 				console.log(zNodes);
+ 				$.fn.zTree.init($("#treeDeptRole"), setting, zNodes);
+ 			}
+ 		});
+        // $.fn.zTree.init($("#treeDeptRole"), setting, zNodes);
+        //iframe高度
+        $("#roleRight").load(function () {
+            var mainheight = $("#roleRight").contents().find("body").height();
+            $(this).height(mainheight);
+        });
+        //操作指引图
+        $('.operateChart').on('click', function(){
+            $('#user_set01').click();
+        });
+    });
+</script>
+</body>
+</html>

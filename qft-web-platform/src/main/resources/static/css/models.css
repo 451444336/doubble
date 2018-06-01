@@ -113,46 +113,37 @@ i,
 em {
   font-style: normal;
 }
-.margTop_10 {
-  margin-top: 10px;
-}
-.margTop_20 {
-  margin-top: 20px;
-}
-.margTop_30 {
-  margin-top: 30px;
-}
-.margTop_40 {
-  margin-top: 40px;
-}
 .clearfix,
 .loginBox .loginTxt,
 .downloadBox .downloadCon,
 .headerBox,
 .headRightMenu .headMenu,
+.honeCityList,
 .navMenu,
 .layui-tab .layui-tab-title,
+.onService,
+.dataTables_wrapper,
+.searchTerm,
+.searchMore,
+.focusContent,
 .titleBox,
 .operateBox .operateList,
 .spreadBox .spreadTxt,
-.onService,
-.dataTables_wrapper,
-.subMainContent,
-.focusContent,
-.subTopBox,
-.subConBox,
-.searchTerm,
-.searchMore,
-.mediabox,
+.roomStateList,
+.roomFlowStop,
 .powerBtnBox,
 .powerMeunBox .mainMeun,
 .powerMeunBox .powerSubMeun,
 .subPowerTit,
 .powerOptionList,
-.roomStateList,
-.roomFlowStop,
+.mediabox,
 .workBookBox,
-.addGroupBox {
+.storeFrontCity .cityListBox,
+.addGroupBox,
+.subMainContent,
+.subTopBox,
+.subConBox,
+.renterInfo .renterInfoList {
   *zoom: 1;
 }
 .clearfix:before,
@@ -165,34 +156,32 @@ em {
 .headerBox:after,
 .headRightMenu .headMenu:before,
 .headRightMenu .headMenu:after,
+.honeCityList:before,
+.honeCityList:after,
 .navMenu:before,
 .navMenu:after,
 .layui-tab .layui-tab-title:before,
 .layui-tab .layui-tab-title:after,
+.onService:before,
+.onService:after,
+.dataTables_wrapper:before,
+.dataTables_wrapper:after,
+.searchTerm:before,
+.searchTerm:after,
+.searchMore:before,
+.searchMore:after,
+.focusContent:before,
+.focusContent:after,
 .titleBox:before,
 .titleBox:after,
 .operateBox .operateList:before,
 .operateBox .operateList:after,
 .spreadBox .spreadTxt:before,
 .spreadBox .spreadTxt:after,
-.onService:before,
-.onService:after,
-.dataTables_wrapper:before,
-.dataTables_wrapper:after,
-.subMainContent:before,
-.subMainContent:after,
-.focusContent:before,
-.focusContent:after,
-.subTopBox:before,
-.subTopBox:after,
-.subConBox:before,
-.subConBox:after,
-.searchTerm:before,
-.searchTerm:after,
-.searchMore:before,
-.searchMore:after,
-.mediabox:before,
-.mediabox:after,
+.roomStateList:before,
+.roomStateList:after,
+.roomFlowStop:before,
+.roomFlowStop:after,
 .powerBtnBox:before,
 .powerBtnBox:after,
 .powerMeunBox .mainMeun:before,
@@ -203,14 +192,22 @@ em {
 .subPowerTit:after,
 .powerOptionList:before,
 .powerOptionList:after,
-.roomStateList:before,
-.roomStateList:after,
-.roomFlowStop:before,
-.roomFlowStop:after,
+.mediabox:before,
+.mediabox:after,
 .workBookBox:before,
 .workBookBox:after,
+.storeFrontCity .cityListBox:before,
+.storeFrontCity .cityListBox:after,
 .addGroupBox:before,
-.addGroupBox:after {
+.addGroupBox:after,
+.subMainContent:before,
+.subMainContent:after,
+.subTopBox:before,
+.subTopBox:after,
+.subConBox:before,
+.subConBox:after,
+.renterInfo .renterInfoList:before,
+.renterInfo .renterInfoList:after {
   content: " ";
   display: table;
 }
@@ -219,29 +216,32 @@ em {
 .downloadBox .downloadCon:after,
 .headerBox:after,
 .headRightMenu .headMenu:after,
+.honeCityList:after,
 .navMenu:after,
 .layui-tab .layui-tab-title:after,
+.onService:after,
+.dataTables_wrapper:after,
+.searchTerm:after,
+.searchMore:after,
+.focusContent:after,
 .titleBox:after,
 .operateBox .operateList:after,
 .spreadBox .spreadTxt:after,
-.onService:after,
-.dataTables_wrapper:after,
-.subMainContent:after,
-.focusContent:after,
-.subTopBox:after,
-.subConBox:after,
-.searchTerm:after,
-.searchMore:after,
-.mediabox:after,
+.roomStateList:after,
+.roomFlowStop:after,
 .powerBtnBox:after,
 .powerMeunBox .mainMeun:after,
 .powerMeunBox .powerSubMeun:after,
 .subPowerTit:after,
 .powerOptionList:after,
-.roomStateList:after,
-.roomFlowStop:after,
+.mediabox:after,
 .workBookBox:after,
-.addGroupBox:after {
+.storeFrontCity .cityListBox:after,
+.addGroupBox:after,
+.subMainContent:after,
+.subTopBox:after,
+.subConBox:after,
+.renterInfo .renterInfoList:after {
   clear: both;
   visibility: hidden;
   height: 0;
@@ -274,6 +274,10 @@ em {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+/*
+*module：公共样式
+*name: liangbin
+*/
 .bodyBack {
   background: #edeff4;
 }
@@ -375,6 +379,151 @@ textarea {
   -moz-border-radius: 2px;
   border-radius: 2px;
   padding: 5px;
+}
+.addbtn {
+  display: inline-block;
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  padding: 0 10px 0 30px;
+  cursor: pointer;
+  color: #fff;
+  background: url("../images/register_icon.png") 5px center no-repeat #92bbff;
+}
+.addbtn:hover,
+.addbtn:active {
+  background-color: #458bff;
+  color: #fff;
+}
+.propRadio {
+  display: inline-block;
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  color: #666666;
+  margin: 0 15px 0 5px;
+}
+.propRadio input[type="radio"] {
+  vertical-align: top;
+  margin: 9px 4px;
+}
+.propRadio.radioMarlef {
+  margin: 0 5px 0 0;
+}
+.redState {
+  color: #fb6464;
+}
+.gray-col {
+  color: #999999;
+}
+.blue-col {
+  color: #92bbff;
+}
+.navyBlue-col {
+  color: #60666e;
+}
+.require {
+  display: inline-block;
+  color: #fc6365;
+  margin-right: 5px;
+}
+.disabled,
+input[type="text"].disabled,
+input[type="password"].disabled,
+.PopupBtn input[type="button"].disabled,
+input[type="text"].PopupBtn input[type="button"].disabled,
+input[type="password"].PopupBtn input[type="button"].disabled,
+.wareList tr td .accountName.disabled,
+input[type="text"].wareList tr td .accountName.disabled,
+input[type="password"].wareList tr td .accountName.disabled,
+.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+input[type="text"].wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+input[type="password"].wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+input[type="text"].PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+input[type="password"].PopupBtn input[type="button"].wareList tr td .accountName.disabled {
+  background: #f4f4f4;
+}
+.conHidden_x {
+  overflow-x: hidden;
+}
+label.powerLabel {
+  display: inline-block;
+  line-height: 30px;
+  font-size: 13px;
+  color: #60666e;
+}
+label.powerLabel input[type='checkbox'] {
+  margin: 8px 5px;
+  vertical-align: top;
+}
+label.powerLabel.marRig {
+  margin-right: 10px;
+}
+label.labelRed {
+  color: #fc6365;
+}
+.groupImg {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin: 8px;
+  cursor: pointer;
+}
+.groupImg.deleteGroup {
+  background: url("../images/workclose_icon.png") 0 0 no-repeat;
+}
+.groupImg.addGroup {
+  background: url("../images/add_icon.png") 0 0 no-repeat;
+}
+.btnCenter {
+  text-align: center;
+}
+.margin0 {
+  margin: 0;
+}
+.PopupBtn {
+  text-align: center;
+  margin-top: 10px;
+}
+.PopupBtn input[type="button"] {
+  margin: 0 10px;
+}
+.PopupBtn input[type="button"].cancel {
+  background: #f1f1f1;
+  border: 1px solid #dedede;
+  color: #333333;
+}
+.PopupBtn input[type="button"].cancel:hover {
+  background: #e9e9e9;
+}
+.PopupBtn input[type="button"].PopupOrange {
+  background: #ffab91;
+}
+.PopupBtn input[type="button"].PopupOrange:hover {
+  background: #ff7144;
+}
+.PopupBtn input[type="button"].disabled,
+.PopupBtn input[type="button"].wareList tr td .accountName.disabled {
+  border: 1px solid #d2d2d2;
+  height: 28px;
+  line-height: 28px;
+  color: #999999;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.PopupBtn.PopupBtnRight {
+  text-align: right;
+}
+.PopupBtn.PopupMarTop {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.margin-left10 {
+  margin-left: 10px;
 }
 .loginBox {
   position: relative;
@@ -739,15 +888,6 @@ textarea {
   height: auto;
   z-index: 1060;
 }
-.footerBox {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 26px;
-  background: #353e57;
-  z-index: 1070;
-}
 .mainContent {
   position: absolute;
   top: 50px;
@@ -795,6 +935,9 @@ textarea {
 .icon.icon_system {
   background-position: 0 -240px;
 }
+.icon.icon_adminis {
+  background-position: -60px 0;
+}
 .icon.icon_ios {
   background-position: -30px -240px;
 }
@@ -831,6 +974,9 @@ textarea {
 }
 .subicon.icon_subsystem {
   background-position: -30px -210px;
+}
+.subicon.icon_subadminis {
+  background-position: 0 -270px;
 }
 .ricon {
   display: block;
@@ -870,7 +1016,7 @@ textarea {
   height: 50px;
   padding-left: 20px;
 }
-.headRightMenu .headMenu li a {
+.headRightMenu .headMenu li a.topHeadMenu {
   display: block;
   width: auto;
   height: 50px;
@@ -878,7 +1024,7 @@ textarea {
   color: #fff;
   font-size: 14px;
 }
-.headRightMenu .headMenu li a.cityChoice {
+.headRightMenu .headMenu li a.topHeadMenu.cityChoice {
   width: auto;
   height: 40px;
   padding: 0 30px 0 10px;
@@ -886,13 +1032,13 @@ textarea {
   margin-top: 5px;
   background: url("../images/ctiy_icon.png") 45px center no-repeat #fb6464;
 }
-.headRightMenu .headMenu li a.cityChoice:hover {
+.headRightMenu .headMenu li a.topHeadMenu.cityChoice:hover {
   color: #fff;
 }
-.headRightMenu .headMenu li a:hover {
+.headRightMenu .headMenu li a.topHeadMenu:hover {
   color: #c3d7ff;
 }
-.headRightMenu .headMenu li .subHeadMenuList {
+.subHeadMenuList {
   display: none;
   position: absolute;
   left: 15px;
@@ -906,7 +1052,27 @@ textarea {
   box-shadow: 0 0 8px #999999;
   z-index: 1070;
 }
-.headRightMenu .headMenu li .subHeadMenuList .subHeadIco {
+.subHeadMenuList a {
+  display: block;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  color: #333333;
+  font-size: 12px;
+}
+.subHeadMenuList a:hover {
+  color: #507bea;
+}
+.subHeadMenuList a:hover .qftHome {
+  background-position: -14px 0;
+}
+.subHeadMenuList a:hover .passIcon {
+  background-position: -14px -14px;
+}
+.subHeadMenuList a:hover .quitIcon {
+  background-position: -14px -28px;
+}
+.subHeadIco {
   position: absolute;
   left: 50%;
   top: -16px;
@@ -916,17 +1082,53 @@ textarea {
   border: 8px solid transparent;
   border-bottom: 8px solid #fff;
 }
-.headRightMenu .headMenu li .subHeadMenuList a {
-  display: block;
-  width: 80px;
+.headIco {
+  float: left;
+  width: 14px;
+  height: 14px;
+  margin: 8px;
+  background: url("../images/admin_icon.png") 0 0 no-repeat;
+}
+.headIco.qftHome {
+  background-position: 0 0;
+}
+.headIco.passIcon {
+  background-position: 0 -14px;
+}
+.headIco.quitIcon {
+  background-position: 0 -28px;
+}
+.honeCityList {
+  display: none;
+  position: absolute;
+  right: 15px;
+  top: 50px;
+  width: 280px;
+  height: auto;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  -webkit-box-shadow: 0 0 8px #999999;
+  -moz-box-shadow: 0 0 8px #999999;
+  box-shadow: 0 0 8px #999999;
+  z-index: 1070;
+}
+.honeCityList .subHeadIco {
+  left: 250px;
+  margin-left: 0;
+}
+.honeCityList .cityTxt {
+  float: left;
+  width: 56px;
   height: 30px;
-  padding: 0 10px;
   line-height: 30px;
-  color: #333333;
+  text-align: center;
+  color: #666666;
   font-size: 12px;
 }
-.headRightMenu .headMenu li .subHeadMenuList a:hover {
-  background: #eeeeee;
+.honeCityList .cityTxt:hover {
+  background: #507bea;
+  color: #fff;
 }
 .openBtn {
   display: none;
@@ -1066,6 +1268,9 @@ textarea {
 .main-shrink .navMenu li:hover .icon_subsystem {
   background-position: -60px -210px;
 }
+.main-shrink .navMenu li:hover .icon_subadminis {
+  background-position: 0 -300px;
+}
 .main-shrink .navMenu li .subBottom {
   top: auto;
   bottom: 0;
@@ -1155,6 +1360,599 @@ textarea {
 .iframeBox {
   width: 100%;
   height: 100%;
+}
+.footerBox {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 26px;
+  background: #353e57;
+  z-index: 1070;
+}
+.footerTxt {
+  width: 100%;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+}
+.onService {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 450px;
+  height: 26px;
+}
+.onService span,
+.onService a {
+  float: left;
+  color: #fff;
+  width: auto;
+  height: 18px;
+  line-height: 18px;
+  margin: 4px 0;
+  font-size: 12px;
+}
+.onService span.QQChat,
+.onService a.QQChat {
+  margin-right: 10px;
+  background: url("../images/qq_icon.jpg") 5px center no-repeat #fb6464;
+  padding: 0 10px 0 20px;
+}
+.onService span.footBtn,
+.onService a.footBtn {
+  padding: 0 10px;
+  margin: 4px 5px;
+  background: #507bea;
+}
+.setUpTitle {
+  margin-bottom: 10px;
+}
+.setUpCon {
+  display: none;
+}
+.remindBox {
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  font-size: 13px;
+  padding-left: 20px;
+}
+.popup-title-bg .layui-layer-title {
+  background-color: #e2eaf3;
+}
+.popup-title-bg .layui-layer-btn .layui-layer-btn0,
+.popup-title-bg .layui-layer-btn .layui-layer-btn1 {
+  min-width: 50px;
+}
+.popup-title-bg .layui-layer-btn .layui-layer-btn0 {
+  background-color: #92bbff;
+  border: 1px solid #92bbff;
+}
+.popup-title-bg .layui-layer-btn .layui-layer-btn0:hover {
+  background-color: #458bff;
+  border: 1px solid #458bff;
+}
+.PopupBox {
+  padding: 10px 15px;
+}
+.PopupTitle {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  background: #eaeaea;
+  font-size: 14px;
+  color: #60666e;
+  margin: 10px 0;
+  padding-left: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.PopupTitle.margin_top0 {
+  margin-top: 0;
+}
+.PopupTitle .modulepower {
+  display: inline-block;
+  line-height: 24px;
+  color: #92bbff;
+  background: #fff;
+  font-weight: normal;
+  font-size: 13px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 0 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.PopupTitle .modulepower:hover {
+  color: #fff;
+  background: #92bbff;
+}
+.textareaBox {
+  width: 100%;
+  height: auto;
+  line-height: 24px;
+}
+.textareaBox textarea {
+  display: block;
+  width: 100%;
+  height: 60px;
+  line-height: 24px;
+  padding: 5px 0.5%;
+  font-size: 12px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+*模块：分页
+*时间：20180428
+*作者：梁彬
+*/
+.dataTables_info,
+.dataTables_paginate {
+  width: auto;
+  height: 26px;
+  line-height: 22px;
+  font-size: 12px;
+  margin: 10px auto 0 0;
+}
+.dataTables_info {
+  float: right;
+}
+.dataTables_paginate {
+  margin-left: 5px;
+  float: left;
+}
+.dataTables_paginate a,
+.dataTables_paginate span {
+  display: inline-block;
+  float: left;
+  cursor: pointer;
+  text-decoration: none;
+}
+.dataTables_paginate a.ellipsis,
+.dataTables_paginate span.ellipsis {
+  width: 26px;
+  height: 26px;
+  line-height: 22px;
+  text-align: center;
+  color: #333333;
+  margin-right: 5px;
+}
+.dataTables_paginate .paginate_button,
+.dataTables_paginate .paginate_active,
+.dataTables_paginate .fg-button {
+  border: 1px solid #d2d2d2;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #333333;
+  cursor: pointer;
+  margin-right: 5px;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 2px;
+  text-align: center;
+  text-decoration: none;
+}
+.dataTables_paginate .paginate_button:hover,
+.dataTables_paginate .paginate_active:hover,
+.dataTables_paginate .fg-button:hover,
+.dataTables_paginate .paginate_button.paginate_active,
+.dataTables_paginate .paginate_active.paginate_active,
+.dataTables_paginate .fg-button.paginate_active,
+.dataTables_paginate .paginate_button.current,
+.dataTables_paginate .paginate_active.current,
+.dataTables_paginate .fg-button.current,
+.dataTables_paginate .paginate_button.ui-state-disabled,
+.dataTables_paginate .paginate_active.ui-state-disabled,
+.dataTables_paginate .fg-button.ui-state-disabled {
+  color: #fff;
+  background: #92bbff;
+  border: 1px solid #92bbff;
+}
+.dataTables_paginate .paginate_button.previous,
+.dataTables_paginate .paginate_active.previous,
+.dataTables_paginate .fg-button.previous,
+.dataTables_paginate .paginate_button.next,
+.dataTables_paginate .paginate_active.next,
+.dataTables_paginate .fg-button.next,
+.dataTables_paginate .paginate_button.first,
+.dataTables_paginate .paginate_active.first,
+.dataTables_paginate .fg-button.first,
+.dataTables_paginate .paginate_button.last,
+.dataTables_paginate .paginate_active.last,
+.dataTables_paginate .fg-button.last {
+  width: 80px;
+  height: 26px;
+  line-height: 24px;
+}
+.dataTables_paginate .paginate_button.previous.ui-state-disabled,
+.dataTables_paginate .paginate_active.previous.ui-state-disabled,
+.dataTables_paginate .fg-button.previous.ui-state-disabled,
+.dataTables_paginate .paginate_button.next.ui-state-disabled,
+.dataTables_paginate .paginate_active.next.ui-state-disabled,
+.dataTables_paginate .fg-button.next.ui-state-disabled,
+.dataTables_paginate .paginate_button.first.ui-state-disabled,
+.dataTables_paginate .paginate_active.first.ui-state-disabled,
+.dataTables_paginate .fg-button.first.ui-state-disabled,
+.dataTables_paginate .paginate_button.last.ui-state-disabled,
+.dataTables_paginate .paginate_active.last.ui-state-disabled,
+.dataTables_paginate .fg-button.last.ui-state-disabled,
+.dataTables_paginate .paginate_button.previous.paginate_button_disabled,
+.dataTables_paginate .paginate_active.previous.paginate_button_disabled,
+.dataTables_paginate .fg-button.previous.paginate_button_disabled,
+.dataTables_paginate .paginate_button.next.paginate_button_disabled,
+.dataTables_paginate .paginate_active.next.paginate_button_disabled,
+.dataTables_paginate .fg-button.next.paginate_button_disabled,
+.dataTables_paginate .paginate_button.first.paginate_button_disabled,
+.dataTables_paginate .paginate_active.first.paginate_button_disabled,
+.dataTables_paginate .fg-button.first.paginate_button_disabled,
+.dataTables_paginate .paginate_button.last.paginate_button_disabled,
+.dataTables_paginate .paginate_active.last.paginate_button_disabled,
+.dataTables_paginate .fg-button.last.paginate_button_disabled,
+.dataTables_paginate .paginate_button.previous.disabled,
+.dataTables_paginate .paginate_active.previous.disabled,
+.dataTables_paginate .fg-button.previous.disabled,
+.dataTables_paginate .paginate_button.next.disabled,
+.dataTables_paginate .paginate_active.next.disabled,
+.dataTables_paginate .fg-button.next.disabled,
+.dataTables_paginate .paginate_button.first.disabled,
+.dataTables_paginate .paginate_active.first.disabled,
+.dataTables_paginate .fg-button.first.disabled,
+.dataTables_paginate .paginate_button.last.disabled,
+.dataTables_paginate .paginate_active.last.disabled,
+.dataTables_paginate .fg-button.last.disabled,
+.dataTables_paginate .paginate_button.previous.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.previous.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.previous.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.next.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.next.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.next.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.first.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.first.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.first.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.last.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.last.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.last.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.previous.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.previous.wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.previous.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.next.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.next.wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.next.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.first.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.first.wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.first.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.last.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.last.wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.last.wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.previous.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.previous.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.previous.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.next.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.next.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.next.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.first.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.first.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.first.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.last.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_active.last.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .fg-button.last.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .paginate_button.previous.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.previous.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.previous.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.next.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.next.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.next.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.first.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.first.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.first.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_button.last.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .paginate_active.last.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
+.dataTables_paginate .fg-button.last.PopupBtn input[type="button"].wareList tr td .accountName.disabled {
+  border: 1px solid #d2d2d2;
+  color: #999999;
+}
+.dataTables_paginate .ui-state-disabled,
+.dataTables_paginate .paginate_button_disabled,
+.dataTables_paginate .disabled,
+.dataTables_paginate .PopupBtn input[type="button"].disabled,
+.dataTables_paginate .wareList tr td .accountName.disabled,
+.dataTables_paginate .wareList tr td .accountName.PopupBtn input[type="button"].disabled,
+.dataTables_paginate .PopupBtn input[type="button"].wareList tr td .accountName.disabled {
+  cursor: default;
+}
+.dataTables_paginate .ui-state-disabled:hover,
+.dataTables_paginate .paginate_button_disabled:hover,
+.dataTables_paginate .disabled:hover,
+.dataTables_paginate .PopupBtn input[type="button"].disabled:hover,
+.dataTables_paginate .wareList tr td .accountName.disabled:hover,
+.dataTables_paginate .wareList tr td .accountName.PopupBtn input[type="button"].disabled:hover,
+.dataTables_paginate .PopupBtn input[type="button"].wareList tr td .accountName.disabled:hover {
+  background: #f4f4f4;
+}
+.dataTables_wrapper {
+  margin: 0;
+  display: inline-table;
+}
+.searchTerm {
+  min-height: 40px;
+  margin: 10px 0;
+  background: #fff;
+  padding: 10px;
+}
+.searchTerm .searchTab {
+  width: 100%;
+  height: auto;
+  table-layout: fixed;
+}
+.searchTerm .searchTab tr th,
+.searchTerm .searchTab tr td {
+  font-size: 12px;
+  vertical-align: middle;
+  height: 40px;
+  text-align: left;
+}
+.searchTerm .searchTab tr td input[type="text"] {
+  width: 90%;
+}
+.searchTerm .searchTab tr th {
+  width: 60px;
+  height: 40px;
+  text-align: right;
+}
+.searchTerm .searchTab.searchWidth_one {
+  float: left;
+  width: 860px;
+}
+.searchTerm .searchTab.searchWidth_two {
+  width: 900px;
+}
+.searchTerm .searchTab.searchWidth_three {
+  width: 980px;
+}
+.tabSearchBtn {
+  width: 90px;
+  line-height: inherit;
+  background: url("../images/tabsearchbtn-icon.png") 20px center no-repeat #92bbff;
+  font-size: 12px !important;
+  text-indent: 20px;
+}
+.searchMore {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+input[type="button"].searchMoreBtn {
+  background: url("../images/search_more.png") 54px center no-repeat #fff;
+  border: 1px solid #92bbff;
+  color: #92bbff;
+  text-indent: 22px;
+  line-height: 28px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 12px;
+}
+input[type="button"].searchMoreBtn:hover {
+  background: url("../images/search_more_h.png") 55px center no-repeat #92bbff;
+  color: #fff;
+}
+.searchSelect {
+  width: 90%;
+}
+.wareList {
+  width: 100%;
+  height: auto;
+  table-layout: fixed;
+  margin: 0 auto;
+}
+.wareList tr th,
+.wareList tr td {
+  font-size: 12px;
+  vertical-align: middle;
+  height: 40px;
+  text-align: center;
+  border: 1px solid #e2e2e2;
+  color: #666666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.wareList tr th.tableShow,
+.wareList tr td.tableShow {
+  overflow: inherit;
+}
+.wareList tr th .tab_select,
+.wareList tr td .tab_select {
+  font-size: 12px;
+  width: 80%;
+}
+.wareList tr th .tab_select.errorCol,
+.wareList tr td .tab_select.errorCol {
+  color: #fc6365;
+}
+.wareList tr th.wareAlign,
+.wareList tr td.wareAlign {
+  text-align: left;
+  text-indent: 24px;
+}
+.wareList tr td.overflowCon {
+  overflow: inherit;
+  text-overflow: inherit;
+  white-space: normal;
+}
+.wareList tr td .wareListClick {
+  display: block;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  color: #92bbff;
+}
+.wareList tr td .accountName {
+  width: 90%;
+}
+.wareList tr th {
+  background: #f3f6fd;
+  color: #333333;
+}
+.wareList tr th.operationTh {
+  width: 90px;
+  height: 40px;
+}
+.wareList tr.even,
+.wareList tr.trBack {
+  background: #f9f9f9;
+}
+.wareList tr:hover {
+  background: #feffe9;
+}
+.wareList.workBookList tr td {
+  min-height: 40px;
+  height: auto;
+  overflow-y: auto;
+  text-overflow: inherit;
+  white-space: inherit;
+}
+.wareList.workBookList tr td .operateBtn {
+  margin: 5px 0;
+}
+.wareList.wareTrNoBg tr,
+.wareList.wareTrNoBg tr.trBack {
+  background: none;
+}
+.popupList {
+  width: 100%;
+  height: auto;
+  table-layout: fixed;
+}
+.popupList tr th,
+.popupList tr td {
+  position: relative;
+  vertical-align: middle;
+  height: 45px;
+  font-size: 13px;
+}
+.popupList tr td input[type="text"],
+.popupList tr td input[type="password"] {
+  width: 95%;
+  height: 30px;
+}
+.popupList .fieldName,
+.popupList .fieldName_one,
+.popupList .fieldName_three {
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 13px;
+  text-align: right;
+}
+.popupList .fieldName_one {
+  width: 110px;
+  height: 30px;
+}
+.popupList .fieldName_three {
+  width: 120px;
+  height: 30px;
+}
+.popupList .fieldName_two {
+  width: 170px;
+  height: 30px;
+  line-height: 30px;
+}
+.popupList input[type="button"].addCity {
+  width: 66px;
+  height: 30px;
+  min-width: 66px;
+  vertical-align: middle;
+}
+.popupList .infoTxt {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+}
+.popupList .tab_selectWidth {
+  width: 176px;
+  vertical-align: middle;
+}
+.popupList .phoneTel {
+  float: left !important;
+  vertical-align: top;
+}
+.detailList {
+  width: 100%;
+  height: auto;
+  table-layout: fixed;
+}
+.detailList tr th,
+.detailList tr td {
+  position: relative;
+  vertical-align: middle;
+  border: 1px solid #e2e2e2;
+  height: 32px;
+  line-height: 32px;
+  font-size: 12px;
+  text-align: center;
+}
+.detailList .fieldName_one {
+  width: 110px;
+  height: 30px;
+}
+.detailList .detailArea {
+  width: 90%;
+  height: 50px;
+  line-height: 24px;
+  vertical-align: middle;
+  margin: 10px 0;
+}
+.focusContent {
+  width: 100%;
+  height: 100%;
+  background: #edeff4;
+}
+.rightContent {
+  float: right;
+  position: relative;
+  width: 274px;
+  height: auto;
+  padding-top: 10px;
+  z-index: 1000;
+}
+.leftContent {
+  float: left;
+  width: 100%;
+  height: 100%;
+  margin-right: -274px;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.shrinkBtn {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 11px;
+  height: 78px;
+  margin-top: -39px;
+  background: url("../images/open_icon.png") 0 -78px no-repeat;
+  cursor: pointer;
+}
+.spreadBg .shrinkBtn {
+  background-position: -11px -78px;
+}
+.focusLeftCon {
+  width: auto;
+  height: 100%;
+  margin-right: 274px;
 }
 .rightPublic {
   background: #fff;
@@ -1395,1085 +2193,6 @@ textarea {
 .mroeBtn a:hover {
   color: #194ed4;
 }
-.footerTxt {
-  width: 100%;
-  height: 26px;
-  line-height: 26px;
-  text-align: center;
-  color: #fff;
-  font-size: 12px;
-}
-.onService {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 450px;
-  height: 26px;
-}
-.onService span,
-.onService a {
-  float: left;
-  color: #fff;
-  width: auto;
-  height: 18px;
-  line-height: 18px;
-  margin: 4px 0;
-  font-size: 12px;
-}
-.onService span.QQChat,
-.onService a.QQChat {
-  margin-right: 10px;
-  background: url("../images/qq_icon.jpg") 5px center no-repeat #fb6464;
-  padding: 0 10px 0 20px;
-}
-.onService span.footBtn,
-.onService a.footBtn {
-  padding: 0 10px;
-  margin: 4px 5px;
-  background: #507bea;
-}
-.redState {
-  color: #fb6464;
-}
-.gray-col {
-  color: #999999;
-}
-.blue-col {
-  color: #92bbff;
-}
-.require {
-  display: inline-block;
-  color: #fc6365;
-  margin-right: 5px;
-}
-.disabled,
-input[type="text"].disabled,
-input[type="password"].disabled,
-.PopupBtn input[type="button"].disabled,
-input[type="text"].PopupBtn input[type="button"].disabled,
-input[type="password"].PopupBtn input[type="button"].disabled,
-.wareList tr td .accountName.disabled,
-input[type="text"].wareList tr td .accountName.disabled,
-input[type="password"].wareList tr td .accountName.disabled,
-.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-input[type="text"].wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-input[type="password"].wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-input[type="text"].PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-input[type="password"].PopupBtn input[type="button"].wareList tr td .accountName.disabled {
-  background: #f4f4f4;
-}
-.conHidden_x {
-  overflow-x: hidden;
-}
-.popup-title-bg .layui-layer-title {
-  background-color: #e2eaf3;
-}
-.popup-title-bg .layui-layer-btn .layui-layer-btn0,
-.popup-title-bg .layui-layer-btn .layui-layer-btn1 {
-  min-width: 50px;
-}
-.popup-title-bg .layui-layer-btn .layui-layer-btn0 {
-  background-color: #92bbff;
-  border: 1px solid #92bbff;
-}
-.popup-title-bg .layui-layer-btn .layui-layer-btn0:hover {
-  background-color: #458bff;
-  border: 1px solid #458bff;
-}
-.PopupBox {
-  padding: 10px 15px;
-}
-.PopupTitle {
-  width: 100%;
-  height: 30px;
-  line-height: 30px;
-  background: #eaeaea;
-  font-size: 14px;
-  color: #60666e;
-  margin: 10px 0;
-  padding-left: 10px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.PopupTitle.margin_top0 {
-  margin-top: 0;
-}
-.PopupTitle .modulepower {
-  display: inline-block;
-  line-height: 24px;
-  color: #92bbff;
-  background: #fff;
-  font-weight: normal;
-  font-size: 13px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  padding: 0 10px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-.PopupTitle .modulepower:hover {
-  color: #fff;
-  background: #92bbff;
-}
-.popupList {
-  width: 100%;
-  height: auto;
-  table-layout: fixed;
-}
-.popupList tr th,
-.popupList tr td {
-  position: relative;
-  vertical-align: middle;
-  height: 45px;
-}
-.popupList tr td input[type="text"],
-.popupList tr td input[type="password"] {
-  width: 95%;
-  height: 30px;
-}
-.popupList .fieldName,
-.popupList .fieldName_one {
-  width: 80px;
-  height: 30px;
-  line-height: 30px;
-  font-size: 13px;
-  text-align: right;
-}
-.popupList .fieldName_one {
-  width: 110px;
-  height: 30px;
-}
-.popupList .fieldName_two {
-  width: 170px;
-  height: 30px;
-  line-height: 30px;
-}
-.popupList input[type="button"].addCity {
-  width: 66px;
-  height: 30px;
-  min-width: 66px;
-  vertical-align: middle;
-}
-.popupList .infoTxt {
-  width: 100%;
-  height: 30px;
-  line-height: 30px;
-}
-.popupList .tab_selectWidth {
-  width: 176px;
-  vertical-align: middle;
-}
-.popupList .phoneTel {
-  float: left !important;
-  vertical-align: top;
-}
-.detailList {
-  width: 100%;
-  height: auto;
-  table-layout: fixed;
-}
-.detailList tr th,
-.detailList tr td {
-  position: relative;
-  vertical-align: middle;
-  border: 1px solid #e2e2e2;
-  height: 32px;
-  line-height: 32px;
-  font-size: 12px;
-  text-align: center;
-}
-.detailList .fieldName_one {
-  width: 110px;
-  height: 30px;
-}
-.detailList .detailArea {
-  width: 90%;
-  height: 50px;
-  line-height: 24px;
-  vertical-align: middle;
-  margin: 10px 0;
-}
-.PopupBtn {
-  text-align: center;
-  margin-top: 10px;
-}
-.PopupBtn input[type="button"] {
-  margin: 0 10px;
-}
-.PopupBtn input[type="button"].cancel {
-  background: #f1f1f1;
-  border: 1px solid #dedede;
-  color: #333333;
-}
-.PopupBtn input[type="button"].cancel:hover {
-  background: #e9e9e9;
-}
-.PopupBtn input[type="button"].PopupOrange {
-  background: #ffab91;
-}
-.PopupBtn input[type="button"].PopupOrange:hover {
-  background: #ff7144;
-}
-.PopupBtn input[type="button"].disabled,
-.PopupBtn input[type="button"].wareList tr td .accountName.disabled {
-  border: 1px solid #d2d2d2;
-  height: 28px;
-  line-height: 28px;
-  color: #999999;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.PopupBtn.PopupBtnRight {
-  text-align: right;
-}
-/*表单验证提示*/
-.formError,
-.formError-text,
-.qft_errorTxt {
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  width: auto;
-  height: 18px;
-  line-height: 18px;
-  max-width: 100%;
-  font-size: 12px;
-  color: #fc6365;
-  overflow: hidden;
-  z-index: 1000;
-}
-.mainFrom .qft_errorTxt,
-.btn-group .qft_errorTxt,
-.formInput .qft_errorTxt {
-  bottom: -15px;
-}
-/*
-*模块：分页
-*时间：20180428
-*作者：梁彬
-*/
-.dataTables_info,
-.dataTables_paginate {
-  width: auto;
-  height: 26px;
-  line-height: 22px;
-  font-size: 12px;
-  margin: 10px auto 0 0;
-}
-.dataTables_info {
-  float: right;
-}
-.dataTables_paginate {
-  margin-left: 5px;
-  float: left;
-}
-.dataTables_paginate a,
-.dataTables_paginate span {
-  display: inline-block;
-  float: left;
-  cursor: pointer;
-  text-decoration: none;
-}
-.dataTables_paginate a.ellipsis,
-.dataTables_paginate span.ellipsis {
-  width: 26px;
-  height: 26px;
-  line-height: 22px;
-  text-align: center;
-  color: #333333;
-  margin-right: 5px;
-}
-.dataTables_paginate .paginate_button,
-.dataTables_paginate .paginate_active,
-.dataTables_paginate .fg-button {
-  border: 1px solid #d2d2d2;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #333333;
-  cursor: pointer;
-  margin-right: 5px;
-  min-width: 26px;
-  height: 26px;
-  padding: 0 2px;
-  text-align: center;
-  text-decoration: none;
-}
-.dataTables_paginate .paginate_button:hover,
-.dataTables_paginate .paginate_active:hover,
-.dataTables_paginate .fg-button:hover,
-.dataTables_paginate .paginate_button.paginate_active,
-.dataTables_paginate .paginate_active.paginate_active,
-.dataTables_paginate .fg-button.paginate_active,
-.dataTables_paginate .paginate_button.current,
-.dataTables_paginate .paginate_active.current,
-.dataTables_paginate .fg-button.current,
-.dataTables_paginate .paginate_button.ui-state-disabled,
-.dataTables_paginate .paginate_active.ui-state-disabled,
-.dataTables_paginate .fg-button.ui-state-disabled {
-  color: #fff;
-  background: #92bbff;
-  border: 1px solid #92bbff;
-}
-.dataTables_paginate .paginate_button.previous,
-.dataTables_paginate .paginate_active.previous,
-.dataTables_paginate .fg-button.previous,
-.dataTables_paginate .paginate_button.next,
-.dataTables_paginate .paginate_active.next,
-.dataTables_paginate .fg-button.next,
-.dataTables_paginate .paginate_button.first,
-.dataTables_paginate .paginate_active.first,
-.dataTables_paginate .fg-button.first,
-.dataTables_paginate .paginate_button.last,
-.dataTables_paginate .paginate_active.last,
-.dataTables_paginate .fg-button.last {
-  width: 80px;
-  height: 26px;
-  line-height: 24px;
-}
-.dataTables_paginate .paginate_button.previous.ui-state-disabled,
-.dataTables_paginate .paginate_active.previous.ui-state-disabled,
-.dataTables_paginate .fg-button.previous.ui-state-disabled,
-.dataTables_paginate .paginate_button.next.ui-state-disabled,
-.dataTables_paginate .paginate_active.next.ui-state-disabled,
-.dataTables_paginate .fg-button.next.ui-state-disabled,
-.dataTables_paginate .paginate_button.first.ui-state-disabled,
-.dataTables_paginate .paginate_active.first.ui-state-disabled,
-.dataTables_paginate .fg-button.first.ui-state-disabled,
-.dataTables_paginate .paginate_button.last.ui-state-disabled,
-.dataTables_paginate .paginate_active.last.ui-state-disabled,
-.dataTables_paginate .fg-button.last.ui-state-disabled,
-.dataTables_paginate .paginate_button.previous.paginate_button_disabled,
-.dataTables_paginate .paginate_active.previous.paginate_button_disabled,
-.dataTables_paginate .fg-button.previous.paginate_button_disabled,
-.dataTables_paginate .paginate_button.next.paginate_button_disabled,
-.dataTables_paginate .paginate_active.next.paginate_button_disabled,
-.dataTables_paginate .fg-button.next.paginate_button_disabled,
-.dataTables_paginate .paginate_button.first.paginate_button_disabled,
-.dataTables_paginate .paginate_active.first.paginate_button_disabled,
-.dataTables_paginate .fg-button.first.paginate_button_disabled,
-.dataTables_paginate .paginate_button.last.paginate_button_disabled,
-.dataTables_paginate .paginate_active.last.paginate_button_disabled,
-.dataTables_paginate .fg-button.last.paginate_button_disabled,
-.dataTables_paginate .paginate_button.previous.disabled,
-.dataTables_paginate .paginate_active.previous.disabled,
-.dataTables_paginate .fg-button.previous.disabled,
-.dataTables_paginate .paginate_button.next.disabled,
-.dataTables_paginate .paginate_active.next.disabled,
-.dataTables_paginate .fg-button.next.disabled,
-.dataTables_paginate .paginate_button.first.disabled,
-.dataTables_paginate .paginate_active.first.disabled,
-.dataTables_paginate .fg-button.first.disabled,
-.dataTables_paginate .paginate_button.last.disabled,
-.dataTables_paginate .paginate_active.last.disabled,
-.dataTables_paginate .fg-button.last.disabled,
-.dataTables_paginate .paginate_button.previous.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_active.previous.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .fg-button.previous.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_button.next.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_active.next.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .fg-button.next.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_button.first.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_active.first.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .fg-button.first.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_button.last.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_active.last.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .fg-button.last.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_button.previous.wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_active.previous.wareList tr td .accountName.disabled,
-.dataTables_paginate .fg-button.previous.wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_button.next.wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_active.next.wareList tr td .accountName.disabled,
-.dataTables_paginate .fg-button.next.wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_button.first.wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_active.first.wareList tr td .accountName.disabled,
-.dataTables_paginate .fg-button.first.wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_button.last.wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_active.last.wareList tr td .accountName.disabled,
-.dataTables_paginate .fg-button.last.wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_button.previous.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_active.previous.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .fg-button.previous.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_button.next.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_active.next.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .fg-button.next.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_button.first.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_active.first.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .fg-button.first.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_button.last.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_active.last.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .fg-button.last.wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .paginate_button.previous.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_active.previous.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-.dataTables_paginate .fg-button.previous.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_button.next.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_active.next.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-.dataTables_paginate .fg-button.next.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_button.first.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_active.first.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-.dataTables_paginate .fg-button.first.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_button.last.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-.dataTables_paginate .paginate_active.last.PopupBtn input[type="button"].wareList tr td .accountName.disabled,
-.dataTables_paginate .fg-button.last.PopupBtn input[type="button"].wareList tr td .accountName.disabled {
-  border: 1px solid #d2d2d2;
-  color: #999999;
-}
-.dataTables_paginate .ui-state-disabled,
-.dataTables_paginate .paginate_button_disabled,
-.dataTables_paginate .disabled,
-.dataTables_paginate .PopupBtn input[type="button"].disabled,
-.dataTables_paginate .wareList tr td .accountName.disabled,
-.dataTables_paginate .wareList tr td .accountName.PopupBtn input[type="button"].disabled,
-.dataTables_paginate .PopupBtn input[type="button"].wareList tr td .accountName.disabled {
-  cursor: default;
-}
-.dataTables_paginate .ui-state-disabled:hover,
-.dataTables_paginate .paginate_button_disabled:hover,
-.dataTables_paginate .disabled:hover,
-.dataTables_paginate .PopupBtn input[type="button"].disabled:hover,
-.dataTables_paginate .wareList tr td .accountName.disabled:hover,
-.dataTables_paginate .wareList tr td .accountName.PopupBtn input[type="button"].disabled:hover,
-.dataTables_paginate .PopupBtn input[type="button"].wareList tr td .accountName.disabled:hover {
-  background: #f4f4f4;
-}
-.dataTables_wrapper {
-  margin: 0;
-  display: inline-table;
-}
-.subMainContent {
-  width: 100%;
-  height: 100%;
-  background: #edeff4;
-  display: table;
-}
-.focusContent {
-  width: 100%;
-  height: 100%;
-  background: #edeff4;
-}
-.rightContent {
-  float: right;
-  position: relative;
-  width: 274px;
-  height: auto;
-  padding-top: 10px;
-  z-index: 1000;
-}
-.leftContent {
-  float: left;
-  width: 100%;
-  height: 100%;
-  margin-right: -274px;
-  padding: 10px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.shrinkBtn {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 11px;
-  height: 78px;
-  margin-top: -39px;
-  background: url("../images/open_icon.png") 0 -78px no-repeat;
-  cursor: pointer;
-}
-.spreadBg .shrinkBtn {
-  background-position: -11px -78px;
-}
-.focusLeftCon {
-  margin-right: 274px;
-}
-.subMainCon {
-  padding: 10px;
-}
-.subTopBox,
-.subConBox {
-  background: #fff;
-  padding: 10px;
-}
-.subConBox {
-  margin-top: 10px;
-}
-.minCon {
-  min-height: 90%;
-}
-.subTopLeft {
-  float: left;
-  width: auto;
-  height: 30px;
-}
-.subTopLeft .subTopBtn,
-.subTopLeft .addbtn {
-  float: left;
-  margin-right: 10px;
-}
-.subTopRight {
-  float: right;
-  width: auto;
-  height: 30px;
-  text-align: right;
-}
-.subTopRight span {
-  display: inline-block;
-  width: auto;
-  height: 30px;
-  line-height: 30px;
-  color: #0d2c56;
-  font-size: 12px;
-  padding: 0 10px 0 30px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-.subTopRight span.register {
-  color: #fff;
-  background: url("../images/register_icon.png") 5px center no-repeat #92bbff;
-}
-.subTopRight span.register:hover {
-  background-color: #458bff;
-  color: #fff;
-}
-.subTopRight span.setUpBtn {
-  background: url("../images/setup_icon.jpg") 5px center no-repeat;
-}
-.subTopRight span.roomState {
-  background: url("../images/roomState_icon.jpg") 5px center no-repeat;
-}
-.subTopRight span.resizeBtn {
-  background: url("../images/resize_icon.png") 5px center no-repeat;
-}
-.subTopRight span:hover {
-  color: #1e65c5;
-}
-.subTopBtn {
-  width: auto;
-  height: 28px;
-  line-height: 28px;
-  border: 1px solid #c8c8c8;
-  text-align: center;
-  color: #0d2c56;
-  padding: 0 15px;
-  font-size: 12px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-}
-.subTopBtn.subHover,
-.subTopBtn:hover {
-  color: #fff;
-  background: #92bbff;
-  border: 1px solid #92bbff;
-}
-.addbtn {
-  display: inline-block;
-  width: auto;
-  height: 30px;
-  line-height: 30px;
-  font-size: 12px;
-  padding: 0 10px 0 30px;
-  cursor: pointer;
-  color: #fff;
-  background: url("../images/register_icon.png") 5px center no-repeat #92bbff;
-}
-.addbtn:hover,
-.addbtn:active {
-  background-color: #458bff;
-  color: #fff;
-}
-.searchTerm {
-  min-height: 40px;
-  margin: 10px 0;
-  background: #fff;
-  padding: 10px;
-}
-.searchTerm .searchTab {
-  width: 100%;
-  height: auto;
-  table-layout: fixed;
-}
-.searchTerm .searchTab tr th,
-.searchTerm .searchTab tr td {
-  font-size: 12px;
-  vertical-align: middle;
-  height: 40px;
-  text-align: left;
-}
-.searchTerm .searchTab tr td input[type="text"] {
-  width: 90%;
-}
-.searchTerm .searchTab tr th {
-  width: 60px;
-  height: 40px;
-  text-align: right;
-}
-.searchTerm .searchTab.searchWidth_one {
-  float: left;
-  width: 860px;
-}
-.searchTerm .searchTab.searchWidth_two {
-  width: 900px;
-}
-.searchTerm .searchTab.searchWidth_three {
-  width: 980px;
-}
-.searchTerm .tabSearchBtn {
-  width: 90px;
-  line-height: inherit;
-  background: url("../images/tabsearchbtn-icon.png") 20px center no-repeat #92bbff;
-  font-size: 12px;
-  text-indent: 20px;
-}
-.searchMore {
-  display: none;
-  width: 100%;
-  height: auto;
-}
-input[type="button"].searchMoreBtn {
-  background: url("../images/search_more.png") 54px center no-repeat #fff;
-  border: 1px solid #92bbff;
-  color: #92bbff;
-  text-indent: 22px;
-  line-height: 28px;
-  text-align: left;
-  vertical-align: top;
-  font-size: 12px;
-}
-input[type="button"].searchMoreBtn:hover {
-  background: url("../images/search_more_h.png") 55px center no-repeat #92bbff;
-  color: #fff;
-}
-.wareList {
-  width: 99.7%;
-  height: auto;
-  table-layout: fixed;
-  margin: 0 auto;
-}
-.wareList tr th,
-.wareList tr td {
-  font-size: 12px;
-  vertical-align: middle;
-  height: 40px;
-  text-align: center;
-  border: 1px solid #e2e2e2;
-  color: #666666;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.wareList tr th.tableShow,
-.wareList tr td.tableShow {
-  overflow: inherit;
-}
-.wareList tr th .tab_select,
-.wareList tr td .tab_select {
-  font-size: 12px;
-  width: 80%;
-}
-.wareList tr th .tab_select.errorCol,
-.wareList tr td .tab_select.errorCol {
-  color: #fc6365;
-}
-.wareList tr th.wareAlign,
-.wareList tr td.wareAlign {
-  text-align: left;
-  text-indent: 24px;
-}
-.wareList tr td.overflowCon {
-  overflow: inherit;
-  text-overflow: inherit;
-  white-space: normal;
-}
-.wareList tr td .wareListClick {
-  display: block;
-  width: 100%;
-  height: 40px;
-  line-height: 40px;
-  color: #92bbff;
-}
-.wareList tr td .accountName {
-  width: 90%;
-}
-.wareList tr th {
-  background: #f3f6fd;
-  color: #333333;
-}
-.wareList tr th.operationTh {
-  width: 90px;
-  height: 40px;
-}
-.wareList tr.even,
-.wareList tr.trBack {
-  background: #f9f9f9;
-}
-.wareList tr:hover {
-  background: #feffe9;
-}
-.wareList.workBookList tr td {
-  min-height: 40px;
-  height: auto;
-  overflow-y: auto;
-  text-overflow: inherit;
-  white-space: inherit;
-}
-.wareList.workBookList tr td .operateBtn {
-  margin: 5px 0;
-}
-.wareList.wareTrNoBg tr,
-.wareList.wareTrNoBg tr.trBack {
-  background: none;
-}
-.operationBox {
-  position: relative;
-  width: 90px;
-  height: 40px;
-  line-height: 40px;
-}
-.operationBox .operationBtn {
-  width: 60px;
-  height: 24px;
-  line-height: 24px;
-  min-width: 60px;
-  margin: 0 auto;
-  color: #fff;
-  font-size: 12px;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  text-indent: 10px;
-  background: url("../images/operation.png") 45px center no-repeat #92bbff;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-}
-.operationBox .operationList,
-.operationBox .subOperMenu {
-  position: absolute;
-  top: 32px;
-  left: -4px;
-  width: 94px;
-  height: auto;
-  background: #fff;
-  border: 1px solid #e2e2e2;
-  padding: 2px;
-  -webkit-box-shadow: 0 0 2px rgba(153, 153, 153, 0.3);
-  -moz-box-shadow: 0 0 2px rgba(153, 153, 153, 0.3);
-  box-shadow: 0 0 2px rgba(153, 153, 153, 0.3);
-  z-index: 1070;
-}
-.operationBox .operationList li,
-.operationBox .subOperMenu li {
-  position: relative;
-  width: 100%;
-  height: 24px;
-  line-height: 24px;
-}
-.operationBox .operationList li .operMenu,
-.operationBox .subOperMenu li .operMenu {
-  position: relative;
-  display: block;
-  font-size: 12px;
-  color: #333333;
-  line-height: 24px;
-  text-align: left;
-  padding: 0 12px;
-  overflow: hidden;
-}
-.operationBox .operationList li .operMenu:hover,
-.operationBox .subOperMenu li .operMenu:hover,
-.operationBox .operationList li .operMenu.operHover,
-.operationBox .subOperMenu li .operMenu.operHover {
-  background: #92bbff;
-  color: #fff;
-}
-.operationBox .operationList li .operMenu:hover .oper_triangle,
-.operationBox .subOperMenu li .operMenu:hover .oper_triangle,
-.operationBox .operationList li .operMenu.operHover .oper_triangle,
-.operationBox .subOperMenu li .operMenu.operHover .oper_triangle {
-  border-left: 5px solid #fff;
-}
-.operationBox .operationList li .operMenu .oper_triangle,
-.operationBox .subOperMenu li .operMenu .oper_triangle {
-  position: absolute;
-  right: 2px;
-  top: 7px;
-  width: 0;
-  height: 0;
-  border: 5px solid transparent;
-  border-left: 5px solid #333333;
-}
-.operationBox .operationList li .subOperMenu,
-.operationBox .subOperMenu li .subOperMenu {
-  display: none;
-  top: 0;
-  left: 96px;
-}
-.userLeftContent {
-  width: 240px;
-  height: 98%;
-  display: table-cell;
-  padding: 10px 10px 0 10px;
-  vertical-align: top;
-  line-height: 0;
-}
-.userLeftContent .userFramework {
-  width: 240px;
-  height: 100%;
-  background: #fff;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-.userRightContent {
-  display: table-cell;
-  padding-top: 10px;
-  padding-right: 10px;
-  height: 98%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  overflow: hidden;
-  vertical-align: top;
-  line-height: 0;
-  z-index: 1030;
-}
-.frameworkTit {
-  position: relative;
-  width: 240px;
-  height: 50px;
-  border-bottom: 1px solid #e2e2e2;
-}
-.frameworkTit h2 {
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  text-indent: 10px;
-  font-size: 16px;
-  color: #666666;
-  font-weight: normal;
-}
-.frameworkTit .operateChart {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  margin-top: -15px;
-  width: 100px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  color: #fff;
-  font-size: 14px;
-  background: #92bbff;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  cursor: pointer;
-}
-.frameworkTit .operateChart:hover {
-  background: #458bff;
-}
-.mediabox .mediaList {
-  float: left;
-  width: 120px;
-  height: 100px;
-  padding: 1px;
-  border: 1px solid #e2e2e2;
-}
-.mediabox .mediaList .mediaImg {
-  display: block;
-  width: 120px;
-  height: 100px;
-}
-.powerBtnBox {
-  width: 100%;
-  height: 30px;
-  margin: 10px 0;
-}
-.powerBtnBox .powerBtn {
-  display: inline-block;
-  width: 100px;
-  height: 30px;
-  line-height: 28px;
-  text-align: center;
-  margin-right: 10px;
-  background: #fff;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  border: 1px solid #b4bfcf;
-  color: #60666e;
-}
-.powerBtnBox .powerBtn:hover,
-.powerBtnBox .powerBtn.actionBtn {
-  background: #92bbff;
-  color: #fff;
-  border: 1px solid #92bbff;
-}
-.powerBtnBox .powerBtn.actionBtn:hover {
-  background: #458bff;
-}
-.btnCenter {
-  text-align: center;
-}
-.margin0 {
-  margin: 0;
-}
-.powerSetUp {
-  width: 100%;
-  height: 480px;
-  overflow-y: auto;
-}
-.powerMeunBox {
-  width: 100%;
-  height: auto;
-}
-.powerMeunBox .mainMeun,
-.powerMeunBox .powerSubMeun {
-  width: 100%;
-  height: 30px;
-  background: #7caafa;
-  overflow: hidden;
-}
-.powerMeunBox .mainMeun li,
-.powerMeunBox .powerSubMeun li {
-  float: left;
-  width: 14%;
-  height: 30px;
-  color: #fff;
-  text-align: center;
-  font-size: 13px;
-  line-height: 30px;
-  cursor: pointer;
-}
-.powerMeunBox .mainMeun li.meunHover,
-.powerMeunBox .powerSubMeun li.meunHover {
-  background: #93bbff;
-}
-.powerMeunBox .powerSubMeun {
-  display: none;
-  background: #93bbff;
-}
-.powerMeunBox .powerSubMeun li {
-  width: 80px;
-  height: 30px;
-  margin-left: 5px;
-}
-.powerMeunBox .powerSubMeun li .link_subMeun {
-  display: block;
-  width: 80px;
-  height: 22px;
-  line-height: 22px;
-  margin-top: 4px;
-  color: #fff;
-  font-size: 13px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
-.powerMeunBox .powerSubMeun li:hover .link_subMeun,
-.powerMeunBox .powerSubMeun li.subMeunHover .link_subMeun {
-  background: #fff;
-  color: #7caafa;
-}
-.powerOptionBox {
-  width: 100%;
-  height: 275px;
-  overflow: auto;
-}
-.powerOptionBox .powerOption {
-  margin-bottom: 10px;
-}
-.powerInfo {
-  display: none;
-  line-height: 24px;
-}
-.subPowerTit {
-  padding: 0 10px;
-  width: auto;
-  height: 30px;
-  line-height: 30px;
-  font-size: 13px;
-  color: #60666e;
-}
-.subPowerTit span {
-  display: inline-block;
-  margin-right: 10px;
-  font-weight: bold;
-}
-label.powerLabel {
-  display: inline-block;
-  line-height: 30px;
-  font-size: 13px;
-  color: #60666e;
-}
-label.powerLabel input[type='checkbox'] {
-  margin: 8px 5px;
-  vertical-align: top;
-}
-label.powerLabel.marRig {
-  margin-right: 10px;
-}
-label.labelRed {
-  color: #fc6365;
-}
-.powerOptionList {
-  padding: 5px 0;
-  border: 1px solid #dee3ea;
-}
-.powerOptionList li {
-  float: left;
-  width: 20%;
-  height: 24px;
-}
-.powerOptionList li label.powerLabel {
-  width: 90%;
-  height: 24px;
-  margin-left: 10%;
-  line-height: 24px;
-}
-.powerOptionList li label.powerLabel input[type='checkbox'] {
-  margin: 5px;
-}
-.powerOptionList li label.powerLabel input[type='radio'] {
-  vertical-align: top;
-  margin: 6px 5px;
-}
-.workShop {
-  float: left !important;
-  width: 42%;
-  margin-right: 5.5%;
-}
-.roleDepict {
-  width: 86.5%;
-  height: 90px;
-  line-height: 24px;
-}
-.operateBtn {
-  display: inline-block;
-  width: auto;
-  height: 22px;
-  line-height: 22px;
-  font-size: 12px;
-  padding: 0 5px;
-  background: #92bbff;
-  color: #fff;
-}
-.operateBtn.deleteCol {
-  background: #ffab91;
-}
-.operateBtn.deleteCol:hover {
-  background: #ff7144;
-}
-.operateBtn:hover {
-  background: #458bff;
-  color: #fff;
-}
 .roomStateTit {
   width: 100%;
   height: 40px;
@@ -2594,6 +2313,10 @@ label.labelRed {
 .roomStateList li .labelType.endfix {
   background: url("../images/endfix_icon.png") 0 0 no-repeat;
 }
+/*
+*module：添加房源
+*name: liangbin
+*/
 .roomFlowStop {
   width: 690px;
   height: 30px;
@@ -2616,44 +2339,22 @@ label.labelRed {
 .roomFlowStop li.roomLast {
   background: url("../images/fliw_right.png") 0 0 no-repeat;
 }
+.roomFlowStop li.roomaction {
+  background: url("../images/fliw_cent_h.png") 0 0 no-repeat;
+  color: #fff;
+}
 .property {
   width: 100%;
   height: 30px;
   line-height: 30px;
 }
-.propRadio {
-  display: inline-block;
-  width: auto;
-  height: 30px;
-  font-size: 14px;
-  color: #666666;
-  margin: 0 15px 0 5px;
-}
-.propRadio input[type="radio"] {
-  vertical-align: top;
-  margin: 9px 4px;
-}
 .propertySite {
   width: 100%;
-  height: 30px;
+  height: 45px;
   padding: 9px 0;
   background: #fffdf5;
   border: 1px solid #f2ecd2;
   margin-top: 5px;
-}
-.textareaBox {
-  width: 100%;
-  height: auto;
-  line-height: 24px;
-}
-.textareaBox textarea {
-  width: 100%;
-  height: 50px;
-  padding: 5px 0.5%;
-  font-size: 12px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .pactSelect {
   float: left !important;
@@ -2666,8 +2367,388 @@ label.labelRed {
 }
 .villageBox {
   width: 100%;
-  height: 200px;
+  height: 190px;
   margin: 5px 0;
+}
+.floorInfoBox {
+  width: 100%;
+  height: 218px;
+  overflow-y: auto;
+}
+.floorNum {
+  width: 80%;
+  height: 40px;
+  margin: 0 auto;
+  line-height: 40px;
+}
+.floorNum .accountName {
+  text-align: center;
+}
+.powerBtnBox {
+  width: 100%;
+  height: 30px;
+  margin: 10px 0;
+}
+.powerBtnBox .powerBtn {
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  line-height: 28px;
+  text-align: center;
+  margin-right: 10px;
+  background: #fff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #b4bfcf;
+  color: #60666e;
+}
+.powerBtnBox .powerBtn:hover,
+.powerBtnBox .powerBtn.actionBtn {
+  background: #92bbff;
+  color: #fff;
+  border: 1px solid #92bbff;
+}
+.powerBtnBox .powerBtn.actionBtn:hover {
+  background: #458bff;
+}
+.powerSetUp {
+  width: 100%;
+  height: 480px;
+  overflow-y: auto;
+}
+.powerMeunBox {
+  width: 100%;
+  height: auto;
+}
+.powerMeunBox .mainMeun,
+.powerMeunBox .powerSubMeun {
+  width: 100%;
+  height: 30px;
+  background: #7caafa;
+  overflow: hidden;
+}
+.powerMeunBox .mainMeun li,
+.powerMeunBox .powerSubMeun li {
+  float: left;
+  width: 14%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  line-height: 30px;
+  cursor: pointer;
+}
+.powerMeunBox .mainMeun li.meunHover,
+.powerMeunBox .powerSubMeun li.meunHover {
+  background: #93bbff;
+}
+.powerMeunBox .powerSubMeun {
+  display: none;
+  background: #93bbff;
+}
+.powerMeunBox .powerSubMeun li {
+  width: 80px;
+  height: 30px;
+  margin-left: 5px;
+}
+.powerMeunBox .powerSubMeun li .link_subMeun {
+  display: block;
+  width: 80px;
+  height: 22px;
+  line-height: 22px;
+  margin-top: 4px;
+  color: #fff;
+  font-size: 13px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.powerMeunBox .powerSubMeun li:hover .link_subMeun,
+.powerMeunBox .powerSubMeun li.subMeunHover .link_subMeun {
+  background: #fff;
+  color: #7caafa;
+}
+.powerOptionBox {
+  width: 100%;
+  height: 275px;
+  overflow: auto;
+}
+.powerOptionBox .powerOption {
+  margin-bottom: 10px;
+}
+.powerInfo {
+  display: none;
+  line-height: 24px;
+}
+.subPowerTit {
+  padding: 0 10px;
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  font-size: 13px;
+  color: #60666e;
+}
+.subPowerTit span {
+  display: inline-block;
+  margin-right: 10px;
+  font-weight: bold;
+}
+.powerOptionList {
+  padding: 5px 0;
+  border: 1px solid #dee3ea;
+}
+.powerOptionList li {
+  float: left;
+  width: 20%;
+  height: 24px;
+}
+.powerOptionList li label.powerLabel {
+  width: 90%;
+  height: 24px;
+  margin-left: 10%;
+  line-height: 24px;
+}
+.powerOptionList li label.powerLabel input[type='checkbox'] {
+  margin: 5px;
+}
+.powerOptionList li label.powerLabel input[type='radio'] {
+  vertical-align: top;
+  margin: 6px 5px;
+}
+.operationBox {
+  position: relative;
+  width: 90px;
+  height: 40px;
+  line-height: 40px;
+}
+.operationBox .operationBtn {
+  width: 60px;
+  height: 24px;
+  line-height: 24px;
+  min-width: 60px;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  text-indent: 10px;
+  background: url("../images/operation.png") 45px center no-repeat #92bbff;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.operationBox .operationList,
+.operationBox .subOperMenu {
+  position: absolute;
+  top: 32px;
+  left: -4px;
+  width: 94px;
+  height: auto;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  padding: 2px;
+  -webkit-box-shadow: 0 0 2px rgba(153, 153, 153, 0.3);
+  -moz-box-shadow: 0 0 2px rgba(153, 153, 153, 0.3);
+  box-shadow: 0 0 2px rgba(153, 153, 153, 0.3);
+  z-index: 1070;
+}
+.operationBox .operationList li,
+.operationBox .subOperMenu li {
+  position: relative;
+  width: 100%;
+  height: 24px;
+  line-height: 24px;
+}
+.operationBox .operationList li .operMenu,
+.operationBox .subOperMenu li .operMenu {
+  position: relative;
+  display: block;
+  font-size: 12px;
+  color: #333333;
+  line-height: 24px;
+  text-align: left;
+  padding: 0 12px;
+  overflow: hidden;
+}
+.operationBox .operationList li .operMenu:hover,
+.operationBox .subOperMenu li .operMenu:hover,
+.operationBox .operationList li .operMenu.operHover,
+.operationBox .subOperMenu li .operMenu.operHover {
+  background: #92bbff;
+  color: #fff;
+}
+.operationBox .operationList li .operMenu:hover .oper_triangle,
+.operationBox .subOperMenu li .operMenu:hover .oper_triangle,
+.operationBox .operationList li .operMenu.operHover .oper_triangle,
+.operationBox .subOperMenu li .operMenu.operHover .oper_triangle {
+  border-left: 5px solid #fff;
+}
+.operationBox .operationList li .operMenu .oper_triangle,
+.operationBox .subOperMenu li .operMenu .oper_triangle {
+  position: absolute;
+  right: 2px;
+  top: 7px;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-left: 5px solid #333333;
+}
+.operationBox .operationList li .subOperMenu,
+.operationBox .subOperMenu li .subOperMenu {
+  display: none;
+  top: 0;
+  left: 96px;
+}
+.operateBtn {
+  display: inline-block;
+  width: auto;
+  height: 22px;
+  line-height: 22px;
+  font-size: 12px;
+  padding: 0 5px;
+  background: #92bbff;
+  color: #fff;
+}
+.operateBtn.deleteCol {
+  background: #ffab91;
+}
+.operateBtn.deleteCol:hover {
+  background: #ff7144;
+}
+.operateBtn:hover {
+  background: #458bff;
+  color: #fff;
+}
+.subTopBtn {
+  width: auto;
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid #c8c8c8;
+  text-align: center;
+  color: #0d2c56;
+  padding: 0 15px;
+  font-size: 12px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.subTopBtn.subHover,
+.subTopBtn:hover {
+  color: #fff;
+  background: #92bbff;
+  border: 1px solid #92bbff;
+}
+.tab_btn {
+  display: inline-block;
+  width: 110px;
+  height: 28px;
+  border: 1px solid #b4bfcf;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  text-align: center;
+  line-height: 28px;
+  color: #60666e;
+  font-size: 13px;
+  margin-right: 10px;
+}
+.tab_btn:hover {
+  border: 1px solid #92bbff;
+  color: #92bbff;
+}
+.tab_btn.action {
+  background: url("../images/action_h.png") top right no-repeat;
+}
+/*
+*module：系统设置
+*name: liangbin
+*/
+.userLeftContent {
+  width: 240px;
+  height: 98%;
+  display: table-cell;
+  padding: 10px 10px 0 10px;
+  vertical-align: top;
+  line-height: 0;
+}
+.userLeftContent .userFramework {
+  width: 240px;
+  height: 100%;
+  background: #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.userRightContent {
+  display: table-cell;
+  padding-top: 10px;
+  padding-right: 10px;
+  height: 98%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+  vertical-align: top;
+  line-height: 0;
+  z-index: 1030;
+}
+.frameworkTit {
+  position: relative;
+  width: 240px;
+  height: 50px;
+  border-bottom: 1px solid #e2e2e2;
+}
+.frameworkTit h2 {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-indent: 10px;
+  font-size: 16px;
+  color: #666666;
+  font-weight: normal;
+}
+.frameworkTit .operateChart {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -15px;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  background: #92bbff;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.frameworkTit .operateChart:hover {
+  background: #458bff;
+}
+.mediabox .mediaList {
+  float: left;
+  width: 120px;
+  height: 100px;
+  padding: 1px;
+  border: 1px solid #e2e2e2;
+}
+.mediabox .mediaList .mediaImg {
+  display: block;
+  width: 120px;
+  height: 100px;
+}
+.workShop {
+  float: left !important;
+  width: 42%;
+  margin-right: 5.5%;
+}
+.roleDepict {
+  width: 86.5%;
+  height: 90px;
+  line-height: 24px;
 }
 .workTxt {
   width: auto;
@@ -2730,6 +2811,51 @@ label.labelRed {
 .sortBox.setAccHei {
   height: 346px;
 }
+/*
+*module：店面设置
+*name: liangbin
+*/
+.storeFrontCity {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 40px;
+  line-height: 40px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.storeFrontCity .cityKey {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 92px;
+  height: 40px;
+  line-height: 40px;
+  float: left;
+  color: #666666;
+}
+.storeFrontCity .cityListBox {
+  margin-left: 92px;
+}
+.storeFrontCity .cityValue {
+  float: left;
+  width: auto;
+  height: 28px;
+  min-width: 68px;
+  line-height: 28px;
+  color: #333333;
+  margin: 5px 10px 5px 0;
+  font-size: 13px;
+  text-align: center;
+  border: 1px solid #c8c8c8;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.storeFrontCity .cityValue.cityAction {
+  color: #92bbff;
+  border: 1px solid #92bbff;
+}
 .addGroupBox {
   display: none;
   width: 100%;
@@ -2781,18 +2907,6 @@ label.labelRed {
   font-size: 13px;
   vertical-align: middle;
 }
-.groupImg {
-  width: 14px;
-  height: 14px;
-  margin: 8px;
-  cursor: pointer;
-}
-.groupImg.deleteGroup {
-  background: url("../images/workclose_icon.png") 0 0 no-repeat;
-}
-.groupImg.addGroup {
-  background: url("../images/add_icon.png") 0 0 no-repeat;
-}
 .keepIcon {
   display: block;
   width: 16px;
@@ -2803,6 +2917,297 @@ label.labelRed {
 }
 .keepIcon:hover {
   background-position: 0 -16px;
+}
+.subMainContent {
+  width: 100%;
+  height: 100%;
+  background: #edeff4;
+  display: table;
+}
+.subMainCon {
+  padding: 10px;
+}
+.subTopBox,
+.subConBox {
+  background: #fff;
+  padding: 10px;
+}
+.subConBox {
+  margin-top: 10px;
+}
+.minCon {
+  min-height: 90%;
+}
+.subTopLeft {
+  float: left;
+  width: auto;
+  height: 30px;
+}
+.subTopLeft .subTopBtn,
+.subTopLeft .addbtn {
+  float: left;
+  margin-right: 10px;
+}
+.subTopRight {
+  float: right;
+  width: auto;
+  height: 30px;
+  text-align: right;
+}
+.subTopRight span {
+  display: inline-block;
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  color: #0d2c56;
+  font-size: 12px;
+  padding: 0 10px 0 30px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.subTopRight span.register {
+  color: #fff;
+  background: url("../images/register_icon.png") 5px center no-repeat #92bbff;
+}
+.subTopRight span.register:hover {
+  background-color: #458bff;
+  color: #fff;
+}
+.subTopRight span.setUpBtn {
+  background: url("../images/setup_icon.jpg") 5px center no-repeat;
+}
+.subTopRight span.roomState {
+  background: url("../images/roomState_icon.jpg") 5px center no-repeat;
+}
+.subTopRight span.resizeBtn {
+  background: url("../images/resize_icon.png") 5px center no-repeat;
+}
+.subTopRight span:hover {
+  color: #1e65c5;
+}
+/*表单验证提示*/
+.formError,
+.formError-text,
+.qft_errorTxt {
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: auto;
+  height: 18px;
+  line-height: 18px;
+  max-width: 100%;
+  font-size: 12px;
+  color: #fc6365;
+  overflow: hidden;
+  z-index: 1000;
+}
+.mainFrom .qft_errorTxt,
+.btn-group .qft_errorTxt,
+.formInput .qft_errorTxt {
+  bottom: -15px;
+}
+/*
+*module：房间信息
+*time: 20180529
+*name: liangbin
+*/
+.roomInfoBox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+.roomInfoLeft {
+  width: 100%;
+  height: 100%;
+}
+.roomInfoLeft .roomConBox {
+  width: auto;
+  height: 100%;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-right: 150px;
+}
+.roomInfoRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 130px;
+  height: auto;
+  padding: 10px;
+  background: #edf0f7;
+}
+.roomMenu {
+  margin-top: 5px;
+}
+.roomMenu li {
+  width: 100%;
+  height: 30px;
+  margin-top: 1px;
+}
+.roomMenu li a {
+  display: block;
+  line-height: 30px;
+  font-size: 13px;
+  color: #5270b4;
+}
+.roomMenu li a:hover,
+.roomMenu li a.roomaction {
+  color: #fc6365;
+}
+.roomMenu li a:hover .roomPhoto,
+.roomMenu li a.roomaction .roomPhoto {
+  background-position: -16px 0;
+}
+.roomMenu li a:hover .roomMoney,
+.roomMenu li a.roomaction .roomMoney {
+  background-position: -16px -16px;
+}
+.roomMenu li a:hover .roomPay,
+.roomMenu li a.roomaction .roomPay {
+  background-position: -16px -32px;
+}
+.roomMenu li a:hover .roomPact,
+.roomMenu li a.roomaction .roomPact {
+  background-position: -16px -48px;
+}
+.roomMenu li a:hover .roomTurn,
+.roomMenu li a.roomaction .roomTurn {
+  background-position: -16px -64px;
+}
+.roomMenu li a:hover .roomExtend,
+.roomMenu li a.roomaction .roomExtend {
+  background-position: -16px -80px;
+}
+.roomMenu li a:hover .roomFollow,
+.roomMenu li a.roomaction .roomFollow {
+  background-position: -16px -96px;
+}
+.roomMenu li a:hover .roomRepair,
+.roomMenu li a.roomaction .roomRepair {
+  background-position: -16px -112px;
+}
+.roomMenu li a:hover .roomAdorn,
+.roomMenu li a.roomaction .roomAdorn {
+  background-position: -16px -128px;
+}
+.roomMenu li a:hover .roomWater,
+.roomMenu li a.roomaction .roomWater {
+  background-position: -16px -144px;
+}
+.roomMenu li a:hover .roomRes,
+.roomMenu li a.roomaction .roomRes {
+  background-position: -16px -160px;
+}
+.roomMenu li a:hover .roomTicket,
+.roomMenu li a.roomaction .roomTicket {
+  background-position: -16px -176px;
+}
+.roomMenu li a:hover .roomOther,
+.roomMenu li a.roomaction .roomOther {
+  background-position: -16px -192px;
+}
+.roomIcon {
+  float: left;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin: 7px;
+  background: url("../images/roomIcon.png") no-repeat;
+}
+.roomIcon.roomPhoto {
+  background-position: 0 0;
+}
+.roomIcon.roomMoney {
+  background-position: 0 -16px;
+}
+.roomIcon.roomPay {
+  background-position: 0 -32px;
+}
+.roomIcon.roomPact {
+  background-position: 0 -48px;
+}
+.roomIcon.roomTurn {
+  background-position: 0 -64px;
+}
+.roomIcon.roomExtend {
+  background-position: 0 -80px;
+}
+.roomIcon.roomFollow {
+  background-position: 0 -96px;
+}
+.roomIcon.roomRepair {
+  background-position: 0 -112px;
+}
+.roomIcon.roomAdorn {
+  background-position: 0 -128px;
+}
+.roomIcon.roomWater {
+  background-position: 0 -144px;
+}
+.roomIcon.roomRes {
+  background-position: 0 -160px;
+}
+.roomIcon.roomTicket {
+  background-position: 0 -176px;
+}
+.roomIcon.roomOther {
+  background-position: 0 -192px;
+}
+.renterInfo {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 24px;
+  line-height: 24px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 5px 0 5px 70px;
+  border-bottom: 1px dashed #e5e5e5;
+}
+.renterInfo h2 {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 70px;
+  height: 24px;
+  color: #60666e;
+  font-size: 12px;
+  text-align: left;
+}
+.renterInfo .renterInfoList li {
+  float: left;
+  width: 25%;
+  height: 24px;
+  line-height: 24px;
+  font-size: 12px;
+  color: #666666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.renterInfo .renterInfoList li.renterWidth {
+  width: 50%;
+}
+.renterInfo.Noborder {
+  border: none;
+}
+.remarkTxt {
+  color: #666666;
+  line-height: 24px;
+}
+.btnHeight {
+  height: 30px;
+  line-height: 30px;
+  margin-left: 10px;
+}
+.editMenuBox {
+  margin-top: 10px;
+  width: 600px;
 }
 @media screen and (max-width: 2560px) {
   .roomStateList li {

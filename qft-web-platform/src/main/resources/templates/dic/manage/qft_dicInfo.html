@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>字典信息</title>
+    <!--主样式表-->
+    <link rel="stylesheet" th:href="@{/static/css/models.css}">
+    <!--[if lt IE 9]>
+    <script src="../../../static/js/support/html5shiv.min.js"></script>
+    <script src="../../../static/js/support/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="subMainContent">
+    <!--子页顶部内容-->
+    <div class="subTopBox">
+        <div class="subTopRight">
+            <span class="resizeBtn">刷新全部缓存</span>
+            <span class="roomState">一键生成此字典（非专业人士勿点）</span>
+            <span class="roomState">导入云柚密码（不要乱点）</span>
+            <span class="roomState">生成申请模版（不要乱点）</span>
+        </div>
+    </div>
+    <!--end 子页顶部内容-->
+    <!--子页主体内容-->
+    <div class="subConBox">
+        <table class="wareList" id="example"></table>
+    </div>
+    <!--end 子页主体内容-->
+</div>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.11.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+<!--dataTable-->
+<script type="text/javascript" th:src="@{/static/js/datatables/jquery.dataTables.js}"></script>
+<!--layer弹出层-->
+<script type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
+<script>
+    $(function(){
+        //编辑字典
+        $('.wareList').on('click','.JS_edit',function(){
+            layer.open({
+                type: 2,
+                title: '编辑字典',
+                skin: 'popup-title-bg', //样式类名
+                closeBtn : 1,
+                area: ['600px','285px'],
+                btnAlign: 'c',
+                content: 'qft_editdic.html'
+            });
+        });
+        //删除
+        $('.wareList').on('click','.JS_delete',function(){
+            layer.confirm('是否确定删除？',{
+                title: '信息确认',
+                skin: 'popup-title-bg', //样式类名
+                icon: 3,
+                btnAlign: 'c',
+                area: ['350px','170px'],
+                closeBtn : 0
+            });
+        });
+        //datatable
+        $('#example').DataTable({
+            "bServerSide": true,
+            "sPaginationType": "full_numbers",
+            //"bJQueryUI": true,
+            "sDom": '<"">t<"F"ip>',
+            "autoWidth": false,  //自适应宽度
+            //"sAjaxSource": "${ctx}/api/user/list", //ajax调用接口
+            //<div class="btn-group" style="text-align:left;"><button type="button" class="btn btn-info dropdown-toggle"data-toggle="dropdown">操作 <span class="caret"></span></button>
+            "sAjaxSource": "../../../static/data/userlist.txt", //ajax调用接口
+            "aoColumnDefs": [{sDefaultContent: '', orderable: false, aTargets: ['_all']}],
+            "aoColumns": [
+                {"sTitle": "字典名称", "mData": "id"},
+                {"sTitle": "字典名称", "mData": "id1"},
+                {"sTitle": "创建时间", "mData": "id11"},
+                {"sWidth":"110px", "sTitle" : "基本操作","mData" : "id","sClass":"tab_operate", "mRender" : function ( data, type, full ) {
+                        var text = '<a class="operateBtn deleteCol JS_delete" href="javascript:void(0);">删除</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
+                        text += '<a class="operateBtn JS_edit" href="javascript:void(0);">修改</a>';
+                        return text;
+                    }
+                }
+            ],
+            "oLanguage": {
+                "sProcessing": "数据加载中······",
+                "sLengthMenu": "显示 _MENU_ 条记录",
+                "sZeroRecords": "没有您要搜索的内容！",
+                "sEmptyTable": "列表中无数据存在！",
+                "sInfo": "当前显示 _START_ 到 _END_ 条数据，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示 0 到 0 条记录",
+                "sInfoFiltered": "数据列表中共  _MAX_ 条记录",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "sLast": "末页"
+                }
+            }
+            /*"fnServerData" : function ( sSource, aoData, fnCallback, oSettings ) {
+               oSettings.jqXHR = $.ajax( {
+                   "dataType" 	: 'json',
+                   "type" 		: "GET",
+                   "async"     : 'false',
+                   "url" 		: sSource,
+                   "data" 		: {
+                       'pageNum': (aoData[3].value/aoData[4].value)+1,
+                       'pageSize' :  aoData[4].value,
+                       'telphone'  :  $("#telphone").val(),
+                       'isable' : $('#isable').val()
+                   },
+                   "success"	: fnCallback
+               } );
+           }*/
+        });
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body,
+html {
+  font: 12px/1.5 'Microsoft YaHei';
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+a {
+  background: none;
+  border: none;
+  outline: none;
+}
+a:link {
+  text-decoration: none;
+  outline: none;
+}
+a:visited {
+  text-decoration: none;
+  outline: none;
+}
+a:hover {
+  text-decoration: none;
+  outline: none;
+}
+a:active {
+  text-decoration: none;
+  outline: none;
+}
+a,
+body,
+div,
+em,
+font,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+html,
+iframe,
+img,
+li,
+menu,
+object,
+ol,
+p,
+pre,
+span,
+strong,
+thead,
+u,
+ul {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+b,
+strong {
+  font-weight: bold;
+}
+img {
+  border: none;
+  outline: none;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+table {
+  border-collapse: collapse;
+  word-wrap: break-word;
+}
+tr,
+th,
+td,
+caption {
+  font-weight: normal;
+  text-align: left;
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+}
+input,
+button {
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+/*去除IE10的清空文本框按钮“X”*/
+input::-ms-clear {
+  display: none;
+}
+input:focus {
+  outline: none;
+  border: none;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+i,
+em {
+  font-style: normal;
+}
+.margTop_10 {
+  margin-top: 10px;
+}
+.margTop_20 {
+  margin-top: 20px;
+}
+.margTop_30 {
+  margin-top: 30px;
+}
+.margTop_40 {
+  margin-top: 40px;
+}
+.clearfix,
+.mediabox,
+.workBookBox,
+.addGroupBox {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after,
+.mediabox:before,
+.mediabox:after,
+.workBookBox:before,
+.workBookBox:after,
+.addGroupBox:before,
+.addGroupBox:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after,
+.mediabox:after,
+.workBookBox:after,
+.addGroupBox:after {
+  clear: both;
+  visibility: hidden;
+  height: 0;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+.hide {
+  display: none;
+}
+.behaviorBg {
+  -ms-behavior: url("backgroundsize.min.htc");
+  behavior: url("backgroundsize.min.htc");
+}
+.behavior {
+  behavior: url("PIE.htc");
+}
+.behavior-relative {
+  position: relative;
+  z-index: 1;
+}
+.box-sizing {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+*module：系统设置
+*name: liangbin
+*/
+.userLeftContent {
+  width: 240px;
+  height: 98%;
+  display: table-cell;
+  padding: 10px 10px 0 10px;
+  vertical-align: top;
+  line-height: 0;
+}
+.userLeftContent .userFramework {
+  width: 240px;
+  height: 100%;
+  background: #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.userRightContent {
+  display: table-cell;
+  padding-top: 10px;
+  padding-right: 10px;
+  height: 98%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+  vertical-align: top;
+  line-height: 0;
+  z-index: 1030;
+}
+.frameworkTit {
+  position: relative;
+  width: 240px;
+  height: 50px;
+  border-bottom: 1px solid #e2e2e2;
+}
+.frameworkTit h2 {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-indent: 10px;
+  font-size: 16px;
+  color: #666666;
+  font-weight: normal;
+}
+.frameworkTit .operateChart {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -15px;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  background: #92bbff;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.frameworkTit .operateChart:hover {
+  background: #458bff;
+}
+.mediabox .mediaList {
+  float: left;
+  width: 120px;
+  height: 100px;
+  padding: 1px;
+  border: 1px solid #e2e2e2;
+}
+.mediabox .mediaList .mediaImg {
+  display: block;
+  width: 120px;
+  height: 100px;
+}
+.workShop {
+  float: left !important;
+  width: 42%;
+  margin-right: 5.5%;
+}
+.roleDepict {
+  width: 86.5%;
+  height: 90px;
+  line-height: 24px;
+}
+.workTxt {
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  padding-left: 20px;
+}
+.workPadd {
+  padding-bottom: 20px;
+  text-indent: 30px;
+}
+.workBookBox {
+  width: 100%;
+  height: auto;
+  min-height: 40px;
+  padding: 10px 0;
+}
+.workBookBox li {
+  position: relative;
+  float: left;
+  width: 140px;
+  height: 24px;
+  border: 1px solid #c8c8c8;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  text-align: center;
+  color: #666666;
+  font-size: 12px;
+  margin: 5px 0 5px 10px;
+  line-height: 24px;
+  cursor: pointer;
+}
+.workBookBox li .workBookTxt {
+  width: 140px;
+  height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.workBookBox li .workClose {
+  position: absolute;
+  display: none;
+  top: -6px;
+  right: -6px;
+  width: 14px;
+  height: 14px;
+  background: url("../images/workclose_icon.png") 0 0 no-repeat;
+}
+.workBookBox li:hover .workClose {
+  display: block;
+}
+.sortBox {
+  width: auto;
+  height: 286px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+.sortBox.setAccHei {
+  height: 346px;
+}
+.addGroupBox {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+.addGroupBox .addGroupList {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 10px;
+}
+.addGroupBox .addGroupList .groupName,
+.addGroupBox .addGroupList .groupInput,
+.addGroupBox .addGroupList .groupImg {
+  float: left;
+}
+.addGroupBox .addGroupList .groupName {
+  width: 110px;
+  height: 30px;
+  line-height: 30px;
+  text-align: right;
+}
+.addGroupBox .addGroupList .groupInput {
+  width: 226px;
+  height: 30px;
+}
+.groupInfo {
+  margin-top: 10px;
+  width: 100%;
+  height: 246px;
+  overflow-y: auto;
+}
+.companyDesc {
+  width: 100%;
+  height: 40px;
+  line-height: 20px;
+  overflow: hidden;
+}
+.companyDesc .companyDescMore {
+  color: #fb6464;
+}
+.existBox {
+  text-align: center;
+  font-size: 12px;
+  line-height: 26px;
+}
+.storeName {
+  display: inline-block;
+  line-height: 30px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+.keepIcon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 0 auto;
+  background: url("../images/keep_icon.png") 0 0 no-repeat;
+  cursor: pointer;
+}
+.keepIcon:hover {
+  background-position: 0 -16px;
+}

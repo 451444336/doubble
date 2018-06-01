@@ -1,0 +1,233 @@
+@import "base";
+@import "variables";
+//登录页面
+.loginBox{
+  .relative;
+  .square(100%);
+  min-width: 1000px;
+  min-height: 780px;
+  background: url("../images/loginBg.jpg") center center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  //-pie-background-size:cover;
+  .behaviorBg;
+  .loginCon{
+    .absolute;
+    .size(760px; 586px);
+    top: 50%;
+    left: 50%;
+    margin-top: -293px;
+    margin-left: -380px;
+    z-index: @zindex-base;
+  }
+  //logo
+  .loginImg{
+    .size(322px; 104px);
+    margin: 0 auto 76px auto;
+    img{
+      display: block;
+      .size(322px; 104px);
+    }
+  }
+  //登录内容
+  .loginTxt{
+    &:extend(.clearfix all);
+    .size(720px; 366px);
+    padding: @padding-20;
+    background: @txt-base;
+    .border-radius(@border-radius-base);
+    .loginLeft{
+      .left;
+      .size(338px; 366px);
+      padding: 0 28px 0 14px;
+      border-right: 1px dashed #ddd;
+    }
+    .loginRight{
+      .right;
+      .size(320px; 366px);
+    }
+    //login标题
+    .loginTit{
+      .size(100%; 40px);
+      line-height: 40px;
+      .align(center);
+      font-size: @font-size-large;
+      margin: 28px 0;
+      color: @gray-cont;
+      a{
+        display: inline-block;
+        .size(100px; 40px);
+        line-height: 40px;
+        font-size: @font-size-large;
+        color: @login-tit-col;
+        font-weight: bold;
+        .align(center);
+        margin: 0 @margin-10;
+        &.loginHover{
+          span{
+            padding-bottom: @padding-05;
+            border-bottom: 1px solid @login-tit-col;
+          }
+        }
+      }
+    }
+    //form表单
+    .formInput{
+      .relative;
+      .size(100%; 54px);
+      margin-bottom: 14px;
+      .InputTxt{
+        border: none;
+        .size(338px; 54px);
+        line-height: 40px;
+        padding: 7px 14px 7px 54px;
+        font-size: @font-size-large;
+        &.userName{
+          background: url("../images/user_bg.png") 0 0 no-repeat;
+        }
+        &.passWord{
+          background: url("../images/pass_bg.png") 0 0 no-repeat;
+        }
+        &:focus{
+          &.userName{
+            background: url("../images/user_bg_h.png") 0 0 no-repeat;
+          }
+          &.passWord{
+            background: url("../images/pass_bg_h.png") 0 0 no-repeat;
+          }
+        }
+      }
+    }
+    //login btn
+    .formBtnBox{
+      .size(338px; 60px);
+      margin-top:45px;
+      .formBtn{
+        .size(338px; 45px);
+        font-size: @font-size-h3;
+        line-height: 45px;
+        background: @login-btn-bg;
+        .border-radius(@border-radius-large);
+        -webkit-box-shadow: 0 8px 6px #e7e7e7;
+        -moz-box-shadow: 0 8px 6px  #e7e7e7;
+        box-shadow: 0 8px 6px  #e7e7e7;
+        &:hover{
+          background: @login-btn-bg-h;
+        }
+      }
+    }
+  }
+}
+//banner图切换
+.slideBox{
+  .size(320px; 170px);
+  overflow:hidden;
+  position:relative;
+  .slideNum{
+    height:4px;
+    overflow:hidden;
+    position:absolute;
+    left: 50%;
+    bottom: 18px;
+    margin-left: -25px;
+    z-index:1;
+    .slideNumList{
+      overflow:hidden;
+      zoom:1;
+      float:left;
+      li{
+        float:left;
+        margin-right:@margin-05;
+        .size(12px; 4px);
+        line-height:14px;
+        .align(center);
+        background:#fff;
+        cursor:pointer;
+        text-indent: -99999px;
+        opacity: .5;
+        filter: alpha(opacity=50);
+        -moz-opacity: 0.5;
+        &.on{
+          opacity: 1;
+          filter: alpha(opacity=100);
+          -moz-opacity: 1;
+          color:#fff;
+        }
+      }
+    }
+  }
+  .slideList{
+    .relative;
+    height:100%;
+    z-index:0;
+    li{
+      zoom:1;
+      vertical-align:middle;
+    }
+    img{
+      .size(320px; 170px);
+      display:block;
+    }
+  }
+}
+//下载
+.downloadBox{
+  .size(320px; 178px);
+  padding: 14px;
+  margin-top: 18px;
+  background: @login-dow-bg;
+  .box-sizing;
+  .downTxt{
+    .size(100%; 30px);
+    line-height: 30px;
+    .text-overflow;
+    font-size: @font-size-in;
+    color: @gray-con;
+  }
+  .downloadCon{
+    &:extend(.clearfix all);
+    .size(100%; 110px);
+    margin-top: @margin-10;
+    .downloadConLeft{
+      .left;
+      .square(110px);
+      img{
+        .border(1px; #ddd);
+        padding: 3px;
+      }
+    }
+    .downloadConRight{
+      .right;
+      .size(172px; 110px);
+      .downloadBtn{
+        display: block;
+        .size(100%; 30px);
+        line-height: 30px;
+        .border(1px; #ddd);
+        font-size: @font-size-base;
+        color: @gray-dark;
+        text-indent: 20px;
+        margin-bottom: 7px;
+        .border-radius(@border-radius-small);
+        .box-sizing;
+        background: @txt-base;
+        &.downloadBtnEn{
+          text-indent: 10px;
+        }
+        &:hover,
+        &.dowHover{
+          color: @login-btn-bg;
+          .icon_ios{
+            background-position: -60px -240px ;
+          }
+          .icon_android{
+            background-position: -60px -270px ;
+          }
+          .icon_pc{
+            background-position: -60px -300px ;
+          }
+        }
+      }
+    }
+  }
+}

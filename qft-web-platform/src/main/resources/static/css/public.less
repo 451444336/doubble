@@ -1,0 +1,239 @@
+@import "base";
+@import "variables";
+
+/*
+*module：公共样式
+*name: liangbin
+*/
+
+//公共样式
+//body背景颜色
+.bodyBack{
+  background: @blue-body;
+}
+//input共用样式
+input[type="text"],
+input[type="password"]{
+  height: 30px;
+  line-height: 30px;
+  font-size: @font-size-small;
+  color: @gray-con;
+  .border(1px; @input-border-col);
+  .box-sizing;
+  .border-radius(@border-radius-small);
+  vertical-align: middle;
+  background: @txt-base;
+  &.noBorder{
+    border:none;
+    background: none;
+  }
+}
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 0 @padding-05;
+  &:focus {
+    .border(1px; @blue-btn);
+    background: @txt-base;
+  }
+}
+select {
+  width: 100%;
+  padding: 4px 0;
+  &:focus {
+    .border(1px; @blue-btn);
+  }
+}
+input[type="button"],
+input[type="submit"] {
+  height: 30px;
+  color: @txt-base;
+  border: none;
+  .border-radius(@border-radius-small);
+  font-size: @font-size-base;
+  font-family: 'Microsoft YaHei';
+  min-width: 90px;
+  padding: 0 5px;
+  background-color: @blue-btn;
+  .box-sizing;
+  cursor: pointer;
+  &:hover {
+    background-color: @blue-btn-h;
+  }
+}
+button{
+  border: none;
+  background: none;
+}
+input[type='checkbox']{
+  .square(14px);
+  background: url("../images/checkboxBg.jpg") no-repeat;
+  -webkit-appearance:none;
+  .border-radius(@border-radius-small);
+  outline: none;
+}
+input[type='checkbox']:checked{
+  background: url("../images/checkboxBg_h.jpg") no-repeat;
+}
+input[type='radio']{
+  .square(12px);
+  background: url("../images/radioBg.png") no-repeat;
+  -webkit-appearance:none;
+  .border-radius(20px);
+  outline: none;
+  border: none;
+}
+input[type='radio']:checked{
+  background: url("../images/radioBg_h.png") no-repeat;
+  //border: none;
+  outline: none;
+}
+textarea{
+  .border(1px; @input-border-col);
+  .border-radius(@border-radius-small);
+  padding: @padding-05;
+}
+//添加按钮
+.addbtn{
+  display: inline-block;
+  .size(auto; 30px);
+  line-height: 30px;
+  font-size: @font-size-small;
+  padding: 0 @padding-10 0 @padding-30;
+  cursor: pointer;
+  color: @txt-base;
+  background: url("../images/register_icon.png") 5px center no-repeat @blue-btn;
+  &:hover,
+  &:active{
+    background-color: @blue-btn-h;
+    color: @txt-base;
+  }
+}
+//单选input
+.propRadio{
+  display: inline-block;
+  .size(auto; 30px);
+  line-height: 30px;
+  font-size: @font-size-base;
+  color: @gray-con;
+  margin: 0 @margin-15 0 @margin-05;
+  input[type="radio"]{
+    vertical-align: top;
+    margin: 9px 4px;
+  }
+  &.radioMarlef{
+    margin: 0 @margin-05 0 0;
+  }
+}
+//状态颜色
+.redState{
+  color: @ctiy-bg;
+}
+.gray-col{
+  color: @gray-cont;
+}
+.blue-col{
+  color: @blue-btn;
+}
+.navyBlue-col{
+  color: @layer-con-tit;
+}
+  //公用标注样式
+.require {
+  display: inline-block;
+  color: @err-color;
+  margin-right: 5px;
+}
+//禁止输入文本框样式
+.disabled,
+input[type="text"].disabled,
+input[type="password"].disabled{
+  background: @disabled-bg;
+}
+//横坐标超出隐藏
+.conHidden_x{
+  overflow-x: hidden;
+}
+//label单选和多选默认颜色
+label.powerLabel{
+  display: inline-block;
+  line-height: 30px;
+  font-size: @font-size-soso;
+  color: @layer-con-tit;
+  input[type='checkbox']{
+    margin: 8px 5px;
+    vertical-align: top;
+  }
+  &.marRig{
+    margin-right: @margin-10;
+  }
+}
+//label红色
+label.labelRed{
+  color: @err-color;
+}
+//加减图片按钮
+.groupImg{
+  display: inline-block;
+  .square(14px);
+  margin: 8px;
+  cursor: pointer;
+  &.deleteGroup{
+    background: url("../images/workclose_icon.png") 0 0 no-repeat;
+  }
+  &.addGroup{
+    background: url("../images/add_icon.png") 0 0 no-repeat;
+  }
+}
+//按钮居中
+.btnCenter{
+  .align(center);
+}
+//清除margin值
+.margin0{
+  margin: 0;
+}
+//弹出层共用按钮
+.PopupBtn{
+  .align(center);
+  margin-top: @margin-10;
+  input[type="button"]{
+    margin: 0 @margin-10;
+    &.cancel{
+      background: @gray-cancel-back;
+      .border(1px; @gray-cancel-bord);
+      color: @gray-dark;
+      &:hover{
+        background: @gray-cancel-back-h;
+      }
+    }
+    //字典设置删除按钮
+    &.PopupOrange{
+      background: @orange-btn;
+      &:hover{
+        background: @orange-btn-h;
+      }
+    }
+    &.disabled{
+      &:extend(.disabled all);
+      .border(1px; @border-base);
+      height: 28px;
+      line-height: 28px;
+      color: @gray-cont;
+      .box-sizing;
+    }
+  }
+  //字典设置按钮
+  &.PopupBtnRight{
+    .align(right);
+  }
+  //共用按钮margin-top
+  &.PopupMarTop{
+    margin-top: 0;
+    margin-bottom: @margin-10;
+  }
+}
+//margin值
+.margin-left10{
+  margin-left: @margin-10;
+}

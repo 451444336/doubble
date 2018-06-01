@@ -1,0 +1,25 @@
+@import "base";
+@import "variables";
+/*表单验证提示*/
+.formError,
+.formError-text,
+.qft_errorTxt {
+  .absolute;
+  left: 0;
+  bottom: -8px;
+  .size(auto; 18px);
+  line-height:18px;
+  max-width: 100%;
+  font-size: @font-size-small;
+  color: @err-color;
+  overflow: hidden;
+  z-index: @zindex-base;
+}
+
+.mainFrom,
+.btn-group,
+.formInput{
+  .qft_errorTxt {
+    bottom: -15px;
+  }
+}

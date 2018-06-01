@@ -1,0 +1,74 @@
+@import "base";
+@import "variables";
+
+//内页主体
+.subMainContent{
+  &:extend(.clearfix all);
+  .square(100%);
+  background: @blue-body;
+  display: table;
+}
+//内页全屏盒子
+.subMainCon{
+  padding: 10px;
+}
+//子页顶部样式
+.subTopBox,
+.subConBox{
+  &:extend(.clearfix all);
+  background: @txt-base;
+  padding: @padding-10 ;
+}
+.subConBox{
+  margin-top: @margin-10;
+}
+//最小高度
+.minCon{
+  min-height: 90%;
+}
+.subTopLeft{
+  .left;
+  .size(auto; 30px);
+  .subTopBtn ,
+  .addbtn{
+    .left;
+    margin-right: @margin-10;
+  }
+}
+.subTopRight{
+  .right;
+  .size(auto; 30px);
+  .align(right);
+  span{
+    display: inline-block;
+    .size(auto; 30px);
+    line-height: 30px;
+    color: @subtop-btn-col;
+    font-size: @font-size-small;
+    padding: 0 @padding-10 0 @padding-30;
+    margin-right: @margin-10;
+    cursor: pointer;
+    &.register{
+      color: @txt-base;
+      background: url("../images/register_icon.png") 5px center no-repeat @blue-btn;
+      &:hover{
+        background-color: @blue-btn-h;
+        color: @txt-base;
+      }
+    }
+    //设置
+    &.setUpBtn{
+      background: url("../images/setup_icon.jpg") 5px center no-repeat;
+    }
+    &.roomState{
+      background: url("../images/roomState_icon.jpg") 5px center no-repeat;
+    }
+    //刷新缓存
+    &.resizeBtn{
+      background: url("../images/resize_icon.png") 5px center no-repeat;
+    }
+    &:hover{
+      color: @subtop-btn-col-h;
+    }
+  }
+}

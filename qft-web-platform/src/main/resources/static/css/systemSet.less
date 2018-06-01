@@ -1,0 +1,248 @@
+@import "base";
+@import "variables";
+/*
+*module：系统设置
+*name: liangbin
+*/
+//用户设置页面
+.userLeftContent{
+  .size(240px; 98%);
+  display: table-cell;
+  padding: @padding-10 @padding-10 0 @padding-10;
+  vertical-align: top;
+  line-height: 0;
+  .userFramework{
+    .size(240px; 100%);
+    background: @txt-base;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+.userRightContent{
+  display: table-cell;
+  padding-top: @padding-10;
+  padding-right: @padding-10;
+  height: 98%;
+  .box-sizing;
+  overflow: hidden;
+  vertical-align:top;
+  line-height: 0;
+  z-index: @zindex-fixed;
+}
+//组织架构标题
+.frameworkTit{
+  .relative;
+  .size(240px; 50px);
+  .border-bottom(1px; @tabel-border);
+  h2{
+    .size(100%; 50px);
+    line-height: 50px;
+    text-indent: 10px;
+    font-size: @font-size-in;
+    color: @gray-con;
+    font-weight: normal;
+  }
+  .operateChart{
+    .absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -15px;
+    .size(100px; 30px);
+    line-height: 30px;
+    .align(center);
+    color: @txt-base;
+    font-size: @font-size-base;
+    background: @blue-btn;
+    .border-radius(@border-radius-small);
+    cursor: pointer;
+    &:hover{
+      background: @blue-btn-h;
+    }
+  }
+}
+//操作说明
+.mediabox{
+  &:extend(.clearfix all);
+  .mediaList{
+    .left;
+    .size(120px; 100px);
+    padding: 1px;
+    .border(1px; @tabel-border);
+    .mediaImg{
+      display: block;
+      .size(120px; 100px);
+    }
+  }
+}
+//工作店面
+.workShop{
+  .left !important;
+  width: 42%;
+  margin-right: 5.5%;
+}
+//角色描述
+.roleDepict{
+  .size(86.5%; 90px);
+  line-height: 24px;
+}
+//字典设置
+.workTxt{
+  .size(auto; 30px);
+  line-height: 30px;
+  font-size: @font-size-base;
+  padding-left: @padding-20;
+}
+.workPadd{
+  padding-bottom: @padding-20;
+  text-indent: 30px;
+}
+//物业地址列表
+.workBookBox{
+  &:extend(.clearfix all);
+  .size(100%; auto);
+  min-height: 40px;
+  padding: @padding-10 0;
+  li{
+    .relative;
+    .left;
+    .size(140px; 24px);
+    .border(1px; @btn-border-col);
+    .border-radius(@border-radius-small);
+    .align(center);
+    color: @gray-con;
+    font-size: @font-size-small;
+    margin: @margin-05 0 @margin-05 @margin-10;
+    line-height: 24px;
+    cursor: pointer;
+    .workBookTxt{
+      .size(140px; 24px);
+      .text-overflow;
+    }
+    //删除按钮
+    .workClose{
+      .absolute;
+      display: none;
+      top: -6px;
+      right: -6px;
+      .square(14px);
+      background: url("../images/workclose_icon.png") 0 0 no-repeat;
+    }
+    &:hover{
+      .workClose{
+        display: block;
+      }
+    }
+  }
+}
+//字典排序
+.sortBox{
+  .size(auto; 286px);
+  overflow-y: auto;
+  margin-bottom: @margin-10;
+  &.setAccHei{
+    height: 346px;
+  }
+}
+/*
+*module：店面设置
+*name: liangbin
+*/
+//店面所在城市选择
+.storeFrontCity{
+  .relative;
+  .size(100%; auto);
+  min-height: 40px;
+  line-height: 40px;
+  font-size: @font-size-soso;
+  margin-bottom: @margin-10;
+  .cityKey{
+    .absolute;
+    left: 0;
+    top: 0;
+    .size(92px; 40px);
+    line-height: 40px;
+    .left;
+    color: @gray-con;
+  }
+  .cityListBox{
+    &:extend(.clearfix all);
+    margin-left: 92px;
+  }
+  .cityValue{
+    .left;
+    .size(auto; 28px);
+    min-width: 68px;
+    line-height: 28px;
+    color: @gray-dark;
+    margin: @margin-05 @margin-10 @margin-05 0;
+    font-size: @font-size-soso;
+    .align(center);
+    .border(1px; @btn-border-col);
+    .border-radius(@border-radius-small);
+    &.cityAction{
+      color: @blue-btn;
+      .border(1px; @blue-btn);
+    }
+  }
+}
+//添加店面 - 添加分组
+.addGroupBox{
+  .hide;
+  &:extend(.clearfix all);
+  .size(100%; auto);
+  .addGroupList{
+    .size(100%; 30px);
+    margin-bottom: @margin-10;
+    .groupName,
+    .groupInput,
+    .groupImg{
+      .left;
+    }
+    .groupName{
+      .size(110px; 30px);
+      line-height: 30px;
+      .align(right);
+    }
+    .groupInput{
+      .size(226px; 30px);
+    }
+  }
+}
+.groupInfo{
+  margin-top: @margin-10;
+  .size(100%; 246px);
+  overflow-y: auto;
+}
+//添加店面 - 公司名称描述
+.companyDesc{
+  .size(100%; 40px);
+  line-height: 20px;
+  overflow: hidden;
+  .companyDescMore{
+    color: @ctiy-bg;
+  }
+}
+//添加店面 - 删除门店
+.existBox{
+  .align(center);
+  font-size: @font-size-small;
+  line-height: 26px;
+}
+//添加店面 - 转移门店
+.storeName{
+  display: inline-block;
+  line-height: 30px;
+  font-size: @font-size-soso;
+  vertical-align: middle;
+}
+//设置账户 - 保存图标
+.keepIcon{
+  display: block;
+  .square(16px);
+  margin: 0 auto;
+  background: url("../images/keep_icon.png") 0 0 no-repeat;
+  cursor: pointer;
+  &:hover{
+    background-position: 0 -16px;
+  }
+}

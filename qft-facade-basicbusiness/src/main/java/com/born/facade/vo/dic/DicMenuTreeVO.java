@@ -2,6 +2,8 @@ package com.born.facade.vo.dic;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 /**
  * 
@@ -23,6 +25,7 @@ public class DicMenuTreeVO implements Serializable {/**
 	/**
 	 * 上级字典ID
 	 */
+	@JsonProperty("pId")
 	private String pId;
 	/**
 	 * 菜单名称
@@ -40,4 +43,12 @@ public class DicMenuTreeVO implements Serializable {/**
 	 * 跳转URL
 	 */
 	private String url;
+	/**
+	 * 前段页面需要
+	 */
+	private String target = "roleRight";
+	/**
+	 * 图标
+	 */
+	private String icon;
 }

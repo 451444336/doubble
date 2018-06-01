@@ -1,0 +1,305 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body,
+html {
+  font: 12px/1.5 'Microsoft YaHei';
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+a {
+  background: none;
+  border: none;
+  outline: none;
+}
+a:link {
+  text-decoration: none;
+  outline: none;
+}
+a:visited {
+  text-decoration: none;
+  outline: none;
+}
+a:hover {
+  text-decoration: none;
+  outline: none;
+}
+a:active {
+  text-decoration: none;
+  outline: none;
+}
+a,
+body,
+div,
+em,
+font,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+html,
+iframe,
+img,
+li,
+menu,
+object,
+ol,
+p,
+pre,
+span,
+strong,
+thead,
+u,
+ul {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+b,
+strong {
+  font-weight: bold;
+}
+img {
+  border: none;
+  outline: none;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+table {
+  border-collapse: collapse;
+  word-wrap: break-word;
+}
+tr,
+th,
+td,
+caption {
+  font-weight: normal;
+  text-align: left;
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+}
+input,
+button {
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+/*去除IE10的清空文本框按钮“X”*/
+input::-ms-clear {
+  display: none;
+}
+input:focus {
+  outline: none;
+  border: none;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+i,
+em {
+  font-style: normal;
+}
+.margTop_10 {
+  margin-top: 10px;
+}
+.margTop_20 {
+  margin-top: 20px;
+}
+.margTop_30 {
+  margin-top: 30px;
+}
+.margTop_40 {
+  margin-top: 40px;
+}
+.clearfix,
+.headerBox {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after,
+.headerBox:before,
+.headerBox:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after,
+.headerBox:after {
+  clear: both;
+  visibility: hidden;
+  height: 0;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+.hide {
+  display: none;
+}
+.behaviorBg {
+  -ms-behavior: url("backgroundsize.min.htc");
+  behavior: url("backgroundsize.min.htc");
+}
+.behavior {
+  behavior: url("PIE.htc");
+}
+.behavior-relative {
+  position: relative;
+  z-index: 1;
+}
+.box-sizing {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*整体框架样式*/
+.mainBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: #edeff4;
+  min-width: 1280px;
+}
+.headerBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: #353e57;
+}
+.leftNav {
+  position: absolute;
+  left: 0;
+  top: 50px;
+  bottom: 26px;
+  background: #507bea;
+  width: 128px;
+  height: auto;
+  z-index: 1060;
+}
+.footerBox {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 26px;
+  background: #353e57;
+  z-index: 1070;
+}
+.mainContent {
+  position: absolute;
+  top: 50px;
+  bottom: 26px;
+  left: 128px;
+  right: 0;
+  background: #edeff4;
+  z-index: 1030;
+}
+.icon {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin-top: -2px;
+  background: url("../images/icon.png") no-repeat;
+}
+.icon.icon_admin {
+  background-position: 0 0;
+}
+.icon.icon_setup {
+  background-position: -30px 0;
+}
+.icon.con_Prompt {
+  background-position: 0 -30px;
+}
+.icon.icon_lease {
+  background-position: 0 -60px;
+}
+.icon.icon_finance {
+  background-position: 0 -90px;
+}
+.icon.icon_oa {
+  background-position: 0 -120px;
+}
+.icon.icon_serve {
+  background-position: 0 -150px;
+}
+.icon.icon_room {
+  background-position: 0 -180px;
+}
+.icon.icon_count {
+  background-position: 0 -210px;
+}
+.icon.icon_system {
+  background-position: 0 -240px;
+}
+.icon.icon_ios {
+  background-position: -30px -240px;
+}
+.icon.icon_android {
+  background-position: -30px -270px;
+}
+.icon.icon_pc {
+  background-position: -30px -300px;
+}
+.subicon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  background: url("../images/icon.png") no-repeat;
+}
+.subicon.icon_sublease {
+  background-position: -30px -30px;
+}
+.subicon.icon_subfinance {
+  background-position: -30px -60px;
+}
+.subicon.icon_suboa {
+  background-position: -30px -90px;
+}
+.subicon.icon_subserve {
+  background-position: -30px -120px;
+}
+.subicon.icon_subroom {
+  background-position: -30px -150px;
+}
+.subicon.icon_subcount {
+  background-position: -30px -180px;
+}
+.subicon.icon_subsystem {
+  background-position: -30px -210px;
+}
+.ricon {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -7px;
+  width: 14px;
+  height: 14px;
+  background: url("../images/arrowicon.png") 0 0 no-repeat;
+}

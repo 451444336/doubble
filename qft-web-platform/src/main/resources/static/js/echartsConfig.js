@@ -1,6 +1,6 @@
 require.config({
     paths: {
-        echarts: './js/echarts'
+        echarts: '../../static/js/echarts'
     }
 });
 require(
@@ -21,6 +21,7 @@ require(
                 subtext: ''
             },
             tooltip : {
+                show: false,  //提示框，鼠标悬浮交互时的信息提示
                 trigger: 'axis'
             },
             legend: {
@@ -39,6 +40,12 @@ require(
             calculable : false,
             xAxis : [
                 {
+                    splitLine:{
+                        show: false
+                    }, //去除网格线
+                    splitArea : {
+                        show : false
+                    },  //保留网格区域
                     type : 'category',
                     data : ['0-7','8-15','16-20','21-30','31-50','50以上'],
                     axisLabel : {  //x轴轴文本标签旋转

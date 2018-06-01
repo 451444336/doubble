@@ -1,0 +1,132 @@
+@import "base";
+@import "variables";
+
+//修改权限
+.powerBtnBox{
+  &:extend(.clearfix all);
+  .size(100%; 30px);
+  margin: @margin-10 0;
+  .powerBtn{
+    display: inline-block;
+    .size(100px; 30px);
+    line-height: 28px;
+    .align(center);
+    margin-right: @margin-10;
+    background: @txt-base;
+    .border-radius(@border-radius-base);
+    .border(1px; @power-bor-col);
+    color: @layer-con-tit;
+    &:hover,
+    &.actionBtn{
+      background: @blue-btn;
+      color: @txt-base;
+      .border(1px; @blue-btn);
+    }
+    &.actionBtn{
+      &:hover{
+        background: @blue-btn-h;
+      }
+    }
+  }
+}
+//权限设置
+.powerSetUp{
+  .size(100%; 480px);
+  overflow-y: auto;
+}
+//权限菜单
+.powerMeunBox{
+  .size(100%; auto);
+  .mainMeun,
+  .powerSubMeun{
+    &:extend(.clearfix all);
+    .size(100%; 30px);
+    background: @power-meun-back;
+    overflow:hidden;
+    li{
+      .left;
+      .size(14%; 30px);
+      color: @txt-base;
+      .align(center);
+      font-size: @font-size-soso;
+      line-height: 30px;
+      cursor: pointer;
+      &.meunHover{
+        background: @power-submeun-back;
+      }
+    }
+  }
+  .powerSubMeun{
+    .hide;
+    background: @power-submeun-back;
+    li{
+      .size(80px; 30px);
+      margin-left: @margin-05;
+      .link_subMeun{
+        display: block;
+        .size(80px; 22px);
+        line-height: 22px;
+        margin-top: 4px;
+        color: @txt-base;
+        font-size: @font-size-soso;
+        .border-radius(@border-radius-base);
+      }
+      &:hover,
+      &.subMeunHover{
+        .link_subMeun{
+          background: @txt-base;
+          color: @power-meun-back;
+        }
+      }
+    }
+  }
+}
+//权限选项
+.powerOptionBox{
+  .size(100%; 275px);
+  overflow: auto;
+  .powerOption{
+    margin-bottom: @margin-10;
+  }
+}
+//权限设置说明
+.powerInfo{
+  .hide;
+  line-height: 24px;
+}
+//权限子标题
+.subPowerTit{
+  &:extend(.clearfix all);
+  padding: 0 @padding-10;
+  .size(auto; 30px);
+  line-height: 30px;
+  font-size: @font-size-soso;
+  color: @layer-con-tit;
+  span{
+    display: inline-block;
+    margin-right: @margin-10;
+    font-weight: bold;
+  }
+}
+//权限选项列表
+.powerOptionList{
+  &:extend(.clearfix all);
+  padding: @padding-05 0;
+  .border(1px; @power-option-col);
+  li{
+    .left;
+    .size(20%; 24px);
+    label.powerLabel{
+      .size(90%; 24px);
+      margin-left: 10%;
+      line-height: 24px;
+      input[type='checkbox']{
+        margin: 5px;
+      }
+      input[type='radio']{
+        vertical-align: top;
+        margin: 6px 5px;
+      }
+    }
+  }
+}

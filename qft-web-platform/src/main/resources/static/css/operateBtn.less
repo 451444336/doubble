@@ -1,0 +1,130 @@
+@import "base";
+@import "variables";
+
+//操作按钮列表
+.operationBox {
+  .relative;
+  .size(90px; 40px);
+  line-height:40px;
+  .operationBtn {
+    .size(60px; 24px);
+    line-height: 24px;
+    min-width: 60px;
+    margin: 0 auto;
+    color: @txt-base;
+    font-size: @font-size-small;
+    border: none;
+    cursor: pointer;
+    .align(left);
+    text-indent: 10px;
+    background: url("../images/operation.png") 45px center no-repeat @blue-btn;
+    .border-radius(@border-radius-small);
+  }
+  .operationList,
+  .subOperMenu{
+    .absolute;
+    top: 32px;
+    left: -4px;
+    .size(94px; auto);
+    background: @txt-base;
+    .border(1px; @tabel-border);
+    padding: 2px;
+    -webkit-box-shadow: 0 0 2px rgba(153,153,153,.3);
+    -moz-box-shadow: 0 0 2px rgba(153,153,153,.3);
+    box-shadow: 0 0 2px rgba(153,153,153,.3);
+    z-index: @zindex-tooltip;
+    li{
+      .relative;
+      .size(100%; 24px);
+      line-height: 24px;
+      .operMenu{
+        .relative;
+        display: block;
+        font-size: @font-size-small;
+        color: @gray-dark;
+        line-height: 24px;
+        .align(left);
+        padding: 0 12px;
+        overflow: hidden;
+        &:hover,
+        &.operHover{
+          background: @blue-btn;
+          color: @txt-base;
+          .oper_triangle{
+            border-left: 5px solid @txt-base;
+          }
+        }
+        .oper_triangle{
+          .absolute;
+          right: 2px;
+          top: 7px;
+          .square(0);
+          .border(5px; transparent);
+          border-left: 5px solid @gray-dark;
+        }
+      }
+      //二级子菜单
+      .subOperMenu{
+        display: none;
+        top: 0;
+        left: 96px;
+      }
+    }
+  }
+}
+//table操作按钮
+.operateBtn{
+  display: inline-block;
+  .size(auto; 22px);
+  line-height: 22px;
+  font-size: @font-size-small;
+  padding: 0 @padding-05;
+  background: @blue-btn;
+  color: @txt-base;
+  &.deleteCol{
+    background: @orange-btn;
+    &:hover{
+      background: @orange-btn-h;
+    }
+  }
+  &:hover{
+    background: @blue-btn-h;
+    color: @txt-base;
+  }
+}
+//一般按钮
+.subTopBtn{
+  .size(auto; 28px);
+  line-height: 28px;
+  .border(1px; @btn-border-col);
+  .align(center);
+  color: @subtop-btn-col;
+  padding: 0 @padding-15;
+  font-size: @font-size-small;
+  .border-radius(@border-radius-small);
+  &.subHover,
+  &:hover{
+    color: @txt-base;
+    background: @blue-btn;
+    .border(1px; @blue-btn);
+  }
+}
+//首页设置 - tab选项卡按钮
+.tab_btn{
+  display: inline-block;
+  .size(110px; 28px);
+  .border(1px; @power-bor-col);
+  .border-radius(@border-radius-small);
+  .align(center);
+  line-height: 28px;
+  color: @layer-con-tit;
+  font-size: @font-size-soso;
+  margin-right: @margin-10;
+  &:hover{
+    .border(1px; @blue-btn);
+    color: @blue-btn;
+  }
+  &.action{
+    background: url("../images/action_h.png") top right no-repeat;
+  }
+}

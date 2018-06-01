@@ -54,6 +54,34 @@ public class DicManageController {
 	private IDicService dicService;
 	/**
 	 * 
+	* @Title: toDicListPage 
+	* @Description: 字典列表数据 
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	@GetMapping("listPage")
+	public String toDicListPage(){
+		
+		return "dic/manage/qft_dicList";
+	}
+	/**
+	 * 
+	* @Title: todicInfoPage 
+	* @Description: 字典详情列表 
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @author lijie
+	* @throws
+	 */
+	@GetMapping("dicInfoListPage")
+	public String todicInfoPage(){
+		
+		return "dic/manage/qft_dicInfo";
+	}
+	/**
+	 * 
 	* @Title: addDicType 
 	* @Description: 添加字典类型 
 	* @param @param dto

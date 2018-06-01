@@ -1,0 +1,365 @@
+@import "base";
+@import "variables";
+//集中整租模块
+.focusContent{
+  &:extend(.clearfix all);
+  .square(100%);
+  background: @blue-body;
+}
+.rightContent{
+  .right;
+  .relative;
+  .size(274px; auto);
+  padding-top: @padding-10;
+  z-index: @zindex-base;
+}
+.leftContent{
+  .left;
+  .square(100%);
+  margin-right: -274px;
+  padding: @padding-10;
+  .box-sizing;
+}
+//集中整租右边收缩按钮
+.shrinkBtn{
+  .absolute;
+  top: 50%;
+  left: 0;
+  .size(11px; 78px);
+  margin-top: -39px;
+  background: url("../images/open_icon.png") 0 -78px no-repeat;
+  cursor: pointer;
+}
+.spreadBg{
+  .shrinkBtn{
+    background-position: -11px -78px;
+  }
+}
+.focusLeftCon{
+  .size(auto; 100%);
+  margin-right: 274px;
+}
+//内页右侧样式
+.rightPublic{
+  background:@txt-base;
+  padding: @padding-10 @padding-15;
+  margin-bottom: @margin-10;
+}
+//集中右侧共用标题
+.titleBox{
+  &:extend(.clearfix all);
+  .relative;
+  .size(100%; 30px);
+  line-height: 30px;
+  h2{
+    .left;
+    font-weight: normal;
+    font-size: @font-size-base;
+    color: @gray-dark;
+    padding-left: @padding-10;
+    background: url("../images/line-icon.jpg") 0 center no-repeat;
+  }
+  //空置数量
+  .vacantTxt{
+    .absolute;
+    right: -35px;
+    top: 2px;
+    .size(136px; 26px);
+    line-height: 26px;
+    background: @orange-btn;
+    color: @txt-base;
+    font-size: @font-size-base;
+    text-indent: 20px;
+    .text-overflow;
+    .border-radius(50px);
+    .behavior;
+  }
+  .titOpenBtn{
+    .right;
+    display: block;
+    .size(auto; 30px);
+    line-height: 30px;
+    cursor: pointer;
+    &.titSearchIco{
+      .square(18px);
+      margin: 6px;
+      background: url("../images/search-icon.jpg") 0 0 no-repeat;
+    }
+    &.openRicon{
+      padding: 0 @padding-20 0 @padding-10;
+      color: @blue-nav-bg;
+      background: url("../images/open-next.png") right center no-repeat;
+    }
+    &.icoHide{
+      display: none;
+    }
+    &.upIcon{
+      background: url("../images/open-up.png") right center no-repeat;
+    }
+  }
+}
+.itemList{
+  .right;
+  .size(245px; 30px);
+  line-height: 30px;
+  margin: @margin-05 0;
+  a{
+    .left;
+    display: block;
+    .size(71px; 30px);
+    .align(center);
+    color: @txt-base;
+    font-size: @font-size-small;
+    margin-right: 14px;
+    &.blueBg{
+      background: @blue-btn;
+      &:hover{
+        background: @blue-btn-h;
+      }
+    }
+    &.orangeBg{
+      background: @orange-btn;
+      &:hover{
+        background: @orange-btn-h;
+      }
+    }
+    &.greenBg{
+      background: @green-btn;
+      &:hover{
+        background: @green-btn-h;
+      }
+      &.notMar{
+        margin-right: 0;
+      }
+    }
+  }
+}
+//空置分析图表
+.dataAnalysis{
+  margin-top: @margin-05;
+  .size(244px; 168px);
+}
+//项目搜索
+.itemSearch{
+  .searchInput{
+    .hide;
+    .relative;
+    .size(100%; 30px);
+    line-height: 30px;
+    background: @item-input-bg;
+    .border(1px; @input-border-col);
+    margin-top: @margin-10;
+    .itemIcon{
+      .absolute;
+      left: 10px;
+      top: 50%;
+      margin-top: -9px;
+      display:block;
+      .square(18px);
+      background: url("../images/search-icon.png") 0 0 no-repeat;
+    }
+    .itemInput{
+      margin-left: @margin-40;
+      color: @search-txt;
+      font-size: @font-size-small;
+      .size(192px; 28px);
+      line-height: 28px;
+      border: none;
+      background: none;
+    }
+  }
+  //搜索列表
+  .itemSearchList{
+    .size(100%; 210px);
+    margin-top: @margin-10;
+    overflow-y: auto;
+    overflow-x: hidden;
+    li{
+      .size(100%; 26px);
+      a{
+        display: block;
+        .size(100%; 26px);
+        line-height: 26px;
+        font-size: @font-size-small;
+        color: @search-txt;
+        text-indent: 15px;
+        .text-overflow;
+        &:hover{
+          color: @search-txt-h;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+//经营数据
+.operateBox{
+  margin-top: @margin-10;
+  .operateList{
+    &:extend(.clearfix all);
+    .size(100%; 84px);
+    overflow:hidden;
+    li{
+      .left;
+      .size(122px; 28px);
+      line-height: 28px;
+      font-size: @font-size-small;
+      color: @search-txt;
+      .text-overflow;
+      &.operateIndent{
+        text-indent: 10px;
+      }
+    }
+  }
+}
+//推广数据
+.spreadBox{
+  margin-top: @margin-10;
+  .spreadTxt{
+    &:extend(.clearfix all);
+    .size(244px; 28px);
+    line-height: 28px;
+    font-size: @font-size-small;
+    color: @search-txt;
+    .spreadlef{
+      .left;
+      .size(145px; 28px);
+      .align(left);
+      .text-overflow;
+      .noRelease{
+        margin-left: @margin-10;
+        color: @blue-nav-bg;
+        .border(1px; @blue-nav-bg);
+        padding: 0 @padding-10;
+        .border-radius(20px);
+        .behavior;
+        .behavior-relative;
+      }
+    }
+    .spreadRig{
+      .right;
+      .size(80px; 28px);
+      .align(right);
+      .text-overflow;
+    }
+  }
+}
+//查看更多
+.mroeBtn{
+  .size(100%; 24px);
+  line-height: 24px;
+  .align(center);
+  font-size: @font-size-small;
+  margin-top: @margin-10;
+  a{
+    color: @blue-nav-bg;
+    &:hover{
+      color: @blue-nav-h;
+    }
+  }
+}
+//房态图
+.roomStateTit{
+  .size(100%; 40px);
+  line-height: 40px;
+  .border-bottom(1px; @input-border-col);
+  color: @subtop-btn-col;
+  font-size: @font-size-base;
+  text-indent: 20px;
+}
+//房态图列表
+.roomStateBox{
+  .relative;
+  padding-left: @padding-30;
+  background: @gray-cancel-back;
+  .border-bottom(1px; @input-border-col);
+  .floorNum{
+    .absolute;
+    left: 5px;
+    top: 50%;
+    margin-top: -24px;
+    .size(20px; 48px);
+    line-height: 24px;
+    font-size: @font-size-small;
+    color: @search-txt;
+    .align(center);
+  }
+  &:last-child{
+    border-bottom: none;
+  }
+}
+.roomStateList{
+  &:extend(.clearfix all);
+  .size(100%; auto);
+  padding: @padding-10 0;
+  background: @txt-base;
+  .box-sizing;
+  li{
+    .left;
+    .size(auto; 122px);
+    min-width:192px;
+    .border(1px; @input-border-col);
+    .border-radius(@border-radius-large);
+    margin: @margin-10 0 @margin-10 @margin-20;
+    .behavior;
+    .behavior-relative;
+    color: @search-txt;
+    font-size: @font-size-small;
+    overflow: hidden;
+    //标题
+    h2{
+      .size(auto; 40px);
+      line-height: 40px;
+      font-size: @font-size-large;
+      font-weight: normal;
+      padding: 0 @padding-30 0 @padding-10;
+      .text-overflow;
+      span{
+        font-size: @font-size-small;
+      }
+    }
+    //定价
+    .price{
+      padding: 0 @padding-10;
+      .size(auto; 40px);
+      line-height: 40px;
+      .text-overflow;
+    }
+    //描述
+    .idleTxt{
+      .size(auto; 34px);
+      background: @tabel-even;
+      padding: 0 @padding-10;
+      line-height: 34px;
+      margin-top: 8px;
+      border-top: 1px dashed #d4d4d4;
+      .border-bottom-radius(@border-radius-large);
+      span{
+        .left;
+        .size(28%; 34px);
+        .align(center);
+        overflow: hidden;
+        &.txtLeft{
+          .size(44%; 34px);
+          .align(left);
+        }
+      }
+    }
+    //标签
+    .labelType{
+      display: block;
+      .absolute;
+      .square(42px);
+      right: 0;
+      top: 0;
+      //未租
+      &.norentIcon{
+        background: url("../images/norent_icon.png") 0 0 no-repeat;
+      }
+      //已定
+      &.endfix{
+        background: url("../images/endfix_icon.png") 0 0 no-repeat;
+      }
+    }
+  }
+}

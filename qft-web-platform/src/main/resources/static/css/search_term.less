@@ -1,0 +1,75 @@
+@import "base";
+@import "variables";
+
+//搜索条件
+.searchTerm{
+  &:extend(.clearfix all);
+  min-height: 40px;
+  margin: @margin-10 0;
+  background: @txt-base;
+  padding: @padding-10;
+  .searchTab{
+    .size(100%; auto);
+    table-layout: fixed;
+    tr th,
+    tr td {
+      font-size: @font-size-small;
+      vertical-align: middle;
+      height: 40px;
+      .align(left);
+    }
+    tr td {
+      input[type="text"]{
+        width: 90%;
+      }
+    }
+    tr th {
+      .size(60px; 40px);
+      .align(right);
+    }
+    //搜索条件的宽度
+    &.searchWidth_one{
+      .left;
+      width: 860px;
+    }
+    &.searchWidth_two{
+      width: 900px;
+    }
+    &.searchWidth_three{
+      width: 980px;
+    }
+  }
+}
+//搜索按钮
+.tabSearchBtn{
+  width: 90px;
+  line-height: inherit;
+  background: url("../images/tabsearchbtn-icon.png") 20px center  no-repeat @blue-btn;
+  font-size: @font-size-small !important;
+  text-indent: 20px;
+}
+//更多搜索条件
+.searchMore{
+  &:extend(.clearfix all);
+  .hide;
+  .size(100%; auto);
+}
+//更多搜索按钮
+input[type="button"].searchMoreBtn{
+  background: url("../images/search_more.png") 54px center no-repeat @txt-base;
+  .border(1px; @blue-btn);
+  color: @blue-btn;
+  text-indent: 22px;
+  line-height: 28px;
+  .align(left);
+  vertical-align: top;
+  font-size: @font-size-small;
+  &:hover{
+    background: url("../images/search_more_h.png") 55px center no-repeat @blue-btn;
+    color: @txt-base;
+  }
+}
+//搜索条件select
+.searchSelect{
+  width: 90%;
+}

@@ -1,0 +1,83 @@
+@import "base";
+@import "variables";
+/*
+*模块：分页
+*时间：20180428
+*作者：梁彬
+*/
+.dataTables_info,
+.dataTables_paginate {
+  .size(auto; 26px);
+  line-height: 22px;
+  font-size: @font-size-small;
+  margin: 10px auto 0 0;
+}
+.dataTables_info {
+  .right;
+}
+.dataTables_paginate {
+  margin-left: @margin-05;
+  .left;
+  a, span {
+    display: inline-block;
+    float: left;
+    cursor: pointer;
+    text-decoration: none;
+    &.ellipsis {
+      .square(26px);
+      line-height: 22px;
+      text-align: center;
+      color: @gray-dark;
+      margin-right: 5px;
+    }
+  }
+  .paginate_button,
+  .paginate_active,
+  .fg-button {
+    .border(1px; @border-base);
+    .border-radius(@border-radius-base);
+    .box-sizing;
+    color: @gray-dark;
+    cursor: pointer;
+    margin-right: 5px;
+    min-width: 26px;
+    height: 26px;
+    padding: 0 2px;
+    text-align: center;
+    text-decoration: none;
+    &:hover,
+    &.paginate_active,
+    &.current,
+    &.ui-state-disabled {
+      color: @txt-base;
+      background: @blue-btn;
+      .border(1px; @blue-btn);
+    }
+    &.previous,
+    &.next,
+    &.first,
+    &.last {
+      .size(80px; 26px);
+      line-height: 24px;
+      &.ui-state-disabled,
+      &.paginate_button_disabled,
+      &.disabled {
+        .border(1px; @border-base);
+        color: @gray-cont;
+      }
+    }
+  }
+  .ui-state-disabled,
+  .paginate_button_disabled,
+  .disabled {
+    cursor: default;
+    &:hover{
+      background: #f4f4f4;
+    }
+  }
+}
+.dataTables_wrapper {
+  &:extend(.clearfix all);
+  margin: 0;
+  display: inline-table;
+}

@@ -1,0 +1,70 @@
+@import "base";
+@import "variables";
+
+//弹层标题颜色
+.popup-title-bg{
+  .layui-layer-title{
+    background-color: @layer-tit-bg;
+  }
+  .layui-layer-btn {
+    .layui-layer-btn0,
+    .layui-layer-btn1{
+      min-width: 50px;
+    }
+    .layui-layer-btn0{
+      background-color: @blue-btn;
+      .border(1px; @blue-btn);
+      &:hover{
+        background-color: @blue-btn-h;
+        .border(1px; @blue-btn-h);
+      }
+    }
+  }
+}
+//弹出层共用样式
+.PopupBox{
+  padding: @padding-10 @padding-15;
+}
+//弹出层子标题
+.PopupTitle{
+  .size(100%; 30px);
+  line-height: 30px;
+  background: @layer-con-bg;
+  font-size: @font-size-base;
+  color: @layer-con-tit;
+  margin: @margin-10 0;
+  padding-left: 10px;
+  .box-sizing;
+  &.margin_top0{
+    margin-top: 0;
+  }
+  .modulepower{
+    display: inline-block;
+    line-height: 24px;
+    color: @blue-btn;
+    background: @txt-base;
+    font-weight: normal;
+    font-size: @font-size-soso;
+    .border-radius(@border-radius-base);
+    padding: 0 @padding-10;
+    margin-left: @margin-10;
+    cursor: pointer;
+    &:hover{
+      color: @txt-base;
+      background: @blue-btn;
+    }
+  }
+}
+//备注信息
+.textareaBox{
+  .size(100%; auto);
+  line-height: 24px;
+  textarea{
+    display: block;
+    .size(100%; 60px);
+    line-height: 24px;
+    padding: @padding-05 .5%;
+    font-size: @font-size-small;
+    .box-sizing;
+  }
+}

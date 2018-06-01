@@ -1,0 +1,555 @@
+@import "base";
+@import "variables";
+/*整体框架样式*/
+.mainBox{
+  .absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  .size(100%; 100%);
+  background: @blue-body;
+  min-width: 1280px;
+}
+.headerBox{
+  &:extend(.clearfix all);
+  .absolute;
+  top: 0;
+  left: 0;
+  .size(100%; 50px);
+  background: @blue-header;
+}
+.leftNav{
+  .absolute;
+  left:0;
+  top:50px;
+  bottom:26px;
+  background: @blue-nav-bg;
+  .size(128px; auto);
+  z-index: @zindex-popover;
+}
+.mainContent{
+  .absolute;
+  top: 50px;
+  bottom: 26px;
+  left: 128px;
+  right:0;
+  background: @blue-body;
+  z-index: @zindex-fixed;
+}
+//图标样式
+.icon{
+  display: inline-block;
+  .square(30px);
+  vertical-align: middle;
+  margin-top: -2px;
+  background: url("../images/icon.png") no-repeat;
+  &.icon_admin{
+    background-position: 0 0;
+  }
+  &.icon_setup{
+    background-position: -30px 0;
+  }
+  &.con_Prompt{
+    background-position: 0 -30px;
+  }
+  &.icon_lease{
+    background-position: 0 -60px ;
+  }
+  &.icon_finance{
+    background-position: 0 -90px ;
+  }
+  &.icon_oa{
+    background-position: 0 -120px ;
+  }
+  &.icon_serve{
+    background-position: 0 -150px ;
+  }
+  &.icon_room{
+    background-position: 0 -180px ;
+  }
+  &.icon_count{
+    background-position: 0 -210px ;
+  }
+  &.icon_system{
+    background-position: 0 -240px ;
+  }
+  &.icon_adminis{
+    background-position: -60px 0 ;
+  }
+  //login下载图标
+  &.icon_ios{
+    background-position: -30px -240px ;
+  }
+  &.icon_android{
+    background-position: -30px -270px ;
+  }
+  &.icon_pc{
+    background-position: -30px -300px ;
+  }
+}
+.subicon{
+  display: block;
+  .square(30px);
+  margin: 0 auto;
+  background: url("../images/icon.png") no-repeat;
+  &.icon_sublease{
+    background-position: -30px -30px;
+  }
+  &.icon_subfinance{
+    background-position: -30px -60px;
+  }
+  &.icon_suboa{
+    background-position: -30px -90px;
+  }
+  &.icon_subserve{
+    background-position: -30px -120px;
+  }
+  &.icon_subroom{
+    background-position: -30px -150px;
+  }
+  &.icon_subcount{
+    background-position: -30px -180px;
+  }
+  &.icon_subsystem{
+    background-position: -30px -210px;
+  }
+  &.icon_subadminis{
+    background-position: 0 -270px;
+  }
+}
+//箭头图标
+.ricon{
+  display:block;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -7px;
+  .square(14px);
+  background: url("../images/arrowicon.png") 0 0 no-repeat;
+}
+//顶部header
+.logoBox{
+  .left;
+  .size(128px; 40px);
+  margin-top: @margin-05;
+  img{
+    display: block;
+    .size(128px; 40px);
+  }
+}
+.headRightMenu{
+  .right;
+  display: block;
+  .size(auto; 50px);
+  .headMenu{
+    &:extend(.clearfix all);
+    .size(auto; 50px);
+    li{
+      .relative;
+      .left;
+      .size(auto; 50px);
+      padding-left: @padding-20;
+      a.topHeadMenu{
+        display: block;
+        .size(auto; 50px);
+        line-height: 50px;
+        color: @txt-base;
+        font-size: @font-size-base;
+        &.cityChoice{
+          .size(auto; 40px);
+          padding: 0 30px 0 10px;
+          line-height: 40px;
+          margin-top: 5px;
+          background: url("../images/ctiy_icon.png") 45px center no-repeat @ctiy-bg;
+          &:hover{
+            color: @txt-base;
+          }
+        }
+        &:hover{
+          color: @nav-menu-color;
+        }
+      }
+    }
+  }
+}
+//管理员弹出菜单
+.subHeadMenuList{
+  .hide;
+  .absolute;
+  left: 15px;
+  top: 50px;
+  .size(100px; auto);
+  background: @txt-base;
+  .border(1px; @tabel-border);
+  -webkit-box-shadow: 0 0 8px @gray-cont;
+  -moz-box-shadow: 0 0 8px @gray-cont;
+  box-shadow: 0 0 8px @gray-cont;
+  z-index: @zindex-tooltip;
+  a{
+    display: block;
+    .size(100px; 30px);
+    line-height: 30px;
+    color: @gray-dark;
+    font-size: @font-size-small;
+    &:hover{
+      color: @blue-nav-bg;
+      .qftHome{
+        background-position: -14px 0;
+      }
+      .passIcon{
+        background-position: -14px -14px;
+      }
+      .quitIcon{
+        background-position: -14px -28px;
+      }
+    }
+  }
+}
+//弹出菜单箭头
+.subHeadIco{
+  .absolute;
+  left: 50%;
+  top: -16px;
+  margin-left: -4px;
+  .square(0);
+  .border(8px; transparent);
+  border-bottom: 8px solid @txt-base;
+}
+//管理员弹出菜单图标
+.headIco{
+  .left;
+  .square(14px);
+  margin: 8px;
+  background: url("../images/admin_icon.png") 0 0 no-repeat;
+  &.qftHome{
+    background-position: 0 0;
+  }
+  &.passIcon{
+    background-position: 0 -14px;
+  }
+  &.quitIcon{
+    background-position: 0 -28px;
+  }
+}
+//城市选择
+.honeCityList{
+  .hide;
+  &:extend(.clearfix all);
+  .absolute;
+  right: 15px;
+  top: 50px;
+  .size(280px; auto);
+  padding: @margin-10;
+  background: @txt-base;
+  .border(1px; @tabel-border);
+  -webkit-box-shadow: 0 0 8px @gray-cont;
+  -moz-box-shadow: 0 0 8px @gray-cont;
+  box-shadow: 0 0 8px @gray-cont;
+  z-index: @zindex-tooltip;
+  .subHeadIco{
+    left: 250px;
+    margin-left: 0;
+  }
+  .cityTxt{
+    .left;
+    .size(56px; 30px);
+    line-height: 30px;
+    .align(center);
+    color: @gray-con;
+    font-size: @font-size-small;
+    &:hover{
+      background:@blue-nav-bg;
+      color: @txt-base;
+    }
+  }
+}
+//左侧菜单栏
+.openBtn{
+  display: none;
+  .absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -39px;
+  .size(11px; 78px);
+  background: url("../images/open_icon.png") 0 0 no-repeat;
+  cursor: pointer;
+  z-index: @zindex-modal-bg;
+}
+.navMenu{
+  &:extend(.clearfix all);
+  .size(100%; auto);
+  li{
+    .left;
+    .relative;
+    background: @blue-menu-bg;
+    .size(100%; auto);
+    .link_tit{
+      display:block;
+      .relative;
+      .size(100%; auto);
+      font-size: @font-size-base;
+      line-height: 50px;
+      cursor: pointer;
+      color: @nav-menu-color;
+    }
+    .subMenu{
+      display: none;
+      background: @blue-nav-bg;
+      dd{
+        .size(100%; 40px);
+        line-height: 40px;
+        a{
+          display: block;
+          .relative;
+          .size(128px; 40px);
+          font-size:@font-size-soso;
+          color: @nav-menu-color;
+          text-indent: 30px;
+          .actionIcon{
+            display: none;
+            .absolute;
+            left: 5px;
+            top: 50%;
+            margin-top: -15px;
+            .size(4px; 30px);
+            background: url("../images/action_line.jpg") 0 0 no-repeat;
+          }
+          &:hover,
+          &.action{
+            color: @txt-base;
+            background: url("../images/arrowicon-r.png") 110px center no-repeat;
+          }
+          &.action{
+            .actionIcon{
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    .link_subtit{
+      display: none;
+      .size(70px; 60px);
+      padding-top: 8px;
+      .align(center);
+      font-size: @font-size-base;
+      color: @nav-menu-color;
+      line-height: 24px;
+    }
+    &.openMenu{
+      .ricon{
+        background-position: 0 -14px;
+      }
+    }
+  }
+}
+.main-shrink{
+  .openBtn{
+    background-position: -11px 0;
+  }
+  .logoBox{
+    .size(70px; 40px);
+    background: url("../images/logo_samll.jpg") 0 0 no-repeat;
+    .logoImg{
+      display: none;
+    }
+  }
+  .navMenu,
+  .leftNav {
+    .size(70px; auto);
+  }
+  .navMenu{
+    li{
+      .link_subtit{
+        display: block;
+      }
+      .link_conTxt{
+        display: none;
+      }
+      .subMenu{
+        .absolute;
+        top:0;
+        bottom: auto;
+        left: 70px;
+        height: auto;
+      }
+      &:hover{
+        .link_subtit{
+          .size(70px; 60px);
+          background: @blue-nav-bg;
+          color: @txt-base;
+        }
+        .icon_sublease{
+          background-position: -60px -30px;
+        }
+        .icon_subfinance{
+          background-position: -60px -60px;
+        }
+        .icon_suboa{
+          background-position: -60px -90px;
+        }
+        .icon_subserve{
+          background-position: -60px -120px;
+        }
+        .icon_subroom{
+          background-position: -60px -150px;
+        }
+        .icon_subcount{
+          background-position: -60px -180px;
+        }
+        .icon_subsystem{
+          background-position: -60px -210px;
+        }
+        .icon_subadminis{
+          background-position: 0 -300px;
+        }
+      }
+      //最后一个二级菜单样式
+      .subBottom{
+        top: auto;
+        bottom: 0;
+      }
+    }
+  }
+}
+//使用帮助
+.helpBtn{
+  .absolute;
+  bottom:10px;
+  left: 50%;
+  margin-left: -31px;
+  .size(60px; 22px);
+  line-height: 22px;
+  .border(1px; @txt-base);
+  .border-radius(@border-radius-small);
+  color: @txt-base;
+  .align(center);
+  font-size: @font-size-small;
+}
+//mainContent 样式
+.layui-tab{
+  .relative;
+  .layui-tab-title{
+    &:extend(.clearfix all);
+    .absolute;
+    top: -24px;
+    left:20px;
+    .size(800px; 24px);
+    li{
+      .left;
+      .relative;
+      .size(94px; 24px);
+      line-height: 24px;
+      text-indent: 18px;
+      font-size: @font-size-small;
+      color: @tab-txt-color;
+      margin-left: -10px;
+      background: url("../images/tabTitBg.png") 0 0 no-repeat;
+      cursor: pointer;
+      &.layui-this{
+        background-position: 0 -24px;
+      }
+      .tab-icon{
+        display: block;
+        .absolute;
+        right: 10px;
+        top: 50%;
+        margin-top: -7px;
+        .square(14px);
+        background: url("../images/closeicon.png") center center no-repeat;
+        &:hover{
+          background-color: @ctiy-bg;
+        }
+      }
+    }
+  }
+  .layui-tab-content{
+    overflow: hidden;
+  }
+  .layui-tab-item{
+    display: none;
+    &.layui-show{
+      display: block;
+    }
+  }
+}
+//鼠标右键样式
+.admin-contextmenu {
+  .absolute;
+  line-height: 30px;
+  padding: 5px 0;
+  .border(1px; @border-base);
+  background-color: @txt-base;
+  z-index: 19940201;
+  border-radius: 2px;
+  white-space: nowrap;
+  top: 30px;
+}
+.admin-contextmenu ul li {
+  padding: 0 15px;
+}
+.admin-contextmenu ul li:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
+//ifrane样式
+.iframeBox {
+  .square(100%);
+}
+//footer底部样式
+.footerBox{
+  .fixed;
+  left:0;
+  bottom:0;
+  .size(100%; 26px);
+  background: @blue-header;
+  z-index:@zindex-tooltip;
+}
+.footerTxt{
+  .size(100%; 26px);
+  line-height: 26px;
+  .align(center);
+  color: @txt-base;
+  font-size: @font-size-small;
+}
+//在线客服
+.onService{
+  &:extend(.clearfix all);
+  .absolute;
+  right: 0;
+  bottom: 0;
+  .size(450px; 26px);
+  span,
+  a{
+    .left;
+    color: @txt-base;
+    .size(auto; 18px);
+    line-height: 18px;
+    margin: 4px 0;
+    font-size: @font-size-small;
+    &.QQChat{
+      margin-right: @margin-10;
+      background: url("../images/qq_icon.jpg") 5px center no-repeat @ctiy-bg;
+      padding: 0 @padding-10 0 @padding-20;
+    }
+    &.footBtn{
+      padding: 0 @padding-10;
+      margin: 4px @margin-05;
+      background: @blue-nav-bg;
+    }
+  }
+}
+//首页设置
+.setUpTitle{
+  margin-bottom: @margin-10;
+}
+.setUpCon{
+  .hide;
+}
+.remindBox{
+  .size(auto; 30px);
+  line-height: 30px;
+  font-size: @font-size-soso;
+  padding-left: @padding-20;
+}

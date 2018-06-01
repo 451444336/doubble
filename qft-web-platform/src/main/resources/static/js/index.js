@@ -1,22 +1,9 @@
-
-function StringBuffer() {
-	    this.__strings__ = new Array();
-}
-StringBuffer.prototype.append = function (str) {
-	    this.__strings__.push(str);
-	    return this;    //方便链式操作
-}
-StringBuffer.prototype.toString = function () {
-	    return this.__strings__.join("");
-}
-	
 $(function(){
     //禁止鼠标右键
-    /*$(document).bind("contextmenu",function(e){
+   /* $(document).bind("contextmenu",function(e){
         return false;
     });*/
     //左侧导航
-	
     var Accordion = function(el, multiple) {
         this.el = el || {};
         this.multiple = multiple || false;
@@ -90,7 +77,6 @@ $(function(){
         }
     });
     //收缩展开按钮
-    //收缩展开按钮
     $('.leftNav').hover(function(){
         $('.openBtn').show();
     },function(){
@@ -114,6 +100,7 @@ $(function(){
             $('.focusLeftCon').animate({
                 marginRight: '274px'
             },100);
+            $('.subOperMenu').css({'left':'96px'});
         }else{
             $('.rightContent').addClass('spreadBg');
             $('.rightContent').animate({
@@ -122,6 +109,7 @@ $(function(){
             $('.focusLeftCon').animate({
                 marginRight: '15px'
             },100);
+            $('.subOperMenu').css({'left':'-100px'});
         }
 
     });
@@ -136,6 +124,7 @@ $(function(){
             $('.focusLeftCon').animate({
                 marginRight: '15px'
             },100);
+            $('.subOperMenu').css({'left':'-100px'});
         }else{
             $('.rightContent').removeClass('spreadBg');
             $('.rightContent').animate({
@@ -144,6 +133,7 @@ $(function(){
             $('.focusLeftCon').animate({
                 marginRight: '274px'
             },100);
+            $('.subOperMenu').css({'left':'96px'});
         }
     }).resize();
     //项目搜索、经营数据、推广数据展开收缩
@@ -183,6 +173,12 @@ $(function(){
     },function(){
         $('.subHeadMenuList').hide();
     });
+    //地区选择列表
+    $('.cityHead').hover(function(){
+        $('.honeCityList').show();
+    },function(){
+        $('.honeCityList').hide();
+    });
     //table列表操作按钮
     $('.wareList').on('click', '.operationBtn', function(event){
         //取消事件冒泡
@@ -205,6 +201,9 @@ $(function(){
     });
     //table列表操作二级菜单
     $('.operationList li:first-child').find('.subOperMenu').show();
+    $('.wareList').on('click','.operMenu',function(){
+        $(this).parents('.operationList').addClass('hide');
+    });
     $('.wareList').on('mouseenter',' li',function(){
         $(this).parents('.operationList').find('.js_operMenu').removeClass('operHover');
         $(this).parents('.operationList').find('.subOperMenu').hide();
@@ -247,4 +246,19 @@ $(function(){
     $('.searchTerm').on('click', '.JS_moreBtn', function(){
         $('.searchMore').fadeToggle();
     });
+    /*tab选项卡切换*/
+    function tabs(tabTit,on,tabCon){
+        $(tabCon).each(function(){
+            $(this).children().eq(0).show();
+        });
+        $(tabTit).each(function(){
+            $(this).children().eq(0).addClass(on);
+        });
+        $(tabTit).children().click(function(){
+            $(this).addClass(on).siblings().removeClass(on);
+            var index = $(tabTit).children().index(this);
+            $(tabCon).children().eq(index).show().siblings().hide();
+        });
+    }
+    tabs('.setUpTitle','action','.setUpConBox')
 });

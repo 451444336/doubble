@@ -1,0 +1,187 @@
+@import "../base";
+@import "../variables";
+
+/*
+*module：房间信息
+*time: 20180529
+*name: liangbin
+*/
+
+.roomInfoBox{
+  .relative;
+  .square(100%);
+  background: @txt-base;
+}
+.roomInfoLeft{
+  .square(100%);
+  .roomConBox{
+    .size(auto; 100%);
+    padding: @padding-10;
+    .box-sizing;
+    margin-right: 150px;
+  }
+}
+.roomInfoRight{
+  .absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  .size(130px; auto);
+  padding: @margin-10;
+  background: @room-info-back;
+}
+//查看信息菜单及图标
+.roomMenu{
+  margin-top: @margin-05;
+  li{
+    .size(100%; 30px);
+    margin-top: 1px;
+    a{
+      display: block;
+      line-height: 30px;
+      font-size: @font-size-soso;
+      color: @room-txt-col;
+      &:hover,
+      &.roomaction{
+        color: @err-color;
+        .roomPhoto{
+          background-position: -16px 0;
+        }
+        .roomMoney{
+          background-position: -16px -16px;
+        }
+        .roomPay{
+          background-position: -16px -32px;
+        }
+        .roomPact{
+          background-position: -16px -48px;
+        }
+        .roomTurn{
+          background-position: -16px -64px;
+        }
+        .roomExtend{
+          background-position: -16px -80px;
+        }
+        .roomFollow{
+          background-position: -16px -96px;
+        }
+        .roomRepair{
+          background-position: -16px -112px;
+        }
+        .roomAdorn{
+          background-position: -16px -128px;
+        }
+        .roomWater{
+          background-position: -16px -144px;
+        }
+        .roomRes{
+          background-position: -16px -160px;
+        }
+        .roomTicket{
+          background-position: -16px -176px;
+        }
+        .roomOther{
+          background-position: -16px -192px;
+        }
+      }
+    }
+  }
+}
+.roomIcon{
+  .left;
+  display: inline-block;
+  .square(16px);
+  margin: 7px;
+  background: url("../images/roomIcon.png") no-repeat;
+  &.roomPhoto{
+    background-position: 0 0;
+  }
+  &.roomMoney{
+    background-position: 0 -16px;
+  }
+  &.roomPay{
+    background-position: 0 -32px;
+  }
+  &.roomPact{
+    background-position: 0 -48px;
+  }
+  &.roomTurn{
+    background-position: 0 -64px;
+  }
+  &.roomExtend{
+    background-position: 0 -80px;
+  }
+  &.roomFollow{
+    background-position: 0 -96px;
+  }
+  &.roomRepair{
+    background-position: 0 -112px;
+  }
+  &.roomAdorn{
+    background-position: 0 -128px;
+  }
+  &.roomWater{
+    background-position: 0 -144px;
+  }
+  &.roomRes{
+    background-position: 0 -160px;
+  }
+  &.roomTicket{
+    background-position: 0 -176px;
+  }
+  &.roomOther{
+    background-position: 0 -192px;
+  }
+}
+
+//租客基本信息
+.renterInfo{
+  .relative;
+  .size(100%; auto);
+  min-height: 24px;
+  line-height: 24px;
+  .box-sizing;
+  padding: @padding-05 0 @padding-05 70px;
+  border-bottom: 1px dashed @input-border-col;
+  h2{
+    .absolute;
+    left: 0;
+    top: 5px;
+    .size(70px; 24px);
+    color: @layer-con-tit;
+    font-size: @font-size-small;
+    .align(left);
+  }
+  .renterInfoList{
+    &:extend(.clearfix all);
+    li{
+      .left;
+      .size(25%; 24px);
+      line-height: 24px;
+      font-size: @font-size-small;
+      color: @gray-con;
+      .text-overflow;
+      &.renterWidth{
+        width: 50%;
+      }
+    }
+  }
+  //最后一个无边框
+  &.Noborder{
+    border:none;
+  }
+}
+//备注信息-字体颜色
+.remarkTxt{
+  color: @gray-con;
+  line-height: 24px;
+}
+.btnHeight{
+  height: 30px;
+  line-height: 30px;
+  margin-left: @margin-10;
+}
+.editMenuBox{
+  margin-top: @margin-10;
+  width: 600px;
+}

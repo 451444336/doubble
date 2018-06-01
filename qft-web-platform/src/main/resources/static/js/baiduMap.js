@@ -1,11 +1,14 @@
 var map = new BMap.Map("village");
+var geoc = new BMap.Geocoder();  //创建地址解析器实例
 var lngMap = $('#lng').val();
 var latMap = $('#lat').val();
+var suggest = $('#suggestId').val();
+
 var point = new BMap.Point(lngMap,latMap);
 map.centerAndZoom(point, 14);   // 初始化地图,设置城市和地图级别。
 map.enableScrollWheelZoom(true);  //开启鼠标滚轮缩放
 
-var geoc = new BMap.Geocoder();
+
 var marker = new BMap.Marker(point);  // 创建标注
 map.addOverlay(marker);
 marker.enableDragging();             //是否可拖拽
@@ -23,3 +26,11 @@ marker.addEventListener("dragend", function(e){
         //alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
     });
 });
+/*geoc.getPoint(suggest,function(point){
+    if(point){
+        map.centerAndZoom(point, 14);
+        map.addOverlay(new BMap.Marker(point));
+    }else{
+        alert("您选择地址没有解析到结果!");
+    }
+},'重庆市');*/

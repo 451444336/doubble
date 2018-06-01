@@ -2,7 +2,7 @@ $(function(){
 
     //初始化
     $('.powerSubMeun').first().show().siblings().hide();
-//    showSubMeun($(".mainMeun li:eq(0)")[0].id);
+    showSubMeun($(".mainMeun li:eq(0)")[0].id);
     //$('#powerBtn').html("<input class=\"powerBtn\" type=\"button\" value=\"全选查看权限\" onclick=\"allSelectByTpye(this,'search')\"><input class=\"powerBtn\" type=\"button\" value=\"全选操作权限\" onclick=\"allSelectByTpye(this,'hand')\"><input class=\"powerBtn\" type=\"button\" value=\"全选删除权限\" onclick=\"allSelectByTpye(this,'delete')\">");
     //一级菜单点击事件
     $('.mainMeun').on('click','li',function(){
@@ -57,7 +57,6 @@ function showSubMeunTwo(id){
 
 //全选操作
 function allSelectByTpye(obj,type){
-	alert();
     $("#box_"+type).click();
     var isCheck = $("#box_"+type).is(':checked');
     if('checked' == isCheck || isCheck){

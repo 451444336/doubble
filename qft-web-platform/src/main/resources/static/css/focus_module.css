@@ -1,0 +1,462 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body,
+html {
+  font: 12px/1.5 'Microsoft YaHei';
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+a {
+  background: none;
+  border: none;
+  outline: none;
+}
+a:link {
+  text-decoration: none;
+  outline: none;
+}
+a:visited {
+  text-decoration: none;
+  outline: none;
+}
+a:hover {
+  text-decoration: none;
+  outline: none;
+}
+a:active {
+  text-decoration: none;
+  outline: none;
+}
+a,
+body,
+div,
+em,
+font,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+html,
+iframe,
+img,
+li,
+menu,
+object,
+ol,
+p,
+pre,
+span,
+strong,
+thead,
+u,
+ul {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+b,
+strong {
+  font-weight: bold;
+}
+img {
+  border: none;
+  outline: none;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+table {
+  border-collapse: collapse;
+  word-wrap: break-word;
+}
+tr,
+th,
+td,
+caption {
+  font-weight: normal;
+  text-align: left;
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+}
+input,
+button {
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+/*去除IE10的清空文本框按钮“X”*/
+input::-ms-clear {
+  display: none;
+}
+input:focus {
+  outline: none;
+  border: none;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+i,
+em {
+  font-style: normal;
+}
+.margTop_10 {
+  margin-top: 10px;
+}
+.margTop_20 {
+  margin-top: 20px;
+}
+.margTop_30 {
+  margin-top: 30px;
+}
+.margTop_40 {
+  margin-top: 40px;
+}
+.clearfix,
+.focusContent,
+.titleBox,
+.operateBox .operateList,
+.spreadBox .spreadTxt {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after,
+.focusContent:before,
+.focusContent:after,
+.titleBox:before,
+.titleBox:after,
+.operateBox .operateList:before,
+.operateBox .operateList:after,
+.spreadBox .spreadTxt:before,
+.spreadBox .spreadTxt:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after,
+.focusContent:after,
+.titleBox:after,
+.operateBox .operateList:after,
+.spreadBox .spreadTxt:after {
+  clear: both;
+  visibility: hidden;
+  height: 0;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+.hide {
+  display: none;
+}
+.behaviorBg {
+  -ms-behavior: url("backgroundsize.min.htc");
+  behavior: url("backgroundsize.min.htc");
+}
+.behavior {
+  behavior: url("PIE.htc");
+}
+.behavior-relative {
+  position: relative;
+  z-index: 1;
+}
+.box-sizing {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.focusContent {
+  width: 100%;
+  height: 100%;
+  background: #edeff4;
+}
+.rightContent {
+  float: right;
+  position: relative;
+  width: 274px;
+  height: auto;
+  padding-top: 10px;
+  z-index: 1000;
+}
+.leftContent {
+  float: left;
+  width: 100%;
+  height: 100%;
+  margin-right: -274px;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.shrinkBtn {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 11px;
+  height: 78px;
+  margin-top: -39px;
+  background: url("../images/open_icon.png") 0 -78px no-repeat;
+  cursor: pointer;
+}
+.spreadBg .shrinkBtn {
+  background-position: -11px -78px;
+}
+.focusLeftCon {
+  margin-right: 274px;
+}
+.rightPublic {
+  background: #fff;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+}
+.titleBox {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+}
+.titleBox h2 {
+  float: left;
+  font-weight: normal;
+  font-size: 14px;
+  color: #333333;
+  padding-left: 10px;
+  background: url("../images/line-icon.jpg") 0 center no-repeat;
+}
+.titleBox .vacantTxt {
+  position: absolute;
+  right: -35px;
+  top: 2px;
+  width: 136px;
+  height: 26px;
+  line-height: 26px;
+  background: #ffab91;
+  color: #fff;
+  font-size: 14px;
+  text-indent: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  behavior: url("PIE.htc");
+}
+.titleBox .titOpenBtn {
+  float: right;
+  display: block;
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+}
+.titleBox .titOpenBtn.titSearchIco {
+  width: 18px;
+  height: 18px;
+  margin: 6px;
+  background: url("../images/search-icon.jpg") 0 0 no-repeat;
+}
+.titleBox .titOpenBtn.openRicon {
+  padding: 0 20px 0 10px;
+  color: #507bea;
+  background: url("../images/open-next.png") right center no-repeat;
+}
+.titleBox .titOpenBtn.icoHide {
+  display: none;
+}
+.titleBox .titOpenBtn.upIcon {
+  background: url("../images/open-up.png") right center no-repeat;
+}
+.itemList {
+  float: right;
+  width: 245px;
+  height: 30px;
+  line-height: 30px;
+  margin: 5px 0;
+}
+.itemList a {
+  float: left;
+  display: block;
+  width: 71px;
+  height: 30px;
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+  margin-right: 14px;
+}
+.itemList a.blueBg {
+  background: #92bbff;
+}
+.itemList a.blueBg:hover {
+  background: #458bff;
+}
+.itemList a.orangeBg {
+  background: #ffab91;
+}
+.itemList a.orangeBg:hover {
+  background: #ff7144;
+}
+.itemList a.greenBg {
+  background: #aed581;
+}
+.itemList a.greenBg:hover {
+  background: #89c248;
+}
+.itemList a.greenBg.notMar {
+  margin-right: 0;
+}
+.dataAnalysis {
+  margin-top: 5px;
+  width: 244px;
+  height: 168px;
+}
+.itemSearch .searchInput {
+  display: none;
+  position: relative;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  background: #f6f7fb;
+  border: 1px solid #e5e5e5;
+  margin-top: 10px;
+}
+.itemSearch .searchInput .itemIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -9px;
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: url("../images/search-icon.png") 0 0 no-repeat;
+}
+.itemSearch .searchInput .itemInput {
+  margin-left: 40px;
+  color: #5e6d82;
+  font-size: 12px;
+  width: 192px;
+  height: 28px;
+  line-height: 28px;
+  border: none;
+  background: none;
+}
+.itemSearch .itemSearchList {
+  width: 100%;
+  height: 210px;
+  margin-top: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.itemSearch .itemSearchList li {
+  width: 100%;
+  height: 26px;
+}
+.itemSearch .itemSearchList li a {
+  display: block;
+  width: 100%;
+  height: 26px;
+  line-height: 26px;
+  font-size: 12px;
+  color: #5e6d82;
+  text-indent: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.itemSearch .itemSearchList li a:hover {
+  color: #282f38;
+  text-decoration: underline;
+}
+.operateBox {
+  margin-top: 10px;
+}
+.operateBox .operateList {
+  width: 100%;
+  height: 84px;
+  overflow: hidden;
+}
+.operateBox .operateList li {
+  float: left;
+  width: 122px;
+  height: 28px;
+  line-height: 28px;
+  font-size: 12px;
+  color: #5e6d82;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.operateBox .operateList li.operateIndent {
+  text-indent: 10px;
+}
+.spreadBox {
+  margin-top: 10px;
+}
+.spreadBox .spreadTxt {
+  width: 244px;
+  height: 28px;
+  line-height: 28px;
+  font-size: 12px;
+  color: #5e6d82;
+}
+.spreadBox .spreadTxt .spreadlef {
+  float: left;
+  width: 145px;
+  height: 28px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.spreadBox .spreadTxt .spreadlef .noRelease {
+  margin-left: 10px;
+  color: #507bea;
+  border: 1px solid #507bea;
+  padding: 0 10px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  behavior: url("PIE.htc");
+  position: relative;
+  z-index: 1;
+}
+.spreadBox .spreadTxt .spreadRig {
+  float: right;
+  width: 80px;
+  height: 28px;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mroeBtn {
+  width: 100%;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 10px;
+}
+.mroeBtn a {
+  color: #507bea;
+}
+.mroeBtn a:hover {
+  color: #194ed4;
+}
